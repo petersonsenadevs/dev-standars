@@ -1,0 +1,44 @@
+{
+  "name": "python-langgraph",
+  "label": "Python + LangGraph / LangChain",
+  "extends": "core",
+  "language": "python",
+  "systemprompt": "systemprompt.md",
+  "bestPractices": "best-practices.md",
+  "prohibited": "prohibited.md",
+  "mcp": "mcp.json",
+  "skills": [
+    "../../core/skills/devlog",
+    "project-planner",
+    "code-quality",
+    "skill-router",
+    "skills"
+  ],
+  "settingsPartial": "settings.partial.json",
+  "docs": {
+    "langchainOffline": "<copia local de la documentación de LangChain>/docs/oss/python",
+    "note": "Consultar SIEMPRE la docu offline antes de escribir código LangChain/LangGraph."
+  },
+  "commands": {
+    "lint": "ruff check .",
+    "fix": "ruff check . --fix",
+    "format": "ruff format .",
+    "test": "pytest",
+    "types": "mypy ."
+  },
+  "optionalBundles": [
+    "architecture"
+  ],
+  "formatters": {
+    ".py": "ruff format {file}"
+  },
+  "protectedPaths": [
+    "composer.lock",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "uv.lock",
+    "poetry.lock",
+    ".github/workflows/**"
+  ]
+}

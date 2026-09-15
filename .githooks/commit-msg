@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+# dev-standards (repo propio): Conventional Commits, <= 72 chars, sin Co-Authored-By.
+msg_file="$1"
+first=$(sed -n '1p' "$msg_file" | sed 's/\r$//')
+if ! printf '%s' "$first" | grep -Eq '^(feat|fix|refactor|docs|test|chore|perf|build|ci|style|revert)(\([A-Za-z0-9_./ -]+\))?!?: [^ ]'; then
+  echo "[dev-standards] Mensaje no sigue Conventional Commits: '$first'" >&2; exit 1
+fi
+if [ ${#first} -gt 72 ]; then
+  echo "[dev-standards] Primera linea > 72 caracteres (${#first})." >&2; exit 1
+fi
+if grep -Eiq 'co-authored-by' "$msg_file"; then
+  echo "[dev-standards] Los commits no llevan Co-Authored-By (regla del equipo)." >&2; exit 1
+fi
+exit 0

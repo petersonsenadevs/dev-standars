@@ -1,0 +1,61 @@
+{
+  "name": "laravel",
+  "label": "PHP / Laravel",
+  "extends": "core",
+  "language": "php",
+  "systemprompt": "systemprompt.md",
+  "bestPractices": "best-practices.md",
+  "prohibited": "prohibited.md",
+  "mcp": "mcp.json",
+  "skills": [
+    "../../core/skills/devlog",
+    "project-planner",
+    "code-quality",
+    "skill-router",
+    "front-activation",
+    "ui-ux-pro-max",
+    "skills"
+  ],
+  "frontProfile": {
+    "label": "Laravel + Inertia + Vue 3 + Tailwind",
+    "stacks": [
+      "laravel",
+      "vue",
+      "html-tailwind",
+      "shadcn"
+    ]
+  },
+  "optionalBundles": [
+    "core-3d-animation",
+    "extended-3d-scroll",
+    "animation-components",
+    "3d-authoring",
+    "web-design-meta",
+    "design-extras",
+    "architecture"
+  ],
+  "settingsPartial": "settings.partial.json",
+  "commands": {
+    "lint": "./vendor/bin/pint --test",
+    "fix": "./vendor/bin/pint",
+    "test": "php artisan test",
+    "types": "./vendor/bin/phpstan analyse",
+    "migrate": "php artisan migrate"
+  },
+  "formatters": {
+    ".php": "php vendor/bin/pint {file}",
+    ".vue": "npx prettier --write {file}",
+    ".ts": "npx prettier --write {file}",
+    ".js": "npx prettier --write {file}",
+    ".css": "npx prettier --write {file}"
+  },
+  "protectedPaths": [
+    "composer.lock",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "uv.lock",
+    "poetry.lock",
+    ".github/workflows/**"
+  ]
+}

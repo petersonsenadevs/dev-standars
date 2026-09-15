@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(alembic downgrade base:*)"
+    ],
+    "ask": [
+      "Bash(pip install:*)",
+      "Bash(uv pip install:*)",
+      "Bash(alembic upgrade:*)"
+    ]
+  }
+}

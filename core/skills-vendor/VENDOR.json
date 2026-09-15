@@ -1,0 +1,166 @@
+{
+  "generatedAt": "2026-08-25",
+  "repos": [
+    {
+      "name": "ui-ux-pro-max-skill",
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "commit": "c87cdc226f85b28040c6f15c1d29b5684fd32121"
+    },
+    {
+      "name": "claudedesignskills",
+      "url": "https://github.com/freshtechbro/claudedesignskills.git",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd"
+    }
+  ],
+  "skills": {
+    "banner-design": {
+      "repo": "ui-ux-pro-max-skill",
+      "commit": "c87cdc226f85b28040c6f15c1d29b5684fd32121",
+      "source": ".claude\\skills\\banner-design"
+    },
+    "brand": {
+      "repo": "ui-ux-pro-max-skill",
+      "commit": "c87cdc226f85b28040c6f15c1d29b5684fd32121",
+      "source": ".claude\\skills\\brand"
+    },
+    "design-system": {
+      "repo": "ui-ux-pro-max-skill",
+      "commit": "c87cdc226f85b28040c6f15c1d29b5684fd32121",
+      "source": ".claude\\skills\\design-system"
+    },
+    "slides": {
+      "repo": "ui-ux-pro-max-skill",
+      "commit": "c87cdc226f85b28040c6f15c1d29b5684fd32121",
+      "source": ".claude\\skills\\slides"
+    },
+    "ui-styling": {
+      "repo": "ui-ux-pro-max-skill",
+      "commit": "c87cdc226f85b28040c6f15c1d29b5684fd32121",
+      "source": ".claude\\skills\\ui-styling"
+    },
+    "ui-ux-pro-max": {
+      "repo": "ui-ux-pro-max-skill",
+      "commit": "c87cdc226f85b28040c6f15c1d29b5684fd32121",
+      "source": ".claude\\skills\\ui-ux-pro-max"
+    },
+    "aframe-webxr": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\aframe-webxr"
+    },
+    "animated-component-libraries": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\animated-component-libraries"
+    },
+    "animejs": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\animejs"
+    },
+    "babylonjs-engine": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\babylonjs-engine"
+    },
+    "barba-js": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\barba-js"
+    },
+    "blender-web-pipeline": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\blender-web-pipeline"
+    },
+    "gsap-scrolltrigger": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\gsap-scrolltrigger"
+    },
+    "lightweight-3d-effects": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\lightweight-3d-effects"
+    },
+    "locomotive-scroll": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\locomotive-scroll"
+    },
+    "lottie-animations": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\lottie-animations"
+    },
+    "modern-web-design": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\modern-web-design"
+    },
+    "motion-framer": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\motion-framer"
+    },
+    "pixijs-2d": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\pixijs-2d"
+    },
+    "playcanvas-engine": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\playcanvas-engine"
+    },
+    "react-spring-physics": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\react-spring-physics"
+    },
+    "react-three-fiber": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\react-three-fiber"
+    },
+    "rive-interactive": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\rive-interactive"
+    },
+    "scroll-reveal-libraries": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\scroll-reveal-libraries"
+    },
+    "spline-interactive": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\spline-interactive"
+    },
+    "substance-3d-texturing": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\substance-3d-texturing"
+    },
+    "threejs-webgl": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\threejs-webgl"
+    },
+    "web3d-integration-patterns": {
+      "repo": "claudedesignskills",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "source": ".claude\\skills\\web3d-integration-patterns"
+    },
+    "graphic-design": {
+      "repo": "ui-ux-pro-max-skill",
+      "commit": "c87cdc226f85b28040c6f15c1d29b5684fd32121",
+      "source": ".claude\\skills\\design",
+      "renamedFrom": "design"
+    }
+  },
+  "patches": [
+    "ui-ux-pro-max\\SKILL.md : ${CLAUDE_PLUGIN_ROOT} -> <skills-dir>"
+  ]
+}

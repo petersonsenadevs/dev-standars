@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(php artisan migrate:fresh:*)",
+      "Bash(php artisan migrate:refresh:*)",
+      "Bash(php artisan db:wipe:*)",
+      "PowerShell(php artisan migrate:fresh:*)",
+      "PowerShell(php artisan migrate:refresh:*)"
+    ],
+    "ask": [
+      "Bash(php artisan migrate:*)",
+      "Bash(php artisan db:seed:*)"
+    ]
+  }
+}

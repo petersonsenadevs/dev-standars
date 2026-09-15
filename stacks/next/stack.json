@@ -1,0 +1,62 @@
+{
+  "name": "next",
+  "label": "Next.js + TypeScript",
+  "extends": "core",
+  "language": "typescript",
+  "systemprompt": "systemprompt.md",
+  "bestPractices": "best-practices.md",
+  "prohibited": "prohibited.md",
+  "mcp": "mcp.json",
+  "skills": [
+    "../../core/skills/devlog",
+    "project-planner",
+    "code-quality",
+    "skill-router",
+    "front-activation",
+    "ui-ux-pro-max",
+    "skills"
+  ],
+  "frontProfile": {
+    "label": "Next.js (App Router) + React + Tailwind",
+    "stacks": [
+      "nextjs",
+      "react",
+      "shadcn",
+      "html-tailwind"
+    ]
+  },
+  "optionalBundles": [
+    "core-3d-animation",
+    "extended-3d-scroll",
+    "animation-components",
+    "3d-authoring",
+    "web-design-meta",
+    "design-extras",
+    "architecture"
+  ],
+  "settingsPartial": "settings.partial.json",
+  "commands": {
+    "lint": "npm run lint",
+    "test": "npm test",
+    "types": "npx tsc --noEmit",
+    "build": "npm run build",
+    "dev": "npm run dev"
+  },
+  "formatters": {
+    ".ts": "npx prettier --write {file}",
+    ".tsx": "npx prettier --write {file}",
+    ".js": "npx prettier --write {file}",
+    ".jsx": "npx prettier --write {file}",
+    ".css": "npx prettier --write {file}",
+    ".json": "npx prettier --write {file}"
+  },
+  "protectedPaths": [
+    "composer.lock",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "uv.lock",
+    "poetry.lock",
+    ".github/workflows/**"
+  ]
+}

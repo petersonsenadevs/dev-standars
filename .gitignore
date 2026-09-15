@@ -1,0 +1,9 @@
+# Generados (regenerables con tools/build-plugins.ps1); el marketplace instalado los lee de disco:
+# se mantienen fuera de git para no duplicar 20 MB de historial en cada build.
+plugins/
+.claude-plugin/
+# Locales
+.claude/settings.local.json
+Thumbs.db
+desktop.ini
+__pycache__/

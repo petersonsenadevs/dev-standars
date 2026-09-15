@@ -1,0 +1,89 @@
+﻿#requires -Version 5.1
+<#
+.SYNOPSIS
+  Suite de regresion del prompt-router: casos dorados prompt -> skills esperadas/prohibidas.
+.DESCRIPTION
+  Monta un proyecto sintetico en %TEMP% (skills stub + hooks/config.json con el router del registro),
+  ejecuta core\hooks\prompt-router.ps1 con cada caso y comprueba que las sugerencias contienen las
+  skills de `expect` y ninguna de `forbid`. Cada caso usa un session_id propio (sin colisiones de marcador).
+  Ejecutar tras tocar keywords/prioridades del registro o el propio hook. Sale con 1 si algun caso falla.
+#>
+param([switch]$ShowAll)
+
+$OutputEncoding = New-Object System.Text.UTF8Encoding($false)   # el pipe al hook emite UTF-8 (por defecto seria ASCII y rompe acentos)
+. (Join-Path $PSScriptRoot '_lib.ps1')
+. (Join-Path $PSScriptRoot 'renderers\claude.ps1')   # Get-RouterRules
+$root = Get-StandardsRoot
+
+# --- proyecto sintetico ---
+$proj = Join-Path $env:TEMP ('ds-router-test-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
+$skillsDir = Join-Path $proj '.claude\skills'
+$hooksDir  = Join-Path $proj '.claude\hooks'
+Ensure-Dir $skillsDir; Ensure-Dir $hooksDir
+
+$DefaultSkills = @('devlog', 'project-planner', 'code-quality', 'skill-router', 'front-activation', 'ui-ux-pro-max',
+                   'gsap-scrolltrigger', 'threejs-webgl', 'react-three-fiber', 'motion-framer', 'ddd-hexagonal',
+                   'lottie-animations', 'barba-js', 'pixijs-2d', 'lightweight-3d-effects', 'ui-styling')
+function Set-InstalledSkills([string[]]$Names) {
+    Get-ChildItem $skillsDir -Directory -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force
+    foreach ($n in $Names) { Ensure-Dir (Join-Path $skillsDir $n); Write-Utf8 (Join-Path $skillsDir "$n\SKILL.md") "---`nname: $n`n---`nstub" }
+}
+Write-Utf8 (Join-Path $hooksDir 'config.json') (([ordered]@{ skills = @(); router = (Get-RouterRules) }) | ConvertTo-Json -Depth 6)
+$hook = Join-Path $root 'core\hooks\prompt-router.ps1'
+# el hook dot-sourcea _common.ps1 desde su carpeta: ejecutar el original de core\hooks
+
+function Invoke-Case([hashtable]$c, [int]$i) {
+    if ($c.skills) { Set-InstalledSkills $c.skills } else { Set-InstalledSkills $DefaultSkills }
+    $dsRoot = Join-Path $proj 'design-system'
+    if (Test-Path $dsRoot) { [System.IO.Directory]::Delete($dsRoot, $true) }
+    if ($c.designSystem) { Ensure-Dir (Join-Path $dsRoot 'x'); Write-Utf8 (Join-Path $dsRoot 'x\MASTER.md') '# DS' }
+    if ($c.designSystem -ne $true -and (Test-Path $dsRoot)) { throw 'harness: design-system no se pudo limpiar' }
+    $env:CLAUDE_PROJECT_DIR = $proj
+    $sid = "rt$i-" + [guid]::NewGuid().ToString('N').Substring(0, 4)
+    $json = (@{ session_id = $sid; prompt = $c.prompt } | ConvertTo-Json -Compress)
+    $out = ($json | powershell -NoProfile -ExecutionPolicy Bypass -File $hook 2>&1 | Out-String)
+    $hits = @()
+    if ($out -match 'parece de: ([^\.]+)\.') { $hits = @($Matches[1] -split ',\s*') }
+    $problems = @()
+    foreach ($e in @($c.expect)) { if ($e -and $hits -notcontains $e) { $problems += "falta '$e'" } }
+    foreach ($f in @($c.forbid)) { if ($f -and $hits -contains $f) { $problems += "sobra '$f'" } }
+    if ($c.expectFirst -and ($hits.Count -eq 0 -or $hits[0] -ne $c.expectFirst)) { $problems += "'$($c.expectFirst)' no es la primera" }
+    if ($c.expectSilence -and $hits.Count) { $problems += "esperaba silencio, sugirio: $($hits -join ', ')" }
+    return @{ hits = $hits; problems = $problems }
+}
+
+$cases = @(
+    @{ n = 'landing basica';        prompt = 'haz la landing de la app de facturación';                    expect = 'ui-ux-pro-max'; expectFirst = 'ui-ux-pro-max' }
+    @{ n = 'mejora pagina';         prompt = 'mejora la página de precios, se ve pobre';                   expect = 'ui-ux-pro-max' }
+    @{ n = 'shadcn sin ui-styling'; prompt = 'monta los componentes de ui con shadcn para el panel';       skills = @('ui-ux-pro-max','skill-router'); expect = 'ui-ux-pro-max'; forbid = 'ui-styling' }
+    @{ n = 'shadcn con ui-styling'; prompt = 'monta los componentes de ui con shadcn para el panel';       expect = 'ui-ux-pro-max' }
+    @{ n = 'parallax sin DS';       prompt = 'añade un parallax al hero y un marquee de logos';            expect = 'gsap-scrolltrigger'; expectFirst = 'ui-ux-pro-max' }
+    @{ n = 'skew con DS';           prompt = 'aplica un efecto de skew según la velocidad del scroll';     designSystem = $true; expect = 'gsap-scrolltrigger'; forbid = 'ui-ux-pro-max' }
+    @{ n = 'cursor personalizado';  prompt = 'quiero un cursor personalizado con estados al pasar por los enlaces'; expect = 'gsap-scrolltrigger' }
+    @{ n = 'before/after';          prompt = 'pon un comparador before after en la galería de reformas';   expect = 'gsap-scrolltrigger' }
+    @{ n = 'motion EN sin framer';  prompt = 'add motion to the hero section please';                      skills = @('ui-ux-pro-max','gsap-scrolltrigger'); expect = 'ui-ux-pro-max'; forbid = 'motion-framer' }
+    @{ n = 'framer explicito';      prompt = 'anima el modal con framer motion y AnimatePresence';         expect = 'motion-framer' }
+    @{ n = 'r3f gana a three';      prompt = 'monta un hero con react three fiber y drei';                 expect = 'react-three-fiber'; forbid = 'threejs-webgl' }
+    @{ n = 'glb generico';          prompt = 'integra el modelo GLB del producto en la home con three.js'; expect = 'threejs-webgl' }
+    @{ n = 'vanta fondo';           prompt = 'pon un fondo animado tipo vanta waves en el header';         expect = 'lightweight-3d-effects' }
+    @{ n = 'lottie';                prompt = 'incrusta la animación lottie que nos pasó el diseñador';     expect = 'lottie-animations' }
+    @{ n = 'barba mpa';             prompt = 'transiciones entre páginas con barba en el sitio multipágina'; expect = 'barba-js' }
+    @{ n = 'pixi displacement';     prompt = 'un efecto liquid con displacement sobre el poster, con pixi'; expect = 'pixijs-2d' }
+    @{ n = 'planificar';            prompt = 'planifica el proyecto de la tienda desde cero';              expect = 'project-planner'; expectFirst = 'project-planner' }
+    @{ n = 'siguiente tarea';       prompt = '¿cuál es la siguiente tarea del plan?';                      expect = 'project-planner' }
+    @{ n = 'tests y refactor';      prompt = 'refactoriza el servicio de pagos y añade tests';             expect = 'code-quality' }
+    @{ n = 'ddd dominio';           prompt = 'diseña el módulo de facturación con DDD y agregados';        expect = 'ddd-hexagonal' }
+    @{ n = 'commitear';             prompt = 'documenta lo de hoy y commitea los cambios';                 expect = 'devlog' }
+    @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
+)
+
+$fail = 0; $i = 0
+foreach ($c in $cases) {
+    $i++
+    $r = Invoke-Case $c $i
+    if ($r.problems.Count) { $fail++; Write-Host ("FAIL {0,-24} -> [{1}]  {2}" -f $c.n, ($r.hits -join ', '), ($r.problems -join '; ')) }
+    elseif ($ShowAll)      { Write-Host ("ok   {0,-24} -> [{1}]" -f $c.n, ($r.hits -join ', ')) }
+}
+Remove-Item $proj -Recurse -Force -ErrorAction SilentlyContinue
+Write-Host "Casos: $($cases.Count)  Fallos: $fail"
+if ($fail) { exit 1 } else { exit 0 }

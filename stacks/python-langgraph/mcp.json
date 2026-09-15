@@ -1,0 +1,11 @@
+{
+  "_help": "Servidores MCP que se activan en proyectos de este stack. El renderer de Claude Code los escribe en el .mcp.json del proyecto. Rellena 'mcpServers' con tu servidor de documentación de LangChain si lo tienes como MCP local.",
+  "_example": {
+    "langchain-docs": {
+      "command": "node",
+      "args": ["<copia local de la documentación de LangChain>/mcp-server.mjs"],
+      "env": {}
+    }
+  },
+  "mcpServers": {}
+}
