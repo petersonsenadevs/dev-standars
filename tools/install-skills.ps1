@@ -29,7 +29,7 @@
   D:\dev-standards\tools\install-skills.ps1 -All
 #>
 param(
-    [string[]]$Skills = @('project-planner', 'skill-router', 'front-activation', 'ui-ux-pro-max', 'gsap-scrolltrigger', 'threejs-webgl', 'code-quality'),
+    [string[]]$Skills = @('project-planner', 'skill-router', 'front-activation', 'ui-ux-pro-max', 'ui-verify', 'image-gen', 'gsap-scrolltrigger', 'threejs-webgl', 'code-quality'),
     [string[]]$Bundle = @(),
     [switch]$All,
     [string[]]$Agents = @('all'),

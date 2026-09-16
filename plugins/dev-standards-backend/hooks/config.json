@@ -391,6 +391,16 @@
                        "requires":  [
 
                                     ]
+                   },
+                   {
+                       "name":  "image-gen",
+                       "group":  "front",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(genera\\w* (una |la )?(imagen|foto)|imagen(es)? (ia|con ia|generada)|foto(s)? de producto|producto flotando|levitando|hero image|imagen para el hero|fondo generado|nano banana|gpt-image|dall-?e|midjourney|flux|recraft|ideogram|render 3d de producto|mockup del (producto|m[oó]vil))\\b",
+                       "priority":  8,
+                       "requires":  [
+                                        "ui-ux-pro-max"
+                                    ]
                    }
                ]
 }
