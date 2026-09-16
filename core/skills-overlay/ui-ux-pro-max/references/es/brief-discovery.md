@@ -11,6 +11,7 @@ preguntes "¿quieres un hero con parallax y glassmorphism?"; pregúntale por sen
 | **Marca**: logo (SVG), colores existentes, tipografías compradas/usadas, tono de voz | Pídelo. Si no hay marca, dilo y genera propuesta con `--design-system` (documentada como propuesta, no como marca). |
 | **Guideline/brandline**: manual de marca, usos prohibidos del logo, márgenes | Pregunta si existe PDF/Figma de marca. Si existe, sus reglas PREVALECEN sobre cualquier búsqueda. |
 | **Objetivo de la página**: ¿qué debe hacer el visitante? (llamar, comprar, registrarse, leer) | Pregunta "¿qué quieres que haga la persona que entra?". El CTA principal sale de aquí. |
+| **Tipo de negocio**: su playbook (secciones, funciones, contenido a pedir) | `business-playbooks.md` — propón tú la estructura del sector; el cliente no tiene por qué saber pedirla. |
 | **Audiencia**: quién entra, desde qué dispositivo, qué edad/contexto | Pregunta. B2B de escritorio ≠ servicio local que se busca desde el móvil en la calle. |
 | **Contenido real**: textos, fotos, datos de contacto, precios | Sin contenido real no hay diseño final: pide lo que haya y marca PENDIENTE lo que falte. Nada de lorem ipsum. |
 | **Referencias**: 2-3 webs que le gusten (y alguna que odie) | Pídelas SIEMPRE: es la forma más rápida de entender el gusto del cliente sin tecnicismos. |
@@ -32,6 +33,21 @@ Haz pocas preguntas y ofréceles opciones A/B; a la gente le cuesta describir, p
 5. **"¿Fondo claro, oscuro, o los dos?"** → tema.
 6. **"¿Qué NO quieres ver de ninguna manera?"** → la lista de vetos vale oro.
 7. **"¿La gente te buscará más desde el móvil o el ordenador?"** → prioridad de diseño (casi siempre móvil).
+
+## 2b. Modo descubrimiento: cuando el cliente "no sabe lo que quiere"
+
+Nadie sabe describir una web; todo el mundo sabe elegir entre dos. Protocolo (también como comando `/brief`):
+
+1. **Una pregunta cada vez** (las de §2), en llano, con 2-3 opciones cerradas + "otra cosa". Nada de listas de 10 preguntas.
+2. **Identifica el tipo de negocio** y saca su playbook (`business-playbooks.md`): ya sabes qué secciones y
+   funciones proponer sin que te las pida; preséntalas como "esto es lo que funciona en tu sector".
+3. **Dos direcciones visuales A/B** descritas en llano y opuestas, con la industria de fondo (`industry-rules.md`):
+   - A: "Sobria y de confianza: fondo claro, tu verde corporativo, fotos grandes de trabajos, todo muy ordenado."
+   - B: "Con más carácter: fondo oscuro, titulares enormes, las fotos aparecen al hacer scroll."
+   Que elija (o mezcle). Si puedes, enséñale 1 web de ejemplo de cada dirección (`inspiration.md`) y pregunta qué le gusta de ella.
+4. **Confirma en sus palabras**: "Entonces: que dé confianza, con tus colores de siempre, y que el teléfono esté siempre a mano. ¿Sí?"
+   Después traduces tú a lo técnico (glosario §3) y lo escribes en `plan/brief.md` + MASTER.md.
+5. Lo que el cliente no decide, lo decides tú por su sector (playbook + industry-rules) y lo dejas **documentado como decisión propia**, reversible.
 
 ## 3. Glosario cliente → técnico (traduce tú, no le corrijas)
 

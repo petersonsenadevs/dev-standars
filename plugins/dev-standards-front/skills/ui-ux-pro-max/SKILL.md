@@ -29,9 +29,8 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 ## 1b. Lectura mínima por tarea (no cargues más; `SKILL.upstream.md` y referencias por secciones)
 | Tarea | Lee solo |
 |---|---|
-| Proyecto o página nueva (brief) | `references/es/brief-discovery.md` (checklist de marca, entrevista en llano, glosario cliente→técnico) |
-| Elegir fuentes / iconos | `references/es/fonts-icons.md` (pairings por mood, sets de iconos, anti-patrones IA) |
-| Buscar referencias / "hazlo único" | `references/es/inspiration.md` (directorios por necesidad + protocolo de análisis) |
+| Proyecto/página nueva o cliente sin palabreo técnico | `references/es/brief-discovery.md` (entrevista §2-2b, glosario §3) + `references/es/business-playbooks.md` (qué construir para SU negocio) |
+| Fuentes, iconos, herramientas o referencias | `references/es/fonts-icons.md` · `references/es/resources-toolbox.md` · `references/es/inspiration.md` |
 | Landing / marketing | §2 flujo + `references/es/page-patterns.md` (tu patrón) + `references/es/industry-rules.md` (tu industria) |
 | Dashboard / admin / tabla | `references/es/components-spec.md` §Table, §Empty state, §Skeleton + `--stack` guías |
 | Formulario | `components-spec.md` §Input, §Form (tu stack) + `references/es/accessibility.md` §Formularios |
@@ -87,7 +86,8 @@ resultados de `search.py` → tu criterio (documentado en MASTER.md si te desví
 ## 5. Recursos
 - `SKILL.upstream.md` — documentación completa upstream (dominios, dials, formato de salida, reglas de prioridad 1-10).
 - `references/pro-rules.md` — checklist canónico de entrega. `references/quick-reference.md` — iconos, charts, GSAP.
-- `references/es/brief-discovery.md` — brief/entrevista. `references/es/fonts-icons.md` — fuentes e iconos. `references/es/inspiration.md` — referencias.
+- `references/es/brief-discovery.md` y `references/es/business-playbooks.md` — brief, entrevista y qué construir por negocio.
+- `references/es/fonts-icons.md`, `references/es/resources-toolbox.md`, `references/es/inspiration.md` — fuentes, herramientas, referencias.
 - `references/es/workflow.md` — flujo detallado y brief. `references/es/tokens-tailwind.md` — tokens Tailwind 4 / CSS vars por stack.
 - `references/es/components-spec.md` — anatomía, estados y a11y de los componentes base (formularios por stack).
 - `references/es/accessibility.md` — WCAG 2.2 AA práctico. `references/es/review-rubric.md` — auditar UI existente.
