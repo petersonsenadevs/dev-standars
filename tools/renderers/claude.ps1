@@ -87,8 +87,17 @@ function Render-Claude {
     $rules = Get-CombinedRules -Stack $Stack -ExtraSkills $ExtraSkills -Bundles $Bundles -SkillsRelPath '.claude/skills'
     $hasFront = [bool]$Stack.Meta.frontProfile
 
-    # 1) CLAUDE.md
-    Write-Utf8 (Join-Path $ProjectPath 'CLAUDE.md') $rules
+    # 1) CLAUDE.md — si ya existe uno del proyecto (sin nuestra marca), respaldarlo antes de sobrescribir
+    $claudeMd = Join-Path $ProjectPath 'CLAUDE.md'
+    if (Test-Path $claudeMd) {
+        $existing = Get-Content $claudeMd -Raw -ErrorAction SilentlyContinue
+        if ($existing -and $existing -notmatch 'GENERADO por dev-standards') {
+            $backup = Join-Path $ProjectPath 'CLAUDE.project.md'
+            if (-not (Test-Path $backup)) { Write-Utf8 $backup $existing }
+            Write-Host "  [claude]     CLAUDE.md existente respaldado en CLAUDE.project.md (revisa si quieres fusionarlo)"
+        }
+    }
+    Write-Utf8 $claudeMd $rules
 
     # 2) Skills -> .claude/skills/<skill>/
     $installed = Copy-Skills -Stack $Stack -Dst (Join-Path $ProjectPath '.claude\skills') -Extra $ExtraSkills -Bundles $Bundles
