@@ -79,7 +79,7 @@
                        "name":  "ui-ux-pro-max",
                        "group":  "front",
                        "entrypoint":  true,
-                       "keywords":  "(?i)\\b(landing|web|sitio|home|hero|p[aá]gina|pantalla|vista|redise[ñn]\\w*|mejora la (p[aá]gina|web|ui)|componente|formulario|dashboard|layout|dise[ñn]o|dise[ñn]a|maqueta|estilo|tema|colores?|paleta|fuentes?|iconos?|inspiración|referencias? (visuales|de diseño)|brief|marca|brand|tipograf[ií]a|responsive|tailwind|css|ui|ux|accesib\\w*|navbar|sidebar|modal|tabla|card|bot[oó]n|secci[oó]n|marketing|design|page|component|form|style|theme)\\b",
+                       "keywords":  "(?i)\\b(landing|web|sitio|home|hero|p[aá]gina|pantalla|vista|redise[ñn]\\w*|mejora la (p[aá]gina|web|ui)|componente|formulario|dashboard|layout|dise[ñn]o|dise[ñn]a|maqueta|estilo|tema|colores?|paleta|fuentes?|iconos?|inspiración|referencias? (visuales|de diseño)|brief|marca|brand|tipograf[ií]a|responsive|tailwind|css|ui|ux|accesib\\w*|navbar|sidebar|modal|tabla|card|bot[oó]n|secci[oó]n|modern[oa]s?|bento|glass\\w*|aurora|spotlight|glow|premium|marketing|design|page|component|form|style|theme)\\b",
                        "priority":  15,
                        "requires":  [
 

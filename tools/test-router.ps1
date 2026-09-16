@@ -76,6 +76,7 @@ $cases = @(
     @{ n = 'tests y refactor';      prompt = 'refactoriza el servicio de pagos y añade tests';             expect = 'code-quality' }
     @{ n = 'ddd dominio';           prompt = 'diseña el módulo de facturación con DDD y agregados';        expect = 'ddd-hexagonal' }
     @{ n = 'commitear';             prompt = 'documenta lo de hoy y commitea los cambios';                 expect = 'devlog' }
+    @{ n = 'look moderno';          prompt = 'dale un aire moderno tipo bento con un fondo aurora';       expect = 'ui-ux-pro-max'; expectFirst = 'ui-ux-pro-max' }
     @{ n = 'elegir stack';          prompt = '¿qué framework uso para la web de un restaurante?';          expect = 'skill-router' }
     @{ n = 'fuentes e iconos';      prompt = 'qué fuentes e iconos pongo para que no parezca plantilla';   expect = 'ui-ux-pro-max' }
     @{ n = 'verificar movil';       prompt = 'comprueba la ui en el móvil que algo se descuadra';          expect = 'ui-verify' }

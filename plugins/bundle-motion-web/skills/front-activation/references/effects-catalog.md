@@ -47,6 +47,7 @@ está activo: aplicarlo es obligatorio siempre, con `gsap.matchMedia()` o media 
 | Reveal por caracteres / text stagger by chars | gsap-scrolltrigger → `references/common_patterns.md` §5.4 Text Stagger (Words/Characters) | Todos | Texto visible sin animar | Medio |
 | Scramble / scrambled text | gsap-scrolltrigger → `references/common_patterns.md` §7.2 Scrambled Text Effect | Todos | Mostrar texto final directo | Bajo |
 | Typewriter / máquina de escribir | gsap-scrolltrigger → `references/common_patterns.md` §7.3 Typewriter Effect | Todos | Mostrar texto final directo | Bajo |
+| Texto degradado con brillo / gradient text | ui-ux-pro-max → `references/es/modern-look.md` §7 (bg-clip-text con tokens; solo el titular protagonista) | Todos | Mantener (es estático) | Bajo |
 | Contador numérico / number counter | gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §7 Contador numérico | Todos | Mostrar valor final directo | Bajo |
 
 ## Imagen y media
@@ -70,12 +71,16 @@ está activo: aplicarlo es obligatorio siempre, con `gsap.matchMedia()` o media 
 | Cursor personalizado / custom cursor | gsap-scrolltrigger → `references/es/effects-pro.md` §Cursor personalizado; base UX: modern-web-design → `SKILL.md` §5 Cursor UX | Todos | Cursor nativo (sin follower) | Bajo (desactivar en táctil) |
 | Botón magnético / magnetic button | modern-web-design → `references/interaction_patterns.md` §1.3 Magnetic Button | Todos | Hover simple sin atracción | Bajo (desactivar en táctil) |
 | Zoom de imagen en hover / image zoom on hover | modern-web-design → `references/interaction_patterns.md` §5.1 Image Zoom on Hover | Todos | Sin zoom | Bajo |
+| Spotlight card (borde sigue al ratón) / mouse-tracking spotlight | ui-ux-pro-max → `references/es/modern-look.md` §6 Spotlight card (un listener por grid) | Todos | Sin spotlight (borde estático) | Bajo (desactivar en táctil) |
+| Botón shine-glow / shiny button | ui-ux-pro-max → `references/es/modern-look.md` §7 Botones y texto con brillo | Todos | Hover simple sin barrido | Bajo |
 | Tilt 3D en cards / 3D tilt with glare | lightweight-3d-effects → `references/tilt_patterns.md` (opciones §Glare Effect; wrappers §Framework Integration React/Vue) | Todos | Card plana sin tilt | Bajo (desactivar en táctil) |
 
 ## Fondos
 
 | Efecto (es / en) | Receta: skill → archivo §sección o línea | Stacks | Reduced-motion | Coste móvil |
 |---|---|---|---|---|
+| Aurora / mesh en CSS puro / CSS aurora background | ui-ux-pro-max → `references/es/modern-look.md` §4 Aurora (radial-gradients + blur + drift; PRIMERO esta versión, WebGL solo si debe reaccionar) | Todos | Gradiente estático (sin drift) | Bajo |
+| Grano-noise overlay / film grain | ui-ux-pro-max → `references/es/modern-look.md` §4 (SVG feTurbulence en data-URI) | Todos | Mantener (es estático) | Bajo |
 | Fondo animado Vanta / Vanta.js background | lightweight-3d-effects → `references/vantajs_effects.md` (14 efectos: WAVES, FOG, NET, GLOBE…) | Todos | Fondo estático (gradiente CSS) | Alto |
 | Aurora de librería / library aurora background | animated-component-libraries → `references/react_bits_components.md` §Aurora (solo React) | solo React | Gradiente estático | Alto |
 | Mesh gradient en shader propio / custom mesh gradient shader | threejs-webgl → `references/es/shaders-basics.md` §Mesh gradient / aurora en shader propio (base: §6.1 Gradiente animado de fondo) | Todos | Gradiente estático | Alto |

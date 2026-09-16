@@ -37,8 +37,8 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 | Componente suelto | `components-spec.md` (solo ese componente) + tokens de `design-system/*/MASTER.md` |
 | Tema / tokens / dark mode | `references/es/tokens-tailwind.md` (sección de tu stack) |
 | Auditoría de UI existente | `references/es/review-rubric.md` |
-| Charts / iconos / presets GSAP | `references/quick-reference.md` (sección concreta) |
-| Entrega | `references/pro-rules.md` (checklist) |
+| "Que se vea moderna" (hero, bento, aurora, glass, glow) | `references/es/modern-look.md` (recetas + CSS moderno nativo §9) |
+| Charts / presets GSAP · Entrega | `references/quick-reference.md` (sección concreta) · `references/pro-rules.md` (checklist) |
 
 ## 2. Flujo obligatorio
 1. **Brief** (`references/es/brief-discovery.md`): checklist de lo que hay que saber (marca/guideline, objetivo,
