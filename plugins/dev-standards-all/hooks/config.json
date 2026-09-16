@@ -107,7 +107,7 @@
                        "name":  "ui-ux-pro-max",
                        "group":  "front",
                        "entrypoint":  true,
-                       "keywords":  "(?i)\\b(landing|web|sitio|home|hero|p[aá]gina|pantalla|vista|redise[ñn]\\w*|mejora la (p[aá]gina|web|ui)|componente|formulario|dashboard|layout|dise[ñn]o|dise[ñn]a|maqueta|estilo|tema|colores?|paleta|tipograf[ií]a|responsive|tailwind|css|ui|ux|accesib\\w*|navbar|sidebar|modal|tabla|card|bot[oó]n|secci[oó]n|marketing|design|page|component|form|style|theme)\\b",
+                       "keywords":  "(?i)\\b(landing|web|sitio|home|hero|p[aá]gina|pantalla|vista|redise[ñn]\\w*|mejora la (p[aá]gina|web|ui)|componente|formulario|dashboard|layout|dise[ñn]o|dise[ñn]a|maqueta|estilo|tema|colores?|paleta|fuentes?|iconos?|inspiración|referencias? (visuales|de diseño)|brief|marca|brand|tipograf[ií]a|responsive|tailwind|css|ui|ux|accesib\\w*|navbar|sidebar|modal|tabla|card|bot[oó]n|secci[oó]n|marketing|design|page|component|form|style|theme)\\b",
                        "priority":  15,
                        "requires":  [
 
@@ -158,7 +158,7 @@
                        "group":  "motion",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(aos|animate on scroll|reveal simple|fade in al hacer scroll)\\b",
-                       "priority":  5,
+                       "priority":  8,
                        "requires":  [
 
                                     ]
@@ -168,7 +168,7 @@
                        "group":  "motion",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(anime\\.?js|anime)\\b",
-                       "priority":  5,
+                       "priority":  8,
                        "requires":  [
 
                                     ]
@@ -178,7 +178,7 @@
                        "group":  "motion",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(lottie|after effects|bodymovin|dotlottie)\\b",
-                       "priority":  5,
+                       "priority":  8,
                        "requires":  [
 
                                     ]
@@ -188,7 +188,7 @@
                        "group":  "motion",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(react-?spring|popmotion|animaci[oó]n f[ií]sica|spring physics)\\b",
-                       "priority":  5,
+                       "priority":  8,
                        "requires":  [
 
                                     ]
@@ -198,7 +198,7 @@
                        "group":  "motion",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(magic ?ui|react bits|aceternity|componentes? animados?|marquee react|shimmer|border beam|bento grid|blur ?text|count ?up react|dock|blob ?cursor)\\b",
-                       "priority":  5,
+                       "priority":  8,
                        "requires":  [
 
                                     ]
@@ -249,7 +249,7 @@
                        "group":  "3d",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(zdog|vanta|tilt|efecto 3d ligero|fondo animado|card 3d|glare|waves|globe|birds|fog|vanilla-?tilt|mouse parallax|parallax (del )?rat[oó]n)\\b",
-                       "priority":  5,
+                       "priority":  8,
                        "requires":  [
 
                                     ]
@@ -289,7 +289,7 @@
                        "group":  "motion",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(locomotive)\\b",
-                       "priority":  5,
+                       "priority":  8,
                        "requires":  [
 
                                     ]
@@ -299,7 +299,7 @@
                        "group":  "motion",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(barba(\\.js)?|transiciones? entre p[aá]ginas (multip[aá]gina|mpa)|mpa|crossfade|wipe entre p[aá]ginas|multip[aá]gina)\\b",
-                       "priority":  5,
+                       "priority":  8,
                        "requires":  [
 
                                     ]
@@ -390,6 +390,16 @@
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(banner(s)?|creatividad(es)?|anuncios?|ads)\\b",
                        "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "skill-router",
+                       "group":  "routing",
+                       "entrypoint":  true,
+                       "keywords":  "(?i)\\b(qu[eé] (stack|framework|librer[ií]a|tecnolog[ií]a)|elegir (stack|framework|librer[ií]a)|con qu[eé] (lo )?(hago|monto|empiezo)|qu[eé] skill)\\b",
+                       "priority":  0,
                        "requires":  [
 
                                     ]

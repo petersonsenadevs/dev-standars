@@ -371,6 +371,16 @@ function Get-CombinedRules {
         "`n---`n`n# Prohibiciones del stack`n",
         (Read-Md (Join-Path $sd $Stack.Meta.prohibited))
     )
+    # Reglas aprendidas: cualquier stacks\<stack>\rules\*.md (menos README) se anexa; el agente puede
+    # añadir reglas nuevas ahi y correr sync.ps1 para propagarlas a todos los proyectos del stack.
+    $rulesDir = Join-Path $sd 'rules'
+    if (Test-Path $rulesDir) {
+        $ruleFiles = Get-ChildItem $rulesDir -Filter '*.md' | Where-Object { $_.Name -ne 'README.md' } | Sort-Object Name
+        foreach ($rf in $ruleFiles) {
+            $parts += "`n---`n`n# Reglas aprendidas: $($rf.BaseName)`n"
+            $parts += (Read-Md $rf.FullName)
+        }
+    }
     $header = "<!-- GENERADO por dev-standards. NO editar a mano: edita stacks\$($Stack.Name)\ y corre sync.ps1. Stack: $($Stack.Name) -->`n`n"
     $header + ($parts -join "`n") +
         (Get-ActivationSection -Stack $Stack -Extra $ExtraSkills -Bundles $Bundles -RelPath $SkillsRelPath) +

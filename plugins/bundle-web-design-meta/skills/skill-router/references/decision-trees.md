@@ -6,6 +6,7 @@ responde en orden y la primera SALIDA alcanzada nombra la skill exacta (y, si ap
 Rutas: las skills viven en `core/skills*/` del repo o junto a esta en el plugin instalado.
 
 ## Índice
+- [A0. ¿Qué stack y librerías para un proyecto nuevo?](#a0-qué-stack-y-librerías-para-un-proyecto-nuevo)
 - [A. Árbol global (empieza siempre aquí)](#a-árbol-global-empieza-siempre-aquí)
 - [B1. ¿Capas simples o DDD?](#b1-capas-simples-o-ddd)
 - [B2. Backend por síntoma](#b2-backend-por-síntoma)
@@ -14,6 +15,33 @@ Rutas: las skills viven en `core/skills*/` del repo o junto a esta en el plugin 
 - [F4. ¿Puedo permitirme este efecto?](#f4-puedo-permitirme-este-efecto)
 
 ---
+
+## A0. ¿Qué stack y librerías para un proyecto nuevo?
+
+Solo cuando el proyecto aún no existe y el usuario pregunta (o no sabe) con qué hacerlo.
+El stack del equipo/proyecto existente SIEMPRE gana a esta tabla.
+
+```
+P1 ¿Es sobre todo contenido (web de empresa, landing, blog, docs, marketing) con poca lógica de app?
+   sí -> SALIDA: stack `astro` (Astro + React islands + Tailwind): HTML primero, SEO, el mejor rendimiento;
+         islas solo donde haya estado. Fin.
+   no -> P2
+P2 ¿Hay backend de negocio en PHP, o el equipo vive en Laravel (auth, BD, colas, admin)?
+   sí -> SALIDA: stack `laravel` (Laravel + Inertia + Vue 3): un solo repo, sin API que mantener.
+   no -> P3
+P3 ¿App web compleja con mucho ecosistema React (dashboards, SaaS, auth, server actions)?
+   sí -> SALIDA: stack `next` (Next.js App Router + React).
+   no -> P4
+P4 ¿SPA/PWA y el equipo prefiere Vue, o pieza embebida en algo existente?
+   sí -> SALIDA: stack `vue-ts` (Vue 3 + TS + Vite).
+   no -> SALIDA: el más simple que cubra el caso (por defecto `astro`); documenta la duda en el devlog.
+```
+
+Librerías por defecto del stack elegido (no acumules alternativas):
+UI kit -> shadcn/ui (React) o shadcn-vue/Reka (Vue); CSS -> Tailwind 4; iconos y fuentes -> UN set y
+1-2 familias según `ui-ux-pro-max §references/es/fonts-icons.md`; animación -> árbol F2; 3D -> F3;
+formularios -> los del framework (server actions / useForm de Inertia / vee-validate); nada de jQuery,
+Bootstrap ni una segunda librería de componentes sin aprobación.
 
 ## A. Árbol global (empieza siempre aquí)
 

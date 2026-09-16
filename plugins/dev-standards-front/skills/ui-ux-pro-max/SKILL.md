@@ -29,6 +29,9 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 ## 1b. Lectura mínima por tarea (no cargues más; `SKILL.upstream.md` y referencias por secciones)
 | Tarea | Lee solo |
 |---|---|
+| Proyecto o página nueva (brief) | `references/es/brief-discovery.md` (checklist de marca, entrevista en llano, glosario cliente→técnico) |
+| Elegir fuentes / iconos | `references/es/fonts-icons.md` (pairings por mood, sets de iconos, anti-patrones IA) |
+| Buscar referencias / "hazlo único" | `references/es/inspiration.md` (directorios por necesidad + protocolo de análisis) |
 | Landing / marketing | §2 flujo + `references/es/page-patterns.md` (tu patrón) + `references/es/industry-rules.md` (tu industria) |
 | Dashboard / admin / tabla | `references/es/components-spec.md` §Table, §Empty state, §Skeleton + `--stack` guías |
 | Formulario | `components-spec.md` §Input, §Form (tu stack) + `references/es/accessibility.md` §Formularios |
@@ -39,7 +42,10 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 | Entrega | `references/pro-rules.md` (checklist) |
 
 ## 2. Flujo obligatorio
-1. **Brief**: producto/industria, tipo de página, audiencia, tono, marca existente, restricciones (dark mode, i18n, móvil).
+1. **Brief** (`references/es/brief-discovery.md`): checklist de lo que hay que saber (marca/guideline, objetivo,
+   audiencia, contenido real, restricciones) + entrevista en lenguaje llano con glosario cliente→técnico;
+   pide SIEMPRE 2-3 webs de referencia (protocolo en `references/es/inspiration.md`). Si hay manual de marca,
+   persístelo en `design-system/<slug>/BRAND.md`: prevalece sobre todo lo generado.
 2. **Design system del proyecto**: si existe `design-system/*/MASTER.md`, es la fuente de verdad (y `pages/<página>.md`
    prevalece para esa página). Si no existe, genéralo y persístelo desde la raíz del proyecto:
    ```bash
@@ -75,12 +81,13 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 12. Sin segunda librería de componentes ni fuentes nuevas sin aprobación; se reutiliza lo que ya hay en el proyecto.
 
 ## 4. Prioridad de fuentes de verdad
-`design-system/<slug>/pages/<página>.md` → `design-system/<slug>/MASTER.md` → marca del cliente o, en proyectos de la agencia, `skill de marca de la agencia/references/brand.md` → tokens existentes en el proyecto →
+`design-system/<slug>/BRAND.md` (manual de marca del cliente) → `pages/<página>.md` → `MASTER.md` → en proyectos de la agencia, `skill de marca de la agencia/references/brand.md` → tokens existentes en el proyecto →
 resultados de `search.py` → tu criterio (documentado en MASTER.md si te desvías).
 
 ## 5. Recursos
 - `SKILL.upstream.md` — documentación completa upstream (dominios, dials, formato de salida, reglas de prioridad 1-10).
 - `references/pro-rules.md` — checklist canónico de entrega. `references/quick-reference.md` — iconos, charts, GSAP.
+- `references/es/brief-discovery.md` — brief/entrevista. `references/es/fonts-icons.md` — fuentes e iconos. `references/es/inspiration.md` — referencias.
 - `references/es/workflow.md` — flujo detallado y brief. `references/es/tokens-tailwind.md` — tokens Tailwind 4 / CSS vars por stack.
 - `references/es/components-spec.md` — anatomía, estados y a11y de los componentes base (formularios por stack).
 - `references/es/accessibility.md` — WCAG 2.2 AA práctico. `references/es/review-rubric.md` — auditar UI existente.

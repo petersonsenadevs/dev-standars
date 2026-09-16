@@ -37,24 +37,24 @@ Esta skill es el punto de entrada cuando el proyecto NO tiene el bloque "Front y
 | Verificar una UI terminada en navegador real: responsive 375/768/1440, dark mode, consola y accesibilidad (axe); obligatoria antes de dar una vista por hecha | `ui-verify` | Front y diseño |
 | Tendencias y principios de diseño web moderno | `modern-web-design` (si está instalada) | Front y diseño |
 | Animación declarativa en React/Next con Motion (variants, gestos, layout animations) | `motion-framer` (si está instalada) | Animación |
-| Componentes animados prehechos (Magic UI, React Bits) | `animated-component-libraries` (si está instalada) | Animación |
 | Animación basada en físicas en React (react-spring) | `react-spring-physics` (si está instalada) | Animación |
-| Transiciones entre páginas con Barba.js (sitios multipágina) | `barba-js` (si está instalada) | Animación |
+| Componentes animados prehechos (Magic UI, React Bits) | `animated-component-libraries` (si está instalada) | Animación |
 | Smooth scroll con Locomotive Scroll | `locomotive-scroll` (si está instalada) | Animación |
-| Reveals simples al hacer scroll (AOS) en landings | `scroll-reveal-libraries` (si está instalada) | Animación |
-| Animación, scroll-driven, parallax, pin/scrub, timelines, transiciones de página, smooth scroll (Lenis) | `gsap-scrolltrigger` (si está instalada) | Animación |
+| Transiciones entre páginas con Barba.js (sitios multipágina) | `barba-js` (si está instalada) | Animación |
 | Animaciones Lottie (JSON de After Effects) | `lottie-animations` (si está instalada) | Animación |
+| Reveals simples al hacer scroll (AOS) en landings | `scroll-reveal-libraries` (si está instalada) | Animación |
 | Animaciones JS ligeras (anime.js) de DOM/SVG | `animejs` (si está instalada) | Animación |
+| Animación, scroll-driven, parallax, pin/scrub, timelines, transiciones de página, smooth scroll (Lenis) | `gsap-scrolltrigger` (si está instalada) | Animación |
 | 3D declarativo en React/Next (R3F + drei) | `react-three-fiber` (si está instalada) | 3D / WebGL |
 | Gráficos 2D/partículas en canvas con PixiJS | `pixijs-2d` (si está instalada) | 3D / WebGL |
+| Efectos 3D decorativos ligeros (Zdog, Vanta, tilt) | `lightweight-3d-effects` (si está instalada) | 3D / WebGL |
 | Exportar/optimizar modelos de Blender a glTF para web | `blender-web-pipeline` (si está instalada) | 3D / WebGL |
-| Juegos/experiencias con PlayCanvas | `playcanvas-engine` (si está instalada) | 3D / WebGL |
 | Escenas hechas en Spline e integración en web | `spline-interactive` (si está instalada) | 3D / WebGL |
 | Texturizado PBR con Substance 3D para web | `substance-3d-texturing` (si está instalada) | 3D / WebGL |
 | Animaciones interactivas Rive (state machines) | `rive-interactive` (si está instalada) | 3D / WebGL |
+| Juegos/experiencias con PlayCanvas | `playcanvas-engine` (si está instalada) | 3D / WebGL |
 | Combinar Three.js + GSAP + R3F + Motion en experiencias 3D complejas | `web3d-integration-patterns` (si está instalada) | 3D / WebGL |
 | 3D con Babylon.js (juegos, escenas complejas) | `babylonjs-engine` (si está instalada) | 3D / WebGL |
-| Efectos 3D decorativos ligeros (Zdog, Vanta, tilt) | `lightweight-3d-effects` (si está instalada) | 3D / WebGL |
 | VR/AR en el navegador (A-Frame, WebXR) | `aframe-webxr` (si está instalada) | 3D / WebGL |
 | 3D, WebGL/WebGPU, modelos GLB/GLTF, shaders, partículas, configuradores, heros 3D | `threejs-webgl` (si está instalada) | 3D / WebGL |
 | Presentaciones HTML | `slides` (si está instalada) | Diseño gráfico y marca |

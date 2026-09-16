@@ -25,6 +25,9 @@ que tienen prioridad sobre cualquier atajo.
 3. **Verifica antes de afirmar**: si dices que algo funciona, demuéstralo (comando + salida).
    Si un test falla, dilo con la salida real.
 
+4. **Las reglas se acumulan**: si aprendes una regla general del stack (error repetido, convención),
+   propón guardarla en `stacks/<stack>/rules/` de dev-standards para que todos los proyectos la hereden.
+
 ## Seguridad / acciones prohibidas
 - Respeta la lista de **acciones prohibidas**: nunca `git push`, ni borrados/alteraciones
   destructivas de base de datos (`DROP`, `TRUNCATE`, `DELETE`/`UPDATE` sin `WHERE`,

@@ -47,6 +47,12 @@ la sección que necesites (Read con offset/limit o Grep). Una referencia por tar
 - [ ] Errores con mensaje accionable; logs con contexto y nivel correcto.
 - [ ] Devlog actualizado (skill `devlog`); commit con Conventional Commits.
 
+## Reglas aprendidas (extensible)
+Si detectas una regla GENERAL del stack o lenguaje (error repetido en proyectos, convención del equipo),
+no la dejes morir en el devlog: propón añadirla a dev-standards y, con el ok del usuario, escríbela en
+`stacks/<stack>/rules/<tema>.md` (se anexa al CLAUDE.md/AGENTS.md de los proyectos al correr `sync.ps1`)
+o como sección nueva de la referencia del lenguaje (`references/<lenguaje>.md`). Regla + porqué + ejemplo mínimo.
+
 ## Relación con otras skills
 - UI, estilos, accesibilidad visual → `ui-ux-pro-max`. Dominio complejo, módulos, puertos/adaptadores → `ddd-hexagonal`.
 - Documentación del paso → `devlog`. Si el proyecto tiene `stacks/<x>/best-practices.md` en `CLAUDE.md`, prevalece lo específico del proyecto.

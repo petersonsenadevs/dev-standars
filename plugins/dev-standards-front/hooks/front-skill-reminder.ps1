@@ -19,6 +19,9 @@ $file = [string]$p.tool_input.file_path
 if (-not $file) { exit 0 }
 if ($file -notmatch '(?i)\.(vue|tsx|jsx|astro|blade\.php|html|css|scss|svelte)$') { exit 0 }
 $sid = if ($p.session_id) { [string]$p.session_id } else { 'default' }
+# Marcador persistente "esta sesion ha editado UI": lo lee stop-guard para exigir la verificacion movil (ui-verify).
+$editFlag = Get-SessionFlag $sid 'frontedit'
+if (-not (Test-Path $editFlag)) { New-Item -ItemType File -Path $editFlag -Force | Out-Null }
 if (-not (Test-Once $sid 'front')) { exit 0 }
 $root = Get-ProjectRoot
 $skillsDir = if ($env:CLAUDE_PLUGIN_ROOT -and (Test-Path (Join-Path $env:CLAUDE_PLUGIN_ROOT 'skills\ui-ux-pro-max'))) { '$env:CLAUDE_PLUGIN_ROOT/skills' } elseif (Test-Path (Join-Path $root '.claude\skills\ui-ux-pro-max')) { '.claude/skills' } else { '<skills-dir>' }

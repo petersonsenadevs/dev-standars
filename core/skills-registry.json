@@ -57,7 +57,7 @@
       "name": "ui-ux-pro-max",
       "group": "front",
       "when": "Crear, maquetar o rediseñar páginas, vistas, layouts, componentes, formularios, dashboards, temas, colores, tipografía, iconos, responsive, accesibilidad; archivos .vue .tsx .jsx .astro .blade.php .html .css",
-      "keywords": "(?i)\\b(landing|web|sitio|home|hero|p[aá]gina|pantalla|vista|redise[ñn]\\w*|mejora la (p[aá]gina|web|ui)|componente|formulario|dashboard|layout|dise[ñn]o|dise[ñn]a|maqueta|estilo|tema|colores?|paleta|tipograf[ií]a|responsive|tailwind|css|ui|ux|accesib\\w*|navbar|sidebar|modal|tabla|card|bot[oó]n|secci[oó]n|marketing|design|page|component|form|style|theme)\\b",
+      "keywords": "(?i)\\b(landing|web|sitio|home|hero|p[aá]gina|pantalla|vista|redise[ñn]\\w*|mejora la (p[aá]gina|web|ui)|componente|formulario|dashboard|layout|dise[ñn]o|dise[ñn]a|maqueta|estilo|tema|colores?|paleta|fuentes?|iconos?|inspiración|referencias? (visuales|de diseño)|brief|marca|brand|tipograf[ií]a|responsive|tailwind|css|ui|ux|accesib\\w*|navbar|sidebar|modal|tabla|card|bot[oó]n|secci[oó]n|marketing|design|page|component|form|style|theme)\\b",
       "priority": 15,
       "requires": [],
       "installedBy": "base-front",
@@ -108,7 +108,7 @@
       "group": "motion",
       "when": "Reveals simples al hacer scroll (AOS) en landings",
       "keywords": "(?i)\\b(aos|animate on scroll|reveal simple|fade in al hacer scroll)\\b",
-      "priority": 5,
+      "priority": 8,
       "requires": [],
       "installedBy": "bundle"
     },
@@ -117,7 +117,7 @@
       "group": "motion",
       "when": "Animaciones JS ligeras (anime.js) de DOM/SVG",
       "keywords": "(?i)\\b(anime\\.?js|anime)\\b",
-      "priority": 5,
+      "priority": 8,
       "requires": [],
       "installedBy": "bundle"
     },
@@ -126,7 +126,7 @@
       "group": "motion",
       "when": "Animaciones Lottie (JSON de After Effects)",
       "keywords": "(?i)\\b(lottie|after effects|bodymovin|dotlottie)\\b",
-      "priority": 5,
+      "priority": 8,
       "requires": [],
       "installedBy": "bundle"
     },
@@ -135,7 +135,7 @@
       "group": "motion",
       "when": "Animación basada en físicas en React (react-spring)",
       "keywords": "(?i)\\b(react-?spring|popmotion|animaci[oó]n f[ií]sica|spring physics)\\b",
-      "priority": 5,
+      "priority": 8,
       "requires": [],
       "installedBy": "bundle"
     },
@@ -144,7 +144,7 @@
       "group": "motion",
       "when": "Componentes animados prehechos (Magic UI, React Bits)",
       "keywords": "(?i)\\b(magic ?ui|react bits|aceternity|componentes? animados?|marquee react|shimmer|border beam|bento grid|blur ?text|count ?up react|dock|blob ?cursor)\\b",
-      "priority": 5,
+      "priority": 8,
       "requires": [],
       "installedBy": "bundle"
     },
@@ -194,7 +194,7 @@
       "group": "3d",
       "when": "Efectos 3D decorativos ligeros (Zdog, Vanta, tilt)",
       "keywords": "(?i)\\b(zdog|vanta|tilt|efecto 3d ligero|fondo animado|card 3d|glare|waves|globe|birds|fog|vanilla-?tilt|mouse parallax|parallax (del )?rat[oó]n)\\b",
-      "priority": 5,
+      "priority": 8,
       "requires": [],
       "installedBy": "bundle"
     },
@@ -230,7 +230,7 @@
       "group": "motion",
       "when": "Smooth scroll con Locomotive Scroll",
       "keywords": "(?i)\\b(locomotive)\\b",
-      "priority": 5,
+      "priority": 8,
       "requires": [],
       "installedBy": "bundle"
     },
@@ -239,7 +239,7 @@
       "group": "motion",
       "when": "Transiciones entre páginas con Barba.js (sitios multipágina)",
       "keywords": "(?i)\\b(barba(\\.js)?|transiciones? entre p[aá]ginas (multip[aá]gina|mpa)|mpa|crossfade|wipe entre p[aá]ginas|multip[aá]gina)\\b",
-      "priority": 5,
+      "priority": 8,
       "requires": [],
       "installedBy": "bundle"
     },
@@ -328,7 +328,7 @@
       "name": "skill-router",
       "group": "routing",
       "when": "Empezar cualquier tarea no trivial: decide qué skill y sección leer (tabla de activación + protocolo de carga)",
-      "keywords": "",
+      "keywords": "(?i)\\b(qu[eé] (stack|framework|librer[ií]a|tecnolog[ií]a)|elegir (stack|framework|librer[ií]a)|con qu[eé] (lo )?(hago|monto|empiezo)|qu[eé] skill)\\b",
       "priority": 0,
       "requires": [],
       "installedBy": "base",

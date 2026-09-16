@@ -23,7 +23,7 @@ Ensure-Dir $skillsDir; Ensure-Dir $hooksDir
 
 $DefaultSkills = @('devlog', 'project-planner', 'code-quality', 'skill-router', 'front-activation', 'ui-ux-pro-max',
                    'gsap-scrolltrigger', 'threejs-webgl', 'react-three-fiber', 'motion-framer', 'ddd-hexagonal',
-                   'lottie-animations', 'barba-js', 'pixijs-2d', 'lightweight-3d-effects', 'ui-styling')
+                   'lottie-animations', 'barba-js', 'pixijs-2d', 'lightweight-3d-effects', 'ui-styling', 'ui-verify')
 function Set-InstalledSkills([string[]]$Names) {
     Get-ChildItem $skillsDir -Directory -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force
     foreach ($n in $Names) { Ensure-Dir (Join-Path $skillsDir $n); Write-Utf8 (Join-Path $skillsDir "$n\SKILL.md") "---`nname: $n`n---`nstub" }
@@ -76,6 +76,9 @@ $cases = @(
     @{ n = 'tests y refactor';      prompt = 'refactoriza el servicio de pagos y añade tests';             expect = 'code-quality' }
     @{ n = 'ddd dominio';           prompt = 'diseña el módulo de facturación con DDD y agregados';        expect = 'ddd-hexagonal' }
     @{ n = 'commitear';             prompt = 'documenta lo de hoy y commitea los cambios';                 expect = 'devlog' }
+    @{ n = 'elegir stack';          prompt = '¿qué framework uso para la web de un restaurante?';          expect = 'skill-router' }
+    @{ n = 'fuentes e iconos';      prompt = 'qué fuentes e iconos pongo para que no parezca plantilla';   expect = 'ui-ux-pro-max' }
+    @{ n = 'verificar movil';       prompt = 'comprueba la ui en el móvil que algo se descuadra';          expect = 'ui-verify' }
     @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
 )
 
