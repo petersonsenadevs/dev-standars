@@ -4,13 +4,19 @@ Colección VIVA: aquí se documenta dónde mirar cuando el catálogo (`effects-c
 efecto, y el protocolo para convertir lo encontrado en **receta propia** del sistema. El objetivo no es
 copiar demos: es destilar la técnica y que la colección crezca con cada proyecto.
 
+## 0. Índices cosechados (el contenido real, catalogado)
+- `sources/codrops-index.md` — ~75 tutoriales de Codrops por tipo de efecto, mapeados a nuestras skills.
+- `sources/codepen-index.md` — los pens top de los 8 autores, con a qué receta nuestra se conectan.
+- `sources/showcases-index.md` — categorías de Awwwards, estudios a seguir, estado de Godly/Hoverstat.es.
+Cada índice dice cómo refrescarse (scraping con WebFetch/Chrome). Fecha de cosecha: 2026-09-16.
+
 ## 1. Webs de referencia
 
 | Web | Qué encontrarás | Cómo usarla |
 |---|---|---|
 | awwwards.com | Webs premiadas: animación, inmersivas, experiencias completas | Inspiración de dirección y composición; NO hay código: identifica la técnica y búscala abajo |
 | tympanus.net/codrops | Tutoriales y demos CON código (WebGL, GSAP, CSS); case studies de estudios top | La mejor fuente técnica: cada tutorial explica el cómo. Licencia propia (tympanus.net/codrops/licensing): usable en proyectos, no redistribuir/vender los demos tal cual |
-| godly.website | Selección curada de webs creativas por estilo/sección | Referencias por tipo de página (protocolo en ui-ux-pro-max `inspiration.md`) |
+| recent.design (antes godly.website, que redirige aquí) | Selección curada de webs creativas | Referencias por tipo de página (protocolo en ui-ux-pro-max `inspiration.md`) |
 | hoverstat.es | "Alternative web design": experimental, tipografía viva, navegación no convencional | Cuando el brief pide algo fuera de plantilla; extrae UNA idea, no el caos entero |
 | codepen.io | Demos aisladas de cada técnica (busca por término: "marquee gsap", "spotlight card") | Los pens públicos son MIT: puedes adaptar el código citando autor en el devlog |
 
