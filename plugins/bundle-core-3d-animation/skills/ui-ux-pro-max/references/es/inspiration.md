@@ -9,6 +9,8 @@ puedes abrir estas galerías y analizar ejemplos con él delante.
 | Necesitas | Dónde mirar | Qué te da |
 |---|---|---|
 | Nivel award / efectos punteros | awwwards.com, godly.website, cssdesignawards.com | Sitios con animación/3D de referencia; mira los SOTD de tu industria |
+| Efectos CON código (aprender la técnica) | tympanus.net/codrops, codepen.io (autores en `front-activation/references/effect-sources.md`) | Tutoriales y demos con código; el protocolo para convertirlos en receta propia está en effect-sources |
+| Diseño experimental / no convencional | hoverstat.es | Tipografía viva y navegación alternativa; extrae UNA idea |
 | Landings de producto/SaaS | land-book.com, landing.love, saaslandingpage.com | Patrones de hero, pricing, features reales |
 | Por industria (restaurante, clínica…) | lapa.ninja (categorías), land-book (filtros) | Convenciones del sector que el usuario espera |
 | Flujos y UI de apps reales | mobbin.com (web/iOS/Android) | Onboarding, checkout, settings: cómo lo hacen los grandes |

@@ -113,4 +113,5 @@ está activo: aplicarlo es obligatorio siempre, con `gsap.matchMedia()` o media 
 ## Si el efecto no está aquí
 
 - Busca en el catálogo EN de la skill: `Grep` sobre `gsap-scrolltrigger → references/common_patterns.md` (nombres en inglés: reveal, pin, scrub, stagger, parallax…).
+- Mira las **fuentes de efectos** (`references/effect-sources.md`): Codrops, CodePen (Hyperplexed, Jhey, Tom Miller…), Awwwards — con licencias y el protocolo para convertir lo encontrado en receta nueva de este catálogo.
 - Si tampoco existe, diséñalo desde cero con `gsap-scrolltrigger §references/es/api-cheatsheet` (tweens, timelines, matchMedia, quickTo, utils) respetando las reglas anteriores.
