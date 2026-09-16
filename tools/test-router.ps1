@@ -41,6 +41,8 @@ function Invoke-Case([hashtable]$c, [int]$i) {
     $env:CLAUDE_PROJECT_DIR = $proj
     $sid = "rt$i-" + [guid]::NewGuid().ToString('N').Substring(0, 4)
     $json = (@{ session_id = $sid; prompt = $c.prompt } | ConvertTo-Json -Compress)
+    # Transporte 100% ASCII: escapar no-ASCII a \uXXXX para que ninguna codepage del pipe pueda corromper acentos.
+    $json = -join ($json.ToCharArray() | ForEach-Object { if ([int]$_ -gt 127) { '\u{0:x4}' -f [int]$_ } else { $_ } })
     $out = ($json | powershell -NoProfile -ExecutionPolicy Bypass -File $hook 2>&1 | Out-String)
     $hits = @()
     if ($out -match 'parece de: ([^\.]+)\.') { $hits = @($Matches[1] -split ',\s*') }

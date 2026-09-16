@@ -19,7 +19,7 @@ salen del `design-system/*/MASTER.md` del proyecto (skill `ui-ux-pro-max`); si n
 |---|---|---|---|
 | Vue 3 (SPA o con Laravel + Inertia) | `references/es/vue.md` | `templates/useGsap.ts`, `ScrollReveal.vue`, `HorizontalScroll.vue`, `useLenis.ts` | `gsap.context` en `onMounted` + `revert()` en `onBeforeUnmount`; con Inertia: `router.on('finish')` → `ScrollTrigger.refresh()`, matar triggers al navegar, layouts persistentes, SSR-safe. |
 | Next.js / React | `references/es/next.md` | `templates/useGsapReact.tsx` | `@gsap/react` `useGSAP({ scope })`, `"use client"`, `contextSafe`, refresh por `pathname`, StrictMode. |
-| Astro | `references/es/astro.md` | `templates/gsap-astro.ts` | `<script>` + `astro:page-load` / `astro:before-swap` (View Transitions), islands, scripts deduplicados. |
+| Astro | `references/es/astro.md` | `templates/gsap-astro.ts` | GSAP en `<script>` vanilla, SIN isla (islands React solo para Motion/R3F/estado); `astro:page-load` / `astro:before-swap` (View Transitions), scripts deduplicados. |
 | Vanilla / otros | `SKILL.upstream.md` | `assets/starter_scroll/` | `gsap.matchMedia`, `ScrollTrigger.refresh()` tras cargar imágenes/fuentes. |
 
 Detecta el stack como indica `ui-ux-pro-max/SKILL.md` §1 (`.dev-standards.json` → `composer.json`/`package.json`).

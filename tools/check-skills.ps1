@@ -221,5 +221,11 @@ if (Test-Path $plugRoot) {
     }
 }
 
+# --- 11: todos los .ps1 con BOM UTF-8 (dev-003: sin BOM, PS 5.1 lee ANSI y corrompe literales con acentos) ---
+foreach ($ps in (Get-ChildItem (Join-Path $root 'tools'), (Join-Path $root 'core\hooks'), (Join-Path $root 'toolsenderers') -Filter *.ps1 -ErrorAction SilentlyContinue)) {
+    $b = [System.IO.File]::ReadAllBytes($ps.FullName)
+    if ($b.Length -lt 3 -or $b[0] -ne 0xEF -or $b[1] -ne 0xBB -or $b[2] -ne 0xBF) { Fail $ps.Name 'sin BOM UTF-8 (PS 5.1 leera el archivo como ANSI)' }
+}
+
 Write-Host "Revisadas: $checked skills  Errores: $errors"
 if ($errors) { exit 1 } else { exit 0 }

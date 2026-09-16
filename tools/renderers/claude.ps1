@@ -101,6 +101,15 @@ function Render-Claude {
     Get-ChildItem (Join-Path $root 'core\hooks') -Filter *.ps1 | ForEach-Object { Copy-Item $_.FullName (Join-Path $hooksDst $_.Name) -Force }
     Copy-Tree (Join-Path $Stack.Dir 'hooks') $hooksDst
 
+    # 3a) Comandos slash -> .claude/commands/ (plan y siguiente siempre; los de front solo con perfil)
+    $cmdSrc = Join-Path $root 'core\commands'
+    if (Test-Path $cmdSrc) {
+        $cmdDst = Join-Path $ProjectPath '.claude\commands'
+        Ensure-Dir $cmdDst
+        $names = @('plan.md', 'siguiente.md') + $(if ($hasFront) { @('design-system.md', 'efecto.md', 'revisar-ui.md') } else { @() })
+        foreach ($n in $names) { $f = Join-Path $cmdSrc $n; if (Test-Path $f) { Copy-Item $f (Join-Path $cmdDst $n) -Force } }
+    }
+
     # 3b) config.json para los hooks
     $cfg = [ordered]@{
         stack = $Stack.Name

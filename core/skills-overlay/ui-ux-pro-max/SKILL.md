@@ -21,7 +21,7 @@ con las guías del stack. Nunca improvises colores, fuentes o espaciados en mita
 |---|---|---|
 | Laravel + Inertia + Vue 3 | `laravel`, `vue`, `html-tailwind`, `shadcn` | Layouts persistentes, `<Head>`, `useForm` con `form.errors.campo` + `form.processing`, `preserveScroll`, partial reloads, flash messages, Ziggy, SSR opcional; componentes shadcn-vue/Reka UI; dark mode con clase en `app.blade.php`. |
 | Next.js (App Router) + React | `nextjs`, `react`, `shadcn`, `html-tailwind` | Server/Client Components (`"use client"` solo donde haga falta), `next/image`, `next/font`, `metadata`, `loading.tsx`/`error.tsx`, forms con server actions + `useActionState`, shadcn/ui. |
-| Astro | `astro`, `html-tailwind` | Islands (`client:visible`/`client:idle`), View Transitions, content collections, `<Image>`, actions/forms, SEO en `<head>`, poco JS por defecto. |
+| Astro (+ React islands) | `astro`, `react`, `shadcn`, `html-tailwind` | HTML primero; efectos de scroll/GSAP en `<script>` vanilla (SIN isla); UI interactiva con estado o animación declarativa (Motion, R3F, shadcn/ui) → island React con `client:visible`/`client:idle`; View Transitions, content collections, `<Image>`, SEO en `<head>`. |
 | Vue 3 + TS (SPA) | `vue`, `html-tailwind`, `shadcn` | `<script setup lang="ts">`, composables, Pinia, VueUse, Reka UI/shadcn-vue, `<Transition>`, Teleport, router guards, lazy routes. |
 
 Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`data/stacks/*.extra.csv`).

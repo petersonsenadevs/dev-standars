@@ -355,6 +355,15 @@
         "ui-ux-pro-max"
       ],
       "installedBy": "bundle"
+    },
+    {
+      "name": "ui-verify",
+      "group": "front",
+      "when": "Verificar una UI terminada en navegador real: responsive 375/768/1440, dark mode, consola y accesibilidad (axe); obligatoria antes de dar una vista por hecha",
+      "keywords": "(?i)\\b(verifica\\w*|comprueba (la|el) (ui|responsive|p[aá]gina)|revisa el responsive|lighthouse|axe|capturas?|screenshots?|se ve (bien|mal) en (m[oó]vil|tablet)|dark mode roto)\\b",
+      "priority": 8,
+      "requires": [],
+      "installedBy": "base-front"
     }
   ]
 }

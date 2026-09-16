@@ -20,7 +20,7 @@ Esta skill es el punto de entrada cuando el proyecto NO tiene el bloque "Front y
 | `.dev-standards.json` con `frontProfile` | el que indique | `frontProfile.stacks` |
 | `composer.json` con `inertiajs/inertia-laravel` (+ `vue` en `package.json`) | Laravel + Inertia + Vue 3 | `laravel`, `vue`, `html-tailwind`, `shadcn` |
 | `package.json` con `next` | Next.js (App Router) + React | `nextjs`, `react`, `shadcn`, `html-tailwind` |
-| `package.json` con `astro` | Astro | `astro`, `html-tailwind` |
+| `package.json` con `astro` | Astro + React islands | `astro`, `react`, `shadcn`, `html-tailwind` |
 | `package.json` con `vue` (sin Inertia) | Vue 3 SPA | `vue`, `html-tailwind`, `shadcn` |
 | `svelte` / `nuxt` / `angular` / `react-native` / `flutter` | otros | el stack upstream con ese nombre |
 | Nada concluyente | pregunta al usuario | — |
@@ -34,6 +34,7 @@ Esta skill es el punto de entrada cuando el proyecto NO tiene el bloque "Front y
 | Tokens de diseño (primitivos → semánticos → componente), CSS variables, validación de tokens | `design-system` (si está instalada) | Front y diseño |
 | Componentes shadcn/ui (React o Vue) y utilidades/tema de Tailwind | `ui-styling` (si está instalada) | Front y diseño |
 | Proyecto propio o white-label de la agencia la agencia: tokens de marca, tono de voz y convenciones de entrega (legales RGPD, analítica, crédito) | `skill de marca de la agencia` (si está instalada) | Front y diseño |
+| Verificar una UI terminada en navegador real: responsive 375/768/1440, dark mode, consola y accesibilidad (axe); obligatoria antes de dar una vista por hecha | `ui-verify` | Front y diseño |
 | Tendencias y principios de diseño web moderno | `modern-web-design` (si está instalada) | Front y diseño |
 | Animación declarativa en React/Next con Motion (variants, gestos, layout animations) | `motion-framer` (si está instalada) | Animación |
 | Componentes animados prehechos (Magic UI, React Bits) | `animated-component-libraries` (si está instalada) | Animación |

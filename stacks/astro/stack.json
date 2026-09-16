@@ -14,12 +14,15 @@
     "skill-router",
     "front-activation",
     "ui-ux-pro-max",
+    "ui-verify",
     "skills"
   ],
   "frontProfile": {
-    "label": "Astro + Tailwind",
+    "label": "Astro + React islands + Tailwind",
     "stacks": [
       "astro",
+      "react",
+      "shadcn",
       "html-tailwind"
     ]
   },

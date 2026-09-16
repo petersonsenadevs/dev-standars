@@ -125,6 +125,15 @@ P6 ¿Transiciones entre páginas de un sitio multipágina (MPA)?
 Nota: el catálogo de efectos concretos (receta por efecto) está en
 `front-activation/references/effects-catalog.md`. Antes de implementar, pasa por F4.
 
+Sub-árbol Astro (los efectos SÍ son posibles en Astro):
+```
+P-A ¿Es efecto de scroll, parallax, reveal, marquee o timeline?
+  sí -> gsap-scrolltrigger en un <script> de Astro, SIN isla (§references/es/astro): Astro anima perfectamente así
+P-B ¿Animación ligada a estado de componente (modales, presencia, gestos, listas) o quieres Motion/R3F/shadcn-ui?
+  sí -> island React con client:visible (motion-framer / react-three-fiber / ui-styling)
+  no -> CSS o gsap vanilla. La isla es la excepción, no la norma.
+```
+
 ## F3. ¿Necesito WebGL?
 
 ```

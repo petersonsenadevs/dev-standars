@@ -2,15 +2,16 @@
 # Funciones compartidas por los hooks de dev-standards (dot-source: . "$PSScriptRoot\_common.ps1")
 
 function Read-HookInput {
-    # Lee stdin en BYTES y decodifica UTF-8: [Console]::In usa la codepage OEM y corrompe acentos (p. ej. en prompts).
-    try {
-        $stream = [Console]::OpenStandardInput()
-        $ms = New-Object System.IO.MemoryStream
-        $buf = New-Object byte[] 8192
-        while (($n = $stream.Read($buf, 0, $buf.Length)) -gt 0) { $ms.Write($buf, 0, $n) }
-        $raw = [System.Text.Encoding]::UTF8.GetString($ms.ToArray())
-    } catch { $raw = [Console]::In.ReadToEnd() }
+    # PowerShell decodifica el stdin del hook con la codepage OEM y corrompe los acentos (los prompts llegan en UTF-8).
+    # No se puede leer el handle crudo (PS ya consumio el pipe con -File), asi que se repara la decodificacion:
+    # re-codificar con la encoding con la que se leyo (roundtrip exacto en codepages single-byte) y decodificar UTF-8.
+    $raw = [Console]::In.ReadToEnd()
     if ([string]::IsNullOrWhiteSpace($raw)) { return $null }
+    try {
+        $bytes = [Console]::InputEncoding.GetBytes($raw)
+        $utf8 = [System.Text.Encoding]::UTF8.GetString($bytes)
+        if ($utf8 -and $utf8 -notmatch [char]0xFFFD) { $raw = $utf8 }
+    } catch {}
     try { return ($raw | ConvertFrom-Json) } catch { return $null }
 }
 

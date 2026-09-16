@@ -1,6 +1,6 @@
 ---
 name: motion-framer
-description: "Animación en React con Motion (ex Framer Motion): variants, gestos, layout, AnimatePresence, springs, useScroll. ÚSALA en Next.js/React para animar componentes, modales, listas. No para Vue/Astro sin React ni scroll complejo (usa gsap)."
+description: "Animación en React con Motion (ex Framer Motion): variants, gestos, layout, AnimatePresence, springs, useScroll. ÚSALA en Next.js/React y en Astro dentro de una island React. No para Vue ni scroll complejo (usa gsap)."
 ---
 
 # motion-framer (capa dev-standards, en español)
