@@ -1,14 +1,18 @@
 # effects-vendor — código real de efectos, con licencia verificada
 
-Repos completos vendorizados por `tools/vendor-effects.ps1` según `manifest.json`. Cada carpeta lleva
-su `LICENSE` original + `ATTRIBUTION.md` (fuente, licencia, fecha). Todos MIT: usables en proyectos de
-cliente manteniendo la atribución del archivo si se copia código sustancial.
+Repos completos vendorizados por `tools/vendor-effects.ps1` según `manifest.json`. Cada carpeta lleva su
+`LICENSE` original + `ATTRIBUTION.md` (fuente, licencia, fecha). Todos MIT: usables en proyectos de cliente
+manteniendo la atribución si se copia código sustancial.
 
-| Carpeta | Qué hay | Cómo se usa |
-|---|---|---|
-| `uiverse-galaxy/` | ~3.800 elementos UI (Buttons/, Cards/, Checkboxes/, Forms/, Inputs/, loaders/, Notifications/, Patterns/), cada uno un HTML autocontenido | `Grep`/`Glob` por carpeta de tipo; copiar el patrón y **adaptarlo a los tokens del proyecto** (nunca pegar sus colores) |
-| `vanta/` | Fuente de los 14 fondos animados WebGL de Vanta | Referencia al implementar `lightweight-3d-effects` |
-| `codrops-*/` (6) | Demos completos MIT de Codrops: tipografía on-scroll, texto en movimiento, grid elástico, clip menu, rotaciones 3D, transición cinética | Leer el JS del demo al destilar la receta (protocolo effect-sources §3) |
+**Empieza por `INDEX.md`** (autogenerado): lista todo por categoría — cursores, botones-enlaces, texto,
+scroll-layout, hover-imagen, menús, transiciones, galerías, componentes-ui (uiverse ~3.800 elementos,
+whirl, css-loaders, fancy-components React), fondos (vanta) y extras. ~60 repos de demos de Codrops incluidos.
 
-Actualizar/añadir: editar `manifest.json` (el script verifica que el LICENSE del repo confirme la
-licencia declarada; si no, lo manda a `_local/`, que está gitignorado) y ejecutar `tools/vendor-effects.ps1`.
+Reglas de uso:
+1. Localiza la categoría en `INDEX.md` → entra en la carpeta → lee `index.html`/`js/` del demo.
+2. **Adapta a los tokens del proyecto** (colores, fuentes, easings propios): nunca pegues el demo tal cual.
+3. Pasa el efecto por el árbol F4 (reduced-motion, LCP, táctil) antes de darlo por bueno.
+4. Si lo conviertes en receta reutilizable → protocolo de `front-activation/references/effect-sources.md` §3.
+
+Actualizar/añadir: editar `manifest.json` (el script verifica el LICENSE real; si no confirma, va a `_local/`
+gitignorado; `stripMedia` recorta imágenes/vídeo > 300 KB conservando el código) y ejecutar `tools/vendor-effects.ps1`.

@@ -11,12 +11,14 @@ copiar demos: es destilar la técnica y que la colección crezca con cada proyec
 Cada índice dice cómo refrescarse (scraping con WebFetch/Chrome). Fecha de cosecha: 2026-09-16.
 
 ## 0b. Código vendorizado (en el repo dev-standards, licencias MIT verificadas)
-`core/effects-vendor/` (via `tools/vendor-effects.ps1` + `manifest.json`): **uiverse-galaxy** (~3.800
-elementos UI en HTML autocontenido, por tipo: Buttons/Cards/loaders/…), **vanta** (fuente de los fondos
-WebGL) y **6 demos MIT de Codrops** (tipografía on-scroll, grid elástico, clip menu, rotaciones,
-transición cinética). Cada carpeta lleva LICENSE + ATTRIBUTION.md. Nota: los repos GitHub de Codrops son
-MIT aunque las descargas de su web tengan licencia restrictiva — vendorizar siempre desde GitHub.
-CodePen NO permite descarga automatizada (Cloudflare): sus pens se consultan en el navegador (índice §0).
+`core/effects-vendor/` — **empieza por su `INDEX.md`** (autogenerado, por categoría): ~60 demos completos
+de Codrops (cursores, texto, scroll-layout, hover, menús, transiciones, galerías — incluida la tienda
+Astro con View Transitions), **uiverse-galaxy** (~3.800 elementos UI), **whirl** + **css-loaders**
+(loaders CSS), **fancy-components** (React animado de fancycomponents.dev) y **vanta** (fondos WebGL).
+Gestionado por `tools/vendor-effects.ps1` + `manifest.json` (verifica el LICENSE real de cada repo;
+`stripMedia` quita media pesada conservando el código). Nota: los repos GitHub de Codrops son MIT aunque
+las descargas de su web tengan licencia restrictiva — vendorizar siempre desde GitHub. CodePen NO permite
+descarga automatizada (Cloudflare): sus pens se consultan en el navegador (índice §0).
 
 ## 1. Webs de referencia
 
