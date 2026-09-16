@@ -5,3 +5,5 @@
 Thumbs.db
 desktop.ini
 __pycache__/
+# Repos de efectos sin licencia confirmada (vendor-effects.ps1): solo cache local
+core/effects-vendor/_local/

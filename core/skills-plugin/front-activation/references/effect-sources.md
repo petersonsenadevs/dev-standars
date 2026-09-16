@@ -10,6 +10,14 @@ copiar demos: es destilar la técnica y que la colección crezca con cada proyec
 - `sources/showcases-index.md` — categorías de Awwwards, estudios a seguir, estado de Godly/Hoverstat.es.
 Cada índice dice cómo refrescarse (scraping con WebFetch/Chrome). Fecha de cosecha: 2026-09-16.
 
+## 0b. Código vendorizado (en el repo dev-standards, licencias MIT verificadas)
+`core/effects-vendor/` (via `tools/vendor-effects.ps1` + `manifest.json`): **uiverse-galaxy** (~3.800
+elementos UI en HTML autocontenido, por tipo: Buttons/Cards/loaders/…), **vanta** (fuente de los fondos
+WebGL) y **6 demos MIT de Codrops** (tipografía on-scroll, grid elástico, clip menu, rotaciones,
+transición cinética). Cada carpeta lleva LICENSE + ATTRIBUTION.md. Nota: los repos GitHub de Codrops son
+MIT aunque las descargas de su web tengan licencia restrictiva — vendorizar siempre desde GitHub.
+CodePen NO permite descarga automatizada (Cloudflare): sus pens se consultan en el navegador (índice §0).
+
 ## 1. Webs de referencia
 
 | Web | Qué encontrarás | Cómo usarla |
@@ -19,6 +27,23 @@ Cada índice dice cómo refrescarse (scraping con WebFetch/Chrome). Fecha de cos
 | recent.design (antes godly.website, que redirige aquí) | Selección curada de webs creativas | Referencias por tipo de página (protocolo en ui-ux-pro-max `inspiration.md`) |
 | hoverstat.es | "Alternative web design": experimental, tipografía viva, navegación no convencional | Cuando el brief pide algo fuera de plantilla; extrae UNA idea, no el caos entero |
 | codepen.io | Demos aisladas de cada técnica (busca por término: "marquee gsap", "spotlight card") | Los pens públicos son MIT: puedes adaptar el código citando autor en el devlog |
+
+## 1b. Más canteras (para seguir engordando la colección)
+
+| Fuente | Qué da | Licencia / cómo usarla |
+|---|---|---|
+| github.com/codrops (¡todos los demos!) | Cada tutorial de Codrops tiene su repo | MIT en los repos: añadir al manifest de vendor-effects |
+| threejs.org/examples + github.com/mrdoob/three.js (examples/) | Cientos de ejemplos oficiales 3D/shaders | MIT: copiar y adaptar |
+| uiverse.io (github.com/uiverse-io/galaxy) | Miles de elementos UI de la comunidad | MIT — YA vendorizado |
+| web.dev/patterns | Patrones copy-paste (layout, componentes, animación) de Google | Apache-2.0 |
+| codepen.io/GreenSock + gsap.com/demos | Demos oficiales de GSAP por plugin | Ver en navegador; adaptar citando |
+| css-loaders.com (Temani Afif) | 600+ loaders CSS de un solo div | Libre con atribución |
+| animista.net | Generador de micro-animaciones CSS | Snippets libres |
+| theme-toggles.com (github AlfieJones/theme-toggles) | Toggles de dark mode animados | Verificar LICENSE al vendorizar |
+| lottiefiles.com (free) | Animaciones Lottie gratuitas | Lottie Simple License (uso comercial ok) |
+| thebookofshaders.com | Aprender GLSL desde cero | Educativo; código de ejemplos usable |
+| ⚠️ shadertoy.com | Miles de shaders | **CC BY-NC-SA por defecto: NO usar en proyectos comerciales** sin permiso del autor |
+| ⚠️ osmo.supply, hover.dev (vault de pago) | Recursos premium | Solo si el usuario tiene licencia; no copiar de previews |
 
 ## 2. Autores de CodePen que son escuelas enteras
 

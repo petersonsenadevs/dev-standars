@@ -1,0 +1,62 @@
+{
+  "_comment": "Repos de efectos con licencia permisiva vendorizados por tools/vendor-effects.ps1. commit=false -> core/effects-vendor/_local (gitignorado). maxFileMB recorta media pesada (videos) manteniendo el codigo.",
+  "repos": [
+    {
+      "name": "uiverse-galaxy",
+      "repo": "uiverse-io/galaxy",
+      "license": "MIT",
+      "for": "Miles de elementos UI (botones, cards, loaders, checkboxes) en CSS/Tailwind",
+      "commit": true
+    },
+    {
+      "name": "vanta",
+      "repo": "tengbao/vanta",
+      "license": "MIT",
+      "for": "14 fondos animados WebGL (waves, fog, net, birds); fuente de lightweight-3d-effects",
+      "commit": true
+    },
+    {
+      "name": "codrops-onscroll-typography",
+      "repo": "codrops/OnScrollTypographyAnimations",
+      "license": "MIT",
+      "for": "Animaciones de tipografia al scroll (SplitText + ScrollTrigger)",
+      "commit": true
+    },
+    {
+      "name": "codrops-scroll-text-motion",
+      "repo": "codrops/ScrollTextMotion",
+      "license": "MIT",
+      "for": "Texto en movimiento scroll-driven",
+      "commit": true
+    },
+    {
+      "name": "codrops-elastic-grid-scroll",
+      "repo": "codrops/ElasticGridScroll",
+      "license": "MIT",
+      "for": "Grid elastico al scroll (skew/velocity)",
+      "commit": true
+    },
+    {
+      "name": "codrops-ease-reverse-clip-menu",
+      "repo": "codrops/EaseReverseClipMenu",
+      "license": "MIT",
+      "for": "Menu overlay con clip-path y easeReverse",
+      "commit": true
+    },
+    {
+      "name": "codrops-rotating-onscroll",
+      "repo": "codrops/RotatingOnScrollAnimations",
+      "license": "MIT",
+      "for": "Rotaciones 3D de elementos al scroll",
+      "commit": true
+    },
+    {
+      "name": "codrops-kinetic-type-transition",
+      "repo": "codrops/KineticTypePageTransition",
+      "license": "MIT",
+      "for": "Transicion de pagina con tipografia cinetica",
+      "commit": true
+    }
+  ],
+  "maxFileMB": 1.5
+}
