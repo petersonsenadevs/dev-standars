@@ -1,0 +1,9 @@
+{
+    "name":  "dev-standards-all",
+    "description":  "Todas las skills de dev-standards (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.",
+    "version":  "2026.9.16",
+    "author":  {
+                   "name":  "dev-standards"
+               },
+    "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
+}

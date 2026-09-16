@@ -1,0 +1,50 @@
+---
+name: code-quality
+description: "Buenas prácticas de código (Laravel/PHP, TypeScript, React/Next, Vue, Astro, Python): tipado, tests, errores/logs, seguridad, rendimiento, APIs, PR. Úsala al escribir o refactorizar lógica, testear, revisar PR o diseñar endpoints."
+---
+
+# code-quality (dev-standards)
+
+Referencias por tema en `references/`. **No las leas todas**: cada una empieza con un índice; lee solo
+la sección que necesites (Read con offset/limit o Grep). Una referencia por tarea salvo que la tarea cruce temas.
+
+## Lectura mínima por tarea
+| Tarea | Lee solo |
+|---|---|
+| Escribir/refactorizar código Laravel | `references/php-laravel.md` (sección del tema: Eloquent, colas, validación…) |
+| Código TS de lógica (Next server, Node, utilidades) | `references/typescript.md` |
+| Componentes/rutas Next.js | `references/react-next.md` (+ `ui-ux-pro-max` si hay UI) |
+| Componentes/composables Vue | `references/vue.md` |
+| Astro (islands, collections, endpoints) | `references/astro.md` |
+| Python / FastAPI / LangGraph | `references/python.md` |
+| Crear o arreglar tests | `references/testing.md` §pirámide + §stack correspondiente |
+| Manejo de errores, logs, reintentos | `references/errors-logging.md` |
+| Auth, inputs externos, uploads, secretos, LLM | `references/security-owasp.md` (checklist final) |
+| "Va lento" / consultas / caché | `references/performance.md` §medir + §capa afectada |
+| Diseñar o cambiar un endpoint/API | `references/api-design.md` |
+| Abrir o revisar un PR, commits | `references/git-and-reviews.md` §checklist |
+
+## Principios transversales (aplican siempre, sin leer nada más)
+1. **Lee antes de escribir**: imita naming, estructura y estilo del código vecino; no introduzcas patrones nuevos sin motivo.
+2. **Tipado estricto** en todos los lenguajes (`declare(strict_types=1)`, `strict: true`, mypy/pyright estricto). Sin `any`/`mixed` sin justificar.
+3. **Validar en el borde, confiar dentro**: entrada externa (HTTP, colas, LLM, ficheros) se valida y se convierte a tipos; el núcleo asume datos válidos.
+4. **Funciones pequeñas, una responsabilidad, nombres que digan qué hacen**. Sin comentarios que repitan el código; sí comentarios de "por qué".
+5. **Errores explícitos**: excepciones de dominio con mensaje accionable; nunca `catch` vacío; nunca loguear secretos/PII.
+6. **Tests que protegen comportamiento**, no implementación: happy path + errores + bordes; rápidos en dominio, integración acotada.
+7. **Seguridad por defecto**: autorización en cada acción sensible, consultas parametrizadas, secretos en entorno, dependencias auditadas.
+8. **Rendimiento medido**: sin optimizar a ciegas; N+1, índices, paginación y caché son lo primero que se revisa.
+9. **Cambios pequeños y reversibles**: PR < 400 líneas, Conventional Commits, sin co-autores, nunca `git push` sin aprobación.
+10. **Verifica antes de afirmar**: lint + tests + tipos del stack (`commands` en `stack.json`) antes de decir "hecho"; pega la salida.
+
+## Checklist de PR (bloqueante)
+- [ ] Lint/format, tipos y tests del stack en verde (salida pegada en el devlog).
+- [ ] Nuevo comportamiento cubierto por tests; tests antiguos no borrados sin justificación.
+- [ ] Sin `any`/`mixed`, sin `dd()`/`console.log`/`print` de depuración, sin TODOs sin issue.
+- [ ] Entrada externa validada; autorización comprobada; sin secretos en código ni logs.
+- [ ] Consultas sin N+1; paginación en listados; índices para filtros nuevos.
+- [ ] Errores con mensaje accionable; logs con contexto y nivel correcto.
+- [ ] Devlog actualizado (skill `devlog`); commit con Conventional Commits.
+
+## Relación con otras skills
+- UI, estilos, accesibilidad visual → `ui-ux-pro-max`. Dominio complejo, módulos, puertos/adaptadores → `ddd-hexagonal`.
+- Documentación del paso → `devlog`. Si el proyecto tiene `stacks/<x>/best-practices.md` en `CLAUDE.md`, prevalece lo específico del proyecto.

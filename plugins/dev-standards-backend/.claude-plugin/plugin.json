@@ -1,0 +1,9 @@
+{
+    "name":  "dev-standards-backend",
+    "description":  "Calidad de código y arquitectura: code-quality (buenas prácticas por stack, tests, seguridad, rendimiento, APIs, PR) + ddd-hexagonal (DDD y puertos/adaptadores para proyectos complejos) + devlog + hooks de guard.",
+    "version":  "2026.9.16",
+    "author":  {
+                   "name":  "dev-standards"
+               },
+    "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
+}

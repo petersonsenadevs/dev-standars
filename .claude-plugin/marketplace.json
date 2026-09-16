@@ -1,0 +1,266 @@
+{
+    "name":  "dev-standards",
+    "owner":  {
+                  "name":  "dev-standards"
+              },
+    "metadata":  {
+                     "version":  "2026.9.16",
+                     "description":  "Marketplace local de dev-standards: metodología, front/diseño (UI UX Pro Max + Design Skillstack) y bundles de animación/3D."
+                 },
+    "plugins":  [
+                    {
+                        "name":  "dev-standards-core",
+                        "source":  "./plugins/dev-standards-core",
+                        "description":  "Metodología dev-standards: skill devlog + skill-router + hooks (guard de git/BD, archivos protegidos, secretos, formateo al guardar, estado de sesión, router de prompts, cierre con devlog, pre-compact).",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "skill-router"
+                                     ]
+                    },
+                    {
+                        "name":  "dev-standards-front",
+                        "source":  "./plugins/dev-standards-front",
+                        "description":  "Front y diseño todo en uno: UI UX Pro Max (design systems, 79 estilos, 192 paletas, 22 stacks) + GSAP ScrollTrigger + Three.js, con capa en español, perfiles por stack (Laravel+Inertia+Vue, Next.js, Astro, Vue 3), tabla de activación y hook recordatorio.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "ui-ux-pro-max",
+                                         "ui-verify",
+                                         "gsap-scrolltrigger",
+                                         "threejs-webgl",
+                                         "skill-router",
+                                         "front-activation"
+                                     ]
+                    },
+                    {
+                        "name":  "dev-standards-backend",
+                        "source":  "./plugins/dev-standards-backend",
+                        "description":  "Calidad de código y arquitectura: code-quality (buenas prácticas por stack, tests, seguridad, rendimiento, APIs, PR) + ddd-hexagonal (DDD y puertos/adaptadores para proyectos complejos) + devlog + hooks de guard.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "ddd-hexagonal",
+                                         "skill-router"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-3d-authoring",
+                        "source":  "./plugins/bundle-3d-authoring",
+                        "description":  "Bundle dev-standards \u00273d-authoring\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): blender-web-pipeline, spline-interactive, rive-interactive, substance-3d-texturing.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "blender-web-pipeline",
+                                         "spline-interactive",
+                                         "rive-interactive",
+                                         "substance-3d-texturing",
+                                         "skill-router"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-3d-web",
+                        "source":  "./plugins/bundle-3d-web",
+                        "description":  "Bundle dev-standards \u00273d-web\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): threejs-webgl, react-three-fiber, gsap-scrolltrigger, web3d-integration-patterns.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "threejs-webgl",
+                                         "react-three-fiber",
+                                         "gsap-scrolltrigger",
+                                         "web3d-integration-patterns",
+                                         "ui-ux-pro-max",
+                                         "skill-router",
+                                         "front-activation"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-animation-components",
+                        "source":  "./plugins/bundle-animation-components",
+                        "description":  "Bundle dev-standards \u0027animation-components\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): react-spring-physics, animated-component-libraries, scroll-reveal-libraries, animejs, lottie-animations.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "react-spring-physics",
+                                         "animated-component-libraries",
+                                         "scroll-reveal-libraries",
+                                         "animejs",
+                                         "lottie-animations",
+                                         "skill-router"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-architecture",
+                        "source":  "./plugins/bundle-architecture",
+                        "description":  "Bundle dev-standards \u0027architecture\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ddd-hexagonal, code-quality.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "ddd-hexagonal",
+                                         "skill-router"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-core-3d-animation",
+                        "source":  "./plugins/bundle-core-3d-animation",
+                        "description":  "Bundle dev-standards \u0027core-3d-animation\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): threejs-webgl, gsap-scrolltrigger, react-three-fiber, motion-framer, babylonjs-engine.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "threejs-webgl",
+                                         "gsap-scrolltrigger",
+                                         "react-three-fiber",
+                                         "motion-framer",
+                                         "babylonjs-engine",
+                                         "ui-ux-pro-max",
+                                         "skill-router",
+                                         "front-activation"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-design-extras",
+                        "source":  "./plugins/bundle-design-extras",
+                        "description":  "Bundle dev-standards \u0027design-extras\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ui-ux-pro-max, ui-styling, design-system, graphic-design, slides, brand, banner-design.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "ui-ux-pro-max",
+                                         "ui-styling",
+                                         "design-system",
+                                         "graphic-design",
+                                         "slides",
+                                         "brand",
+                                         "banner-design",
+                                         "skill-router",
+                                         "front-activation"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-extended-3d-scroll",
+                        "source":  "./plugins/bundle-extended-3d-scroll",
+                        "description":  "Bundle dev-standards \u0027extended-3d-scroll\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): aframe-webxr, lightweight-3d-effects, playcanvas-engine, pixijs-2d, locomotive-scroll, barba-js.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "aframe-webxr",
+                                         "lightweight-3d-effects",
+                                         "playcanvas-engine",
+                                         "pixijs-2d",
+                                         "locomotive-scroll",
+                                         "barba-js",
+                                         "skill-router"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-motion-web",
+                        "source":  "./plugins/bundle-motion-web",
+                        "description":  "Bundle dev-standards \u0027motion-web\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): gsap-scrolltrigger, motion-framer, scroll-reveal-libraries.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "gsap-scrolltrigger",
+                                         "motion-framer",
+                                         "scroll-reveal-libraries",
+                                         "ui-ux-pro-max",
+                                         "skill-router",
+                                         "front-activation"
+                                     ]
+                    },
+                    {
+                        "name":  "bundle-web-design-meta",
+                        "source":  "./plugins/bundle-web-design-meta",
+                        "description":  "Bundle dev-standards \u0027web-design-meta\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): web3d-integration-patterns, modern-web-design.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "devlog",
+                                         "project-planner",
+                                         "code-quality",
+                                         "web3d-integration-patterns",
+                                         "modern-web-design",
+                                         "threejs-webgl",
+                                         "gsap-scrolltrigger",
+                                         "skill-router"
+                                     ]
+                    },
+                    {
+                        "name":  "dev-standards-all",
+                        "source":  "./plugins/dev-standards-all",
+                        "description":  "Todas las skills de dev-standards (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.",
+                        "version":  "2026.9.16",
+                        "category":  "development",
+                        "keywords":  [
+                                         "code-quality",
+                                         "ddd-hexagonal",
+                                         "devlog",
+                                         "project-planner",
+                                         "skill de marca de la agencia",
+                                         "ui-verify",
+                                         "aframe-webxr",
+                                         "animated-component-libraries",
+                                         "animejs",
+                                         "babylonjs-engine",
+                                         "banner-design",
+                                         "barba-js",
+                                         "blender-web-pipeline",
+                                         "brand",
+                                         "design-system",
+                                         "graphic-design",
+                                         "gsap-scrolltrigger",
+                                         "lightweight-3d-effects",
+                                         "locomotive-scroll",
+                                         "lottie-animations",
+                                         "modern-web-design",
+                                         "motion-framer",
+                                         "pixijs-2d",
+                                         "playcanvas-engine",
+                                         "react-spring-physics",
+                                         "react-three-fiber",
+                                         "rive-interactive",
+                                         "scroll-reveal-libraries",
+                                         "slides",
+                                         "spline-interactive",
+                                         "substance-3d-texturing",
+                                         "threejs-webgl",
+                                         "ui-styling",
+                                         "ui-ux-pro-max",
+                                         "web3d-integration-patterns",
+                                         "skill-router",
+                                         "front-activation"
+                                     ]
+                    }
+                ]
+}

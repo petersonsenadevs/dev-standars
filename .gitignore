@@ -1,7 +1,5 @@
-# Generados (regenerables con tools/build-plugins.ps1); el marketplace instalado los lee de disco:
-# se mantienen fuera de git para no duplicar 20 MB de historial en cada build.
-plugins/
-.claude-plugin/
+# plugins/ y .claude-plugin/ SÍ se versionan: la instalación remota (/plugin marketplace add <owner>/dev-standards)
+# los lee del repo. El pre-commit los regenera y stagea para que nunca queden desfasados.
 # Locales
 .claude/settings.local.json
 Thumbs.db

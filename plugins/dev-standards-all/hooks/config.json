@@ -1,0 +1,418 @@
+{
+    "stack":  null,
+    "frontProfile":  null,
+    "formatters":  {
+                       ".php":  "php vendor/bin/pint {file}",
+                       ".ts":  "npx prettier --write {file}",
+                       ".tsx":  "npx prettier --write {file}",
+                       ".js":  "npx prettier --write {file}",
+                       ".jsx":  "npx prettier --write {file}",
+                       ".vue":  "npx prettier --write {file}",
+                       ".astro":  "npx prettier --write {file}",
+                       ".css":  "npx prettier --write {file}",
+                       ".py":  "ruff format {file}"
+                   },
+    "protectedPaths":  [
+                           "composer.lock",
+                           "package-lock.json",
+                           "pnpm-lock.yaml",
+                           "yarn.lock",
+                           "uv.lock",
+                           ".github/workflows/**"
+                       ],
+    "skills":  [
+                   "code-quality",
+                   "ddd-hexagonal",
+                   "devlog",
+                   "project-planner",
+                   "skill de marca de la agencia",
+                   "ui-verify",
+                   "aframe-webxr",
+                   "animated-component-libraries",
+                   "animejs",
+                   "babylonjs-engine",
+                   "banner-design",
+                   "barba-js",
+                   "blender-web-pipeline",
+                   "brand",
+                   "design-system",
+                   "graphic-design",
+                   "gsap-scrolltrigger",
+                   "lightweight-3d-effects",
+                   "locomotive-scroll",
+                   "lottie-animations",
+                   "modern-web-design",
+                   "motion-framer",
+                   "pixijs-2d",
+                   "playcanvas-engine",
+                   "react-spring-physics",
+                   "react-three-fiber",
+                   "rive-interactive",
+                   "scroll-reveal-libraries",
+                   "slides",
+                   "spline-interactive",
+                   "substance-3d-texturing",
+                   "threejs-webgl",
+                   "ui-styling",
+                   "ui-ux-pro-max",
+                   "web3d-integration-patterns",
+                   "skill-router",
+                   "front-activation"
+               ],
+    "commands":  null,
+    "router":  [
+                   {
+                       "name":  "project-planner",
+                       "group":  "planning",
+                       "entrypoint":  true,
+                       "keywords":  "(?i)\\b(planifica\\w*|plan(ning)?|roadmap|fases?|hoja de ruta|qu[eé] hacemos ahora|siguiente (tarea|paso)|empezamos|arranca\\w*|kickoff|nuevo proyecto|nueva feature|alcance)\\b",
+                       "priority":  20,
+                       "requires":  [
+                                        "skill-router",
+                                        "code-quality",
+                                        "devlog"
+                                    ]
+                   },
+                   {
+                       "name":  "code-quality",
+                       "group":  "quality",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(test(s|ing|ea)?|refactor\\w*|revis(a|ar|i[oó]n)|pull request|pr|seguridad|security|rendimiento|performance|endpoint|api|validaci[oó]n|logs?|errores|excepci[oó]n|lint|tipado|buenas pr[aá]cticas)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "ddd-hexagonal",
+                       "group":  "architecture",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(ddd|hexagonal|arquitectura|architecture|dominio|domain|agregado|aggregate|bounded|contextos? acotados?|value object|casos? de uso|use ?cases?|puertos?|adaptador(es)?|repositor(y|io|ios)|cqrs|event storming|m[oó]dulo nuevo|modular)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "devlog",
+                       "group":  "docs",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(commit|commitea|cierra la tarea|documenta|devlog)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "ui-ux-pro-max",
+                       "group":  "front",
+                       "entrypoint":  true,
+                       "keywords":  "(?i)\\b(landing|web|sitio|home|hero|p[aá]gina|pantalla|vista|redise[ñn]\\w*|mejora la (p[aá]gina|web|ui)|componente|formulario|dashboard|layout|dise[ñn]o|dise[ñn]a|maqueta|estilo|tema|colores?|paleta|tipograf[ií]a|responsive|tailwind|css|ui|ux|accesib\\w*|navbar|sidebar|modal|tabla|card|bot[oó]n|secci[oó]n|marketing|design|page|component|form|style|theme)\\b",
+                       "priority":  15,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "ui-styling",
+                       "group":  "front",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(shadcn(-vue)?|radix|reka|componentes? de ui|tailwind (config|theme|tema)|cva)\\b",
+                       "priority":  10,
+                       "requires":  [
+                                        "ui-ux-pro-max"
+                                    ]
+                   },
+                   {
+                       "name":  "design-system",
+                       "group":  "front",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(design tokens?|tokens? de dise[ñn]o|tokens? sem[aá]nticos?|primitivos?|css variables|sistema de dise[ñn]o)\\b",
+                       "priority":  10,
+                       "requires":  [
+                                        "ui-ux-pro-max"
+                                    ]
+                   },
+                   {
+                       "name":  "gsap-scrolltrigger",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(gsap|scrolltrigger|anima\\w*|animation|scroll\\w*|parallax|transici[oó]n(es)? de p[aá]gina|smooth scroll|lenis|reveal|pin(ned)?|scrub|timeline|splittext|marquee|cursor personalizado|magn[eé]tic\\w*|skew|velocity|stacking|cards? apiladas|before/? ?after|comparador|lupa|galer[ií]a infinita|slider infinito|scrub|flip|typewriter|scramble|contador|sticky|curtain|clip-?path|magnifier|video scrubbing|countup|count ?up|progress de lectura|scrollspy|snap|page transition|wipe)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "motion-framer",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(framer( motion)?|motion/react|animatepresence|variants|layout animation|usescroll|usetransform)\\b",
+                       "priority":  10,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "scroll-reveal-libraries",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(aos|animate on scroll|reveal simple|fade in al hacer scroll)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "animejs",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(anime\\.?js|anime)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "lottie-animations",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(lottie|after effects|bodymovin|dotlottie)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "react-spring-physics",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(react-?spring|popmotion|animaci[oó]n f[ií]sica|spring physics)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "animated-component-libraries",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(magic ?ui|react bits|aceternity|componentes? animados?|marquee react|shimmer|border beam|bento grid|blur ?text|count ?up react|dock|blob ?cursor)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "threejs-webgl",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(three\\.?js|3d|webgl|webgpu|glb|gltf|shader|part[ií]culas|particles|tresjs|modelo 3d|escena 3d|mesh gradient|aurora|distorsi[oó]n|displacement|hover distortion|uniforms|glsl|noise|blob|fondo animado 3d)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "react-three-fiber",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(r3f|react ?three ?fiber|drei|fiber)\\b",
+                       "priority":  10,
+                       "requires":  [
+                                        "threejs-webgl"
+                                    ]
+                   },
+                   {
+                       "name":  "babylonjs-engine",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(babylon(\\.js)?)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "web3d-integration-patterns",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(integrar 3d|3d \\+ gsap|three \\+ motion|experiencia 3d compleja)\\b",
+                       "priority":  5,
+                       "requires":  [
+                                        "threejs-webgl",
+                                        "gsap-scrolltrigger"
+                                    ]
+                   },
+                   {
+                       "name":  "lightweight-3d-effects",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(zdog|vanta|tilt|efecto 3d ligero|fondo animado|card 3d|glare|waves|globe|birds|fog|vanilla-?tilt|mouse parallax|parallax (del )?rat[oó]n)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "pixijs-2d",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(pixi(\\.js)?|canvas 2d|sprites?|displacement|filtro 2d|pixelate|chromatic aberration|glow|liquid|distorsi[oó]n 2d)\\b",
+                       "priority":  10,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "aframe-webxr",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(a-?frame|webxr|realidad virtual|vr|ar)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "playcanvas-engine",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(playcanvas)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "locomotive-scroll",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(locomotive)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "barba-js",
+                       "group":  "motion",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(barba(\\.js)?|transiciones? entre p[aá]ginas (multip[aá]gina|mpa)|mpa|crossfade|wipe entre p[aá]ginas|multip[aá]gina)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "blender-web-pipeline",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(blender|exportar (gltf|glb)|draco|ktx2)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "spline-interactive",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(spline)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "rive-interactive",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(rive|state machine de animaci[oó]n)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "substance-3d-texturing",
+                       "group":  "3d",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(substance|texturiz\\w*|pbr)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "modern-web-design",
+                       "group":  "front",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(tendencias?|bento|glassmorphism|neo-?brutalis\\w*|estilo moderno|inspiraci[oó]n|awwwards)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "graphic-design",
+                       "group":  "design",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(logo|logotipo|icono(s|graf[ií]a)?|identidad corporativa|mockups?|cip)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "brand",
+                       "group":  "design",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(marca|branding|voz de marca|gu[ií]a de marca|brand)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "slides",
+                       "group":  "design",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(presentaci[oó]n|slides?|diapositivas?|deck)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "banner-design",
+                       "group":  "design",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(banner(s)?|creatividad(es)?|anuncios?|ads)\\b",
+                       "priority":  5,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "skill de marca de la agencia",
+                       "group":  "front",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(la agencia|nuestra marca|marca de la agencia|proyecto (propio|de la agencia)|white-?label|aviso legal|pol[ií]tica de (privacidad|cookies)|rgpd|banner de cookies|cr[eé]dito de agencia)\\b",
+                       "priority":  8,
+                       "requires":  [
+                                        "ui-ux-pro-max"
+                                    ]
+                   },
+                   {
+                       "name":  "ui-verify",
+                       "group":  "front",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(verifica\\w*|comprueba (la|el) (ui|responsive|p[aá]gina)|revisa el responsive|lighthouse|axe|capturas?|screenshots?|se ve (bien|mal) en (m[oó]vil|tablet)|dark mode roto)\\b",
+                       "priority":  8,
+                       "requires":  [
+
+                                    ]
+                   }
+               ]
+}

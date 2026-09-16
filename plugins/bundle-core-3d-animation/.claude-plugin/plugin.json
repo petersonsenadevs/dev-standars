@@ -1,0 +1,9 @@
+{
+    "name":  "bundle-core-3d-animation",
+    "description":  "Bundle dev-standards \u0027core-3d-animation\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): threejs-webgl, gsap-scrolltrigger, react-three-fiber, motion-framer, babylonjs-engine.",
+    "version":  "2026.9.16",
+    "author":  {
+                   "name":  "dev-standards"
+               },
+    "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
+}

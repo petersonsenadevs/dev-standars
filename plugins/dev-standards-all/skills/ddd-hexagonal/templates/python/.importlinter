@@ -1,0 +1,84 @@
+# .importlinter — reglas de dependencia (import-linter).
+# Instalar: pip install import-linter   |   Ejecutar: lint-imports   (añadir a CI y pre-commit)
+# Requiere que los paquetes sean importables (src layout configurado en pyproject).
+
+[importlinter]
+root_packages =
+    invoicing
+    sales
+    shared
+    agents
+
+# ---- Capas hexagonales por contexto: infrastructure -> application -> domain -----------
+[importlinter:contract:invoicing-layers]
+name = Invoicing: hexagonal layers
+type = layers
+layers =
+    invoicing.infrastructure
+    invoicing.application
+    invoicing.domain
+# `testing` puede importar todo; nadie de producción importa `testing` (ver contrato abajo).
+
+[importlinter:contract:sales-layers]
+name = Sales: hexagonal layers
+type = layers
+layers =
+    sales.infrastructure
+    sales.application
+    sales.domain
+
+# ---- Dominio y aplicación sin frameworks -----------------------------------------------------
+[importlinter:contract:no-frameworks-in-core]
+name = Domain and application never import frameworks or IO libraries
+type = forbidden
+source_modules =
+    invoicing.domain
+    invoicing.application
+    sales.domain
+    sales.application
+    agents.support_triage.domain
+    agents.support_triage.application
+forbidden_modules =
+    fastapi
+    starlette
+    sqlalchemy
+    alembic
+    httpx
+    requests
+    langgraph
+    langchain
+    langchain_core
+    anthropic
+    openai
+# pydantic se tolera en domain para VO; si quieres prohibirlo, añádelo aquí.
+
+# ---- Contextos independientes: integración por eventos/ids/puertos, no por imports ----------
+[importlinter:contract:contexts-independent]
+name = Bounded contexts do not import each other
+type = independence
+modules =
+    invoicing
+    sales
+    agents
+
+# ---- Shared no conoce a nadie -------------------------------------------------------------------
+[importlinter:contract:shared-is-leaf]
+name = Shared kernel imports no context
+type = forbidden
+source_modules = shared
+forbidden_modules =
+    invoicing
+    sales
+    agents
+
+# ---- Código de test no entra en producción ---------------------------------------------------
+[importlinter:contract:no-testing-in-prod]
+name = Production code never imports testing helpers
+type = forbidden
+source_modules =
+    invoicing.domain
+    invoicing.application
+    invoicing.infrastructure
+forbidden_modules =
+    invoicing.testing
+    pytest
