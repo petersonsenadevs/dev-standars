@@ -45,7 +45,7 @@
                        "name":  "code-quality",
                        "group":  "quality",
                        "entrypoint":  false,
-                       "keywords":  "(?i)\\b(test(s|ing|ea)?|refactor\\w*|revis(a|ar|i[oó]n)|pull request|pr|seguridad|security|rendimiento|performance|endpoint|api|validaci[oó]n|logs?|errores|excepci[oó]n|lint|tipado|buenas pr[aá]cticas)\\b",
+                       "keywords":  "(?i)\\b(test(s|ing|ea)?|refactor\\w*|revis(a|ar|i[oó]n)|pull request|pr|seguridad|security|rendimiento|performance|endpoint|auth|login|registro|contraseña|oauth|2fa|sesi[oó]n(es)?|colas?|jobs?|cron|webhooks?|pagos?|stripe|redsys|suscripci[oó]n(es)?|cach[eé]|redis|transacci[oó]n(es)?|migraci[oó]n(es)?|duplica\\w*|doble (clic|click|env[ií]o|pedido)|race condition|idempoten\\w*|zona horaria|api|validaci[oó]n|logs?|errores|excepci[oó]n|lint|tipado|buenas pr[aá]cticas)\\b",
                        "priority":  5,
                        "requires":  [
 

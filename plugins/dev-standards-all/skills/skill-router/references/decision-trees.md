@@ -118,10 +118,25 @@ P1 ¿El módulo usa DDD (agregados, repositorios)?
    no -> SALIDA: `code-quality §references/php-laravel.md` §"Migraciones seguras"
          (o la referencia del stack correspondiente).
 
+Síntoma: "auth" (login, registro, reset, OAuth, permisos)
+   SALIDA: `code-quality §references/auth-patterns.md`; "un usuario ve lo de otro" -> ademas §security-owasp.
+
+Síntoma: "duplicados" (doble clic, job repetido, dos ediciones pisándose)
+   SALIDA: `code-quality §references/data-integrity.md` §Concurrencia; si es un job -> §jobs-and-queues.md §Idempotencia.
+
+Síntoma: "webhook / pago / API de terceros / emails"
+   SALIDA: `code-quality §references/integrations.md` (firma + 200 rápido + event id; pagos: verdad por webhook).
+
+Síntoma: "lento y quiero cachear"
+   SALIDA: `code-quality §references/performance.md` §medir PRIMERO; después `references/caching.md`.
+
+Síntoma: "algo pesado en la request" (email, PDF, import)
+   SALIDA: `code-quality §references/jobs-and-queues.md`.
+
 Síntoma: "tests" (crear o arreglar)
    SALIDA: `code-quality §references/testing.md` (§pirámide + §tu stack).
 
-Síntoma: "integración externa / colas"
+Síntoma: "integración ENTRE módulos/servicios con garantías" (eventos que no se pueden perder)
    SALIDA: `ddd-hexagonal §references/integration/messaging-and-queues.md`;
    entrega garantizada -> `ddd-hexagonal §references/integration/outbox-pattern.md`;
    reintentos seguros -> `ddd-hexagonal §references/integration/idempotency.md`.

@@ -75,6 +75,9 @@ $cases = @(
     @{ n = 'siguiente tarea';       prompt = '¿cuál es la siguiente tarea del plan?';                      expect = 'project-planner' }
     @{ n = 'tests y refactor';      prompt = 'refactoriza el servicio de pagos y añade tests';             expect = 'code-quality' }
     @{ n = 'ddd dominio';           prompt = 'diseña el módulo de facturación con DDD y agregados';        expect = 'ddd-hexagonal' }
+    @{ n = 'webhook stripe';        prompt = 'monta el webhook de stripe para marcar pedidos pagados';    expect = 'code-quality' }
+    @{ n = 'doble pedido';          prompt = 'los usuarios duplican pedidos al hacer doble clic';          expect = 'code-quality' }
+    @{ n = 'login google';          prompt = 'añade login con google y reset de contraseña';               expect = 'code-quality' }
     @{ n = 'commitear';             prompt = 'documenta lo de hoy y commitea los cambios';                 expect = 'devlog' }
     @{ n = 'look moderno';          prompt = 'dale un aire moderno tipo bento con un fondo aurora';       expect = 'ui-ux-pro-max'; expectFirst = 'ui-ux-pro-max' }
     @{ n = 'elegir stack';          prompt = '¿qué framework uso para la web de un restaurante?';          expect = 'skill-router' }

@@ -8,7 +8,8 @@ description: "Buenas prácticas de código (Laravel/PHP, TypeScript, React/Next,
 Referencias por tema en `references/`. **No las leas todas**: cada una empieza con un índice; lee solo
 la sección que necesites (Read con offset/limit o Grep). Una referencia por tarea salvo que la tarea cruce temas.
 
-¿No sabes qué referencia abrir? Árbol por síntoma: `skill-router/references/decision-trees.md` §B2.
+¿No sabes qué referencia abrir? Rápido: árbol B2 de `skill-router/references/decision-trees.md`.
+Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §sección, como el catálogo de efectos).
 
 ## Lectura mínima por tarea
 | Tarea | Lee solo |
@@ -19,6 +20,11 @@ la sección que necesites (Read con offset/limit o Grep). Una referencia por tar
 | Componentes/composables Vue | `references/vue.md` |
 | Astro (islands, collections, endpoints) | `references/astro.md` |
 | Python / FastAPI / LangGraph | `references/python.md` |
+| Auth: login, registro, reset, OAuth, 2FA, API keys | `references/auth-patterns.md` |
+| Colas, jobs, emails en background, cron | `references/jobs-and-queues.md` |
+| Caché (qué, claves, invalidación, stampede) | `references/caching.md` |
+| Dinero, fechas/zonas, race conditions, únicos, soft delete | `references/data-integrity.md` |
+| APIs externas, webhooks, pagos, email transaccional | `references/integrations.md` |
 | Crear o arreglar tests | `references/testing.md` §pirámide + §stack correspondiente |
 | Manejo de errores, logs, reintentos | `references/errors-logging.md` |
 | Auth, inputs externos, uploads, secretos, LLM | `references/security-owasp.md` (checklist final) |
