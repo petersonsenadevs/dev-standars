@@ -40,6 +40,7 @@ if ($frontHit -and ($available -contains 'ui-ux-pro-max') -and -not (Get-DesignS
         if ($entry.Count) { $matched = @($entry[0]) + $matched }
     }
     $dsNote = " No hay design-system/*/MASTER.md: primero ui-ux-pro-max (design system y patron), despues el efecto o el componente."
+    if (-not (Test-Path (Join-Path $root 'plan\brief.md'))) { $dsNote += " Tampoco hay plan/brief.md: pregunta al usuario primero (marca, referencias, objetivo; entrevista /brief o brief-discovery.md) en vez de inventar la direccion visual." }
 }
 
 # Maximo 2 sugerencias, una vez por skill y sesion.

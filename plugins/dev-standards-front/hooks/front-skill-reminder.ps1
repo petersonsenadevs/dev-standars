@@ -26,8 +26,10 @@ if (-not (Test-Once $sid 'front')) { exit 0 }
 $root = Get-ProjectRoot
 $skillsDir = if ($env:CLAUDE_PLUGIN_ROOT -and (Test-Path (Join-Path $env:CLAUDE_PLUGIN_ROOT 'skills\ui-ux-pro-max'))) { '$env:CLAUDE_PLUGIN_ROOT/skills' } elseif (Test-Path (Join-Path $root '.claude\skills\ui-ux-pro-max')) { '.claude/skills' } else { '<skills-dir>' }
 $master = Get-DesignSystemMaster $root
+$hasBrief = (Test-Path (Join-Path $root 'plan\brief.md')) -or ((Test-Path (Join-Path $root 'design-system')) -and (Get-ChildItem (Join-Path $root 'design-system') -Recurse -Filter 'BRAND.md' -ErrorAction SilentlyContinue))
 $dsMsg = if ($master) { "Lee primero el design system del proyecto: $master." }
-         else { "No hay design-system/*/MASTER.md: generalo antes de maquetar: py -3 $skillsDir/ui-ux-pro-max/scripts/search.py `"<producto industria keywords>`" --design-system -p `"<Proyecto>`" --persist -o .  (python3 fuera de Windows). Si hay plan, es la primera tarjeta de UI." }
+         elseif (-not $hasBrief) { "No hay design system NI brief: ANTES de maquetar PREGUNTA al usuario (entrevista de ui-ux-pro-max references/es/brief-discovery.md o comando /brief): si tiene logo/colores/manual de marca, 2-3 webs que le gusten y que debe hacer el visitante. Con eso genera y persiste el design system (search.py --design-system --persist). Si el usuario no responde, decide por el playbook de su negocio (business-playbooks.md) y documentalo como decision propia." }
+         else { "Hay brief pero no design-system/*/MASTER.md: generalo antes de maquetar: py -3 $skillsDir/ui-ux-pro-max/scripts/search.py `"<producto industria keywords>`" --design-system -p `"<Proyecto>`" --persist -o .  (python3 fuera de Windows). Si hay plan, es la primera tarjeta de UI." }
 $ctx = "Vas a editar UI ($([System.IO.Path]::GetFileName($file))). Aplica la skill ui-ux-pro-max (lee su SKILL.md si no lo has hecho en esta sesion; si esta instalada la skill front-activation, empieza por ella para detectar el stack). $dsMsg Reglas duras: contraste 4.5:1, estados hover/focus/disabled/loading/empty/error, 375/768/1440 px sin scroll horizontal, prefers-reduced-motion, iconos SVG (nunca emojis), tokens en vez de valores sueltos."
 Out-HookJson 'PreToolUse' @{ additionalContext = $ctx }
 exit 0
