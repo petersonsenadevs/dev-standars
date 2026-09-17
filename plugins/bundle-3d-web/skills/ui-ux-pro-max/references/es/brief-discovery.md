@@ -79,4 +79,5 @@ Nadie sabe describir una web; todo el mundo sabe elegir entre dos. Protocolo (ta
 Bloque corto que el cliente pueda validar: **Objetivo y CTA · Audiencia y dispositivo principal ·
 Dirección visual (estilo, paleta, tipografía con muestra) · Patrón de página por sección · Efectos
 previstos (en llano: "las tarjetas aparecen al bajar") · Qué falta (contenido/fotos) y quién lo trae**.
-Con el ok del cliente → `design-system/<slug>/MASTER.md` y a maquetar.
+Con el ok del cliente → modo propuesta (`proposal-mode.md`): blueprint aprobable y 2 maquetas A/B que se
+ven, y los vetos que salgan van naciendo en `design-system/<slug>/gustos.md`. Solo después, a construir.
