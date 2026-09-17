@@ -21,6 +21,12 @@ function Get-SessionFlag { param([string]$Sid, [string]$Name)
     $s = ($Sid -replace '[^a-zA-Z0-9_-]', ''); if (-not $s) { $s = 'default' }
     Join-Path $env:TEMP "dev-standards-$Name-$s.flag"
 }
+function Get-ProjectFlag { param([string]$Root, [string]$Name)
+    # Flag keyed por proyecto (no por sesion): builds/tests son estado del proyecto.
+    $md5 = [System.Security.Cryptography.MD5]::Create()
+    $hash = -join ($md5.ComputeHash([Text.Encoding]::UTF8.GetBytes($Root.ToLower())) | ForEach-Object { $_.ToString('x2') })
+    Join-Path $env:TEMP "dev-standards-$Name-$($hash.Substring(0,12)).flag"
+}
 function Test-Once { param([string]$Sid, [string]$Name)   # true la PRIMERA vez por sesion; crea el marcador
     $f = Get-SessionFlag $Sid $Name
     if (Test-Path $f) { return $false }

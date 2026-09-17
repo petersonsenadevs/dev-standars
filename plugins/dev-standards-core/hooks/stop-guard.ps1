@@ -23,6 +23,16 @@ if (Test-Path (Get-SessionFlag $sid 'frontedit')) {
     $frontMsg = " Has editado archivos de UI en esta sesion: NO la des por hecha sin verificarla (skill ui-verify): ejecuta 'node <skills-dir>/ui-verify/scripts/verify-ui.mjs <url-local>' (o la pasada con navegador) EMPEZANDO POR MOVIL 375px, corrige hasta 0 problemas y pega el resultado en el devlog."
 }
 $alreadyActive = ($p -and $p.stop_hook_active -eq $true)
+# Codigo editado sin verificacion posterior (flags por proyecto: edit-tracker vs verify-build).
+$buildMsg = ''
+$ceFlag = Get-ProjectFlag $root 'codeedit'
+if (Test-Path $ceFlag) {
+    $vfFlag = Get-ProjectFlag $root 'verified'
+    $stale = (-not (Test-Path $vfFlag)) -or ((Get-Item $vfFlag).LastWriteTime -lt (Get-Item $ceFlag).LastWriteTime)
+    if ($stale) {
+        $buildMsg = " Has editado codigo y NO hay verificacion posterior: ejecuta 'powershell <skills-dir>/code-quality/scripts/verify-build.ps1' (corre lint/types/tests/build del stack y deja constancia) o los comandos del stack a mano, corrige los fallos y pega el resultado antes de cerrar."
+    }
+}
 $today = Get-TodayDevlog $root
 if ($today.Count) {
     $notIdx = @($today | Where-Object { -not (Test-DevlogIndexed $root $_) })
@@ -30,22 +40,22 @@ if ($today.Count) {
     if ($notIdx.Count) { $extra = " Falta indexar en devlog/INDEX.md: $($notIdx -join ', ')." }
     $cfg = Get-HookConfig $root
     if ($cfg -and $cfg.commands -and (Get-GitBranch $root) -and (Get-GitDirty $root) -gt 0) { $extra += " Hay cambios sin commitear: ejecuta los comandos del stack (lint/test/types de config.json) y pega la salida antes de cerrar." }
-    if ($frontMsg -and -not $alreadyActive -and (Test-Once $sid 'stop-ui')) {
-        Write-Output ((@{ decision = 'block'; reason = ('[dev-standards]' + $frontMsg + $planMsg + $extra) }) | ConvertTo-Json -Compress)
+    if (($frontMsg -or $buildMsg) -and -not $alreadyActive -and (Test-Once $sid 'stop-ui')) {
+        Write-Output ((@{ decision = 'block'; reason = ('[dev-standards]' + $buildMsg + $frontMsg + $planMsg + $extra) }) | ConvertTo-Json -Compress)
         exit 0
     }
-    if ($planMsg -or $extra -or $frontMsg) { Write-Output ("recordatorio:" + $frontMsg + $planMsg + $extra) }
+    if ($planMsg -or $extra -or $frontMsg -or $buildMsg) { Write-Output ("recordatorio:" + $buildMsg + $frontMsg + $planMsg + $extra) }
     exit 0
 }
 
 $dirty = 0
 if (Get-GitBranch $root) { $dirty = Get-GitDirty $root }
 $date = Get-Date -Format 'yyyy-MM-dd'
-$reason = "[dev-standards] Hay $dirty archivo(s) con cambios y no existe ninguna entrada en devlog/$date/. Antes de terminar: crea devlog/$date/NNN-<slug>.md (numeracion global correlativa) con que se hizo, verificacion y proximos pasos, y actualiza devlog/INDEX.md (skill devlog). Si el cambio es trivial y no merece devlog, dilo explicitamente y termina." + $frontMsg + $planMsg
+$reason = "[dev-standards] Hay $dirty archivo(s) con cambios y no existe ninguna entrada en devlog/$date/. Antes de terminar: crea devlog/$date/NNN-<slug>.md (numeracion global correlativa) con que se hizo, verificacion y proximos pasos, y actualiza devlog/INDEX.md (skill devlog). Si el cambio es trivial y no merece devlog, dilo explicitamente y termina." + $buildMsg + $frontMsg + $planMsg
 
 if ($dirty -gt 0 -and -not $alreadyActive -and (Test-Once $sid 'stop-devlog')) {
     Write-Output ((@{ decision = 'block'; reason = $reason }) | ConvertTo-Json -Compress)
     exit 0
 }
-Write-Output ("recordatorio: aun no hay entrada de devlog para hoy ($date). Documenta el avance en devlog/$date/ antes de cerrar." + $frontMsg + $planMsg)
+Write-Output ("recordatorio: aun no hay entrada de devlog para hoy ($date). Documenta el avance en devlog/$date/ antes de cerrar." + $buildMsg + $frontMsg + $planMsg)
 exit 0

@@ -81,6 +81,14 @@ const audit = (mobile) => {
     }
   }
 
+  const broken = [...document.querySelectorAll('a,button,[role="button"],h1,h2,h3,label,th')]
+    .filter(visible)
+    .filter((el) => el.scrollWidth > el.clientWidth + 2 && getComputedStyle(el).overflowX !== 'auto' && getComputedStyle(el).textOverflow !== 'ellipsis');
+  if (broken.length) {
+    const sample = broken.slice(0, 4).map((el) => `<${el.tagName.toLowerCase()}> "${(el.textContent || '').trim().slice(0, 24)}"`).join(', ');
+    problems.push(`${broken.length} elementos con texto que DESBORDA su caja (botones/títulos rotos): ${sample}`);
+  }
+
   const tiny = [...document.querySelectorAll('p,span,a,li,label,td,dt,dd')]
     .filter(visible)
     .filter((el) => el.textContent.trim().length > 2 && parseFloat(getComputedStyle(el).fontSize) < 12).length;
