@@ -30,6 +30,7 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 | Auth, inputs externos, uploads, secretos, LLM | `references/security-owasp.md` (checklist final) |
 | "Va lento" / consultas / caché | `references/performance.md` §medir + §capa afectada |
 | Diseñar o cambiar un endpoint/API | `references/api-design.md` |
+| Web multiidioma (ES/CA/EN), hreflang, locales | `references/i18n.md` |
 | Abrir o revisar un PR, commits | `references/git-and-reviews.md` §checklist |
 | Verificar el proyecto tras TUS cambios | `scripts/verify-build.ps1` (lint+types+tests+build; corrige hasta 0 fallos) |
 

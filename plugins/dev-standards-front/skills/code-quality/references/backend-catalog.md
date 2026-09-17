@@ -58,6 +58,7 @@ Si la tarea es de arquitectura (módulos, dominio rico), primero el árbol B1 de
 | Endpoint/recurso nuevo, versionado, errores HTTP | `api-design.md` |
 | Validación de entrada | `security-owasp.md` + la referencia del lenguaje |
 | Paginación/filtros/orden en listados | `api-design.md` §listados |
+| Multiidioma, hreflang, slugs traducidos, locales | `i18n.md` |
 
 ## Calidad continua
 | Tarea / síntoma | Receta |

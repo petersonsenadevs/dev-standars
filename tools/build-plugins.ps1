@@ -84,7 +84,7 @@ $frontFiles = $coreFiles + @('front-skill-reminder.ps1')   # incluye prompt-rout
 $frontHooks = @{ hooks = (New-HooksJson -HasFront $true -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/' -Only $frontFiles) }
 $entries += New-Plugin -Name 'dev-standards-front' -Description 'Front y diseño todo en uno: UI UX Pro Max (design systems, 79 estilos, 192 paletas, 22 stacks) + GSAP ScrollTrigger + Three.js, con capa en español, perfiles por stack (Laravel+Inertia+Vue, Next.js, Astro, Vue 3), tabla de activación y hook recordatorio.' `
     -Skills ($coreSkills + @('ui-ux-pro-max', 'ui-verify', 'gsap-scrolltrigger', 'threejs-webgl')) -Hooks $frontHooks -HookFiles $frontFiles `
-    -ExtraSkillDirs ($routerDir + @((Join-Path $root 'core\skills-plugin\front-activation'))) -Commands @('plan.md', 'siguiente.md', 'verificar.md', 'brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md')
+    -ExtraSkillDirs ($routerDir + @((Join-Path $root 'core\skills-plugin\front-activation'))) -Commands @('plan.md', 'siguiente.md', 'verificar.md', 'brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md')
 
 # --- backend: calidad + arquitectura ---
 $entries += New-Plugin -Name 'dev-standards-backend' -Description 'Calidad de código y arquitectura: code-quality (buenas prácticas por stack, tests, seguridad, rendimiento, APIs, PR) + ddd-hexagonal (DDD y puertos/adaptadores para proyectos complejos) + devlog + hooks de guard.' `
@@ -103,7 +103,7 @@ foreach ($b in ($bundles.Keys | Sort-Object)) {
 # --- all ---
 $all = @(Get-ChildItem (Join-Path $root 'core\skills') -Directory | ForEach-Object Name) + @(Get-ChildItem (Join-Path $root 'core\skills-vendor') -Directory | ForEach-Object Name)
 $entries += New-Plugin -Name 'dev-standards-all' -Description 'Todas las skills de dev-standards (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.' `
-    -Skills $all -Hooks (@{ hooks = (New-HooksJson -HasFront $true -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/') }) -HookFiles ($coreFiles + @('front-skill-reminder.ps1')) -ExtraSkillDirs ($routerDir + @((Join-Path $root 'core\skills-plugin\front-activation'))) -Commands @('plan.md', 'siguiente.md', 'verificar.md', 'brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md')
+    -Skills $all -Hooks (@{ hooks = (New-HooksJson -HasFront $true -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/') }) -HookFiles ($coreFiles + @('front-skill-reminder.ps1')) -ExtraSkillDirs ($routerDir + @((Join-Path $root 'core\skills-plugin\front-activation'))) -Commands @('plan.md', 'siguiente.md', 'verificar.md', 'brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md')
 
 # --- marketplace ---
 $market = [ordered]@{
@@ -114,5 +114,9 @@ $market = [ordered]@{
 }
 Ensure-Dir (Join-Path $root '.claude-plugin')
 Write-Utf8 (Join-Path $root '.claude-plugin\marketplace.json') ($market | ConvertTo-Json -Depth 8)
+# Evals del plugin de front (claude plugin eval): core\plugin-evals -> dev-standards-front\evals
+$evSrc = Join-Path $root 'core\plugin-evals'
+if (Test-Path $evSrc) { Copy-Tree $evSrc (Join-Path $root 'plugins\dev-standards-front\evals') }
+
 Write-Host "Marketplace: $(Join-Path $root '.claude-plugin\marketplace.json')  ($($entries.Count) plugins)"
 Write-Host 'Instalar:  /plugin marketplace add D:\dev-standards   ->   /plugin install dev-standards-front@dev-standards'

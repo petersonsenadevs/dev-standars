@@ -31,6 +31,12 @@ Después ABRE las capturas (Read) y revisa lo que el script no ve: jerarquía, e
 Pide al usuario abrir la URL y reporta contra el checklist: DevTools responsive en los 3 anchos (móvil primero),
 toggle de dark, consola limpia, Tab por la página. Deja explícito en el devlog que la verificación fue manual.
 
+## Crítica visual (OBLIGATORIA para el veredicto APTA)
+Tras la pasada técnica, ABRE las capturas (Read) y evalúalas con `references/visual-critique.md`:
+8 ejes 1-5 (jerarquía, aire, alineación, contraste percibido, consistencia, densidad móvil, fotos,
+test de portada). Nota 1-2 en cualquiera = corregir antes de entregar. Antes de publicar la web:
+`/lanzar` → `references/launch-checklist.md` (SEO, PageSpeed, medición, legales, dominio).
+
 ## Informe (va al devlog y a la tarjeta del plan)
 Tabla ancho×tema con OK/incidencias + errores de consola + veredicto `APTA` / `APTA con menores` / `NO APTA`
 (con acciones concretas). En móvil, di explícitamente: sin scroll horizontal, CTAs pulsables, texto legible, menú usable.
