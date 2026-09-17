@@ -1,6 +1,6 @@
 ---
 name: image-gen
-description: "Generar imágenes IA coherentes con la web: producto flotando, heros, fondos, 3D, mockups. En Codex/Claude usa scripts/generate.mjs (gpt-image con tu OPENAI_API_KEY); en Antigravity, Nano Banana nativo. Paleta y estilo salen del design system."
+description: "Generar imágenes IA coherentes con la web: producto flotando, heros, fondos, 3D, mockups. PRIMERO la generación nativa del host (app de ChatGPT/Codex, Antigravity); scripts/generate.mjs por API solo si no hay. Paleta y estilo del design system."
 ---
 
 # image-gen (dev-standards)
@@ -9,15 +9,19 @@ Genera imágenes **acordes a la web** (nunca genéricas): la paleta, el mood y e
 `design-system/<slug>/MASTER.md` (o BRAND.md) y entran en el prompt. Recetas por tipo de imagen en
 `references/prompt-recipes.md`; qué herramienta según tu agente en `references/tools-by-agent.md`.
 
-## 1. Herramienta según el agente (detállalo en el devlog)
-| Agente | Cómo genera |
-|---|---|
-| **Codex** (prioridad: es el del equipo) | `node <skills-dir>/image-gen/scripts/generate.mjs "<prompt>"` — usa `OPENAI_API_KEY` (ya la tienes por Codex) con **gpt-image**: el mejor siguiendo instrucciones de estilo/paleta |
-| Antigravity | **Nano Banana Pro nativo** (Gemini 3 Pro Image): pídele la imagen directamente en el IDE con el prompt de la receta; o el script con `--provider gemini` |
-| Claude Code / Cursor / Windsurf | El mismo script; `--provider openai|gemini|fal` según la clave disponible |
+## 1. REGLA 0 — ¿tu entorno ya genera imágenes? Úsalo directo, sin script
+Comprueba PRIMERO si el host tiene generación nativa; si la tiene, dale el prompt de la receta tal cual
+y sáltate el script (más rápido, sin claves, sin procesado extra):
 
-Sin ninguna clave → dile al usuario cuál exportar (`OPENAI_API_KEY` / `GEMINI_API_KEY` / `FAL_KEY`) y
-NO improvises imágenes de stock como si fueran generadas.
+| Entorno | Cómo genera |
+|---|---|
+| **App de ChatGPT/Codex** (Windows/Mac: agente + chat + imágenes) | **NATIVO**: genera la imagen directamente con el prompt de la receta. NO busques la API ni el script |
+| **Antigravity** | **NATIVO**: Nano Banana Pro (Gemini 3 Pro Image) integrado en el IDE; prompt de la receta directo |
+| Codex CLI / Claude Code / Cursor / Windsurf (sin generación nativa) | `node <skills-dir>/image-gen/scripts/generate.mjs "<prompt>"` — `--provider openai` (default, `OPENAI_API_KEY`) \| `gemini` \| `fal` |
+
+Nativo o script, el resto de la skill aplica IGUAL: receta + tokens del design system + post-proceso.
+Sin generación nativa ni clave → dile al usuario cuál exportar (`OPENAI_API_KEY`/`GEMINI_API_KEY`/`FAL_KEY`)
+y NO improvises imágenes de stock como si fueran generadas.
 
 ## 2. Flujo obligatorio
 1. **Brief de imagen** (1 línea cada uno): para qué sección es, tipo (producto flotante, hero bg, mockup,

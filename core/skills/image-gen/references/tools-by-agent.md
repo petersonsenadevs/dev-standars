@@ -1,8 +1,10 @@
 # Herramientas de generación por agente (verificado 2026-09)
 
-## Codex (el agente del equipo — empieza aquí)
-- Codex no genera imágenes por sí mismo: usa **`scripts/generate.mjs`** con la **misma `OPENAI_API_KEY`**
-  que ya tienes configurada para Codex (cero fricción).
+## Codex / app de ChatGPT (el agente del equipo — empieza aquí)
+- **App de ChatGPT/Codex de escritorio (Windows/Mac): genera imágenes NATIVAMENTE** — el agente pide la
+  imagen con el prompt de la receta y ya está. No busques la API ni ejecutes el script: es tiempo perdido.
+- **Codex CLI o entornos sin generación nativa**: usa **`scripts/generate.mjs`** con la **misma
+  `OPENAI_API_KEY`** que ya tienes configurada para Codex (cero fricción).
 - Modelo por defecto: **gpt-image** — el mejor siguiendo instrucciones finas ("exactly these hex colors",
   "leave negative space on the left") y editando imágenes existentes. Soporta `--background transparent`.
 - Coste orientativo: ~0,02 $ (low) / ~0,07 $ (medium) / ~0,19 $ (high) por imagen 1024². Genera 2-3
