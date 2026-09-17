@@ -66,7 +66,14 @@ $validTools = @{
 
 Write-Host "Sincronizando '$($stackObj.Name)' en $Path"
 Write-Host "Herramientas: $($Tools -join ', ')"
-if ($stackObj.Meta.frontProfile) { Write-Host "Perfil de front: $($stackObj.Meta.frontProfile.label)" }
+$fpSource = $null
+if ($stackObj.Meta.frontProfile) {
+    $eff = Get-EffectiveFrontProfile -Stack $stackObj -ProjectPath $Path -Marker $marker
+    $stackObj.Meta.frontProfile = $eff.profile
+    $fpSource = $eff.source
+    $srcTxt = switch ($eff.source) { 'manual' { ' (fijado a mano en .dev-standards.json)' } 'auto' { ' (detectado de package.json)' } default { '' } }
+    Write-Host "Perfil de front: $($stackObj.Meta.frontProfile.label)$srcTxt"
+}
 if ($Skills.Count) { Write-Host "Skills opcionales: $($Skills -join ', ')" }
 if ($Bundle.Count) { Write-Host "Bundles: $($Bundle -join ', ')" }
 
@@ -103,7 +110,10 @@ $markerObj = [ordered]@{
     standardsRoot = (Get-StandardsRoot)
 }
 if ($wantGit) { $markerObj.gitHooks = $true }
-if ($stackObj.Meta.frontProfile) { $markerObj.frontProfile = $stackObj.Meta.frontProfile }
+if ($stackObj.Meta.frontProfile) {
+    $markerObj.frontProfile = $stackObj.Meta.frontProfile
+    if ($fpSource) { $markerObj.frontProfileSource = $fpSource }
+}
 Write-Utf8 $markerPath ($markerObj | ConvertTo-Json -Depth 5)
 
 Write-Host "Listo. Config regenerada."

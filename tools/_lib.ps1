@@ -15,6 +15,40 @@ function Get-Stack {
     [pscustomobject]@{ Name = $Name; Dir = $dir; Meta = $meta }
 }
 
+function Get-EffectiveFrontProfile {
+    # Perfil de front EFECTIVO: manual del marcador > deteccion de package.json > default del stack.
+    # Devuelve @{ profile = <obj>; source = 'manual'|'auto'|'default' }.
+    param([Parameter(Mandatory)]$Stack, [Parameter(Mandatory)][string]$ProjectPath, $Marker)
+    $fp = $Stack.Meta.frontProfile
+    if (-not $fp) { return $null }
+    if ($Marker -and $Marker.frontProfileSource -eq 'manual' -and $Marker.frontProfile) {
+        return @{ profile = $Marker.frontProfile; source = 'manual' }
+    }
+    $pkgPath = Join-Path $ProjectPath 'package.json'
+    if (-not (Test-Path $pkgPath)) { return @{ profile = $fp; source = 'default' } }
+    $pkg = $null
+    try { $pkg = (Read-Utf8 $pkgPath) | ConvertFrom-Json } catch { return @{ profile = $fp; source = 'default' } }
+    $deps = @()
+    foreach ($k in @('dependencies', 'devDependencies')) {
+        if ($pkg.$k) { $deps += @($pkg.$k.PSObject.Properties.Name) }
+    }
+    $hasReact = ($deps -contains 'react') -or ($deps -contains '@astrojs/react')
+    $hasTw    = @($deps | Where-Object { $_ -eq 'tailwindcss' -or $_ -like '@tailwindcss/*' }).Count -gt 0
+    $stacks = @($fp.stacks)
+    $label  = [string]$fp.label
+    if ($Stack.Name -eq 'astro' -and -not $hasReact) {
+        $stacks = @($stacks | Where-Object { $_ -notin @('react', 'shadcn') })
+        $label = $label.Replace(' + React islands', '')
+    }
+    if (-not $hasTw) {
+        $stacks = @($stacks | Where-Object { $_ -notin @('html-tailwind', 'shadcn') })
+        $label = $label.Replace(' + Tailwind', ' + CSS propio')
+    }
+    if (-not $stacks.Count) { $stacks = @($fp.stacks[0]) }
+    if (@($stacks).Count -eq @($fp.stacks).Count) { return @{ profile = $fp; source = 'default' } }
+    return @{ profile = [pscustomobject]@{ label = $label; stacks = $stacks }; source = 'auto' }
+}
+
 function Read-Utf8 {
     param([string]$Path)
     if (-not (Test-Path $Path)) { return '' }

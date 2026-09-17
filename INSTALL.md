@@ -34,6 +34,15 @@ D:\dev-standards\tools\sync.ps1 -Path "C:\ruta\del\proyecto"
 Lee el marcador `.dev-standards.json` y regenera todo (respeta stack, tools, bundles y skills elegidos).
 Reinicia la sesión del agente después: los hooks y descriptions se cargan al arrancar.
 
+**Perfil de front**: se detecta del `package.json` real del proyecto (un Astro sin React/Tailwind queda
+como "Astro + CSS propio", no hereda el default del stack). Para fijarlo a mano, edita
+`.dev-standards.json` y vuelve a sincronizar — el manual siempre gana:
+
+```json
+"frontProfile": { "label": "Astro + CSS propio + GSAP + Three.js", "stacks": ["astro"] },
+"frontProfileSource": "manual"
+```
+
 ## 3. Solo Claude Code, sin tocar el proyecto (plugin)
 
 ```
