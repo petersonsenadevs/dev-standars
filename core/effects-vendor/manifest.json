@@ -569,6 +569,555 @@
       "for": "Blobs WebGL organicos",
       "commit": true,
       "stripMedia": true
+    },
+    {
+      "name": "codrops-3dcarousel",
+      "repo": "codrops/3DCarousel",
+      "license": "MIT",
+      "category": "galerias",
+      "for": "3 DCarousel (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-contextawarelogoanimationscroll",
+      "repo": "codrops/ContextAwareLogoAnimationScroll",
+      "license": "MIT",
+      "category": "texto",
+      "for": "Context Aware Logo Animation Scroll (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-pushgriditems",
+      "repo": "codrops/PushGridItems",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Push Grid Items (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-introgridmotiontransition",
+      "repo": "codrops/IntroGridMotionTransition",
+      "license": "MIT",
+      "category": "transiciones",
+      "for": "Intro Grid Motion Transition (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-reflectionscroll",
+      "repo": "codrops/ReflectionScroll",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Reflection Scroll (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-imageexpansiontypography",
+      "repo": "codrops/ImageExpansionTypography",
+      "license": "MIT",
+      "category": "texto",
+      "for": "Image Expansion Typography (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-3dstackmotion",
+      "repo": "codrops/3DStackMotion",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "3 DStack Motion (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-codrops-sketches",
+      "repo": "codrops/codrops-sketches",
+      "license": "MIT",
+      "category": "extras",
+      "for": "codrops-sketches (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-connectedgrid",
+      "repo": "codrops/ConnectedGrid",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Connected Grid (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-onscrollshapemorph",
+      "repo": "codrops/OnScrollShapeMorph",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "On Scroll Shape Morph (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-pixelgooeytooltip",
+      "repo": "codrops/PixelGooeyTooltip",
+      "license": "MIT",
+      "category": "hover-imagen",
+      "for": "Pixel Gooey Tooltip (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-linetypeeffect",
+      "repo": "codrops/LineTypeEffect",
+      "license": "MIT",
+      "category": "texto",
+      "for": "Line Type Effect (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-layersanimation",
+      "repo": "codrops/LayersAnimation",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Layers Animation (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-onscrollcolumnsrows",
+      "repo": "codrops/OnScrollColumnsRows",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "On Scroll Columns Rows (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-gridfloweffect",
+      "repo": "codrops/GridFlowEffect",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Grid Flow Effect (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-textblocktransitions",
+      "repo": "codrops/TextBlockTransitions",
+      "license": "MIT",
+      "category": "transiciones",
+      "for": "Text Block Transitions (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-onscrollfilter",
+      "repo": "codrops/OnScrollFilter",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "On Scroll Filter (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-cliphovereffect",
+      "repo": "codrops/ClipHoverEffect",
+      "license": "MIT",
+      "category": "hover-imagen",
+      "for": "Clip Hover Effect (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-doubleslideshow",
+      "repo": "codrops/DoubleSlideshow",
+      "license": "MIT",
+      "category": "galerias",
+      "for": "Double Slideshow (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-onscrolltypoanimations",
+      "repo": "codrops/OnScrollTypoAnimations",
+      "license": "MIT",
+      "category": "texto",
+      "for": "On Scroll Typo Animations (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-animatedcodebackground",
+      "repo": "codrops/AnimatedCodeBackground",
+      "license": "MIT",
+      "category": "extras",
+      "for": "Animated Code Background (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-gridviewswitch",
+      "repo": "codrops/GridViewSwitch",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Grid View Switch (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-fullscreenclipeffect",
+      "repo": "codrops/FullscreenClipEffect",
+      "license": "MIT",
+      "category": "extras",
+      "for": "Fullscreen Clip Effect (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-unrevealeffects",
+      "repo": "codrops/UnrevealEffects",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Unreveal Effects (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-tooltiptransition",
+      "repo": "codrops/TooltipTransition",
+      "license": "MIT",
+      "category": "transiciones",
+      "for": "Tooltip Transition (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-inlinelayoutswitch",
+      "repo": "codrops/InlineLayoutSwitch",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Inline Layout Switch (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-scrollpanels",
+      "repo": "codrops/ScrollPanels",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Scroll Panels (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-onscrollviewswitch",
+      "repo": "codrops/OnScrollViewSwitch",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "On Scroll View Switch (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-3dgridcontentpreview",
+      "repo": "codrops/3DGridContentPreview",
+      "license": "MIT",
+      "category": "hover-imagen",
+      "for": "3 DGrid Content Preview (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-glitchperspective",
+      "repo": "codrops/GlitchPerspective",
+      "license": "MIT",
+      "category": "extras",
+      "for": "Glitch Perspective (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-fullscreenscroll",
+      "repo": "codrops/FullscreenScroll",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Fullscreen Scroll (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-imagetocontent",
+      "repo": "codrops/ImageToContent",
+      "license": "MIT",
+      "category": "hover-imagen",
+      "for": "Image To Content (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-makewaygrideffect",
+      "repo": "codrops/MakeWayGridEffect",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Make Way Grid Effect (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-imagetogridtransition",
+      "repo": "codrops/ImageToGridTransition",
+      "license": "MIT",
+      "category": "transiciones",
+      "for": "Image To Grid Transition (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-introtraileffect",
+      "repo": "codrops/IntroTrailEffect",
+      "license": "MIT",
+      "category": "extras",
+      "for": "Intro Trail Effect (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-linestolayout",
+      "repo": "codrops/LinesToLayout",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Lines To Layout (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-backgroundshift",
+      "repo": "codrops/BackgroundShift",
+      "license": "MIT",
+      "category": "extras",
+      "for": "Background Shift (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-columnscroll",
+      "repo": "codrops/ColumnScroll",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Column Scroll (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-gridzoom",
+      "repo": "codrops/GridZoom",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Grid Zoom (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-theodore",
+      "repo": "codrops/Theodore",
+      "license": "MIT",
+      "category": "extras",
+      "for": "Theodore (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-superfluidlayout",
+      "repo": "codrops/SuperfluidLayout",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Superfluid Layout (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-menuthumbstackanimation",
+      "repo": "codrops/MenuThumbStackAnimation",
+      "license": "MIT",
+      "category": "menus",
+      "for": "Menu Thumb Stack Animation (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-3dlettersmenuhover",
+      "repo": "codrops/3DLettersMenuHover",
+      "license": "MIT",
+      "category": "menus",
+      "for": "3 DLetters Menu Hover (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-inlinetomenulink",
+      "repo": "codrops/InlineToMenuLink",
+      "license": "MIT",
+      "category": "menus",
+      "for": "Inline To Menu Link (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-previewcontenttransition",
+      "repo": "codrops/PreviewContentTransition",
+      "license": "MIT",
+      "category": "transiciones",
+      "for": "Preview Content Transition (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-lettersanimationlayout",
+      "repo": "codrops/LettersAnimationLayout",
+      "license": "MIT",
+      "category": "texto",
+      "for": "Letters Animation Layout (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-onscrollletteranimations",
+      "repo": "codrops/OnScrollLetterAnimations",
+      "license": "MIT",
+      "category": "texto",
+      "for": "On Scroll Letter Animations (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-horizontalsmoothscrolllayout",
+      "repo": "codrops/HorizontalSmoothScrollLayout",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Horizontal Smooth Scroll Layout (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-imagestackgrid",
+      "repo": "codrops/ImageStackGrid",
+      "license": "MIT",
+      "category": "hover-imagen",
+      "for": "Image Stack Grid (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-typographymotion",
+      "repo": "codrops/TypographyMotion",
+      "license": "MIT",
+      "category": "texto",
+      "for": "Typography Motion (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-menufullgrid",
+      "repo": "codrops/MenuFullGrid",
+      "license": "MIT",
+      "category": "menus",
+      "for": "Menu Full Grid (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-thumbfulltransition",
+      "repo": "codrops/ThumbFullTransition",
+      "license": "MIT",
+      "category": "transiciones",
+      "for": "Thumb Full Transition (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-diagonalthumbnails",
+      "repo": "codrops/DiagonalThumbnails",
+      "license": "MIT",
+      "category": "hover-imagen",
+      "for": "Diagonal Thumbnails (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-rapidimagehovermenueffects",
+      "repo": "codrops/RapidImageHoverMenuEffects",
+      "license": "MIT",
+      "category": "menus",
+      "for": "Rapid Image Hover Menu Effects (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-glitchygrid",
+      "repo": "codrops/GlitchyGrid",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Glitchy Grid (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-scrollloopmenu",
+      "repo": "codrops/ScrollLoopMenu",
+      "license": "MIT",
+      "category": "menus",
+      "for": "Scroll Loop Menu (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-rapidlayersanimation",
+      "repo": "codrops/RapidLayersAnimation",
+      "license": "MIT",
+      "category": "scroll-layout",
+      "for": "Rapid Layers Animation (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "codrops-distortedmenulinkeffects",
+      "repo": "codrops/DistortedMenuLinkEffects",
+      "license": "MIT",
+      "category": "menus",
+      "for": "Distorted Menu Link Effects (demo Codrops)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "svg-spinners",
+      "repo": "n3r4zzurr0/svg-spinners",
+      "license": "MIT",
+      "category": "componentes-ui",
+      "for": "~50 spinners SVG/CSS minimos, listos para incrustar",
+      "commit": true,
+      "stripMedia": false
+    },
+    {
+      "name": "vanilla-tilt",
+      "repo": "micku7zu/vanilla-tilt.js",
+      "license": "MIT",
+      "category": "hover-imagen",
+      "for": "Tilt 3D con glare sin dependencias (fuente de lightweight-3d-effects)",
+      "commit": true,
+      "stripMedia": false
+    },
+    {
+      "name": "svg-loaders",
+      "repo": "SamHerbert/SVG-Loaders",
+      "license": "MIT",
+      "category": "componentes-ui",
+      "for": "Loaders SVG animados clasicos",
+      "commit": true,
+      "stripMedia": false
     }
   ]
 }

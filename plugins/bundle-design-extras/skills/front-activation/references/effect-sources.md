@@ -44,6 +44,7 @@ descarga automatizada (Cloudflare): sus pens se consultan en el navegador (índi
 | theme-toggles.com (github AlfieJones/theme-toggles) | Toggles de dark mode animados | Verificar LICENSE al vendorizar |
 | lottiefiles.com (free) | Animaciones Lottie gratuitas | Lottie Simple License (uso comercial ok) |
 | thebookofshaders.com | Aprender GLSL desde cero | Educativo; código de ejemplos usable |
+| svg-spinners, SVG-Loaders, vanilla-tilt (GitHub) | Spinners SVG y tilt 3D sin dependencias | MIT — YA vendorizados en effects-vendor |
 | ⚠️ shadertoy.com | Miles de shaders | **CC BY-NC-SA por defecto: NO usar en proyectos comerciales** sin permiso del autor |
 | ⚠️ osmo.supply, hover.dev (vault de pago) | Recursos premium | Solo si el usuario tiene licencia; no copiar de previews |
 

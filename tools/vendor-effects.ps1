@@ -11,7 +11,7 @@
   tools\vendor-effects.ps1              # todos los del manifiesto
   tools\vendor-effects.ps1 -Only vanta  # solo uno
 #>
-param([string]$Only)
+param([string]$Only, [switch]$Missing)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $base = Join-Path $root 'core\effects-vendor'
@@ -26,6 +26,7 @@ function Remove-Tree([string]$Path) {
 
 foreach ($r in $man.repos) {
     if ($Only -and $r.name -ne $Only) { continue }
+    if ($Missing) { $d0 = Join-Path $(if ($r.commit) { $base } else { Join-Path $base '_local' }) $r.name; if (Test-Path $d0) { continue } }
     $destRoot = if ($r.commit) { $base } else { Join-Path $base '_local' }
     $dest = Join-Path $destRoot $r.name
     Write-Host ("[{0}] {1} ..." -f $r.name, $r.repo)

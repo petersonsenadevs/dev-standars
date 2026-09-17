@@ -20,6 +20,8 @@ puedes abrir estas galerías y analizar ejemplos con él delante.
 | Dark mode / gradientes / detalles | dark.design, gradient.page, uigarage.net | Detalles visuales concretos |
 | Tipografía en uso | fontsinuse.com, typewolf.com | Qué fuentes usan sitios reales y con qué pairing |
 | Paletas en contexto | colorhunt.co, huemint.com (con IA de layout) | Paletas aplicadas, no swatches sueltos |
+| Curación visual / moodboards | cosmos.so, savee.it, seesaw.website | Imágenes y capturas de dirección de arte para moodboards A/B |
+| UI real por patrón (con búsqueda) | refero.design, nicelydone.club | Capturas de apps/webs reales organizadas por componente y flujo |
 
 ## 2. Protocolo de análisis (15 min, no una tarde)
 
