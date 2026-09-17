@@ -90,7 +90,7 @@ Actualizar las skills de terceros desde upstream (no toca tu capa en `core/skill
 D:\dev-standards\tools\vendor.ps1
 ```
 
-> **Guía rápida de instalación por proyecto (Claude + Codex): [`INSTALL.md`](INSTALL.md)**
+> **Instalar: [`INSTALL.md`](INSTALL.md)** · **Usar en el día a día (comandos, qué es automático): [`USO.md`](USO.md)**
 
 ## Instalación remota (un comando, desde GitHub)
 

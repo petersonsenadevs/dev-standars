@@ -1,5 +1,7 @@
 # Instalar dev-standards en un proyecto (Claude + Codex)
 
+> Después de instalar, la guía de uso diario (qué es automático, comandos, flujos) está en [`USO.md`](USO.md).
+
 Guía rápida con los comandos exactos. Todo se ejecuta en PowerShell desde cualquier carpeta.
 
 ## 1. Proyecto nuevo o existente — la vía recomendada (Claude Y Codex a la vez)
