@@ -50,6 +50,14 @@ function Get-Marker { param([string]$Root)
     return $null
 }
 function Get-AvailableSkills { param([string]$Root, $Cfg)
+    # Modo hermetico (suite test-router): solo skills del proyecto + config, ignorando ~/.claude global
+    if ($env:DEV_STANDARDS_TEST_ISOLATED -eq '1') {
+        $a = @()
+        $d = Join-Path $Root '.claude\skills'
+        if (Test-Path $d) { $a += (Get-ChildItem $d -Directory | ForEach-Object Name) }
+        if ($Cfg -and $Cfg.skills) { $a += @($Cfg.skills) }
+        return @($a | Select-Object -Unique)
+    }
     $a = @()
     foreach ($d in @((Join-Path $Root '.claude\skills'), (Join-Path $HOME '.claude\skills'))) {
         if (Test-Path $d) { $a += (Get-ChildItem $d -Directory | ForEach-Object Name) }

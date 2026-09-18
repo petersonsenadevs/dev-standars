@@ -4,7 +4,7 @@
                   "name":  "dev-standards"
               },
     "metadata":  {
-                     "version":  "2026.9.17",
+                     "version":  "2026.9.18",
                      "description":  "Marketplace local de dev-standards: metodología, front/diseño (UI UX Pro Max + Design Skillstack) y bundles de animación/3D."
                  },
     "plugins":  [
@@ -12,7 +12,7 @@
                         "name":  "dev-standards-core",
                         "source":  "./plugins/dev-standards-core",
                         "description":  "Metodología dev-standards: skill devlog + skill-router + hooks (guard de git/BD, archivos protegidos, secretos, formateo al guardar, estado de sesión, router de prompts, cierre con devlog, pre-compact).",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -25,7 +25,7 @@
                         "name":  "dev-standards-front",
                         "source":  "./plugins/dev-standards-front",
                         "description":  "Front y diseño todo en uno: UI UX Pro Max (design systems, 79 estilos, 192 paletas, 22 stacks) + GSAP ScrollTrigger + Three.js, con capa en español, perfiles por stack (Laravel+Inertia+Vue, Next.js, Astro, Vue 3), tabla de activación y hook recordatorio.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -43,7 +43,7 @@
                         "name":  "dev-standards-backend",
                         "source":  "./plugins/dev-standards-backend",
                         "description":  "Calidad de código y arquitectura: code-quality (buenas prácticas por stack, tests, seguridad, rendimiento, APIs, PR) + ddd-hexagonal (DDD y puertos/adaptadores para proyectos complejos) + devlog + hooks de guard.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -57,7 +57,7 @@
                         "name":  "bundle-3d-authoring",
                         "source":  "./plugins/bundle-3d-authoring",
                         "description":  "Bundle dev-standards \u00273d-authoring\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): blender-web-pipeline, spline-interactive, rive-interactive, substance-3d-texturing.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -74,7 +74,7 @@
                         "name":  "bundle-3d-web",
                         "source":  "./plugins/bundle-3d-web",
                         "description":  "Bundle dev-standards \u00273d-web\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): threejs-webgl, react-three-fiber, gsap-scrolltrigger, web3d-integration-patterns.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -93,7 +93,7 @@
                         "name":  "bundle-animation-components",
                         "source":  "./plugins/bundle-animation-components",
                         "description":  "Bundle dev-standards \u0027animation-components\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): react-spring-physics, animated-component-libraries, scroll-reveal-libraries, animejs, lottie-animations.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -111,7 +111,7 @@
                         "name":  "bundle-architecture",
                         "source":  "./plugins/bundle-architecture",
                         "description":  "Bundle dev-standards \u0027architecture\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ddd-hexagonal, code-quality.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -125,7 +125,7 @@
                         "name":  "bundle-core-3d-animation",
                         "source":  "./plugins/bundle-core-3d-animation",
                         "description":  "Bundle dev-standards \u0027core-3d-animation\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): threejs-webgl, gsap-scrolltrigger, react-three-fiber, motion-framer, babylonjs-engine.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -145,7 +145,7 @@
                         "name":  "bundle-design-extras",
                         "source":  "./plugins/bundle-design-extras",
                         "description":  "Bundle dev-standards \u0027design-extras\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ui-ux-pro-max, ui-styling, design-system, graphic-design, slides, brand, banner-design.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -166,7 +166,7 @@
                         "name":  "bundle-extended-3d-scroll",
                         "source":  "./plugins/bundle-extended-3d-scroll",
                         "description":  "Bundle dev-standards \u0027extended-3d-scroll\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): aframe-webxr, lightweight-3d-effects, playcanvas-engine, pixijs-2d, locomotive-scroll, barba-js.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -185,7 +185,7 @@
                         "name":  "bundle-motion-web",
                         "source":  "./plugins/bundle-motion-web",
                         "description":  "Bundle dev-standards \u0027motion-web\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): gsap-scrolltrigger, motion-framer, scroll-reveal-libraries.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -203,7 +203,7 @@
                         "name":  "bundle-web-design-meta",
                         "source":  "./plugins/bundle-web-design-meta",
                         "description":  "Bundle dev-standards \u0027web-design-meta\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): web3d-integration-patterns, modern-web-design.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -220,7 +220,7 @@
                         "name":  "dev-standards-all",
                         "source":  "./plugins/dev-standards-all",
                         "description":  "Todas las skills de dev-standards (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.",
-                        "version":  "2026.9.17",
+                        "version":  "2026.9.18",
                         "category":  "development",
                         "keywords":  [
                                          "code-quality",
