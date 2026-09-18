@@ -10,8 +10,10 @@ Actualizado: 2026-09-18. Las tandas completadas viven en `devlog/INDEX.md` (029 
   **público/privado**. Activa `/plugin marketplace add <owner>/dev-standards` y el `irm … install.ps1 | iex`.
 - [ ] En `un proyecto Laravel`: verificación móvil de `/escombros` (F2-T1), fotos reales del servicio,
   cifras de contadores confirmadas, alta del subdominio en Netlify/DNS, y commit del proyecto.
-- [ ] Ejecutar una vez las **evals de plugin** (cuestan ~0,01-0,20 $/caso):
-  `cd plugins/dev-standards-front && claude plugin eval . --trust-plugin --runs 1 --ablation none`.
+- [x] Evals ejecutadas (2026-09-18, 1,65 $): landing 1.0 ✅ · backend 0.67 · **efecto 0 — sin el hook
+  del router, el agente no usa skills para efectos: reforzar la description de gsap/front-activation o
+  asumir que el enrutado de efectos depende del hook** · no-molestar era bug del grader (corregido, min: 0).
+- [ ] Re-ejecutar evals tras reforzar descriptions de efectos y revisar el transcript de backend-sintoma.
 
 ## 2. MOBILE — decidido (dev-023), pendiente de proyecto real que lo estrene
 **Decisión**: mobile va EN ESTE repo como stacks nuevos (NO repo aparte). Motivo: la maquinaria
