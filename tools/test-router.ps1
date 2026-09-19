@@ -86,6 +86,8 @@ $cases = @(
     @{ n = 'elegir stack';          prompt = '¿qué framework uso para la web de un restaurante?';          expect = 'skill-router' }
     @{ n = 'fuentes e iconos';      prompt = 'qué fuentes e iconos pongo para que no parezca plantilla';   expect = 'ui-ux-pro-max' }
     @{ n = 'verificar movil';       prompt = 'comprueba la ui en el móvil que algo se descuadra';          expect = 'ui-verify' }
+    @{ n = 'seo google';            prompt = 'mejora el seo de la web para salir en google';               skills = @('ui-ux-pro-max','marketing-seo','skill-router'); expect = 'marketing-seo' }
+    @{ n = 'tag manager';           prompt = 'monta google tag manager con consent mode para el cliente';  skills = @('ui-ux-pro-max','marketing-seo','skill-router'); expect = 'marketing-seo' }
     @{ n = 'lanzamiento';           prompt = 'prepara el lanzamiento de la web a producción';              expect = 'ui-verify' }
     @{ n = 'copy titulares';        prompt = 'escribe los titulares y el copy de la landing';              expect = 'ui-ux-pro-max' }
     @{ n = 'multiidioma';           prompt = 'monta la web en castellano y catalán con hreflang';          expect = 'code-quality' }

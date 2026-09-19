@@ -35,6 +35,6 @@ function Replace-Generated {
     Write-Host "  [routers] $File"
 }
 
-Replace-Generated (Join-Path $root 'core\skills-plugin\skill-router\SKILL.md') (Get-Table -Groups @('routing','planning','front','motion','3d','design','quality','architecture','docs'))
+Replace-Generated (Join-Path $root 'core\skills-plugin\skill-router\SKILL.md') (Get-Table -Groups @('routing','planning','front','motion','3d','design','quality','architecture','growth','docs'))
 Replace-Generated (Join-Path $root 'core\skills-plugin\front-activation\SKILL.md') (Get-Table -Groups @('front','motion','3d','design'))
 Write-Host 'Routers regenerados desde core\skills-registry.json'

@@ -1,7 +1,7 @@
 {
     "name":  "dev-standards-core",
     "description":  "Metodología dev-standards: skill devlog + skill-router + hooks (guard de git/BD, archivos protegidos, secretos, formateo al guardar, estado de sesión, router de prompts, cierre con devlog, pre-compact).",
-    "version":  "2026.9.18",
+    "version":  "2026.9.19",
     "author":  {
                    "name":  "dev-standards"
                },

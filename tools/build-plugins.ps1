@@ -83,7 +83,7 @@ $entries += New-Plugin -Name 'dev-standards-core' -Description 'Metodología dev
 $frontFiles = $coreFiles + @('front-skill-reminder.ps1')   # incluye prompt-router: es el unico enrutado temprano si solo se instala front (dedupe por marcador de sesion)
 $frontHooks = @{ hooks = (New-HooksJson -HasFront $true -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/' -Only $frontFiles) }
 $entries += New-Plugin -Name 'dev-standards-front' -Description 'Front y diseño todo en uno: UI UX Pro Max (design systems, 79 estilos, 192 paletas, 22 stacks) + GSAP ScrollTrigger + Three.js, con capa en español, perfiles por stack (Laravel+Inertia+Vue, Next.js, Astro, Vue 3), tabla de activación y hook recordatorio.' `
-    -Skills ($coreSkills + @('ui-ux-pro-max', 'ui-verify', 'gsap-scrolltrigger', 'threejs-webgl')) -Hooks $frontHooks -HookFiles $frontFiles `
+    -Skills ($coreSkills + @('ui-ux-pro-max', 'ui-verify', 'marketing-seo', 'gsap-scrolltrigger', 'threejs-webgl')) -Hooks $frontHooks -HookFiles $frontFiles `
     -ExtraSkillDirs ($routerDir + @((Join-Path $root 'core\skills-plugin\front-activation'))) -Commands @('plan.md', 'siguiente.md', 'verificar.md', 'brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md')
 
 # --- backend: calidad + arquitectura ---

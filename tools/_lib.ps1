@@ -282,7 +282,7 @@ function Get-SkillRegistry {
 }
 $script:Registry = Get-SkillRegistry
 $script:FrontGroups = @('front', 'motion', '3d', 'design')
-$script:CoreGroups  = @('planning', 'routing', 'quality', 'architecture', 'docs')
+$script:CoreGroups  = @('planning', 'routing', 'quality', 'architecture', 'growth', 'docs')
 
 # Protocolo de carga (texto común)
 $script:LoadProtocol = @(

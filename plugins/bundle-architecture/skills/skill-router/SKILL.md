@@ -69,6 +69,7 @@ description: "ÚSAME PRIMERO en cualquier tarea no trivial: árbol de decisión 
 | Voz de marca, identidad visual, guías de marca | `brand` (si está instalada) | Diseño gráfico y marca |
 | Escribir o refactorizar lógica, crear tests, manejar errores/logs, seguridad, rendimiento, diseñar endpoints/APIs, revisar o abrir un PR | `code-quality` | Calidad de código |
 | Módulo con reglas de negocio ricas, varios contextos, refactor de arquitectura desde MVC, "¿cómo estructuro esto?" (empieza por su checklist "¿hace falta?") | `ddd-hexagonal` (si está instalada) | Arquitectura |
+| Posicionar y medir la web: SEO on-page y local, keywords, Search Console, GA4, Google Tag Manager (contenedor, dataLayer, Consent Mode) y MCPs de analítica para operar con agentes | `marketing-seo` | Marketing y SEO |
 | Terminar un paso relevante o commitear (siempre) | `devlog` | Documentación |
 <!-- END GENERATED -->
 ## 3. Reglas que aplican sin leer nada más

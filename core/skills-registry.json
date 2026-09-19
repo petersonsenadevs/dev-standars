@@ -9,7 +9,8 @@
     "front": "Front y diseño",
     "motion": "Animación",
     "3d": "3D / WebGL",
-    "design": "Diseño gráfico y marca"
+    "design": "Diseño gráfico y marca",
+    "growth": "Marketing y SEO"
   },
   "skills": [
     {
@@ -374,6 +375,15 @@
       "requires": [
         "ui-ux-pro-max"
       ],
+      "installedBy": "base-front"
+    },
+    {
+      "name": "marketing-seo",
+      "group": "growth",
+      "when": "Posicionar y medir la web: SEO on-page y local, keywords, Search Console, GA4, Google Tag Manager (contenedor, dataLayer, Consent Mode) y MCPs de analítica para operar con agentes",
+      "keywords": "(?i)\\b(seo|posicionamiento|posicionar|salir en google|keywords?|palabras clave|search console|google analytics|ga4|anal[ií]tica|google tag manager|gtm|contenedor de etiquetas|datalayer|consent mode|píxel|pixel de meta|campañ\\w*|google ads|meta ads|posthog|matomo|informe de (visitas|tr[aá]fico))\\b",
+      "priority": 8,
+      "requires": [],
       "installedBy": "base-front"
     }
   ]

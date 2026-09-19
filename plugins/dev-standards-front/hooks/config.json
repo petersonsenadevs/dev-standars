@@ -26,6 +26,7 @@
                    "code-quality",
                    "ui-ux-pro-max",
                    "ui-verify",
+                   "marketing-seo",
                    "gsap-scrolltrigger",
                    "threejs-webgl",
                    "skill-router",
@@ -404,6 +405,16 @@
                        "priority":  8,
                        "requires":  [
                                         "ui-ux-pro-max"
+                                    ]
+                   },
+                   {
+                       "name":  "marketing-seo",
+                       "group":  "growth",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(seo|posicionamiento|posicionar|salir en google|keywords?|palabras clave|search console|google analytics|ga4|anal[ií]tica|google tag manager|gtm|contenedor de etiquetas|datalayer|consent mode|píxel|pixel de meta|campañ\\w*|google ads|meta ads|posthog|matomo|informe de (visitas|tr[aá]fico))\\b",
+                       "priority":  8,
+                       "requires":  [
+
                                     ]
                    }
                ]
