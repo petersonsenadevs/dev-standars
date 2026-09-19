@@ -16,7 +16,7 @@ los profundiza.
 |---|---|
 | Posicionar: keywords, on-page, SEO local, schema, contenido | `references/seo-onpage.md` |
 | Instrumentar: GA4, Google Tag Manager (contenedor), dataLayer, Consent Mode | `references/analytics-gtm.md` |
-| Conectar la analítica a un agente de IA (MCPs) o auditar datos con IA | `references/mcp-tools.md` |
+| MCPs: leer datos con IA, o que el agente CREE/organice el contenedor GTM | `references/mcp-tools.md` |
 | Definir QUÉ medir (conversiones por negocio) | `ui-ux-pro-max §references/es/measurement.md` (la fuente del plan) |
 | Checklist técnico de salida (sitemap, OG, robots…) | `ui-verify §references/launch-checklist.md` |
 | Varios idiomas (hreflang, slugs) | `code-quality §references/i18n.md` |
@@ -31,8 +31,9 @@ los profundiza.
    cuando hay múltiples tags (Ads, píxeles, herramientas) o quien publica no toca código.
 4. Cambios de SEO se documentan (qué se cambió y por qué) y se les da TIEMPO (semanas, no días) antes de
    juzgar; la fuente de verdad del resultado es Search Console + la analítica, no la intuición.
-5. Con MCPs conectados, el agente LEE datos para diagnosticar y proponer; los cambios en la web pasan por
-   el flujo normal (plan → cambio → verificación), nunca "a ciegas porque lo dijo el dato".
+5. Con MCPs: el agente LEE datos para diagnosticar, y puede CREAR/organizar el contenedor GTM (Stape MCP)
+   — pero NUNCA publica una versión sin aprobación explícita del usuario; los cambios en la web siguen
+   el flujo normal (plan → cambio → verificación).
 
 ## Relación con otras skills
 UI/diseño → `ui-ux-pro-max` · lanzamiento → `ui-verify` (/lanzar) · idiomas → `code-quality/i18n` ·
