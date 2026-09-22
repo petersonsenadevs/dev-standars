@@ -24,7 +24,8 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - **Guard**: nada destructivo (push, resets, DROP) sin tu aprobación; secretos y archivos protegidos vetados.
 - **Muros nuevos**: jQuery/Bootstrap bloqueados al instalar (salvo aprobación explícita); `console.log`/`dd()`/
   `debugger` bloqueados al introducirse en código fuente; los términos entre acentos graves en la sección "No"
-  de `gustos.md` se bloquean de verdad; primera edición de UI sin brief ni design system → muro (una vez por sesión).
+  de `gustos.md` se bloquean de verdad; primera edición de UI sin brief ni design system → muro (una vez por sesión); deploy a producción
+  (`--prod`) bloqueado hasta tu aprobación explícita.
 - **Memoria de gustos**: tus opiniones de diseño van a `design-system/<slug>/gustos.md`; un veto no se re-propone.
 
 ## 3. Comandos slash (Claude Code) — atajos
@@ -38,6 +39,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 | `/design-system [keywords]` | Genera/revisa el design system persistido | Al fijar la dirección visual |
 | `/efecto [nombre]` | Efecto concreto vía catálogo (receta + coste móvil) | "Quiero un parallax/marquee/lo-que-sea" |
 | `/verificar` | Build+lint+types+tests, y móvil si hubo UI | Antes de dar algo por terminado (o deja que el bloqueo lo pida) |
+| `/desplegar [entorno]` | Deploy con red: PRE (backup+rollback+aprobación) → deploy → smoke POST | Cada subida a producción |
 | `/revisar-ui [url]` | Pasada de UI en navegador (375/768/1440, dark, consola, axe) | "Revisa cómo se ve" |
 
 ## 4. Frases en llano que activan cada cosa (sin slash)

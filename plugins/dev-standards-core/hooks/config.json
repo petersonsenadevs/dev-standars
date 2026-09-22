@@ -24,6 +24,7 @@
                    "devlog",
                    "project-planner",
                    "code-quality",
+                   "deploy-ops",
                    "skill-router"
                ],
     "commands":  null,
@@ -406,6 +407,16 @@
                        "group":  "growth",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(seo|posicionamiento|posicionar|salir en google|keywords?|palabras clave|search console|google analytics|ga4|anal[ií]tica|google tag manager|gtm|contenedor de etiquetas|datalayer|consent mode|píxel|pixel de meta|campañ\\w*|google ads|meta ads|posthog|matomo|informe de (visitas|tr[aá]fico))\\b",
+                       "priority":  8,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "deploy-ops",
+                       "group":  "ops",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(deploy|despliegue|desplegar|sube?lo a producci[oó]n|docker|dockerfile|docker.?compose|dockeriza\\w*|contenedoriza\\w*|github actions|ci.?cd|pipeline|netlify|vercel|forge|ploi|vps|staging|backups?|copia de seguridad|restaurar (la )?(bd|base de datos|copia)|monitorizaci[oó]n|sentry|uptime|certificado ssl|se ha ca[ií]do la web|zero.?downtime)\\b",
                        "priority":  8,
                        "requires":  [
 

@@ -84,6 +84,16 @@ if ($c -match '(?i)\bgit\s+commit\b') {
     }
 }
 
+# --- Deploy a produccion: NUNCA sin aprobacion explicita del usuario ---
+if ($env:DEV_STANDARDS_ALLOW_DEPLOY -ne '1') {
+    $deployPat = '(?i)(netlify\s+deploy(?=.*--prod))|(\bvercel\b(?=.*--prod))|(\bfly\s+deploy\b)|(\bwrangler\s+(deploy|publish)\b(?!.*--env[= ](dev|preview)))'
+    if ($c -match $deployPat) {
+        [Console]::Error.WriteLine('[BLOQUEADO por dev-standards] Deploy a PRODUCCION detectado. Requiere aprobacion explicita del usuario en este momento (checklist /desplegar: backup fresco verificado + plan de rollback + smoke posterior).')
+        [Console]::Error.WriteLine('Con la aprobacion recibida: reintenta con DEV_STANDARDS_ALLOW_DEPLOY=1 y documenta la aprobacion y el resultado en el devlog. Los deploys de preview (sin --prod) pasan sin muro.')
+        exit 2
+    }
+}
+
 # --- Librerias vetadas (regla dura: sin jQuery/Bootstrap ni segunda libreria de componentes sin aprobacion) ---
 if ($env:DEV_STANDARDS_ALLOW_LIB -ne '1' -and $c -match '(?i)\b(npm|pnpm|yarn|bun)\s+(install|add|i)\b') {
     if ($c -match '(?i)\b(jquery|bootstrap)\b') {

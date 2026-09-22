@@ -47,6 +47,13 @@ $null = Case 'jquery con ALLOW_LIB -> pasa' 'guard.ps1' @{ tool_name='Bash'; too
 $env:DEV_STANDARDS_ALLOW_LIB = ''
 $null = Case 'npm run build -> pasa' 'guard.ps1' @{ tool_name='Bash'; tool_input=@{ command='npm run build' } } 0
 
+# --- guard: muro de deploy a produccion ---
+$null = Case 'netlify --prod -> bloquea' 'guard.ps1' @{ tool_name='Bash'; tool_input=@{ command='netlify deploy --prod' } } 2
+$env:DEV_STANDARDS_ALLOW_DEPLOY = '1'
+$null = Case 'deploy con ALLOW_DEPLOY -> pasa' 'guard.ps1' @{ tool_name='Bash'; tool_input=@{ command='netlify deploy --prod' } } 0
+$env:DEV_STANDARDS_ALLOW_DEPLOY = ''
+$null = Case 'netlify preview -> pasa' 'guard.ps1' @{ tool_name='Bash'; tool_input=@{ command='netlify deploy --alias rama' } } 0
+
 # --- code-hygiene: debug ---
 $null = Case 'introduce console.log -> bloquea' 'code-hygiene.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.ts'; old_string='const a = 1;'; new_string='const a = 1; console.log(a);' } } 2
 $null = Case 'console.log ya existia -> pasa' 'code-hygiene.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.ts'; old_string='console.log(a); const a = 1;'; new_string='console.log(a); const a = 2;' } } 0

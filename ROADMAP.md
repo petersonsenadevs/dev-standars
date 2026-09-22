@@ -41,6 +41,9 @@ con un código); Kotlin/Swift nativos solo si el proyecto lo exige (rendimiento 
 plataforma profundas, heredar app nativa) — y Swift solo con Mac disponible.
 
 ## 3. Mejoras conocidas de menor prioridad (cuando toquen)
+- [x] **Deploy/infra/contenedores — CUBIERTO (033)**: skill `deploy-ops` (grupo ops, en todos los stacks
+  y plugins): deploy por stack, Docker, CI/CD, secretos, runtime de prod, backups+restore, /desplegar,
+  muro de deploy a prod. Pendiente natural: estrenarla con el primer deploy real.
 - [ ] Backend por stack profundo: colas Horizon en php-laravel.md, server actions seguras en
   react-next.md, uploads de archivos como receta propia.
 - [ ] Refresco periódico (~mensual): `tools/vendor.ps1` (upstream de skills), `vendor-effects.ps1 -Missing`

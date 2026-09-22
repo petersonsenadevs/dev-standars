@@ -18,6 +18,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "skill-router"
                                      ]
                     },
@@ -31,6 +32,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "ui-ux-pro-max",
                                          "ui-verify",
                                          "marketing-seo",
@@ -50,6 +52,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "ddd-hexagonal",
                                          "skill-router"
                                      ]
@@ -64,6 +67,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "blender-web-pipeline",
                                          "spline-interactive",
                                          "rive-interactive",
@@ -81,6 +85,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "threejs-webgl",
                                          "react-three-fiber",
                                          "gsap-scrolltrigger",
@@ -100,6 +105,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "react-spring-physics",
                                          "animated-component-libraries",
                                          "scroll-reveal-libraries",
@@ -118,6 +124,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "ddd-hexagonal",
                                          "skill-router"
                                      ]
@@ -132,6 +139,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "threejs-webgl",
                                          "gsap-scrolltrigger",
                                          "react-three-fiber",
@@ -152,6 +160,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "ui-ux-pro-max",
                                          "ui-styling",
                                          "design-system",
@@ -173,6 +182,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "aframe-webxr",
                                          "lightweight-3d-effects",
                                          "playcanvas-engine",
@@ -192,6 +202,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "gsap-scrolltrigger",
                                          "motion-framer",
                                          "scroll-reveal-libraries",
@@ -210,6 +221,7 @@
                                          "devlog",
                                          "project-planner",
                                          "code-quality",
+                                         "deploy-ops",
                                          "web3d-integration-patterns",
                                          "modern-web-design",
                                          "threejs-webgl",
@@ -226,6 +238,7 @@
                         "keywords":  [
                                          "code-quality",
                                          "ddd-hexagonal",
+                                         "deploy-ops",
                                          "devlog",
                                          "image-gen",
                                          "marketing-seo",

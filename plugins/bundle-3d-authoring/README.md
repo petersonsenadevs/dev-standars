@@ -2,6 +2,6 @@
 
 Bundle dev-standards '3d-authoring' (+ nucleo devlog/project-planner/code-quality/skill-router): blender-web-pipeline, spline-interactive, rive-interactive, substance-3d-texturing.
 
-Skills: devlog, project-planner, code-quality, blender-web-pipeline, spline-interactive, rive-interactive, substance-3d-texturing, skill-router
+Skills: devlog, project-planner, code-quality, deploy-ops, blender-web-pipeline, spline-interactive, rive-interactive, substance-3d-texturing, skill-router
 
 Generado por tools/build-plugins.ps1 (dev-standards). No editar a mano.

@@ -88,6 +88,10 @@ $cases = @(
     @{ n = 'verificar movil';       prompt = 'comprueba la ui en el móvil que algo se descuadra';          expect = 'ui-verify' }
     @{ n = 'seo google';            prompt = 'mejora el seo de la web para salir en google';               skills = @('ui-ux-pro-max','marketing-seo','skill-router'); expect = 'marketing-seo' }
     @{ n = 'tag manager';           prompt = 'monta google tag manager con consent mode para el cliente';  skills = @('ui-ux-pro-max','marketing-seo','skill-router'); expect = 'marketing-seo' }
+    @{ n = 'deploy netlify';        prompt = 'prepara el deploy a producción en netlify del proyecto';    skills = @('deploy-ops','skill-router'); expect = 'deploy-ops' }
+    @{ n = 'dockerizar';            prompt = 'dockeriza el proyecto con docker compose para el vps';       skills = @('deploy-ops','skill-router'); expect = 'deploy-ops' }
+    @{ n = 'github actions';        prompt = 'configura github actions para que corra los tests en cada pr'; skills = @('deploy-ops','code-quality','skill-router'); expect = 'deploy-ops' }
+    @{ n = 'backups bd';            prompt = 'monta los backups de la base de datos con restore probado';   skills = @('deploy-ops','skill-router'); expect = 'deploy-ops' }
     @{ n = 'lanzamiento';           prompt = 'prepara el lanzamiento de la web a producción';              expect = 'ui-verify' }
     @{ n = 'copy titulares';        prompt = 'escribe los titulares y el copy de la landing';              expect = 'ui-ux-pro-max' }
     @{ n = 'multiidioma';           prompt = 'monta la web en castellano y catalán con hreflang';          expect = 'code-quality' }
