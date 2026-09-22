@@ -27,6 +27,13 @@ $root = Get-ProjectRoot
 $skillsDir = if ($env:CLAUDE_PLUGIN_ROOT -and (Test-Path (Join-Path $env:CLAUDE_PLUGIN_ROOT 'skills\ui-ux-pro-max'))) { '$env:CLAUDE_PLUGIN_ROOT/skills' } elseif (Test-Path (Join-Path $root '.claude\skills\ui-ux-pro-max')) { '.claude/skills' } else { '<skills-dir>' }
 $master = Get-DesignSystemMaster $root
 $hasBrief = (Test-Path (Join-Path $root 'plan\brief.md')) -or ((Test-Path (Join-Path $root 'design-system')) -and (Get-ChildItem (Join-Path $root 'design-system') -Recurse -Filter 'BRAND.md' -ErrorAction SilentlyContinue))
+# MURO (una vez por sesion): primera edicion de UI sin design system NI brief -> bloquear y obligar a decidir.
+if (-not $master -and -not $hasBrief -and (Test-Once $sid 'front-block')) {
+    Remove-Item (Get-SessionFlag $sid 'front') -Force -ErrorAction SilentlyContinue   # el reintento recibira el aviso contextual
+    [Console]::Error.WriteLine('[BLOQUEADO por dev-standards] Primera edicion de UI sin design-system/*/MASTER.md NI plan/brief.md.')
+    [Console]::Error.WriteLine('Antes de tocar UI: (1) pregunta al usuario (entrevista /brief: marca, referencias, objetivo) y genera el design system, O (2) si es un arreglo trivial en algo ya construido, dilo explicitamente y reintenta la edicion: este muro solo salta UNA vez por sesion.')
+    exit 2
+}
 $dsMsg = if ($master) { "Lee primero el design system del proyecto: $master." }
          elseif (-not $hasBrief) { "No hay design system NI brief: ANTES de maquetar PREGUNTA al usuario (entrevista de ui-ux-pro-max references/es/brief-discovery.md o comando /brief): si tiene logo/colores/manual de marca, 2-3 webs que le gusten y que debe hacer el visitante. Con eso genera y persiste el design system (search.py --design-system --persist). Si el usuario no responde, decide por el playbook de su negocio (business-playbooks.md) y documentalo como decision propia." }
          else { "Hay brief pero no design-system/*/MASTER.md: generalo antes de maquetar: py -3 $skillsDir/ui-ux-pro-max/scripts/search.py `"<producto industria keywords>`" --design-system -p `"<Proyecto>`" --persist -o .  (python3 fuera de Windows). Si hay plan, es la primera tarjeta de UI." }

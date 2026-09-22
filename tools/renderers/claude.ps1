@@ -9,7 +9,7 @@ function Get-HookSet {
         UserPromptSubmit = @(@{ matcher = $null; files = @('prompt-router.ps1') })
         PreToolUse       = @(
             @{ matcher = 'Bash|PowerShell';                   files = @('guard.ps1') },
-            @{ matcher = 'Edit|Write|MultiEdit|NotebookEdit'; files = @('protect-files.ps1', 'secrets-guard.ps1') + $(if ($HasFront) { @('front-skill-reminder.ps1') } else { @() }) }
+            @{ matcher = 'Edit|Write|MultiEdit|NotebookEdit'; files = @('protect-files.ps1', 'secrets-guard.ps1', 'code-hygiene.ps1') + $(if ($HasFront) { @('front-skill-reminder.ps1') } else { @() }) }
         )
         PostToolUse      = @(@{ matcher = 'Edit|Write|MultiEdit'; files = @('format-on-save.ps1', 'edit-tracker.ps1') })
         Stop             = @(@{ matcher = $null; files = @('stop-guard.ps1') })

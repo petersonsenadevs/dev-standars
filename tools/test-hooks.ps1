@@ -1,0 +1,67 @@
+﻿#requires -Version 5.1
+<#
+.SYNOPSIS
+  Suite de los hooks bloqueantes: guard (librerias), code-hygiene (debug + vetos) y front-skill-reminder (muro).
+.DESCRIPTION
+  Monta un proyecto sintetico en %TEMP%, dispara cada hook con un JSON de PreToolUse y comprueba el
+  exit code (2 = bloqueado, 0 = pasa). Sale con 1 si algun caso falla.
+#>
+param([switch]$ShowAll)
+$OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+$root = Split-Path $PSScriptRoot -Parent
+$proj = Join-Path $env:TEMP ('ds-hooks-test-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
+New-Item -ItemType Directory -Force (Join-Path $proj 'design-system\demo') | Out-Null
+Set-Content -Path (Join-Path $proj 'design-system\demo\gustos.md') -Encoding UTF8 -Value @"
+# Gustos
+## No
+- carruseles: ``carousel``, ``swiper``
+## Dudas
+"@
+
+function Invoke-Hook([string]$HookFile, [hashtable]$Payload, [string]$Sid) {
+    $env:CLAUDE_PROJECT_DIR = $proj
+    $env:DEV_STANDARDS_TEST_ISOLATED = '1'
+    $json = ($Payload | ConvertTo-Json -Compress -Depth 5)
+    $json = -join ($json.ToCharArray() | ForEach-Object { if ([int]$_ -gt 127) { '\u{0:x4}' -f [int]$_ } else { $_ } })
+    $null = ($json | powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root "core\hooks\$HookFile") 2>&1 | Out-String)
+    return $LASTEXITCODE
+}
+
+$fail = 0; $i = 0
+function Case([string]$Name, [string]$Hook, [hashtable]$Payload, [int]$Expect, [string]$Sid = '') {
+    $script:i++
+    if (-not $Sid) { $Sid = "ht$($script:i)-" + [guid]::NewGuid().ToString('N').Substring(0, 4) }
+    $Payload.session_id = $Sid
+    $code = Invoke-Hook $Hook $Payload $Sid
+    $blocked = if ($code -eq 2) { 'BLOCK' } else { 'pass' }
+    $want = if ($Expect -eq 2) { 'BLOCK' } else { 'pass' }
+    if ($code -ne $Expect) { $script:fail++; Write-Host ("FAIL {0,-32} -> {1} (esperaba {2})" -f $Name, $blocked, $want) }
+    elseif ($ShowAll)      { Write-Host ("ok   {0,-32} -> {1}" -f $Name, $blocked) }
+    return $Sid
+}
+
+# --- guard: librerias vetadas ---
+$null = Case 'npm i jquery -> bloquea' 'guard.ps1' @{ tool_name='Bash'; tool_input=@{ command='npm install jquery' } } 2
+$env:DEV_STANDARDS_ALLOW_LIB = '1'
+$null = Case 'jquery con ALLOW_LIB -> pasa' 'guard.ps1' @{ tool_name='Bash'; tool_input=@{ command='npm install jquery' } } 0
+$env:DEV_STANDARDS_ALLOW_LIB = ''
+$null = Case 'npm run build -> pasa' 'guard.ps1' @{ tool_name='Bash'; tool_input=@{ command='npm run build' } } 0
+
+# --- code-hygiene: debug ---
+$null = Case 'introduce console.log -> bloquea' 'code-hygiene.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.ts'; old_string='const a = 1;'; new_string='const a = 1; console.log(a);' } } 2
+$null = Case 'console.log ya existia -> pasa' 'code-hygiene.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.ts'; old_string='console.log(a); const a = 1;'; new_string='console.log(a); const a = 2;' } } 0
+$null = Case 'console.log con allow -> pasa' 'code-hygiene.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\cli.ts'; old_string='x'; new_string="console.log('hola') // dev-standards-allow" } } 0
+$null = Case 'Write con debugger -> bloquea' 'code-hygiene.ps1' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\P.astro'; content="<script>`ndebugger`n</script>" } } 2
+$null = Case 'archivo de test -> pasa' 'code-hygiene.ps1' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\app.test.ts'; content='console.log(1)' } } 0
+
+# --- code-hygiene: vetos de gustos.md ---
+$null = Case 'veto carousel -> bloquea' 'code-hygiene.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Home.astro'; old_string='<div>'; new_string='<div><Carousel autoplay />' } } 2
+$null = Case 'sin termino vetado -> pasa' 'code-hygiene.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Home.astro'; old_string='<div>'; new_string='<div><Galeria />' } } 0
+
+# --- front-skill-reminder: muro una vez por sesion (proyecto sin MASTER ni brief... el sintetico tiene design-system/ pero sin MASTER.md) ---
+$sid = Case 'primera edicion UI sin brief -> bloquea' 'front-skill-reminder.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Hero.astro' } } 2
+$null = Case 'segunda edicion misma sesion -> pasa' 'front-skill-reminder.ps1' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Hero.astro' } } 0 $sid
+
+[System.IO.Directory]::Delete($proj, $true)
+Write-Host "Casos: $i  Fallos: $fail"
+if ($fail) { exit 1 } else { exit 0 }

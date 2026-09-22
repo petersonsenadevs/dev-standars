@@ -74,7 +74,7 @@ $coreSkills = @('devlog', 'project-planner', 'code-quality')
 $routerDir  = @((Join-Path $root 'core\skills-plugin\skill-router'))
 
 # --- core: metodologia + TODOS los hooks (menos los de front) ---
-$coreFiles = @('_common.ps1','session-start.ps1','prompt-router.ps1','guard.ps1','protect-files.ps1','secrets-guard.ps1','format-on-save.ps1','edit-tracker.ps1','stop-guard.ps1','pre-compact.ps1','session-end.ps1')
+$coreFiles = @('_common.ps1','session-start.ps1','prompt-router.ps1','guard.ps1','protect-files.ps1','secrets-guard.ps1','format-on-save.ps1','edit-tracker.ps1','code-hygiene.ps1','stop-guard.ps1','pre-compact.ps1','session-end.ps1')
 $coreHooks = @{ hooks = (New-HooksJson -HasFront $false -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/') }
 $entries += New-Plugin -Name 'dev-standards-core' -Description 'Metodología dev-standards: skill devlog + skill-router + hooks (guard de git/BD, archivos protegidos, secretos, formateo al guardar, estado de sesión, router de prompts, cierre con devlog, pre-compact).' `
     -Skills $coreSkills -Hooks $coreHooks -HookFiles $coreFiles -ExtraSkillDirs $routerDir -Commands @('plan.md', 'siguiente.md', 'verificar.md')

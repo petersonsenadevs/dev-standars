@@ -2,7 +2,7 @@
 # dev-standards (repo propio): regenera los artefactos publicables y valida skills + router antes de commitear.
 # Saltar en emergencias: DEV_STANDARDS_SKIP_CHECKS=1 git commit ...
 [ "$DEV_STANDARDS_SKIP_CHECKS" = "1" ] && exit 0
-echo "[dev-standards] pre-commit: build-plugins + check-skills + test-router (DEV_STANDARDS_SKIP_CHECKS=1 para saltar)"
+echo "[dev-standards] pre-commit: build-plugins + check-skills + test-router + test-hooks (DEV_STANDARDS_SKIP_CHECKS=1 para saltar)"
 # plugins/ y .claude-plugin/ estan versionados (instalacion remota): regenerar y stagear para que nunca se desfasen.
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-plugins.ps1 >/dev/null 2>&1
 if [ $? -ne 0 ]; then
@@ -12,6 +12,12 @@ git add plugins .claude-plugin 2>/dev/null
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/check-skills.ps1 >/dev/null 2>&1
 if [ $? -ne 0 ]; then
   echo "[dev-standards] check-skills.ps1 FALLA. Ejecutalo para ver el detalle: tools/check-skills.ps1" >&2; exit 1
+fi
+if [ -f tools/test-hooks.ps1 ]; then
+  powershell -NoProfile -ExecutionPolicy Bypass -File tools/test-hooks.ps1 >/dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    echo "[dev-standards] test-hooks.ps1 FALLA. Ejecutalo para ver el detalle: tools/test-hooks.ps1" >&2; exit 1
+  fi
 fi
 if [ -f tools/test-router.ps1 ]; then
   powershell -NoProfile -ExecutionPolicy Bypass -File tools/test-router.ps1 >/dev/null 2>&1

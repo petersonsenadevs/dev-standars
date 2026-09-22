@@ -84,6 +84,15 @@ if ($c -match '(?i)\bgit\s+commit\b') {
     }
 }
 
+# --- Librerias vetadas (regla dura: sin jQuery/Bootstrap ni segunda libreria de componentes sin aprobacion) ---
+if ($env:DEV_STANDARDS_ALLOW_LIB -ne '1' -and $c -match '(?i)\b(npm|pnpm|yarn|bun)\s+(install|add|i)\b') {
+    if ($c -match '(?i)\b(jquery|bootstrap)\b') {
+        [Console]::Error.WriteLine('[BLOQUEADO por dev-standards] jQuery/Bootstrap estan vetados por defecto (regla dura 12: se reutiliza lo que ya hay; nada de segundas librerias de componentes).')
+        [Console]::Error.WriteLine('Si el usuario lo aprueba explicitamente: que lo ejecute el, o reintenta con DEV_STANDARDS_ALLOW_LIB=1 en el entorno y documenta la aprobacion en el devlog.')
+        exit 2
+    }
+}
+
 foreach ($r in $rules) {
     if ($c -match $r.p) {
         [Console]::Error.WriteLine("[BLOQUEADO por dev-standards] $($r.m)")

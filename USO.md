@@ -22,6 +22,9 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - **Cierre bloqueado**: no puede dar nada por terminado sin (a) build/lint/types/tests en verde si tocó
   código, (b) verificación móvil-primero si tocó UI, (c) devlog del día escrito.
 - **Guard**: nada destructivo (push, resets, DROP) sin tu aprobación; secretos y archivos protegidos vetados.
+- **Muros nuevos**: jQuery/Bootstrap bloqueados al instalar (salvo aprobación explícita); `console.log`/`dd()`/
+  `debugger` bloqueados al introducirse en código fuente; los términos entre acentos graves en la sección "No"
+  de `gustos.md` se bloquean de verdad; primera edición de UI sin brief ni design system → muro (una vez por sesión).
 - **Memoria de gustos**: tus opiniones de diseño van a `design-system/<slug>/gustos.md`; un veto no se re-propone.
 
 ## 3. Comandos slash (Claude Code) — atajos

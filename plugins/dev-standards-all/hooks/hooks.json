@@ -48,6 +48,11 @@
                                                        },
                                                        {
                                                            "type":  "command",
+                                                           "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/code-hygiene.ps1\"",
+                                                           "timeout":  30
+                                                       },
+                                                       {
+                                                           "type":  "command",
                                                            "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/front-skill-reminder.ps1\"",
                                                            "timeout":  30
                                                        }

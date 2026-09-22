@@ -58,7 +58,9 @@ con tu negocio? ¿qué te gusta de cada una? Se pueden mezclar (los colores de A
 ## Sí (le gusta)
 - 2026-09-17 · "los fondos oscuros me encantan" (elección de dirección B)
 ## No (vetado — NUNCA proponer de nuevo sin preguntar)
-- 2026-09-17 · carruseles automáticos ("me marean")
+- 2026-09-17 · carruseles automáticos ("me marean") — términos bloqueados: `carousel`, `swiper`
+<!-- Pon entre acentos graves el término técnico: el hook code-hygiene BLOQUEA de verdad cualquier
+     edición que lo introduzca en el código. -->
 ## Dudas / pendiente
 - ¿Precios visibles? Dijo "ya veremos" — volver a preguntar antes de la sección
 ```
