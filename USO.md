@@ -30,6 +30,10 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
   de `gustos.md` se bloquean de verdad; primera edición de UI sin brief ni design system → muro (una vez por sesión); deploy a producción
   (`--prod`) bloqueado hasta tu aprobación explícita.
 - **Memoria de gustos**: tus opiniones de diseño van a `design-system/<slug>/gustos.md`; un veto no se re-propone.
+- **Consciente de versiones**: al arrancar la sesión detecta las versiones reales (PHP/Laravel/Node/framework)
+  y avisa si algo está sin soporte (EOL); el agente aplica las prácticas de ESA versión, no de la última.
+- **Convenciones adoptadas** (`/adoptar`): en proyectos heredados, las convenciones se analizan, se pactan
+  contigo y se sellan como inmutables; el hook `conventions-guard` bloquea el código que las viole.
 
 ## 3. Comandos slash (Claude Code) — atajos
 
@@ -43,6 +47,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 | `/efecto [nombre]` | Efecto concreto vía catálogo (receta + coste móvil) | "Quiero un parallax/marquee/lo-que-sea" |
 | `/verificar` | Build+lint+types+tests, y móvil si hubo UI | Antes de dar algo por terminado (o deja que el bloqueo lo pida) |
 | `/desplegar [entorno]` | Deploy con red: PRE (backup+rollback+aprobación) → deploy → smoke POST | Cada subida a producción |
+| `/adoptar [notas]` | Analiza un proyecto existente y sella sus convenciones como regla inmutable (+ hook que las hace cumplir) | Al entrar en un proyecto heredado |
 | `/revisar-ui [url]` | Pasada de UI en navegador (375/768/1440, dark, consola, axe) | "Revisa cómo se ve" |
 
 ## 4. Frases en llano que activan cada cosa (sin slash)

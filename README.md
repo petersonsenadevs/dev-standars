@@ -190,11 +190,12 @@ formateadores, rutas protegidas, skills instaladas), generado desde `stack.json`
 
 | Evento | Hook | Qué hace |
 |---|---|---|
-| SessionStart | `session-start.mjs` | Inyecta estado: stack y perfil, rama git y cambios pendientes (avisa si estás en main), design system, devlog de hoy, protocolo de skills. |
+| SessionStart | `session-start.mjs` | Inyecta estado: stack y perfil, **versiones detectadas** (composer/package/pyproject) con **aviso de EOL**, convenciones adoptadas, rama git y cambios pendientes (avisa si estás en main), design system, devlog de hoy, protocolo de skills. |
 | UserPromptSubmit | `prompt-router.mjs` | Detecta por palabras clave qué skill instalada encaja (UI, animación, 3D, DDD, calidad, devlog) y lo recuerda **una vez por skill y sesión**. |
 | PreToolUse `Bash\|PowerShell` | `guard.mjs` | Bloquea `git push`, resets/limpiezas destructivas, DROP/TRUNCATE/DELETE sin WHERE, `migrate:fresh`, `rm -rf`, publicar paquetes, comandos devops peligrosos (`curl|bash`, `chmod 777`, `dd of=/dev/*`, `mkfs`, `docker prune`, parar servicios, vaciar firewall, `crontab -r`); en `git commit`: rama protegida (main/master/develop), Conventional Commits (≤ 72 chars) y sin `Co-Authored-By`. |
 | PreToolUse `Edit\|Write\|MultiEdit\|NotebookEdit` | `protect-files.mjs` | Bloquea editar archivos generados (CLAUDE.md, AGENTS.md, skills/reglas instaladas), secretos (`.env`, `*.pem`, `credentials*`), dependencias/artefactos, migraciones ya versionadas y `protectedPaths` del proyecto. |
 | PreToolUse (idem) | `secrets-guard.mjs` | Bloquea escribir credenciales reales (AWS, GitHub, Stripe, OpenAI/Anthropic, Google, PEM, JWT, cadenas de conexión con password); ignora placeholders y `.env.example`. |
+| PreToolUse (idem) | `conventions-guard.mjs` | Hace cumplir las convenciones adoptadas con `/adoptar` (`conventions.json`): bloquea introducir patrones que el proyecto veta (p. ej. `interface` donde se usa `type`). |
 | PreToolUse (idem, solo front) | `front-skill-reminder.mjs` | Al tocar `.vue .tsx .astro .blade.php .css…` recuerda `ui-ux-pro-max` y el `design-system/*/MASTER.md`, una vez por sesión. |
 | PostToolUse `Edit\|Write\|MultiEdit` | `format-on-save.mjs` | Formatea el archivo con el formateador del stack (`config.json` → Pint, Prettier, ruff) si el binario existe. Nunca bloquea. |
 | Stop | `stop-guard.mjs` | Si hay cambios sin commitear y no existe devlog de hoy, **bloquea la parada una vez** pidiendo la entrada de devlog; después solo recuerda. Respeta `stop_hook_active`. |

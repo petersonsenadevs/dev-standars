@@ -1,9 +1,12 @@
 // Hook SessionStart: inyecta el estado del proyecto (stack, perfil de front, rama, cambios pendientes,
 // design system, devlog de hoy, skills instaladas) y el protocolo de carga de skills. No bloquea.
 
+import fs from 'node:fs';
+import path from 'node:path';
 import {
     readHookInput, projectRoot, getMarker, gitBranch, gitDirty, designSystemMaster,
     planStatus, todayDevlog, devlogNextNumber, hookConfig, outHookJson, todayStr, pad3,
+    detectVersions, eolWarnings,
 } from './lib.mjs';
 
 readHookInput();
@@ -17,6 +20,14 @@ if (marker) {
     if (inst.length) L.push(`- Skills/bundles opcionales instalados: ${inst.join(', ')}`);
 } else {
     L.push('- Sin .dev-standards.json: detecta el stack (composer.json / package.json / pyproject.toml) antes de asumir nada.');
+}
+const versions = detectVersions(root);
+if (versions.length) {
+    L.push(`- Versiones detectadas: ${versions.map(v => `${v.name} ${v.spec}`).join(', ')}. Aplica las practicas de ESAS versiones (code-quality references/stack-versions.md dice que cambia entre majors): no propongas API de una version que el proyecto no tiene.`);
+    for (const w of eolWarnings(versions)) L.push(`- AVISO de soporte: ${w}.`);
+}
+if (fs.existsSync(path.join(root, 'conventions.md'))) {
+    L.push('- Convenciones ADOPTADAS del proyecto: conventions.md (INMUTABLES, ganan a tus preferencias; conventions.json las hace cumplir el hook conventions-guard). Leelas antes de escribir codigo.');
 }
 const branch = gitBranch(root);
 if (branch) {

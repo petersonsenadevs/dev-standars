@@ -48,6 +48,10 @@ plataforma profundas, heredar app nativa) — y Swift solo con Mac disponible.
   react-next.md, uploads de archivos como receta propia.
 - [ ] Refresco periódico (~mensual): `tools/vendor.ps1` (upstream de skills), `vendor-effects.ps1 -Missing`
   y los índices scrapeados de `front-activation/references/sources/` (instrucciones en cada índice).
+- [x] Stacks conscientes de versión (2026-09-22): session-start detecta versiones reales (composer/package/
+  pyproject) + aviso EOL; referencia `code-quality/references/stack-versions.md` (qué cambia entre majors).
+- [x] `/adoptar` (2026-09-22): convenciones de proyectos heredados analizadas, pactadas y selladas como
+  inmutables (`conventions.md` + `conventions.json` ejecutable + hook `conventions-guard`).
 - [x] Portabilidad de lo que VIAJA a los proyectos (2026-09-22): los 13 hooks y `verify-build` reescritos
   en Node `.mjs` — funcionan en Windows/macOS/Linux y en cualquier agente. Queda PS 5.1 SOLO el tooling
   del repo (`sync`, `init-project`, `build-*`, `check-skills`, suites, `vendor*`), que corre en esta

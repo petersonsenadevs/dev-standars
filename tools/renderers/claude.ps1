@@ -9,7 +9,7 @@ function Get-HookSet {
         UserPromptSubmit = @(@{ matcher = $null; files = @('prompt-router.mjs') })
         PreToolUse       = @(
             @{ matcher = 'Bash|PowerShell';                   files = @('guard.mjs') },
-            @{ matcher = 'Edit|Write|MultiEdit|NotebookEdit'; files = @('protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs') + $(if ($HasFront) { @('front-skill-reminder.mjs') } else { @() }) }
+            @{ matcher = 'Edit|Write|MultiEdit|NotebookEdit'; files = @('protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs', 'conventions-guard.mjs') + $(if ($HasFront) { @('front-skill-reminder.mjs') } else { @() }) }
         )
         PostToolUse      = @(@{ matcher = 'Edit|Write|MultiEdit'; files = @('format-on-save.mjs', 'edit-tracker.mjs') })
         Stop             = @(@{ matcher = $null; files = @('stop-guard.mjs') })
@@ -118,7 +118,7 @@ function Render-Claude {
     if (Test-Path $cmdSrc) {
         $cmdDst = Join-Path $ProjectPath '.claude\commands'
         Ensure-Dir $cmdDst
-        $names = @('plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md') + $(if ($hasFront) { @('brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md') } else { @() })
+        $names = @('plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md') + $(if ($hasFront) { @('brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md') } else { @() })
         foreach ($n in $names) { $f = Join-Path $cmdSrc $n; if (Test-Path $f) { Copy-Item $f (Join-Path $cmdDst $n) -Force } }
     }
 

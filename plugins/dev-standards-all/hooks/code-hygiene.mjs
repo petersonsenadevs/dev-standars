@@ -6,7 +6,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { readHookInput, projectRoot, findFirstFile } from './lib.mjs';
+import { readHookInput, projectRoot, findFirstFile, testIntroduced } from './lib.mjs';
 
 const p = readHookInput();
 if (!p || !['Edit', 'Write', 'MultiEdit'].includes(p.tool_name)) process.exit(0);
@@ -15,22 +15,7 @@ if (!file) process.exit(0);
 if (!/\.(ts|tsx|js|jsx|mjs|cjs|vue|astro|svelte|php|html|css|blade\.php)$/i.test(file)) process.exit(0);
 if (/(test|spec|\.config\.|vite\.config|astro\.config|tailwind\.config|[\\/](scripts?|tools|\.claude|devlog|design-system|node_modules|vendor)[\\/])/i.test(file)) process.exit(0);
 
-function testIntroduced(pattern, neu, old) {
-    if (!neu) return null;
-    const rx = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g');
-    for (const m of neu.matchAll(rx)) {
-        // línea que contiene el match
-        let start = neu.lastIndexOf('\n', Math.max(m.index - 1, 0)); if (start < 0) start = 0;
-        let end = neu.indexOf('\n', m.index); if (end < 0) end = neu.length;
-        const line = neu.substring(start, end);
-        if (/dev-standards-allow/i.test(line)) continue;
-        if (old && new RegExp(pattern.source, pattern.flags.replace('g', '')).test(old)) continue;   // ya estaba: no lo introduces tú
-        return line.trim();
-    }
-    return null;
-}
-
-// pares (nuevo, viejo) según la herramienta
+// pares (nuevo, viejo) según la herramienta (testIntroduced compartido en lib.mjs)
 const pairs = [];
 const ti = p.tool_input || {};
 if (p.tool_name === 'Edit') pairs.push([String(ti.new_string || ''), String(ti.old_string || '')]);

@@ -23,8 +23,16 @@ function Invoke-Hook([string]$HookFile, [hashtable]$Payload, [string]$Sid) {
     $env:DEV_STANDARDS_TEST_ISOLATED = '1'
     $json = ($Payload | ConvertTo-Json -Compress -Depth 5)
     $json = -join ($json.ToCharArray() | ForEach-Object { if ([int]$_ -gt 127) { '\u{0:x4}' -f [int]$_ } else { $_ } })
-    $null = ($json | node (Join-Path $root "core\hooks\$HookFile") 2>&1 | Out-String)
+    $script:lastOut = ($json | node (Join-Path $root "core\hooks\$HookFile") 2>&1 | Out-String)
     return $LASTEXITCODE
+}
+function OutCase([string]$Name, [string]$Hook, [hashtable]$Payload, [string]$ExpectMatch) {
+    # Caso por CONTENIDO de la salida (no por exit code): para hooks informativos como session-start.
+    $script:i++
+    $Payload.session_id = "ho$($script:i)-" + [guid]::NewGuid().ToString('N').Substring(0, 4)
+    $null = Invoke-Hook $Hook $Payload $Payload.session_id
+    if ($script:lastOut -notmatch $ExpectMatch) { $script:fail++; Write-Host ("FAIL {0,-32} -> salida sin '{1}'" -f $Name, $ExpectMatch) }
+    elseif ($ShowAll) { Write-Host ("ok   {0,-32} -> contiene '{1}'" -f $Name, $ExpectMatch) }
 }
 
 $fail = 0; $i = 0
@@ -75,6 +83,20 @@ $null = Case 'sin termino vetado -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'
 # --- front-skill-reminder: muro una vez por sesion (proyecto sin MASTER ni brief... el sintetico tiene design-system/ pero sin MASTER.md) ---
 $sid = Case 'primera edicion UI sin brief -> bloquea' 'front-skill-reminder.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Hero.astro' } } 2
 $null = Case 'segunda edicion misma sesion -> pasa' 'front-skill-reminder.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Hero.astro' } } 0 $sid
+
+# --- conventions-guard: convenciones adoptadas (/adoptar) ---
+Set-Content -Path (Join-Path $proj 'conventions.json') -Encoding UTF8 -Value '{"_sello":"dev-standards:inmutable","rules":[{"files":"\\.(ts|tsx)$","forbid":"\\binterface\\s+\\w","why":"este proyecto usa type, no interface"}]}'
+Set-Content -Path (Join-Path $proj 'conventions.md') -Encoding UTF8 -Value "# Convenciones`n<!-- dev-standards:inmutable -->`nUsar type, no interface."
+$null = Case 'convencion interface -> bloquea' 'conventions-guard.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\tipos.ts'; old_string='const x = 1;'; new_string='interface Foo { a: string }' } } 2
+$null = Case 'regla no aplica a php -> pasa' 'conventions-guard.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\Foo.php'; content='interface Foo {}' } } 0
+$null = Case 'interface ya existia -> pasa' 'conventions-guard.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\tipos.ts'; old_string='interface Foo { a: string }'; new_string='interface Foo { a: string; b: number }' } } 0
+$null = Case 'editar conventions.md sellado -> bloquea' 'protect-files.mjs' @{ tool_name='Edit'; tool_input=@{ file_path=(Join-Path $proj 'conventions.md'); old_string='type'; new_string='interface' } } 2
+
+# --- session-start: versiones detectadas + aviso EOL (composer con PHP 8.1 / Laravel 10, ambos sin soporte) ---
+Set-Content -Path (Join-Path $proj 'composer.json') -Encoding UTF8 -Value '{"require":{"php":"^8.1","laravel/framework":"^10.0"}}'
+OutCase 'session-start detecta versiones' 'session-start.mjs' @{} 'Versiones detectadas: PHP \^8\.1, Laravel \^10\.0'
+OutCase 'session-start avisa de EOL' 'session-start.mjs' @{} 'SIN SOPORTE'
+OutCase 'session-start ve convenciones' 'session-start.mjs' @{} 'Convenciones ADOPTADAS'
 
 [System.IO.Directory]::Delete($proj, $true)
 Write-Host "Casos: $i  Fallos: $fail"

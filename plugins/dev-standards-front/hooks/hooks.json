@@ -53,6 +53,11 @@
                                                        },
                                                        {
                                                            "type":  "command",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/conventions-guard.mjs\"",
+                                                           "timeout":  30
+                                                       },
+                                                       {
+                                                           "type":  "command",
                                                            "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/front-skill-reminder.mjs\"",
                                                            "timeout":  30
                                                        }

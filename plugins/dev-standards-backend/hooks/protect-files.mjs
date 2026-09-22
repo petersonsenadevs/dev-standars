@@ -46,6 +46,11 @@ if (/^(plugins|core\/skills-vendor)\//i.test(rel) && fs.existsSync(path.join(roo
     deny('Carpeta generada de dev-standards (plugins/ o core/skills-vendor/). Edita core/skills-overlay o core/skills y regenera con build-plugins.ps1 / vendor.ps1.');
 }
 
+// 1b) Convenciones adoptadas (/adoptar) selladas como inmutables
+if (/^conventions\.(md|json)$/i.test(rel) && exists && (readText(file) || '').includes('dev-standards:inmutable')) {
+    deny('Convenciones del proyecto SELLADAS como inmutables (/adoptar): no se editan sin decision explicita del usuario. Con su aprobacion: borra el archivo (rm conventions.json conventions.md) y re-ejecuta /adoptar, o que lo edite el mismo.');
+}
+
 // 2) Secretos
 if (/(^|\/)\.env(\.|$)/i.test(rel) || /\.(pem|key|p12|pfx)$/i.test(rel) || /(^|\/)(id_rsa|id_ed25519)/i.test(rel) || /(^|\/)(credentials|secrets?)(\.|\/|$)/i.test(rel)) {
     deny('Archivo de secretos/credenciales. No se edita desde el agente: hazlo tu a mano.');

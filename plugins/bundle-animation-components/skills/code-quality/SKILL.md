@@ -32,10 +32,12 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 | Diseñar o cambiar un endpoint/API | `references/api-design.md` |
 | Web multiidioma (ES/CA/EN), hreflang, locales | `references/i18n.md` |
 | Abrir o revisar un PR, commits | `references/git-and-reviews.md` §checklist |
+| Qué API/sintaxis permite la versión del stack, upgrades, EOL | `references/stack-versions.md` (la versión REAL manda) |
+| Proyecto heredado: adoptar sus convenciones (/adoptar) | `references/adopt-conventions.md` |
 | Verificar el proyecto tras TUS cambios | `scripts/verify-build.mjs` (lint+types+tests+build; corrige hasta 0 fallos) |
 
 ## Principios transversales (aplican siempre, sin leer nada más)
-1. **Lee antes de escribir**: imita naming, estructura y estilo del código vecino; no introduzcas patrones nuevos sin motivo.
+1. **Lee antes de escribir**: imita naming, estructura y estilo del código vecino; no introduzcas patrones nuevos sin motivo. Si existe `conventions.md` (adoptado con `/adoptar`), es ley.
 2. **Tipado estricto** en todos los lenguajes (`declare(strict_types=1)`, `strict: true`, mypy/pyright estricto). Sin `any`/`mixed` sin justificar.
 3. **Validar en el borde, confiar dentro**: entrada externa (HTTP, colas, LLM, ficheros) se valida y se convierte a tipos; el núcleo asume datos válidos.
 4. **Funciones pequeñas, una responsabilidad, nombres que digan qué hacen**. Sin comentarios que repitan el código; sí comentarios de "por qué".

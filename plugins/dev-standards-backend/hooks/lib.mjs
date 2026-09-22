@@ -203,3 +203,84 @@ export function planStatus(root) {
 }
 
 export function pad3(n) { return String(n).padStart(3, '0'); }
+
+// --- deteccion de versiones del stack (en vivo, sin estado: composer/package/pyproject) ---
+function firstMajorMinor(spec) {
+    const m = /(\d+)(?:\.(\d+))?/.exec(String(spec || ''));
+    return m ? { major: m[1], minor: m[2] } : null;
+}
+export function detectVersions(root) {
+    // Devuelve [{ name, spec, key }]: key = 'php 8.2' / 'laravel 11' para la tabla de EOL.
+    const out = [];
+    const push = (name, spec, keyBase, useMinor) => {
+        if (!spec) return;
+        const v = firstMajorMinor(spec);
+        const key = v ? `${keyBase} ${v.major}${useMinor && v.minor !== undefined ? '.' + v.minor : ''}` : null;
+        out.push({ name, spec: String(spec), key });
+    };
+    const composer = (() => { try { return JSON.parse(readText(path.join(root, 'composer.json')) || 'null'); } catch { return null; } })();
+    if (composer && composer.require) {
+        push('PHP', composer.require.php, 'php', true);
+        push('Laravel', composer.require['laravel/framework'], 'laravel', false);
+        push('Symfony', composer.require['symfony/framework-bundle'], 'symfony', false);
+    }
+    const pkg = (() => { try { return JSON.parse(readText(path.join(root, 'package.json')) || 'null'); } catch { return null; } })();
+    if (pkg) {
+        const deps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
+        for (const [dep, label, keyBase] of [
+            ['astro', 'Astro', 'astro'], ['next', 'Next.js', 'next'], ['react', 'React', 'react'],
+            ['vue', 'Vue', 'vue'], ['nuxt', 'Nuxt', 'nuxt'], ['svelte', 'Svelte', 'svelte'],
+            ['tailwindcss', 'Tailwind', 'tailwind'], ['typescript', 'TypeScript', 'typescript'],
+        ]) push(label, deps[dep], keyBase, false);
+        if (pkg.engines && pkg.engines.node) push('Node', pkg.engines.node, 'node', false);
+    }
+    const pyproject = readText(path.join(root, 'pyproject.toml'));
+    if (pyproject) {
+        const py = /requires-python\s*=\s*["']([^"']+)["']/.exec(pyproject);
+        if (py) push('Python', py[1], 'python', true);
+        for (const [dep, label] of [['fastapi', 'FastAPI'], ['langgraph', 'LangGraph'], ['django', 'Django']]) {
+            const m = new RegExp(`["']${dep}\\s*([^"']*)["']`).exec(pyproject);
+            if (m) push(label, m[1].trim() || 'sin version fijada', dep, false);
+        }
+    }
+    return out;
+}
+
+// Fin de soporte (fecha de EOL de seguridad, aproximada — verificar en endoflife.date si es critico).
+const EOL = {
+    'php 8.0': '2023-11', 'php 8.1': '2025-12', 'php 8.2': '2026-12', 'php 8.3': '2027-12', 'php 8.4': '2028-12',
+    'laravel 9': '2024-02', 'laravel 10': '2025-02', 'laravel 11': '2026-03', 'laravel 12': '2027-02',
+    'node 16': '2023-09', 'node 18': '2025-04', 'node 20': '2026-04', 'node 22': '2027-04',
+    'python 3.8': '2024-10', 'python 3.9': '2025-10', 'python 3.10': '2026-10', 'python 3.11': '2027-10',
+    'vue 2': '2023-12',
+};
+export function eolWarnings(versions) {
+    const now = new Date();
+    const nowKey = now.getFullYear() * 12 + now.getMonth();          // meses absolutos
+    const warns = [];
+    for (const v of versions) {
+        const eol = v.key && EOL[v.key];
+        if (!eol) continue;
+        const [y, mo] = eol.split('-').map(Number);
+        const eolKey = y * 12 + (mo - 1);
+        if (eolKey < nowKey) warns.push(`${v.name} ${v.key.split(' ')[1]} SIN SOPORTE desde ${eol} (sin parches de seguridad: proponer upgrade)`);
+        else if (eolKey - nowKey <= 6) warns.push(`${v.name} ${v.key.split(' ')[1]} llega a EOL en ${eol} (planificar upgrade)`);
+    }
+    return warns;
+}
+
+// Patron introducido: casa en lo NUEVO y no estaba en lo VIEJO. Escape: la linea lleva 'dev-standards-allow'.
+// Compartido por code-hygiene (debug + vetos de gustos.md) y conventions-guard (convenciones adoptadas).
+export function testIntroduced(pattern, neu, old) {
+    if (!neu) return null;
+    const rx = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g');
+    for (const m of neu.matchAll(rx)) {
+        let start = neu.lastIndexOf('\n', Math.max(m.index - 1, 0)); if (start < 0) start = 0;
+        let end = neu.indexOf('\n', m.index); if (end < 0) end = neu.length;
+        const line = neu.substring(start, end);
+        if (/dev-standards-allow/i.test(line)) continue;
+        if (old && new RegExp(pattern.source, pattern.flags.replace('g', '')).test(old)) continue;
+        return line.trim();
+    }
+    return null;
+}
