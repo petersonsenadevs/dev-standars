@@ -211,12 +211,24 @@ function firstMajorMinor(spec) {
 }
 export function detectVersions(root) {
     // Devuelve [{ name, spec, key }]: key = 'php 8.2' / 'laravel 11' para la tabla de EOL.
+    // En monorepos sin manifest en la raiz, mira un nivel dentro (apps/*, packages/*, services/*).
     const out = [];
+    scanVersions(root, '', out);
+    if (!out.length) {
+        for (const base of ['apps', 'packages', 'services']) {
+            for (const sub of dirNames(path.join(root, base)).slice(0, 10)) {
+                scanVersions(path.join(root, base, sub), `${base}/${sub}: `, out);
+            }
+        }
+    }
+    return out;
+}
+function scanVersions(root, prefix, out) {
     const push = (name, spec, keyBase, useMinor) => {
         if (!spec) return;
         const v = firstMajorMinor(spec);
         const key = v ? `${keyBase} ${v.major}${useMinor && v.minor !== undefined ? '.' + v.minor : ''}` : null;
-        out.push({ name, spec: String(spec), key });
+        out.push({ name: prefix + name, spec: String(spec), key });
     };
     const composer = (() => { try { return JSON.parse(readText(path.join(root, 'composer.json')) || 'null'); } catch { return null; } })();
     if (composer && composer.require) {
@@ -262,7 +274,6 @@ export function detectVersions(root) {
             if (m) push('.NET', `${m[1]}.${m[2]}`, 'dotnet', false);
         }
     } catch {}
-    return out;
 }
 
 // Fin de soporte (fecha de EOL de seguridad, aproximada — verificar en endoflife.date si es critico).

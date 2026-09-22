@@ -91,12 +91,17 @@ function Render-Claude {
     # 1) CLAUDE.md — si ya existe uno del proyecto (sin nuestra marca), respaldarlo antes de sobrescribir
     $claudeMd = Join-Path $ProjectPath 'CLAUDE.md'
     if (Test-Path $claudeMd) {
-        $existing = Get-Content $claudeMd -Raw -ErrorAction SilentlyContinue
+        $existing = Get-Content $claudeMd -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
         if ($existing -and $existing -notmatch 'GENERADO por dev-standards') {
             $backup = Join-Path $ProjectPath 'CLAUDE.project.md'
             if (-not (Test-Path $backup)) { Write-Utf8 $backup $existing }
             Write-Host "  [claude]     CLAUDE.md existente respaldado en CLAUDE.project.md (revisa si quieres fusionarlo)"
         }
+    }
+    # Si hay guia propia del proyecto (CLAUDE.project.md), el CLAUDE.md generado la importa SIEMPRE al principio:
+    # las reglas del proyecto no se pierden por instalar dev-standards.
+    if (Test-Path (Join-Path $ProjectPath 'CLAUDE.project.md')) {
+        $rules = "@CLAUDE.project.md`n`n> Este proyecto tiene guia PROPIA en CLAUDE.project.md (importada arriba): sus reglas especificas`n> (dominio, comandos, estructura) MANDAN sobre lo generico de este archivo cuando choquen.`n`n" + $rules
     }
     Write-Utf8 $claudeMd $rules
 
