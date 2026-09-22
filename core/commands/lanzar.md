@@ -6,7 +6,7 @@ argument-hint: [url de preview/producción]
 Pasa ENTERO `ui-verify §references/launch-checklist.md` sobre $ARGUMENTS, con evidencia por punto
 (comando, captura o URL — nada "de memoria"):
 
-1. Técnica (bloqueante): `verify-build.ps1` + `verify-ui.mjs` en 0 + crítica visual
+1. Técnica (bloqueante): `verify-build.mjs` + `verify-ui.mjs` en 0 + crítica visual
    (`references/visual-critique.md`) + formularios probados de verdad + 404.
 2. SEO: titles/descriptions, OG validado, JSON-LD validado, sitemap/robots, canonicals (+ hreflang si hay idiomas).
 3. Rendimiento: PageSpeed móvil (LCP < 2,5 s, CLS < 0,1).

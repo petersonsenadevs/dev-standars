@@ -63,7 +63,6 @@ function New-Plugin {
     return [ordered]@{ name = $Name; source = "./plugins/$Name"; description = $Description; version = $Version; category = 'development'; keywords = @($installed) }
 }
 
-function Hook-Cmd { param([string]$File) 'powershell -NoProfile -ExecutionPolicy Bypass -File "${CLAUDE_PLUGIN_ROOT}/hooks/' + $File + '"' }
 . (Join-Path $PSScriptRoot 'renderers\claude.ps1')   # New-HooksJson / Get-HookSet
 
 Ensure-Dir $pluginsDir
@@ -74,13 +73,13 @@ $coreSkills = @('devlog', 'project-planner', 'code-quality', 'deploy-ops')
 $routerDir  = @((Join-Path $root 'core\skills-plugin\skill-router'))
 
 # --- core: metodologia + TODOS los hooks (menos los de front) ---
-$coreFiles = @('_common.ps1','session-start.ps1','prompt-router.ps1','guard.ps1','protect-files.ps1','secrets-guard.ps1','format-on-save.ps1','edit-tracker.ps1','code-hygiene.ps1','stop-guard.ps1','pre-compact.ps1','session-end.ps1')
+$coreFiles = @('lib.mjs','session-start.mjs','prompt-router.mjs','guard.mjs','protect-files.mjs','secrets-guard.mjs','format-on-save.mjs','edit-tracker.mjs','code-hygiene.mjs','stop-guard.mjs','pre-compact.mjs','session-end.mjs')
 $coreHooks = @{ hooks = (New-HooksJson -HasFront $false -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/') }
 $entries += New-Plugin -Name 'dev-standards-core' -Description 'Metodología dev-standards: skill devlog + skill-router + hooks (guard de git/BD, archivos protegidos, secretos, formateo al guardar, estado de sesión, router de prompts, cierre con devlog, pre-compact).' `
     -Skills $coreSkills -Hooks $coreHooks -HookFiles $coreFiles -ExtraSkillDirs $routerDir -Commands @('plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md')
 
 # --- front (todo en uno) ---
-$frontFiles = $coreFiles + @('front-skill-reminder.ps1')   # incluye prompt-router: es el unico enrutado temprano si solo se instala front (dedupe por marcador de sesion)
+$frontFiles = $coreFiles + @('front-skill-reminder.mjs')   # incluye prompt-router: es el unico enrutado temprano si solo se instala front (dedupe por marcador de sesion)
 $frontHooks = @{ hooks = (New-HooksJson -HasFront $true -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/' -Only $frontFiles) }
 $entries += New-Plugin -Name 'dev-standards-front' -Description 'Front y diseño todo en uno: UI UX Pro Max (design systems, 79 estilos, 192 paletas, 22 stacks) + GSAP ScrollTrigger + Three.js, con capa en español, perfiles por stack (Laravel+Inertia+Vue, Next.js, Astro, Vue 3), tabla de activación y hook recordatorio.' `
     -Skills ($coreSkills + @('ui-ux-pro-max', 'ui-verify', 'marketing-seo', 'gsap-scrolltrigger', 'threejs-webgl')) -Hooks $frontHooks -HookFiles $frontFiles `
@@ -103,7 +102,7 @@ foreach ($b in ($bundles.Keys | Sort-Object)) {
 # --- all ---
 $all = @(Get-ChildItem (Join-Path $root 'core\skills') -Directory | ForEach-Object Name) + @(Get-ChildItem (Join-Path $root 'core\skills-vendor') -Directory | ForEach-Object Name)
 $entries += New-Plugin -Name 'dev-standards-all' -Description 'Todas las skills de dev-standards (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.' `
-    -Skills $all -Hooks (@{ hooks = (New-HooksJson -HasFront $true -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/') }) -HookFiles ($coreFiles + @('front-skill-reminder.ps1')) -ExtraSkillDirs ($routerDir + @((Join-Path $root 'core\skills-plugin\front-activation'))) -Commands @('plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md')
+    -Skills $all -Hooks (@{ hooks = (New-HooksJson -HasFront $true -PathPrefix '${CLAUDE_PLUGIN_ROOT}/hooks/') }) -HookFiles ($coreFiles + @('front-skill-reminder.mjs')) -ExtraSkillDirs ($routerDir + @((Join-Path $root 'core\skills-plugin\front-activation'))) -Commands @('plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md')
 
 # --- marketplace ---
 $market = [ordered]@{

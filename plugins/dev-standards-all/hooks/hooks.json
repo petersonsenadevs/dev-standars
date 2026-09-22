@@ -5,7 +5,7 @@
                                            "hooks":  [
                                                          {
                                                              "type":  "command",
-                                                             "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.ps1\"",
+                                                             "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.mjs\"",
                                                              "timeout":  30
                                                          }
                                                      ]
@@ -16,7 +16,7 @@
                                                "hooks":  [
                                                              {
                                                                  "type":  "command",
-                                                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/prompt-router.ps1\"",
+                                                                 "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/prompt-router.mjs\"",
                                                                  "timeout":  30
                                                              }
                                                          ]
@@ -28,7 +28,7 @@
                                          "hooks":  [
                                                        {
                                                            "type":  "command",
-                                                           "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/guard.ps1\"",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/guard.mjs\"",
                                                            "timeout":  30
                                                        }
                                                    ]
@@ -38,22 +38,22 @@
                                          "hooks":  [
                                                        {
                                                            "type":  "command",
-                                                           "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/protect-files.ps1\"",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/protect-files.mjs\"",
                                                            "timeout":  30
                                                        },
                                                        {
                                                            "type":  "command",
-                                                           "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/secrets-guard.ps1\"",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/secrets-guard.mjs\"",
                                                            "timeout":  30
                                                        },
                                                        {
                                                            "type":  "command",
-                                                           "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/code-hygiene.ps1\"",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/code-hygiene.mjs\"",
                                                            "timeout":  30
                                                        },
                                                        {
                                                            "type":  "command",
-                                                           "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/front-skill-reminder.ps1\"",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/front-skill-reminder.mjs\"",
                                                            "timeout":  30
                                                        }
                                                    ]
@@ -65,12 +65,12 @@
                                           "hooks":  [
                                                         {
                                                             "type":  "command",
-                                                            "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/format-on-save.ps1\"",
+                                                            "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/format-on-save.mjs\"",
                                                             "timeout":  30
                                                         },
                                                         {
                                                             "type":  "command",
-                                                            "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/edit-tracker.ps1\"",
+                                                            "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/edit-tracker.mjs\"",
                                                             "timeout":  30
                                                         }
                                                     ]
@@ -81,7 +81,7 @@
                                    "hooks":  [
                                                  {
                                                      "type":  "command",
-                                                     "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/stop-guard.ps1\"",
+                                                     "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/stop-guard.mjs\"",
                                                      "timeout":  30
                                                  }
                                              ]
@@ -92,7 +92,7 @@
                                          "hooks":  [
                                                        {
                                                            "type":  "command",
-                                                           "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/pre-compact.ps1\"",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/pre-compact.mjs\"",
                                                            "timeout":  30
                                                        }
                                                    ]
@@ -103,7 +103,7 @@
                                          "hooks":  [
                                                        {
                                                            "type":  "command",
-                                                           "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/session-end.ps1\"",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/session-end.mjs\"",
                                                            "timeout":  5
                                                        }
                                                    ]

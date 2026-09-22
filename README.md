@@ -157,7 +157,7 @@ de entrega web (legales RGPD, analítica con consentimiento, crédito).
   o su `description` de 250; una referencia citada no existe; una cita `skill §sección` no resuelve contra archivos/encabezados
   reales; las tablas generadas están desactualizadas; un plugin o bundle no satisface `requires`; o los ejemplos de tarjeta
   (`### F1-T2 · título  [S] [todo]`) no los parsea el hook `session-start`.
-- **Contratos únicos**: tarjeta de tarea (una regex en `_common.ps1`, ejemplos en `templates/PLAN.md`, `plan-format.md`,
+- **Contratos únicos**: tarjeta de tarea (una regex en `core/hooks/lib.mjs`, ejemplos en `templates/PLAN.md`, `plan-format.md`,
   `task-card.md`), devlog (`devlog/<YYYY-MM-DD>/NNN-slug.md` con campo `Tarea:`), design system (`design-system/<slug>/MASTER.md`,
   primera tarjeta de UI si no existe), `hooks/config.json` (mismas claves para proyecto y plugin).
 - **Paridad sin hooks** (Codex/Cursor/Windsurf): bloque "Sesión y comandos del proyecto" en las reglas (qué leer al empezar,
@@ -184,25 +184,25 @@ El "alma" del sistema queda en tres piezas: **principios** en `core/prompts/base
 
 ## Hooks (Claude Code)
 
-Se instalan con `sync.ps1` (`.claude/hooks/*.ps1` + `settings.json`) y van dentro de los plugins `dev-standards-core`,
+Se instalan con `sync.ps1` (`.claude/hooks/*.mjs` + `settings.json`) y van dentro de los plugins `dev-standards-core`,
 `dev-standards-backend` (todos) y `dev-standards-front` (los de front). Leen `.claude/hooks/config.json` (stack, perfil,
 formateadores, rutas protegidas, skills instaladas), generado desde `stack.json`. Solo Claude Code tiene hooks de agente: en Codex/Cursor/Windsurf/Antigravity hacen el trabajo la tabla de activación, el bloque "Sesión y comandos" de las reglas y `sync.ps1 -GitHooks`.
 
 | Evento | Hook | Qué hace |
 |---|---|---|
-| SessionStart | `session-start.ps1` | Inyecta estado: stack y perfil, rama git y cambios pendientes (avisa si estás en main), design system, devlog de hoy, protocolo de skills. |
-| UserPromptSubmit | `prompt-router.ps1` | Detecta por palabras clave qué skill instalada encaja (UI, animación, 3D, DDD, calidad, devlog) y lo recuerda **una vez por skill y sesión**. |
-| PreToolUse `Bash\|PowerShell` | `guard.ps1` | Bloquea `git push`, resets/limpiezas destructivas, DROP/TRUNCATE/DELETE sin WHERE, `migrate:fresh`, `rm -rf`, publicar paquetes; en `git commit`: rama protegida (main/master/develop), Conventional Commits (≤ 72 chars) y sin `Co-Authored-By`. |
-| PreToolUse `Edit\|Write\|MultiEdit\|NotebookEdit` | `protect-files.ps1` | Bloquea editar archivos generados (CLAUDE.md, AGENTS.md, skills/reglas instaladas), secretos (`.env`, `*.pem`, `credentials*`), dependencias/artefactos, migraciones ya versionadas y `protectedPaths` del proyecto. |
-| PreToolUse (idem) | `secrets-guard.ps1` | Bloquea escribir credenciales reales (AWS, GitHub, Stripe, OpenAI/Anthropic, Google, PEM, JWT, cadenas de conexión con password); ignora placeholders y `.env.example`. |
-| PreToolUse (idem, solo front) | `front-skill-reminder.ps1` | Al tocar `.vue .tsx .astro .blade.php .css…` recuerda `ui-ux-pro-max` y el `design-system/*/MASTER.md`, una vez por sesión. |
-| PostToolUse `Edit\|Write\|MultiEdit` | `format-on-save.ps1` | Formatea el archivo con el formateador del stack (`config.json` → Pint, Prettier, ruff) si el binario existe. Nunca bloquea. |
-| Stop | `stop-guard.ps1` | Si hay cambios sin commitear y no existe devlog de hoy, **bloquea la parada una vez** pidiendo la entrada de devlog; después solo recuerda. Respeta `stop_hook_active`. |
-| PreCompact | `pre-compact.ps1` | Re-inyecta stack/perfil, design system, devlog de hoy, rama y reglas duras para que no se pierdan al compactar. |
-| SessionEnd | `session-end.ps1` | Limpia los marcadores de sesión (`%TEMP%\dev-standards-*.flag`). |
+| SessionStart | `session-start.mjs` | Inyecta estado: stack y perfil, rama git y cambios pendientes (avisa si estás en main), design system, devlog de hoy, protocolo de skills. |
+| UserPromptSubmit | `prompt-router.mjs` | Detecta por palabras clave qué skill instalada encaja (UI, animación, 3D, DDD, calidad, devlog) y lo recuerda **una vez por skill y sesión**. |
+| PreToolUse `Bash\|PowerShell` | `guard.mjs` | Bloquea `git push`, resets/limpiezas destructivas, DROP/TRUNCATE/DELETE sin WHERE, `migrate:fresh`, `rm -rf`, publicar paquetes, comandos devops peligrosos (`curl|bash`, `chmod 777`, `dd of=/dev/*`, `mkfs`, `docker prune`, parar servicios, vaciar firewall, `crontab -r`); en `git commit`: rama protegida (main/master/develop), Conventional Commits (≤ 72 chars) y sin `Co-Authored-By`. |
+| PreToolUse `Edit\|Write\|MultiEdit\|NotebookEdit` | `protect-files.mjs` | Bloquea editar archivos generados (CLAUDE.md, AGENTS.md, skills/reglas instaladas), secretos (`.env`, `*.pem`, `credentials*`), dependencias/artefactos, migraciones ya versionadas y `protectedPaths` del proyecto. |
+| PreToolUse (idem) | `secrets-guard.mjs` | Bloquea escribir credenciales reales (AWS, GitHub, Stripe, OpenAI/Anthropic, Google, PEM, JWT, cadenas de conexión con password); ignora placeholders y `.env.example`. |
+| PreToolUse (idem, solo front) | `front-skill-reminder.mjs` | Al tocar `.vue .tsx .astro .blade.php .css…` recuerda `ui-ux-pro-max` y el `design-system/*/MASTER.md`, una vez por sesión. |
+| PostToolUse `Edit\|Write\|MultiEdit` | `format-on-save.mjs` | Formatea el archivo con el formateador del stack (`config.json` → Pint, Prettier, ruff) si el binario existe. Nunca bloquea. |
+| Stop | `stop-guard.mjs` | Si hay cambios sin commitear y no existe devlog de hoy, **bloquea la parada una vez** pidiendo la entrada de devlog; después solo recuerda. Respeta `stop_hook_active`. |
+| PreCompact | `pre-compact.mjs` | Re-inyecta stack/perfil, design system, devlog de hoy, rama y reglas duras para que no se pierdan al compactar. |
+| SessionEnd | `session-end.mjs` | Limpia los marcadores de sesión (`<tmp>/dev-standards-*.flag`). |
 
-Todos son PowerShell 5.1 (UTF-8 con BOM), leen el JSON por STDIN y bloquean con exit 2 + motivo en STDERR o con JSON
-(`decision: block`). `_common.ps1` contiene las utilidades compartidas.
+Todos son Node ESM (`.mjs`, agnósticos de OS: Node es el único runtime garantizado allá donde corre Claude Code), leen el JSON
+por STDIN en UTF-8 y bloquean con exit 2 + motivo en STDERR o con JSON (`decision: block`). `lib.mjs` contiene las utilidades compartidas.
 
 ## Cómo carga contexto el agente (disciplina de contexto)
 
@@ -273,7 +273,7 @@ Cada stack front declara en `stack.json` un `frontProfile` con los stacks del bu
 2. **Bloque generado "Front y diseño"** en `CLAUDE.md` / `AGENTS.md` / reglas de Cursor y Windsurf: perfil del stack,
    comandos `python3` / `py -3` y **tabla de activación** (tarea → skill a leer), solo con las skills instaladas.
    Es la garantía para GPT/Codex, que no tiene hooks.
-3. **Hook de Claude Code** `front-skill-reminder.ps1` (`PreToolUse` en `Edit|Write|MultiEdit` de archivos de UI):
+3. **Hook de Claude Code** `front-skill-reminder.mjs` (`PreToolUse` en `Edit|Write|MultiEdit` de archivos de UI):
    recuerda la skill y el `design-system/*/MASTER.md` una vez por sesión. Solo se registra en stacks con `frontProfile`.
 
 Uso típico dentro de un proyecto:

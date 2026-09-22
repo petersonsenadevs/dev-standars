@@ -32,7 +32,7 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 | Diseñar o cambiar un endpoint/API | `references/api-design.md` |
 | Web multiidioma (ES/CA/EN), hreflang, locales | `references/i18n.md` |
 | Abrir o revisar un PR, commits | `references/git-and-reviews.md` §checklist |
-| Verificar el proyecto tras TUS cambios | `scripts/verify-build.ps1` (lint+types+tests+build; corrige hasta 0 fallos) |
+| Verificar el proyecto tras TUS cambios | `scripts/verify-build.mjs` (lint+types+tests+build; corrige hasta 0 fallos) |
 
 ## Principios transversales (aplican siempre, sin leer nada más)
 1. **Lee antes de escribir**: imita naming, estructura y estilo del código vecino; no introduzcas patrones nuevos sin motivo.

@@ -77,7 +77,7 @@ Formato fijo, un bloque por tarea. La primera línea es un encabezado `###` con
 ```
 
 La primera línea de cada tarjeta la parsea el hook `session-start`
-(`Get-PlanStatus` en `core/hooks/_common.ps1`): **no cambies su forma**. La regex exige
+(`planStatus` en `core/hooks/lib.mjs`): **no cambies su forma**. La regex exige
 `### <id> · <título> [S|M|L] [todo|doing|blocked|done]` (el separador puede ser `·` o `-`).
 Un `grep '^### '` sobre el plan da el tablero completo.
 

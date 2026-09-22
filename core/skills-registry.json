@@ -1,5 +1,5 @@
 {
-  "_comment": "Fuente única de enrutado de skills. La consumen _lib.ps1 (tablas de activación), prompt-router.ps1 (keywords vía config.json.router), build-routers.ps1 (skill-router/front-activation generados) y check-skills.ps1. Editar aquí, nunca en las tablas generadas. Campo entrypoint: puerta de entrada de su grupo; las tablas y el router la ponen primero.",
+  "_comment": "Fuente única de enrutado de skills. La consumen _lib.ps1 (tablas de activación), prompt-router.mjs (keywords vía config.json.router), build-routers.ps1 (skill-router/front-activation generados) y check-skills.ps1. Editar aquí, nunca en las tablas generadas. Campo entrypoint: puerta de entrada de su grupo; las tablas y el router la ponen primero.",
   "groups": {
     "planning": "Planificación",
     "routing": "Enrutado",

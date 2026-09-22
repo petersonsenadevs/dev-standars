@@ -48,7 +48,10 @@ plataforma profundas, heredar app nativa) — y Swift solo con Mac disponible.
   react-next.md, uploads de archivos como receta propia.
 - [ ] Refresco periódico (~mensual): `tools/vendor.ps1` (upstream de skills), `vendor-effects.ps1 -Missing`
   y los índices scrapeados de `front-activation/references/sources/` (instrucciones en cada índice).
-- [ ] Portabilidad de scripts a macOS/Linux (hoy todo PS 5.1) — solo si entra alguien sin Windows.
+- [x] Portabilidad de lo que VIAJA a los proyectos (2026-09-22): los 13 hooks y `verify-build` reescritos
+  en Node `.mjs` — funcionan en Windows/macOS/Linux y en cualquier agente. Queda PS 5.1 SOLO el tooling
+  del repo (`sync`, `init-project`, `build-*`, `check-skills`, suites, `vendor*`), que corre en esta
+  máquina Windows; portarlo solo si algún día se mantiene el repo desde macOS/Linux.
 - [ ] Más canteras MIT al manifest de effects-vendor a medida que aparezcan (codrops está agotado).
 
 ## Cómo se usa este archivo

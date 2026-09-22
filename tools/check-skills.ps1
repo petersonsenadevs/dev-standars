@@ -10,7 +10,7 @@
    4. Citas `<skill> §seccion` en SKILL.md y references/*.md de skills propias resuelven contra archivos/encabezados reales.
    5. skill-router / front-activation generados al dia (build-routers.ps1).
    6. requires del registro satisfechos en bundles y plugins generados.
-   7. Contrato de tarjeta: la regex de _common.ps1 casa con los ejemplos de templates/PLAN.md, task-card.md, plan-format.md y SKILL.md del planner.
+   7. Contrato de tarjeta: la regex de core\hooks\lib.mjs casa con los ejemplos de templates/PLAN.md, task-card.md, plan-format.md y SKILL.md del planner.
 #>
 param([int]$MaxLines = 100, [int]$MaxDesc = 250)
 
@@ -168,8 +168,8 @@ if (Test-Path $plugins) {
 }
 
 # --- 7: contrato de tarjeta ---
-$commonTxt = Read-Utf8 (Join-Path $root 'core\hooks\_common.ps1')
-if ($commonTxt -match "'(\^###[^']+)'") {
+$commonTxt = Read-Utf8 (Join-Path $root 'core\hooks\lib.mjs')
+if ($commonTxt -match '/(\^###[^/]+)/') {
     $cardRx = $Matches[1]
     $samples = @()
     foreach ($f in @('core\skills\project-planner\templates\PLAN.md', 'core\skills\project-planner\templates\task-card.md', 'core\skills\project-planner\references\plan-format.md', 'core\skills\project-planner\SKILL.md')) {
@@ -179,12 +179,12 @@ if ($commonTxt -match "'(\^###[^']+)'") {
         if (-not $cards.Count) { Fail $f 'sin tarjetas de ejemplo (### F1-T1 ...)'; continue }
         foreach ($c in $cards) {
             $probe = $c -replace '\[S\|M\]', '[S]' -replace '\[S\|M\|L\]', '[S]' -replace '\[todo\|doing\|blocked\|done\]', '[todo]'
-            if ($probe -notmatch $cardRx) { Fail $f "tarjeta no parseable por _common.ps1: $c" }
+            if ($probe -notmatch $cardRx) { Fail $f "tarjeta no parseable por lib.mjs: $c" }
         }
     }
     $bad = @('#### F1-T1 · x · S · doing')
-    foreach ($b in $bad) { if ($b -match $cardRx) { Fail '_common.ps1' "la regex acepta un formato no canonico: $b" } }
-} else { Fail '_common.ps1' 'no se encontro la regex de tarjeta' }
+    foreach ($b in $bad) { if ($b -match $cardRx) { Fail 'lib.mjs' "la regex acepta un formato no canonico: $b" } }
+} else { Fail 'lib.mjs' 'no se encontro la regex de tarjeta' }
 
 # --- 8: entrypoints y marca de precedencia ---
 $eps = @($script:Registry.skills | Where-Object { $_.entrypoint })
@@ -215,14 +215,15 @@ $plugRoot = Join-Path $root 'plugins'
 if (Test-Path $plugRoot) {
     foreach ($pd in (Get-ChildItem $plugRoot -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'hooks\hooks.json') })) {
         $hj = Read-Utf8 (Join-Path $pd.FullName 'hooks\hooks.json')
-        $files = @(Get-ChildItem (Join-Path $pd.FullName 'hooks') -Filter *.ps1 | Where-Object { $_.Name -ne '_common.ps1' } | ForEach-Object Name)
+        $files = @(Get-ChildItem (Join-Path $pd.FullName 'hooks') -Filter *.mjs | Where-Object { $_.Name -ne 'lib.mjs' } | ForEach-Object Name)
         foreach ($f in $files) { if ($hj -notmatch [regex]::Escape($f)) { Fail "plugin:$($pd.Name)" "hook muerto: $f copiado pero no registrado en hooks.json" } }
         if ($pd.Name -in @('dev-standards-front', 'dev-standards-core', 'dev-standards-backend', 'dev-standards-all') -and $hj -notmatch 'UserPromptSubmit') { Fail "plugin:$($pd.Name)" 'sin UserPromptSubmit (prompt-router)' }
     }
 }
 
-# --- 11: todos los .ps1 con BOM UTF-8 (dev-003: sin BOM, PS 5.1 lee ANSI y corrompe literales con acentos) ---
-foreach ($ps in (Get-ChildItem (Join-Path $root 'tools'), (Join-Path $root 'core\hooks'), (Join-Path $root 'toolsenderers') -Filter *.ps1 -ErrorAction SilentlyContinue)) {
+# --- 11: los .ps1 del tooling con BOM UTF-8 (dev-003: sin BOM, PS 5.1 lee ANSI y corrompe literales con acentos).
+#         Los hooks ya son .mjs (Node, UTF-8 nativo): sin requisito de BOM. ---
+foreach ($ps in (Get-ChildItem (Join-Path $root 'tools'), (Join-Path $root 'tools\renderers') -Filter *.ps1 -ErrorAction SilentlyContinue)) {
     $b = [System.IO.File]::ReadAllBytes($ps.FullName)
     if ($b.Length -lt 3 -or $b[0] -ne 0xEF -or $b[1] -ne 0xBB -or $b[2] -ne 0xBF) { Fail $ps.Name 'sin BOM UTF-8 (PS 5.1 leera el archivo como ANSI)' }
 }

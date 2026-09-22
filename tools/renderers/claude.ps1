@@ -5,16 +5,16 @@ function Get-HookSet {
     # Conjunto estandar de hooks de dev-standards (archivo -> evento/matcher). Los de front solo con -HasFront.
     param([bool]$HasFront)
     $set = [ordered]@{
-        SessionStart     = @(@{ matcher = $null; files = @('session-start.ps1') })
-        UserPromptSubmit = @(@{ matcher = $null; files = @('prompt-router.ps1') })
+        SessionStart     = @(@{ matcher = $null; files = @('session-start.mjs') })
+        UserPromptSubmit = @(@{ matcher = $null; files = @('prompt-router.mjs') })
         PreToolUse       = @(
-            @{ matcher = 'Bash|PowerShell';                   files = @('guard.ps1') },
-            @{ matcher = 'Edit|Write|MultiEdit|NotebookEdit'; files = @('protect-files.ps1', 'secrets-guard.ps1', 'code-hygiene.ps1') + $(if ($HasFront) { @('front-skill-reminder.ps1') } else { @() }) }
+            @{ matcher = 'Bash|PowerShell';                   files = @('guard.mjs') },
+            @{ matcher = 'Edit|Write|MultiEdit|NotebookEdit'; files = @('protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs') + $(if ($HasFront) { @('front-skill-reminder.mjs') } else { @() }) }
         )
-        PostToolUse      = @(@{ matcher = 'Edit|Write|MultiEdit'; files = @('format-on-save.ps1', 'edit-tracker.ps1') })
-        Stop             = @(@{ matcher = $null; files = @('stop-guard.ps1') })
-        PreCompact       = @(@{ matcher = $null; files = @('pre-compact.ps1') })
-        SessionEnd       = @(@{ matcher = $null; files = @('session-end.ps1') })
+        PostToolUse      = @(@{ matcher = 'Edit|Write|MultiEdit'; files = @('format-on-save.mjs', 'edit-tracker.mjs') })
+        Stop             = @(@{ matcher = $null; files = @('stop-guard.mjs') })
+        PreCompact       = @(@{ matcher = $null; files = @('pre-compact.mjs') })
+        SessionEnd       = @(@{ matcher = $null; files = @('session-end.mjs') })
     }
     return $set
 }
@@ -31,7 +31,8 @@ function New-HooksJson {
             if (-not $files.Count) { continue }
             $cmds = @()
             foreach ($f in $files) {
-                $cmds += [ordered]@{ type = 'command'; command = ('powershell -NoProfile -ExecutionPolicy Bypass -File "' + $PathPrefix + $f + '"'); timeout = $(if ($ev -eq 'SessionEnd') { 5 } else { $Timeout }) }
+                # node = unico runtime garantizado alla donde corre Claude Code (agnostico de OS; rutas con /)
+                $cmds += [ordered]@{ type = 'command'; command = ('node "' + $PathPrefix + $f + '"'); timeout = $(if ($ev -eq 'SessionEnd') { 5 } else { $Timeout }) }
             }
             $grp = [ordered]@{}
             if ($g.matcher) { $grp.matcher = $g.matcher }
@@ -65,13 +66,13 @@ function Merge-Settings {
     $perm = [ordered]@{ deny = @($deny | Select-Object -Unique); ask = @($ask | Select-Object -Unique) }
     if ($allow.Count) { $perm.allow = @($allow | Select-Object -Unique) }
     $out.permissions = $perm
-    # hooks: conservar los del usuario que no sean de dev-standards (.claude\hooks\*.ps1 nuestros)
+    # hooks: conservar los del usuario que no sean de dev-standards (.claude/hooks/*.mjs nuestros; tambien limpia los .ps1 antiguos)
     $merged = [ordered]@{}
     foreach ($ev in $Hooks.Keys) { $merged[$ev] = @($Hooks[$ev]) }
     if ($existing -and $existing.hooks) {
         foreach ($pr in $existing.hooks.PSObject.Properties) {
             foreach ($grp in @($pr.Value)) {
-                $isOurs = @($grp.hooks | Where-Object { $_.command -match '\\\.claude\\hooks\\' }).Count -gt 0
+                $isOurs = @($grp.hooks | Where-Object { $_.command -match '[\\/]\.claude[\\/]hooks[\\/]' }).Count -gt 0
                 if (-not $isOurs) { if (-not $merged.Contains($pr.Name)) { $merged[$pr.Name] = @() }; $merged[$pr.Name] += $grp }
             }
         }
@@ -107,7 +108,9 @@ function Render-Claude {
     # 3) Hooks -> .claude/hooks/
     $hooksDst = Join-Path $ProjectPath '.claude\hooks'
     Ensure-Dir $hooksDst
-    Get-ChildItem (Join-Path $root 'core\hooks') -Filter *.ps1 | ForEach-Object { Copy-Item $_.FullName (Join-Path $hooksDst $_.Name) -Force }
+    Get-ChildItem (Join-Path $root 'core\hooks') -Filter *.mjs | ForEach-Object { Copy-Item $_.FullName (Join-Path $hooksDst $_.Name) -Force }
+    # limpiar hooks .ps1 de versiones anteriores de dev-standards (sustituidos por .mjs agnosticos)
+    Get-ChildItem $hooksDst -Filter *.ps1 -ErrorAction SilentlyContinue | Where-Object { Test-Path (Join-Path $root ('core\hooks\' + ($_.BaseName + '.mjs'))) -or $_.Name -eq '_common.ps1' } | Remove-Item -Force
     Copy-Tree (Join-Path $Stack.Dir 'hooks') $hooksDst
 
     # 3a) Comandos slash -> .claude/commands/ (plan y siguiente siempre; los de front solo con perfil)
@@ -140,7 +143,7 @@ function Render-Claude {
         if ($partial.permissions.deny) { $deny += $partial.permissions.deny }
         if ($partial.permissions.ask)  { $ask  += $partial.permissions.ask }
     }
-    Merge-Settings -Path (Join-Path $ProjectPath '.claude\settings.json') -Permissions @{ deny = $deny; ask = $ask } -Hooks (New-HooksJson -HasFront $useFrontHook -PathPrefix '$CLAUDE_PROJECT_DIR\.claude\hooks\')
+    Merge-Settings -Path (Join-Path $ProjectPath '.claude\settings.json') -Permissions @{ deny = $deny; ask = $ask } -Hooks (New-HooksJson -HasFront $useFrontHook -PathPrefix '$CLAUDE_PROJECT_DIR/.claude/hooks/')
 
     # 5) .mcp.json (servidores MCP del stack)
     $mcpPath = Join-Path $Stack.Dir $Stack.Meta.mcp

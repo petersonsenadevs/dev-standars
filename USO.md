@@ -21,7 +21,10 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
   (marca, 2-3 webs que te gusten, objetivo). No inventa la dirección visual.
 - **Cierre bloqueado**: no puede dar nada por terminado sin (a) build/lint/types/tests en verde si tocó
   código, (b) verificación móvil-primero si tocó UI, (c) devlog del día escrito.
-- **Guard**: nada destructivo (push, resets, DROP) sin tu aprobación; secretos y archivos protegidos vetados.
+- **Guard**: nada destructivo (push, resets, DROP) sin tu aprobación; secretos y archivos protegidos vetados;
+  comandos devops peligrosos bloqueados (`curl|bash`, `chmod 777`, `dd` a discos, `mkfs`, `docker prune`,
+  parar servicios, vaciar el firewall, `crontab -r`). Los hooks son Node (`.mjs`): funcionan igual en
+  Windows, macOS y Linux.
 - **Muros nuevos**: jQuery/Bootstrap bloqueados al instalar (salvo aprobación explícita); `console.log`/`dd()`/
   `debugger` bloqueados al introducirse en código fuente; los términos entre acentos graves en la sección "No"
   de `gustos.md` se bloquean de verdad; primera edición de UI sin brief ni design system → muro (una vez por sesión); deploy a producción
@@ -75,7 +78,7 @@ la paleta sale sola del design system. En la app de ChatGPT/Codex la genera nati
 
 - Las skills están (AGENTS.md + `.agents/skills/`) y se autodescubren por descripción, **pero no hay
   hooks**: ni router ni bloqueos automáticos. Sé un punto más explícito: "usa la skill image-gen",
-  `$ui-ux-pro-max`, o pide "verifica el build" (script: `powershell .agents/skills/code-quality/scripts/verify-build.ps1`).
+  `$ui-ux-pro-max`, o pide "verifica el build" (script: `node .agents/skills/code-quality/scripts/verify-build.mjs`).
 - Los comandos slash son de Claude Code; en Codex pide lo mismo en llano.
 
 ## 7. Mapa de dónde vive cada cosa (por si quieres mirar)

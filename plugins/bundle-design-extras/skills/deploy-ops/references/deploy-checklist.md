@@ -4,7 +4,7 @@ Cada punto se marca con su evidencia (comando+salida, captura o URL). El deploy 
 **aprobación explícita del usuario en el momento** — el guard bloquea los `--prod` directos hasta tenerla.
 
 ## PRE (no se despliega sin esto)
-- [ ] Suites en verde AHORA: `verify-build.ps1` (lint/types/tests/build) con salida pegada.
+- [ ] Suites en verde AHORA: `verify-build.mjs` (lint/types/tests/build) con salida pegada.
 - [ ] Si es web pública y es su primer deploy o un cambio grande: `/lanzar` en APTA.
 - [ ] **Backup fresco y VERIFICADO** de BD+uploads (de hoy; comprobado que no está vacío). En estáticos
   sin BD: N/A explícito.

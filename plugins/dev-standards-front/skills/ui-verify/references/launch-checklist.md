@@ -4,7 +4,7 @@ Se pasa ENTERA antes del primer deploy público (y en resumen tras cambios grand
 con evidencia (comando, captura o URL), no de memoria. Veredicto final: LISTA / LISTA con menores / NO.
 
 ## 1. Verificación técnica (bloqueante)
-- [ ] `verify-build.ps1` en verde (lint, types, tests, build) — salida pegada.
+- [ ] `verify-build.mjs` en verde (lint, types, tests, build) — salida pegada.
 - [ ] `verify-ui.mjs` en 0 problemas en las rutas clave (home + 1 interior + contacto), móvil primero.
 - [ ] Crítica visual de capturas hecha (`visual-critique.md`) con veredicto APTA.
 - [ ] Formularios probados DE VERDAD: envío llega (email/CRM), validación, mensaje de éxito, y el

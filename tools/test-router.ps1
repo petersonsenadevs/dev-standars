@@ -4,7 +4,7 @@
   Suite de regresion del prompt-router: casos dorados prompt -> skills esperadas/prohibidas.
 .DESCRIPTION
   Monta un proyecto sintetico en %TEMP% (skills stub + hooks/config.json con el router del registro),
-  ejecuta core\hooks\prompt-router.ps1 con cada caso y comprueba que las sugerencias contienen las
+  ejecuta core\hooks\prompt-router.mjs (Node) con cada caso y comprueba que las sugerencias contienen las
   skills de `expect` y ninguna de `forbid`. Cada caso usa un session_id propio (sin colisiones de marcador).
   Ejecutar tras tocar keywords/prioridades del registro o el propio hook. Sale con 1 si algun caso falla.
 #>
@@ -29,8 +29,8 @@ function Set-InstalledSkills([string[]]$Names) {
     foreach ($n in $Names) { Ensure-Dir (Join-Path $skillsDir $n); Write-Utf8 (Join-Path $skillsDir "$n\SKILL.md") "---`nname: $n`n---`nstub" }
 }
 Write-Utf8 (Join-Path $hooksDir 'config.json') (([ordered]@{ skills = @(); router = (Get-RouterRules) }) | ConvertTo-Json -Depth 6)
-$hook = Join-Path $root 'core\hooks\prompt-router.ps1'
-# el hook dot-sourcea _common.ps1 desde su carpeta: ejecutar el original de core\hooks
+$hook = Join-Path $root 'core\hooks\prompt-router.mjs'
+# el hook importa lib.mjs desde su carpeta: ejecutar el original de core\hooks
 
 function Invoke-Case([hashtable]$c, [int]$i) {
     if ($c.skills) { Set-InstalledSkills $c.skills } else { Set-InstalledSkills $DefaultSkills }
@@ -44,7 +44,7 @@ function Invoke-Case([hashtable]$c, [int]$i) {
     $json = (@{ session_id = $sid; prompt = $c.prompt } | ConvertTo-Json -Compress)
     # Transporte 100% ASCII: escapar no-ASCII a \uXXXX para que ninguna codepage del pipe pueda corromper acentos.
     $json = -join ($json.ToCharArray() | ForEach-Object { if ([int]$_ -gt 127) { '\u{0:x4}' -f [int]$_ } else { $_ } })
-    $out = ($json | powershell -NoProfile -ExecutionPolicy Bypass -File $hook 2>&1 | Out-String)
+    $out = ($json | node $hook 2>&1 | Out-String)
     $hits = @()
     if ($out -match 'parece de: ([^\.]+)\.') { $hits = @($Matches[1] -split ',\s*') }
     $problems = @()
