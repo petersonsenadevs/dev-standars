@@ -13,6 +13,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 | Tras cada mejora de dev-standards | `D:\dev-standards\tools\sync.ps1 -Path <ruta>` **+ sesión nueva del agente** |
 | Refrescar la colección de efectos | `D:\dev-standards\tools\vendor-effects.ps1 -Missing` |
 | Ver que el paquete está sano | `tools\check-skills.ps1` + `tools\test-router.ps1` |
+| Catálogo completo (skills, enrutamiento, comandos, muros) | [`REFERENCIA.md`](REFERENCIA.md) (generado, siempre al día) |
 
 ## 2. Qué pasa solo (sin comandos) en Claude Code
 

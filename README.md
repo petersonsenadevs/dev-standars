@@ -12,8 +12,9 @@ dev-standards/
 ├── core/                     # Reglas COMUNES a todos los lenguajes
 │   ├── methodology/          # devlog, git-flow, acciones prohibidas
 │   ├── prompts/              # systemprompt base (se hereda en cada stack)
-│   ├── hooks/                # 11 hooks PowerShell: guard, protect-files, secrets, format-on-save, session-start,
-│   │                         #   prompt-router, stop-guard, pre-compact, session-end, front-skill-reminder, _common
+│   ├── hooks/                # 14 hooks Node (.mjs, agnósticos de OS): guard, protect-files, secrets, code-hygiene,
+│   │                         #   conventions-guard, format-on-save, edit-tracker, session-start, prompt-router,
+│   │                         #   stop-guard, pre-compact, session-end, front-skill-reminder, lib
 │   ├── skills/               # skills propias: devlog, project-planner, code-quality, ddd-hexagonal, skill de marca de la agencia
 │   ├── skills-vendor/        # skills de terceros COPIADAS por tools/vendor.ps1 (inglés, NO editar; VENDOR.json)
 │   │                         #   ui-ux-pro-max (+ ui-styling, design-system, graphic-design, slides, brand, banner-design)
@@ -53,8 +54,10 @@ dev-standards/
 │   ├── vendor.ps1            # Descarga/actualiza las skills upstream a core/skills-vendor/
 │   ├── build-plugins.ps1     # Genera plugins/ + .claude-plugin/marketplace.json (plugins de Claude Code)
 │   ├── build-routers.ps1     # Regenera las tablas de skill-router / front-activation desde el registro
-│   ├── check-skills.ps1      # Verificador de conectividad (10 checks): falla si algo se desconecta
-│   ├── test-router.ps1       # Suite de regresión del prompt-router (22 casos dorados prompt → skill)
+│   ├── check-skills.ps1      # Verificador de conectividad (11 checks): falla si algo se desconecta
+│   ├── test-router.ps1       # Suite de regresión del prompt-router (43 casos dorados prompt → skill)
+│   ├── test-hooks.ps1        # Suite de los muros (28 casos: guard, hygiene, convenciones, front, versiones)
+│   ├── build-docs.ps1        # Genera REFERENCIA.md (catálogo completo) desde las fuentes de verdad
 │   ├── build-index.py        # INDEX.md de una skill-biblioteca (ddd-hexagonal)
 │   ├── install-skills.ps1    # Instala skills globales para Codex/Cursor/Windsurf/Claude (~/.codex/skills, …)
 │   └── renderers/            # Un renderer por herramienta
@@ -94,7 +97,7 @@ Actualizar las skills de terceros desde upstream (no toca tu capa en `core/skill
 D:\dev-standards\tools\vendor.ps1
 ```
 
-> **Instalar: [`INSTALL.md`](INSTALL.md)** · **Usar en el día a día (comandos, qué es automático): [`USO.md`](USO.md)**
+> **Instalar: [`INSTALL.md`](INSTALL.md)** · **Usar en el día a día (comandos, qué es automático): [`USO.md`](USO.md)** · **Catálogo completo (skills, enrutamiento, comandos, muros): [`REFERENCIA.md`](REFERENCIA.md)**
 
 ## Instalación remota (un comando, desde GitHub)
 
