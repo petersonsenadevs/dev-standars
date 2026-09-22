@@ -1,7 +1,7 @@
 # Versiones del stack: qué cambia entre majors y qué API puedes usar
 
-Índice: 1 Regla de oro · 2 PHP · 3 Laravel · 4 Next/React · 5 Vue · 6 Astro · 7 Tailwind · 8 Node ·
-9 Python · 10 TypeScript · 11 EOL y política de upgrades
+Índice: 1 Regla de oro · 2 PHP · 3 Laravel · 4 Next/React · 5 Vue, Nuxt y Svelte · 6 Astro · 7 Tailwind ·
+8 Node · 9 Python · 10 TypeScript · 11 WordPress · 12 Go / Java / .NET · 13 EOL y política de upgrades
 
 ## 1. Regla de oro: la versión REAL manda
 - El hook de sesión inyecta "Versiones detectadas" (composer.json / package.json / pyproject.toml).
@@ -33,10 +33,14 @@
 - **React 19**: `use()`, Actions/`useOptimistic`, **`ref` como prop normal (adiós `forwardRef`)**, metadata en JSX.
   En React 18 sigue haciendo falta `forwardRef` y no existe `use()`.
 
-## 5. Vue (2 → 3)
+## 5. Vue (2 → 3), Nuxt (3 → 4) y Svelte (4 → 5)
 - **Vue 2 está EOL (dic 2023)**: si el proyecto sigue en 2, toda feature nueva es Options API + sin `<script setup>`,
   y propón la migración (o al menos el build de compatibilidad) en el devlog.
-- **3**: Composition API + `<script setup>` por defecto, Pinia (no Vuex), `defineModel` (3.4+), Teleport/Suspense.
+- **Vue 3**: Composition API + `<script setup>` por defecto, Pinia (no Vuex), `defineModel` (3.4+), Teleport/Suspense.
+- **Nuxt 4**: nueva estructura `app/` (app.vue, pages, components dentro), datos "shallow" por defecto en
+  useFetch. Nuxt 3 mantiene la estructura plana clásica: mira dónde vive `app.vue` antes de crear archivos.
+- **Svelte 5**: **runes** (`$state`, `$derived`, `$props`, `$effect`) y snippets — sintaxis distinta a
+  Svelte 4 (`export let`, `$:`, slots). Detecta cuál usa el proyecto y NO mezcles (`sveltekit.md` §1).
 
 ## 6. Astro (3 → 4 → 5)
 - **3**: View Transitions. **4**: dev toolbar, content collections maduras. **5**: **Content Layer** (loaders
@@ -62,10 +66,25 @@
 - 5.x es continuo (sin majors de rotura al estilo 4→5): mira la versión por si usas `satisfies` (4.9+),
   `const` type parameters (5.0), decoradores estándar (5.0), `using` (5.2). `verbatimModuleSyntax` cambia los imports de tipos.
 
-## 11. EOL y política de upgrades
+## 11. WordPress
+- WP publica majors continuos (6.x) sin roturas grandes: lo crítico es el **PHP mínimo** del hosting y de
+  cada plugin (mira `Requires PHP`). Woo sí rompe: HPOS (pedidos fuera de postmeta) y overrides de templates
+  desactualizados tras cada major — revisa Estado del sistema de Woo tras actualizar.
+- Core/plugins/themes: majors primero en staging; los updates de seguridad, siempre al día.
+
+## 12. Go / Java / .NET
+- **Go 1.x** no rompe compatibilidad: subir toolchain es seguro; cada minor se soporta ~1 año (la versión
+  vive en `go.mod`). Novedades útiles: 1.21 (`slices`/`maps`), 1.22 (ServeMux con métodos, loopvar arreglado).
+- **Java**: LTS = 8, 11, 17, 21. La sintaxis moderna (records 16+, sealed 17+, virtual threads 21) NO compila
+  en LTS anteriores: mira `pom.xml`/`build.gradle` (`java.version` / `sourceCompatibility`) primero.
+- **.NET**: LTS = 8 (nov 2026); 6 y 7 ya sin soporte. `TargetFramework` en el `.csproj` manda; C# 12
+  (primary constructors, collection expressions) va ligado a .NET 8.
+
+## 13. EOL y política de upgrades
 - Fechas (seguridad, aproximadas — verifica en endoflife.date): PHP 8.1 dic-2025 · 8.2 dic-2026 · Laravel 10
   feb-2025 · 11 mar-2026 · 12 feb-2027 · Node 18 abr-2025 · 20 abr-2026 · 22 abr-2027 · Python 3.9 oct-2025 ·
-  3.10 oct-2026 · Vue 2 dic-2023. El hook de sesión avisa si algo está sin soporte o a <6 meses.
+  3.10 oct-2026 · Vue 2 dic-2023 · .NET 6 nov-2024 · 7 may-2024 · 8 nov-2026. El hook de sesión avisa si algo
+  está sin soporte o a <6 meses.
 - Algo SIN SOPORTE en producción = riesgo real (sin parches de seguridad): proponlo como tarjeta del plan, no lo calles.
 - Upgrade: **una major por salto**, con la guía oficial de upgrade, suites verdes entre saltos, y devlog con
   qué rompió. Nunca "aprovechar" un upgrade para refactors no relacionados.

@@ -94,7 +94,9 @@ $null = Case 'editar conventions.md sellado -> bloquea' 'protect-files.mjs' @{ t
 
 # --- session-start: versiones detectadas + aviso EOL (composer con PHP 8.1 / Laravel 10, ambos sin soporte) ---
 Set-Content -Path (Join-Path $proj 'composer.json') -Encoding UTF8 -Value '{"require":{"php":"^8.1","laravel/framework":"^10.0"}}'
+Set-Content -Path (Join-Path $proj 'go.mod') -Encoding UTF8 -Value "module ejemplo`n`ngo 1.22"
 OutCase 'session-start detecta versiones' 'session-start.mjs' @{} 'Versiones detectadas: PHP \^8\.1, Laravel \^10\.0'
+OutCase 'session-start detecta go.mod' 'session-start.mjs' @{} 'Go 1\.22'
 OutCase 'session-start avisa de EOL' 'session-start.mjs' @{} 'SIN SOPORTE'
 OutCase 'session-start ve convenciones' 'session-start.mjs' @{} 'Convenciones ADOPTADAS'
 

@@ -32,6 +32,10 @@ dev-standards/
 │   ├── next/                 # Next.js + TS
 │   ├── astro/                # Astro
 │   ├── vue-ts/               # Vue 3 + TypeScript
+│   ├── nuxt/                 # Nuxt 3/4 + Vue 3
+│   ├── sveltekit/            # SvelteKit + Svelte 5
+│   ├── wordpress/            # WordPress / PHP clásico (themes, plugins, WooCommerce)
+│   ├── node-api/             # Node API (Express / NestJS)
 │   └── python-langgraph/     # Python + LangGraph/LangChain (+ MCP docu)
 │       Cada stack tiene:
 │         ├── stack.json            # metadata, skills base, frontProfile (stacks front) y bundles opcionales

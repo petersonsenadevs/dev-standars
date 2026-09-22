@@ -6,6 +6,10 @@
 - [Vue SPA](#vue-spa)
 - [Laravel](#laravel)
 - [Python (FastAPI / LangGraph)](#python-fastapi--langgraph)
+- [Nuxt](#nuxt)
+- [SvelteKit](#sveltekit)
+- [Node API (Express / NestJS)](#node-api-express--nestjs)
+- [WordPress](#wordpress)
 - [Común: DNS y SSL](#común-dns-y-ssl)
 - [Común: previews por rama](#común-previews-por-rama)
 
@@ -59,6 +63,33 @@
 - Atajos gestionados: Fly.io / Railway (deploy del Dockerfile, secretos en su UI, escala a cero) — bien
   para agents/APIs pequeñas; VPS propio cuando el coste o la persistencia mandan.
 - Procesos largos de agentes: NUNCA dentro del request HTTP — cola/worker (ver production-runtime).
+
+## Nuxt
+- `routeRules` deciden por ruta (prerender/ISR/SSR): el preset de Nitro se adapta solo — `netlify`,
+  `vercel`, `cloudflare-pages` (detectados) o `node-server` para VPS/Docker (`node .output/server/index.mjs`
+  con pm2/systemd). Variables `NUXT_*` en la plataforma, nunca en el repo.
+- Sitio 100% estatico: `nuxi generate` y hosting estatico normal.
+
+## SvelteKit
+- Adapter segun destino: `adapter-auto` (Vercel/Netlify lo resuelven), `adapter-node` para VPS/Docker
+  (`node build` + pm2/systemd, detras de nginx), `adapter-static` si TODO es prerender (fallback SPA opcional).
+- Secretos solo `$env/static/private` / variables de la plataforma; `ORIGIN` correcto en adapter-node
+  (si no, las form actions fallan con 403 cross-site).
+
+## Node API (Express / NestJS)
+- Camino recomendado: **Docker** (multi-stage, docker.md) en VPS propio o Fly.io/Railway como atajo gestionado.
+  Sin Docker: `pm2 start dist/main.js -i max` o systemd, detras de nginx con SSL.
+- Imprescindible: `NODE_ENV=production`, `npm ci --omit=dev` (o build multi-stage), `/health` para el uptime,
+  graceful shutdown (SIGTERM) para deploys sin cortar requests, migraciones como paso EXPLICITO del deploy
+  (`prisma migrate deploy`), nunca al arrancar la app.
+
+## WordPress
+- Hosting gestionado con staging (SiteGround/Kinsta/WP Engine o VPS con RunCloud/Ploi): el flujo es
+  **staging -> probar -> push a produccion**, no FTP a pelo contra prod.
+- En repo va SOLO lo tuyo (child theme + plugin propio); core y plugins de terceros los gestiona wp-cli o
+  el panel (`wp core update`, `wp plugin update --all` en staging primero).
+- Deploy de codigo: git pull o rsync del theme/plugin + `wp cache flush`. BD y uploads NO se despliegan:
+  se migran una vez y despues solo backups (backups-monitoring.md). Cambios de URL: `wp search-replace`.
 
 ## Común: DNS y SSL
 - Registros: `A/AAAA` a IP del VPS; `CNAME` al target de la plataforma (Netlify/Vercel te lo dan).

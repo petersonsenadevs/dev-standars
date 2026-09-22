@@ -95,6 +95,9 @@ $cases = @(
     @{ n = 'lanzamiento';           prompt = 'prepara el lanzamiento de la web a producción';              expect = 'ui-verify' }
     @{ n = 'copy titulares';        prompt = 'escribe los titulares y el copy de la landing';              expect = 'ui-ux-pro-max' }
     @{ n = 'multiidioma';           prompt = 'monta la web en castellano y catalán con hreflang';          expect = 'code-quality' }
+    @{ n = 'wordpress plugin';      prompt = 'monta el plugin de wordpress para las reservas';             expect = 'code-quality' }
+    @{ n = 'api nestjs';            prompt = 'crea los endpoints con nestjs para los pedidos';             expect = 'code-quality' }
+    @{ n = 'migrar a golang';       prompt = 'migra el servicio de informes a golang';                     expect = 'code-quality' }
     @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
 )
 

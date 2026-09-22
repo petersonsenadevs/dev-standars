@@ -1,0 +1,43 @@
+{
+  "name": "node-api",
+  "label": "Node API (Express / NestJS)",
+  "extends": "core",
+  "language": "typescript",
+  "systemprompt": "systemprompt.md",
+  "bestPractices": "best-practices.md",
+  "prohibited": "prohibited.md",
+  "mcp": "mcp.json",
+  "skills": [
+    "../../core/skills/devlog",
+    "project-planner",
+    "code-quality",
+    "skill-router",
+    "deploy-ops",
+    "marketing-seo",
+    "skills"
+  ],
+  "frontProfile": null,
+  "optionalBundles": [
+    "architecture"
+  ],
+  "settingsPartial": "settings.partial.json",
+  "commands": {
+    "lint": "npm run lint",
+    "types": "npx tsc --noEmit",
+    "test": "npm test",
+    "build": "npm run build",
+    "dev": "npm run dev"
+  },
+  "formatters": {
+    ".ts": "npx prettier --write {file}",
+    ".js": "npx prettier --write {file}",
+    ".json": "npx prettier --write {file}"
+  },
+  "protectedPaths": [
+    "composer.lock",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    ".github/workflows/**"
+  ]
+}

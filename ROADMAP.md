@@ -48,6 +48,10 @@ plataforma profundas, heredar app nativa) — y Swift solo con Mac disponible.
   react-next.md, uploads de archivos como receta propia.
 - [ ] Refresco periódico (~mensual): `tools/vendor.ps1` (upstream de skills), `vendor-effects.ps1 -Missing`
   y los índices scrapeados de `front-activation/references/sources/` (instrucciones en cada índice).
+- [x] Más stacks y lenguajes (2026-09-22): 4 stacks completos nuevos — `wordpress` (themes/plugins/Woo),
+  `node-api` (Express/NestJS), `nuxt`, `sveltekit` — y 3 lenguajes como referencias de code-quality
+  (`go.md`, `java.md`, `csharp.md`). Detección de versiones ampliada (WP, go.mod, pom/gradle, .csproj).
+  Pendiente natural: estrenarlos en proyectos reales y engordar `rules/` con lo aprendido.
 - [x] Stacks conscientes de versión (2026-09-22): session-start detecta versiones reales (composer/package/
   pyproject) + aviso EOL; referencia `code-quality/references/stack-versions.md` (qué cambia entre majors).
 - [x] `/adoptar` (2026-09-22): convenciones de proyectos heredados analizadas, pactadas y selladas como

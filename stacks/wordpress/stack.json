@@ -1,0 +1,53 @@
+{
+  "name": "wordpress",
+  "label": "WordPress / PHP clásico",
+  "extends": "core",
+  "language": "php",
+  "systemprompt": "systemprompt.md",
+  "bestPractices": "best-practices.md",
+  "prohibited": "prohibited.md",
+  "mcp": "mcp.json",
+  "skills": [
+    "../../core/skills/devlog",
+    "project-planner",
+    "code-quality",
+    "skill-router",
+    "deploy-ops",
+    "front-activation",
+    "ui-ux-pro-max",
+    "ui-verify",
+    "image-gen",
+    "marketing-seo",
+    "skills"
+  ],
+  "frontProfile": {
+    "label": "WordPress + theme a medida (child theme) + CSS propio",
+    "stacks": [
+      "html-tailwind"
+    ]
+  },
+  "optionalBundles": [
+    "core-3d-animation",
+    "animation-components",
+    "web-design-meta",
+    "design-extras"
+  ],
+  "settingsPartial": "settings.partial.json",
+  "commands": {
+    "lint": "./vendor/bin/phpcs -ps",
+    "fix": "./vendor/bin/phpcbf"
+  },
+  "formatters": {
+    ".css": "npx prettier --write {file}",
+    ".js": "npx prettier --write {file}"
+  },
+  "protectedPaths": [
+    "composer.lock",
+    "package-lock.json",
+    "wp-admin/**",
+    "wp-includes/**",
+    "wp-config.php",
+    ".htaccess",
+    ".github/workflows/**"
+  ]
+}

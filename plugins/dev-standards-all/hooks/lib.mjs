@@ -243,6 +243,25 @@ export function detectVersions(root) {
             if (m) push(label, m[1].trim() || 'sin version fijada', dep, false);
         }
     }
+    // WordPress: version del core en wp-includes/version.php
+    const wpVer = readText(path.join(root, 'wp-includes', 'version.php'));
+    if (wpVer) { const m = /\$wp_version\s*=\s*['"]([^'"]+)['"]/.exec(wpVer); if (m) push('WordPress', m[1], 'wordpress', false); }
+    // Go: directiva go de go.mod
+    const gomod = readText(path.join(root, 'go.mod'));
+    if (gomod) { const m = /^go\s+(\d+\.\d+(?:\.\d+)?)/m.exec(gomod); if (m) push('Go', m[1], 'go', true); }
+    // Java: pom.xml (java.version / maven.compiler.source) o build.gradle (sourceCompatibility)
+    const pom = readText(path.join(root, 'pom.xml'));
+    if (pom) { const m = /<(?:java\.version|maven\.compiler\.(?:source|release))>\s*(\d+)/.exec(pom); if (m) push('Java', m[1], 'java', false); }
+    const gradle = readText(path.join(root, 'build.gradle')) || readText(path.join(root, 'build.gradle.kts'));
+    if (gradle) { const m = /(?:sourceCompatibility|languageVersion)[^\d]*(\d+)/.exec(gradle); if (m) push('Java', m[1], 'java', false); }
+    // .NET: TargetFramework del primer .csproj de la raiz
+    try {
+        const csproj = fs.readdirSync(root).find(f => f.endsWith('.csproj'));
+        if (csproj) {
+            const m = /<TargetFramework>net(\d+)\.(\d+)<\/TargetFramework>/.exec(readText(path.join(root, csproj)) || '');
+            if (m) push('.NET', `${m[1]}.${m[2]}`, 'dotnet', false);
+        }
+    } catch {}
     return out;
 }
 
@@ -253,6 +272,7 @@ const EOL = {
     'node 16': '2023-09', 'node 18': '2025-04', 'node 20': '2026-04', 'node 22': '2027-04',
     'python 3.8': '2024-10', 'python 3.9': '2025-10', 'python 3.10': '2026-10', 'python 3.11': '2027-10',
     'vue 2': '2023-12',
+    'dotnet 6': '2024-11', 'dotnet 7': '2024-05', 'dotnet 8': '2026-11', 'dotnet 9': '2026-05',
 };
 export function eolWarnings(versions) {
     const now = new Date();

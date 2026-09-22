@@ -20,6 +20,13 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 | Componentes/composables Vue | `references/vue.md` |
 | Astro (islands, collections, endpoints) | `references/astro.md` |
 | Python / FastAPI / LangGraph | `references/python.md` |
+| WordPress / WooCommerce (theme o plugin a medida) | `references/wordpress.md` |
+| API Node (Express / NestJS) | `references/node-api.md` (+ `references/typescript.md`) |
+| Nuxt (páginas, server routes, useFetch) | `references/nuxt.md` (+ `references/vue.md`) |
+| SvelteKit / Svelte 5 (runes, load, form actions) | `references/sveltekit.md` |
+| Go (servicios, CLIs, concurrencia) | `references/go.md` |
+| Java / Spring Boot | `references/java.md` |
+| C# / .NET / ASP.NET Core | `references/csharp.md` |
 | Auth: login, registro, reset, OAuth, 2FA, API keys | `references/auth-patterns.md` |
 | Colas, jobs, emails en background, cron | `references/jobs-and-queues.md` |
 | Caché (qué, claves, invalidación, stampede) | `references/caching.md` |

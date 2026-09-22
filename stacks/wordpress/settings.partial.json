@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(wp db reset:*)",
+      "Bash(wp db drop:*)",
+      "Bash(wp site empty:*)",
+      "PowerShell(wp db reset:*)",
+      "PowerShell(wp db drop:*)"
+    ],
+    "ask": [
+      "Bash(wp plugin delete:*)",
+      "Bash(wp theme delete:*)"
+    ]
+  }
+}

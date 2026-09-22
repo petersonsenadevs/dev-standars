@@ -9,6 +9,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 | Cuándo | Comando |
 |---|---|
 | Una vez por proyecto | `D:\dev-standards\tools\init-project.ps1 -Stack <stack> -Path <ruta> -Tools claude,codex` |
+| Stacks disponibles | `laravel` · `next` · `astro` · `vue-ts` · `nuxt` · `sveltekit` · `wordpress` · `node-api` · `python-langgraph` (Go/Java/C# como referencias de code-quality) |
 | Tras cada mejora de dev-standards | `D:\dev-standards\tools\sync.ps1 -Path <ruta>` **+ sesión nueva del agente** |
 | Refrescar la colección de efectos | `D:\dev-standards\tools\vendor-effects.ps1 -Missing` |
 | Ver que el paquete está sano | `tools\check-skills.ps1` + `tools\test-router.ps1` |

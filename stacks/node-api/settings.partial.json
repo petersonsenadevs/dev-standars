@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(npx prisma migrate reset:*)",
+      "Bash(npx prisma db push --force-reset:*)",
+      "PowerShell(npx prisma migrate reset:*)"
+    ],
+    "ask": [
+      "Bash(npx prisma migrate dev:*)",
+      "Bash(npx prisma db push:*)"
+    ]
+  }
+}

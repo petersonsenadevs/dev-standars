@@ -26,7 +26,7 @@
   D:\dev-standards\tools\init-project.ps1 -Stack laravel -Path "D:\proyectos\web-3d" -Bundle core-3d-animation
 #>
 param(
-    [Parameter(Mandatory)][ValidateSet('laravel','next','astro','vue-ts','python-langgraph')][string]$Stack,
+    [Parameter(Mandatory)][ValidateSet('laravel','next','astro','vue-ts','nuxt','sveltekit','wordpress','node-api','python-langgraph')][string]$Stack,
     [Parameter(Mandatory)][string]$Path,
     [string[]]$Tools = @('claude'),
     [string[]]$Skills = @(),

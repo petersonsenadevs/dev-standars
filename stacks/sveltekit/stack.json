@@ -1,0 +1,61 @@
+{
+  "name": "sveltekit",
+  "label": "SvelteKit + Svelte 5",
+  "extends": "core",
+  "language": "typescript",
+  "systemprompt": "systemprompt.md",
+  "bestPractices": "best-practices.md",
+  "prohibited": "prohibited.md",
+  "mcp": "mcp.json",
+  "skills": [
+    "../../core/skills/devlog",
+    "project-planner",
+    "code-quality",
+    "skill-router",
+    "deploy-ops",
+    "front-activation",
+    "ui-ux-pro-max",
+    "ui-verify",
+    "image-gen",
+    "marketing-seo",
+    "skills"
+  ],
+  "frontProfile": {
+    "label": "SvelteKit + Svelte 5 + Tailwind",
+    "stacks": [
+      "svelte",
+      "html-tailwind",
+      "shadcn"
+    ]
+  },
+  "optionalBundles": [
+    "core-3d-animation",
+    "extended-3d-scroll",
+    "animation-components",
+    "3d-authoring",
+    "web-design-meta",
+    "design-extras",
+    "architecture"
+  ],
+  "settingsPartial": "settings.partial.json",
+  "commands": {
+    "lint": "npm run lint",
+    "types": "npm run check",
+    "test": "npm test",
+    "build": "npm run build",
+    "dev": "npm run dev"
+  },
+  "formatters": {
+    ".svelte": "npx prettier --write {file}",
+    ".ts": "npx prettier --write {file}",
+    ".js": "npx prettier --write {file}",
+    ".css": "npx prettier --write {file}"
+  },
+  "protectedPaths": [
+    "composer.lock",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    ".github/workflows/**"
+  ]
+}
