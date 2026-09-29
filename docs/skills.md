@@ -1,10 +1,10 @@
 <!-- GENERADO por tools/build-docs.ps1 desde core/skills-registry.json, core/commands/, core/hooks/ y stacks/. NO editar a mano. -->
 
-# Referencia completa de dev-standards
+# Skills y enrutamiento
 
-Todo el catálogo en una página. Por temas: [skills](docs/skills.md) · [comandos](docs/comandos.md) · [hooks](docs/hooks.md) · [stacks](docs/stacks.md) · [arquitectura](docs/arquitectura.md). Guías: [README](README.md) · [INSTALL](INSTALL.md) · [USO](USO.md).
+[← Volver al README](../README.md)
 
-## 1. Skills y enrutamiento
+Qué skill existe, cuándo salta cada una y con qué señales. Las de terceros van vendorizadas con capa propia en español (ver [arquitectura](arquitectura.md)).
 
 El agente decide solo, en tres capas automáticas:
 1. **Al arrancar la sesión** (hook SessionStart): estado del proyecto (stack, versiones+EOL, si es nuevo o
@@ -112,92 +112,3 @@ Total: **41 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo
 | Skill | Prio | Cuándo usarla | Señales que la activan (muestra) |
 |---|---|---|---|
 | `deploy-ops` | 8 | Desplegar y operar en producción cualquier stack: Netlify/Vercel/Forge/VPS, Docker, CI/CD con GitHub Actions, secretos por entorno, colas y cron en prod, backups con restore probado, monitorización e incidentes | deploy, despliegue, desplegar, subelo a produccion, docker, dockerfile, docker.compose, dockeriza… |
-
-## 2. Comandos slash
-
-Atajos opcionales: hablar en llano activa lo mismo vía enrutador. `plan/siguiente/verificar/desplegar/adoptar`
-se instalan SIEMPRE; el resto solo en stacks con perfil de front.
-
-| Comando | Argumento | Qué hace |
-|---|---|---|
-| `/plan` | [descripción del proyecto o feature] | Crea o retoma el plan del proyecto (plan/PLAN.md) con la skill project-planner |
-| `/siguiente` | [id de tarea opcional, p. ej. F1-T3] | Ejecuta la siguiente tarea del plan (task-protocol de project-planner) |
-| `/verificar` |  | Verifica el proyecto tras los cambios — build, lint, types, tests y (si hay UI) móvil |
-| `/desplegar` | [entorno u objetivo, p. ej. "producción" o "staging"] | Deploy con red — checklist PRE/DEPLOY/POST/ROLLBACK con evidencia y aprobación explícita |
-| `/adoptar` | [notas opcionales, p. ej. "solo backend" o "el idioma oficial es inglés"] | Adoptar las convenciones de un proyecto existente y sellarlas como regla inmutable |
-| `/brief` | [tipo de negocio si ya se sabe, p. ej. "restaurante"] | Entrevista de descubrimiento en lenguaje llano — para clientes que no saben el palabreo técnico |
-| `/design-system` | [producto/industria, p. ej. "saas facturación autónomos"] | Genera (o revisa) el design system del proyecto con ui-ux-pro-max |
-| `/efecto` | <nombre del efecto> [dónde, p. ej. "marquee en el footer de logos"] | Aplica un efecto pro de frontend desde el catálogo (parallax, marquee, cursor, stacking…) |
-| `/lanzar` | [url de preview/producción] | Checklist de lanzamiento — todo lo que se comprueba antes de publicar la web |
-| `/propuestas` | [página, p. ej. "home" o "landing de escombros"] | Modo propuesta — blueprint aprobable + 2 maquetas A/B visuales antes de construir |
-| `/repaso` | [url o página, p. ej. "http://localhost:4321" o "la home"] | Sesión de revisión conversacional — repasamos la web juntos, sección a sección |
-| `/revisar-ui` | [url o ruta de la vista, p. ej. http://localhost:5173 o Pages/Home.vue] | Audita la UI (rúbrica + verificación en navegador si hay Chrome disponible) |
-
-### Flujos típicos
-- **Proyecto nuevo con web**: `/brief` (entrevista en llano) → `/propuestas` (blueprint + maquetas A/B) →
-  `/design-system` → construir con checkpoints → `/revisar-ui` → `/lanzar` → `/desplegar`.
-- **Cualquier feature**: `/plan` → `/siguiente` (una tarjeta cada vez) → `/verificar` antes de cerrar.
-- **Proyecto heredado**: `/adoptar` la primera sesión (analiza y sella sus convenciones) y después lo normal.
-- **Efecto concreto** ("quiero un parallax/marquee/cursor"): `/efecto <nombre>` va directo al catálogo con receta y coste móvil.
-
-## 3. Muros y hooks
-
-Hooks en Node (`.mjs`, agnósticos de OS: funcionan igual en Windows/macOS/Linux). Los que BLOQUEAN salen
-con exit 2 y el motivo; el resto solo informa. Solo Claude Code ejecuta hooks: en Codex/Cursor/Windsurf el
-trabajo lo hacen las tablas de activación de las reglas generadas y los githooks (`sync.ps1 -GitHooks`).
-
-| Hook | Evento | Qué hace |
-|---|---|---|
-| `session-start.mjs` | SessionStart | Inyecta estado: stack/perfil, si el proyecto es NUEVO (→ /brief + /plan) o EXISTENTE (→ /adoptar), diario propio detectado, versiones con aviso EOL, convenciones adoptadas, git, design system, plan, devlog y protocolo de skills. |
-| `prompt-router.mjs` | UserPromptSubmit | Sugiere la skill que encaja con la petición (señales de docs/skills.md), una vez por skill y sesión. |
-| `guard.mjs` | PreToolUse Bash/PowerShell | BLOQUEA: git push, destructivos de BD/git, rm -rf, deploy a prod sin aprobación (escape `DEV_STANDARDS_ALLOW_DEPLOY=1`), jQuery/Bootstrap (`DEV_STANDARDS_ALLOW_LIB=1`), devops peligroso (curl\|bash, chmod 777, dd, mkfs, docker prune, parar servicios, vaciar firewall, crontab -r); commits: rama protegida, Conventional ≤72, sin co-autores. |
-| `protect-files.mjs` | PreToolUse Edit/Write | BLOQUEA editar: generados por dev-standards, secretos (.env, *.pem, credentials), dependencias/artefactos, migraciones versionadas, conventions.md/json sellados y `protectedPaths` del proyecto. |
-| `secrets-guard.mjs` | PreToolUse Edit/Write | BLOQUEA escribir credenciales reales (AWS, GitHub, Stripe, OpenAI/Anthropic, PEM, JWT, cadenas con password); ignora placeholders. |
-| `code-hygiene.mjs` | PreToolUse Edit/Write | BLOQUEA introducir: console.log/debugger/dd()/var_dump/ray, términos vetados en `gustos.md` §No, marcadores de conflicto de git, `.only`/`.skip`/xit en tests, y la lista negra anti-IA (badges de disponibilidad, numeración de secciones). Escape puntual: comentario `dev-standards-allow`. |
-| `conventions-guard.mjs` | PreToolUse Edit/Write | BLOQUEA código que viole las reglas ejecutables de `conventions.json` (/adoptar): la convención del proyecto gana. |
-| `front-skill-reminder.mjs` | PreToolUse Edit/Write (front) | Primera edición de UI: BLOQUEA una vez si no hay design system NI brief (obliga a preguntar); después recuerda ui-ux-pro-max, el set de iconos del MASTER y las reglas duras de UI. |
-| `format-on-save.mjs` | PostToolUse | Formatea el archivo guardado con la herramienta del stack (Pint/Prettier/ruff) si existe. Nunca bloquea. |
-| `edit-tracker.mjs` | PostToolUse | Marca que se editó código; stop-guard exige verificación posterior. |
-| `stop-guard.mjs` | Stop | BLOQUEA el cierre (una vez) si falta: devlog del día, verify-build tras editar código, o ui-verify móvil tras tocar UI. |
-| `pre-compact.mjs` | PreCompact | Re-inyecta lo esencial (stack, versiones, design system, plan, reglas) para sobrevivir a la compactación de contexto. |
-| `session-end.mjs` | SessionEnd | Limpia los marcadores de sesión. |
-
-### Escapes (siempre con aprobación explícita del usuario, documentada en el devlog)
-- `DEV_STANDARDS_ALLOW_DEPLOY=1` — deploy a producción tras la aprobación del checklist `/desplegar`.
-- `DEV_STANDARDS_ALLOW_LIB=1` — instalar una librería vetada (jQuery/Bootstrap) si el usuario lo pide.
-- Comentario `dev-standards-allow` en la línea — excepción puntual de code-hygiene (script CLI con console.log, test .skip justificado, patrón anti-IA pedido por su nombre).
-- Convenciones selladas: se cambian borrando `conventions.*` y re-ejecutando `/adoptar` (decisión del usuario).
-
-## 4. Stacks y bundles
-
-Cada stack define systemprompt evolutivo, mejores prácticas, prohibiciones, comandos de verificación,
-formateadores, permisos y (en los de front) el perfil del buscador de diseño. `init-project.ps1 -Stack <n>`.
-
-| Stack | Qué es | Perfil de front |
-|---|---|---|
-| `astro` | Astro | Astro + React islands + Tailwind |
-| `laravel` | PHP / Laravel | Laravel + Inertia + Vue 3 + Tailwind |
-| `next` | Next.js + TypeScript | Next.js (App Router) + React + Tailwind |
-| `node-api` | Node API (Express / NestJS) | — (backend) |
-| `nuxt` | Nuxt 3/4 + Vue 3 | Nuxt 3 + Vue 3 + Tailwind |
-| `python-langgraph` | Python + LangGraph / LangChain | — (backend) |
-| `sveltekit` | SvelteKit + Svelte 5 | SvelteKit + Svelte 5 + Tailwind |
-| `vue-ts` | Vue 3 + TypeScript | Vue 3 + TypeScript + Tailwind |
-| `wordpress` | WordPress / PHP clásico | WordPress + theme a medida (child theme) + CSS propio |
-
-Lenguajes sin stack propio (referencias de `code-quality`, el router los enruta igual): **Go** (`go.md`),
-**Java/Spring** (`java.md`), **C#/.NET** (`csharp.md`).
-
-### Bundles opcionales (`sync.ps1 -Bundle <nombre>` o plugin `bundle-<nombre>`)
-
-| Bundle | Skills |
-|---|---|
-| `3d-authoring` | blender-web-pipeline, spline-interactive, rive-interactive, substance-3d-texturing |
-| `3d-web` | threejs-webgl, react-three-fiber, gsap-scrolltrigger, web3d-integration-patterns |
-| `animation-components` | react-spring-physics, animated-component-libraries, scroll-reveal-libraries, animejs, lottie-animations |
-| `architecture` | ddd-hexagonal, code-quality |
-| `core-3d-animation` | threejs-webgl, gsap-scrolltrigger, react-three-fiber, motion-framer, babylonjs-engine |
-| `design-extras` | ui-ux-pro-max, ui-styling, design-system, graphic-design, slides, brand, banner-design |
-| `extended-3d-scroll` | aframe-webxr, lightweight-3d-effects, playcanvas-engine, pixijs-2d, locomotive-scroll, barba-js |
-| `motion-web` | gsap-scrolltrigger, motion-framer, scroll-reveal-libraries |
-| `web-design-meta` | web3d-integration-patterns, modern-web-design |

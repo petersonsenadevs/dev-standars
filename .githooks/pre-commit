@@ -9,8 +9,8 @@ if [ $? -ne 0 ]; then
   echo "[dev-standards] build-plugins.ps1 FALLA. Ejecutalo para ver el detalle: tools/build-plugins.ps1" >&2; exit 1
 fi
 git add plugins .claude-plugin 2>/dev/null
-# REFERENCIA.md se genera del registro/comandos/hooks: regenerar y stagear para que la doc nunca mienta.
-powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-docs.ps1 >/dev/null 2>&1 && git add REFERENCIA.md 2>/dev/null
+# docs/ y REFERENCIA.md se generan del registro/comandos/hooks: regenerar y stagear para que la doc nunca mienta.
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-docs.ps1 >/dev/null 2>&1 && git add REFERENCIA.md docs 2>/dev/null
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/check-skills.ps1 >/dev/null 2>&1
 if [ $? -ne 0 ]; then
   echo "[dev-standards] check-skills.ps1 FALLA. Ejecutalo para ver el detalle: tools/check-skills.ps1" >&2; exit 1
