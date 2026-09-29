@@ -6,7 +6,7 @@ skills que se activan solas, muros que bloquean de verdad y verificación obliga
 nada por hecho.
 
 <!-- GEN:resumen -->
-![Skills](https://img.shields.io/badge/skills-41-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Muros](https://img.shields.io/badge/muros-13_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-12-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
+![Version](https://img.shields.io/badge/version-v1.0.0-black) ![Skills](https://img.shields.io/badge/skills-41-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Muros](https://img.shields.io/badge/muros-13_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-13-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
 
 | Grupo | Skills | Entra por |
 |---|---|---|
@@ -26,19 +26,23 @@ nada por hecho.
 ## Instalación rápida
 
 ```text
-# Claude Code (plugin, cualquier máquina/OS):
+# 1) Claude Code — plugin desde el marketplace (cualquier máquina/OS):
 /plugin marketplace add petersonsenadevs/dev-standars
 /plugin install dev-standards-front@dev-standards        # o -core, -backend, -all, bundle-*
+
+# 2) ...y desde el plugin, la instalación COMPLETA del proyecto en un comando:
+#    (abre Claude en tu proyecto y escribe)
+/instalar                    # clona el repo si falta, detecta el stack y lo deja todo configurado
 
 # Skills globales para Codex / Cursor / Windsurf (Windows PowerShell):
 irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex
 
-# Completa por proyecto (la recomendada: stacks, hooks, comandos, config):
+# Manual por proyecto (equivalente a /instalar, sin plugin de por medio):
 git clone https://github.com/petersonsenadevs/dev-standars.git
 .\dev-standars\tools\init-project.ps1 -Stack laravel -Path "D:\proyectos\mi-app" -Tools claude,codex
 ```
 
-Requisitos, actualización y las tres vías al detalle: **[INSTALL.md](INSTALL.md)**.
+Requisitos, actualización y las vías al detalle: **[INSTALL.md](INSTALL.md)**.
 
 ---
 

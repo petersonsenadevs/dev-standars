@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-09-29
 
+- **feature** — /instalar: del plugin a la instalación completa del proyecto (clona, detecta stack, init/sync) (entrada 045)
 - **docs** — README showcase + CHANGELOG generado + tag v1.0.0 (entrada 044)
 - **docs** — Docu multi-doc: README hub + docs/{skills,comandos,hooks,stacks,arquitectura} generada (entrada 043)
 - **feature** — Lista negra anti-IA (muro+crítica), rotación de referencias, checkpoint por sección, iconos sin default (entrada 042)

@@ -111,7 +111,7 @@ function Render-Claude {
     if (Test-Path $cmdSrc) {
         $cmdDst = Join-Path $ProjectPath '.claude\commands'
         Ensure-Dir $cmdDst
-        $names = @('plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md') + $(if ($hasFront) { @('brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md') } else { @() })
+        $names = @('instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md') + $(if ($hasFront) { @('brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md') } else { @() })
         foreach ($n in $names) { $f = Join-Path $cmdSrc $n; if (Test-Path $f) { Copy-Item $f (Join-Path $cmdDst $n) -Force } }
     }
 

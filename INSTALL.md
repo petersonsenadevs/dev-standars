@@ -76,11 +76,16 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
 - Verificación de UI: `npm i -D playwright && npx playwright install chromium` en el proyecto y
   `node .claude/skills/ui-verify/scripts/verify-ui.mjs http://localhost:PUERTO` (o `.agents/skills/...`).
 
-## 6. Instalación remota (cuando el repo esté en GitHub)
+## 6. Instalación remota (desde GitHub, sin tener nada local)
 
-Pendiente del primer push. Entonces será:
-`/plugin marketplace add petersonsenadevs/dev-standars` (Claude) y
-`irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex` (Codex y resto).
+- **Claude Code**: `/plugin marketplace add petersonsenadevs/dev-standars` →
+  `/plugin install dev-standards-front@dev-standards` (o `-core`, `-backend`, `-all`, `bundle-*`).
+- **Del plugin al proyecto completo en un comando**: abre Claude en tu proyecto y escribe **`/instalar`** —
+  clona el repo a `~\.dev-standards` si falta, detecta el stack (o se lo dices: `/instalar laravel`),
+  te confirma qué hacer con tu CLAUDE.md/diario si ya existen, y ejecuta `init-project`/`sync` por ti.
+  Requiere Windows (el tooling de instalación es PowerShell); reinicia la sesión al terminar.
+- **Codex / Cursor / Windsurf** (skills globales):
+  `irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex`.
 
 ## Chuleta
 
