@@ -62,6 +62,10 @@ plataforma profundas, heredar app nativa) — y Swift solo con Mac disponible.
   pyproject) + aviso EOL; referencia `code-quality/references/stack-versions.md` (qué cambia entre majors).
 - [x] `/adoptar` (2026-09-22): convenciones de proyectos heredados analizadas, pactadas y selladas como
   inmutables (`conventions.md` + `conventions.json` ejecutable + hook `conventions-guard`).
+- [ ] **Instalador agnóstico en Node** (`init/sync` sin PowerShell) — PRIORITARIO: caso real 2026-09-29,
+  proyecto Laravel en WSL2 (omniwallet) no pudo instalarse desde Linux; workaround actual = ejecutar
+  init-project.ps1 desde Windows apuntando por `\\wsl$\...`. Los hooks ya son Node: falta portar el
+  render (CLAUDE.md, config.json, settings, copia de skills) a un `init.mjs`.
 - [x] Portabilidad de lo que VIAJA a los proyectos (2026-09-22): los 13 hooks y `verify-build` reescritos
   en Node `.mjs` — funcionan en Windows/macOS/Linux y en cualquier agente. Queda PS 5.1 SOLO el tooling
   del repo (`sync`, `init-project`, `build-*`, `check-skills`, suites, `vendor*`), que corre en esta

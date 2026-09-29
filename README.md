@@ -28,7 +28,8 @@ nada por hecho.
 ```text
 # 1) Claude Code — plugin desde el marketplace (cualquier máquina/OS):
 /plugin marketplace add petersonsenadevs/dev-standars
-/plugin install dev-standards-front@dev-standards        # o -core, -backend, -all, bundle-*
+/plugin install dev-standards-all@dev-standards          # TODO el paquete (recomendado)
+#   packs ligeros si no quieres todo: -front (12 skills), -backend, -core, bundle-*
 
 # 2) ...y desde el plugin, la instalación COMPLETA del proyecto en un comando:
 #    (abre Claude en tu proyecto y escribe)

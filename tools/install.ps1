@@ -56,7 +56,7 @@ Write-Host ""
 Write-Host "Listo. Siguientes pasos:" -ForegroundColor Green
 Write-Host "  Claude Code (plugins con hooks y comandos):"
 Write-Host "    /plugin marketplace add $slug"
-Write-Host "    /plugin install dev-standards-front@dev-standards   (o -core, -backend, -all, bundle-*)"
+Write-Host "    /plugin install dev-standards-all@dev-standards   (TODO, recomendado; ligeros: -front, -backend, -core)"
 Write-Host "  Por proyecto (CLAUDE.md/AGENTS.md + hooks + plan/devlog):"
 Write-Host "    $dest\tools\init-project.ps1 -Stack astro -Path C:\ruta\proyecto"
 Write-Host "  Actualizar mas adelante: repite el mismo comando irm | iex."

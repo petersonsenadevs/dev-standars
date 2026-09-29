@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-09-29
 
+- **fix** — dev-standards-all recomendado; /instalar con camino WSL soportado; roadmap instalador Node (entrada 047)
 - **fix** — Versión monótona de plugins (1.0.n): update detecta builds del mismo día (entrada 046)
 - **feature** — /instalar: del plugin a la instalación completa del proyecto (clona, detecta stack, init/sync) (entrada 045)
 - **docs** — README showcase + CHANGELOG generado + tag v1.0.0 (entrada 044)

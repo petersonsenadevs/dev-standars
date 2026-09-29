@@ -49,7 +49,7 @@ como "Astro + CSS propio", no hereda el default del stack). Para fijarlo a mano,
 
 ```
 /plugin marketplace add D:\dev-standards
-/plugin install dev-standards-front@dev-standards
+/plugin install dev-standards-all@dev-standards        # TODO (recomendado); ligeros: -front, -backend, -core
 ```
 
 Otros plugins: `dev-standards-core` (mínimo), `dev-standards-backend`, `dev-standards-all` (38 skills),
@@ -79,7 +79,7 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
 ## 6. Instalación remota (desde GitHub, sin tener nada local)
 
 - **Claude Code**: `/plugin marketplace add petersonsenadevs/dev-standars` →
-  `/plugin install dev-standards-front@dev-standards` (o `-core`, `-backend`, `-all`, `bundle-*`).
+  `/plugin install dev-standards-all@dev-standards` — TODO el paquete (recomendado); packs ligeros: `-front`, `-backend`, `-core`, `bundle-*`.
 - **Del plugin al proyecto completo en un comando**: abre Claude en tu proyecto y escribe **`/instalar`** —
   clona el repo a `~\.dev-standards` si falta, detecta el stack (o se lo dices: `/instalar laravel`),
   te confirma qué hacer con tu CLAUDE.md/diario si ya existen, y ejecuta `init-project`/`sync` por ti.
@@ -94,6 +94,6 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
 | Proyecto nuevo con todo (Claude+Codex) | `init-project.ps1 -Stack <stack> -Path <ruta> -Tools claude,codex` |
 | Traer los últimos cambios al proyecto | `sync.ps1 -Path <ruta>` |
 | Añadir el bundle de animación/3D después | `sync.ps1 -Path <ruta> -Bundle core-3d-animation` |
-| Solo plugin de Claude | `/plugin marketplace add D:\dev-standards` → `/plugin install dev-standards-front@dev-standards` |
+| Solo plugin de Claude | `/plugin marketplace add D:\dev-standards` → `/plugin install dev-standards-all@dev-standards` |
 | Solo skills globales de Codex | `install-skills.ps1 -Agents codex` |
 | Ver que el repo está sano | `tools\check-skills.ps1` + `tools\test-router.ps1` |

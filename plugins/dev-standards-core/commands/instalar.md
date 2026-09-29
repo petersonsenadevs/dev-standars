@@ -18,10 +18,15 @@ config, hooks y comandos versionados con el proyecto). Pasos, en orden:
 3. **Confirma con el usuario** en una sola pregunta: stack elegido + herramientas (claude solo, o
    claude,codex) + si el proyecto ya tiene CLAUDE.md/AGENTS.md/diario propio, qué quiere hacer con
    ellos (respaldar e importar es el default sano).
-4. **Ejecuta** (Windows; en macOS/Linux avisa que el tooling de instalación requiere PowerShell y
-   ofrece la alternativa: seguir solo con el plugin):
-   `powershell -NoProfile -ExecutionPolicy Bypass -File "<repo>\tools\init-project.ps1" -Stack <stack> -Path "<raiz-del-proyecto>" -Tools <herramientas>`
-   (si el proyecto ya tiene `.dev-standards.json`, usa `sync.ps1 -Path` en su lugar: es una actualización).
+4. **Ejecuta** según el entorno:
+   - **Windows**: `powershell -NoProfile -ExecutionPolicy Bypass -File "<repo>\tools\init-project.ps1" -Stack <stack> -Path "<raiz>" -Tools <herramientas>`
+     (si el proyecto ya tiene `.dev-standards.json`, usa `sync.ps1 -Path`: es una actualización).
+   - **WSL/Linux/macOS**: el INSTALADOR es PowerShell de Windows (los hooks que instala sí son Node y
+     funcionan en cualquier OS). NO inventes puentes: dile al usuario el camino soportado — ejecutar el
+     instalador **desde una PowerShell de Windows apuntando al proyecto por `\\wsl$\...`**:
+     `D:\dev-standards\tools\init-project.ps1 -Stack <stack> -Path "\\wsl$\<distro>\ruta\al\proyecto" -Tools claude`
+     y mientras tanto puede seguir con el plugin (que ya le da skills+muros+comandos). No instales pwsh
+     ni ejecutes los .ps1 con pwsh en Linux: no está soportado todavía.
 5. **Cierra**: resume qué se instaló (skills, hooks, comandos, guía respaldada si la había) y pide al
    usuario REINICIAR la sesión de Claude Code para que cargue la config del proyecto (los hooks del
    plugin y los del proyecto se deduplican solos por marcador de sesión).
