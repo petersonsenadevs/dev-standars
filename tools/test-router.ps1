@@ -98,6 +98,14 @@ $cases = @(
     @{ n = 'wordpress plugin';      prompt = 'monta el plugin de wordpress para las reservas';             expect = 'code-quality' }
     @{ n = 'api nestjs';            prompt = 'crea los endpoints con nestjs para los pedidos';             expect = 'code-quality' }
     @{ n = 'migrar a golang';       prompt = 'migra el servicio de informes a golang';                     expect = 'code-quality' }
+    @{ n = 'esquema bd';            prompt = 'diseña el esquema y los índices de la tabla de reservas';    expect = 'code-quality' }
+    @{ n = 'realtime websockets';   prompt = 'monta notificaciones en tiempo real con websockets';         expect = 'code-quality' }
+    @{ n = 'chatbot rag';           prompt = 'añade un chatbot con rag sobre nuestra documentación';       expect = 'code-quality' }
+    @{ n = 'uploads s3';            prompt = 'sube los archivos de los usuarios a s3 con urls firmadas';   expect = 'code-quality' }
+    @{ n = 'newsletter';            prompt = 'maqueta la newsletter mensual con las novedades';            skills = @('email-html','skill-router'); expect = 'email-html' }
+    @{ n = 'email roto outlook';    prompt = 'el email de bienvenida se ve roto en outlook';               skills = @('email-html','code-quality','skill-router'); expect = 'email-html' }
+    @{ n = 'core web vitals';       prompt = 'mejora el lcp y los core web vitals de la home';             expect = 'ui-verify' }
+    @{ n = 'aria lector pantalla';  prompt = 'revisa los aria y el uso con lector de pantalla del formulario'; expect = 'ui-verify' }
     @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
 )
 

@@ -25,6 +25,7 @@
                    "project-planner",
                    "code-quality",
                    "deploy-ops",
+                   "email-html",
                    "ui-ux-pro-max",
                    "ui-verify",
                    "marketing-seo",
@@ -51,7 +52,7 @@
                        "name":  "code-quality",
                        "group":  "quality",
                        "entrypoint":  false,
-                       "keywords":  "(?i)\\b(test(s|ing|ea)?|refactor\\w*|revis(a|ar|i[oó]n)|pull request|pr|seguridad|security|rendimiento|performance|endpoint|auth|login|registro|contraseña|oauth|2fa|sesi[oó]n(es)?|colas?|jobs?|cron|webhooks?|pagos?|stripe|redsys|suscripci[oó]n(es)?|cach[eé]|redis|transacci[oó]n(es)?|migraci[oó]n(es)?|duplica\\w*|doble (clic|click|env[ií]o|pedido)|race condition|idempoten\\w*|zona horaria|i18n|multiidioma|hreflang|traducci[oó]n(es)?|en castellano y catal[aá]n|api|validaci[oó]n|logs?|errores|excepci[oó]n|lint|tipado|buenas pr[aá]cticas|wordpress|woocommerce|gutenberg|nestjs|nuxt|svelte(kit)?|golang|\\bjava\\b|spring boot|dotnet|asp\\.net)\\b|(?i)c#",
+                       "keywords":  "(?i)\\b(test(s|ing|ea)?|refactor\\w*|revis(a|ar|i[oó]n)|pull request|pr|seguridad|security|rendimiento|performance|endpoint|auth|login|registro|contraseña|oauth|2fa|sesi[oó]n(es)?|colas?|jobs?|cron|webhooks?|pagos?|stripe|redsys|suscripci[oó]n(es)?|cach[eé]|redis|transacci[oó]n(es)?|migraci[oó]n(es)?|duplica\\w*|doble (clic|click|env[ií]o|pedido)|race condition|idempoten\\w*|zona horaria|i18n|multiidioma|hreflang|traducci[oó]n(es)?|en castellano y catal[aá]n|api|validaci[oó]n|logs?|errores|excepci[oó]n|lint|tipado|buenas pr[aá]cticas|wordpress|woocommerce|gutenberg|nestjs|nuxt|svelte(kit)?|golang|\\bjava\\b|spring boot|dotnet|asp\\.net|esquema de (la )?(base de datos|bd)|[ií]ndices?|full.?text|meilisearch|typesense|websockets?|\\bsse\\b|tiempo real|broadcasting|pusher|socket\\.io|uploads?|subidas? de archivos?|presigned|urls? firmadas|\\bs3\\b|chatbot|\\brag\\b|embeddings?|pgvector|\\bllm\\b)\\b|(?i)c#",
                        "priority":  5,
                        "requires":  [
 
@@ -392,7 +393,7 @@
                        "name":  "ui-verify",
                        "group":  "front",
                        "entrypoint":  false,
-                       "keywords":  "(?i)\\b(verifica\\w*|comprueba (la|el) (ui|responsive|p[aá]gina)|revisa el responsive|lighthouse|axe|capturas?|screenshots?|se ve (bien|mal) en (m[oó]vil|tablet)|dark mode roto|lanzamiento|lanzar la web|salir a producci[oó]n|publicar la web|checklist de salida)\\b",
+                       "keywords":  "(?i)\\b(verifica\\w*|comprueba (la|el) (ui|responsive|p[aá]gina)|revisa el responsive|lighthouse|axe|capturas?|screenshots?|se ve (bien|mal) en (m[oó]vil|tablet)|dark mode roto|lanzamiento|lanzar la web|salir a producci[oó]n|publicar la web|checklist de salida|core web vitals|web vitals|\\blcp\\b|\\bcls\\b|\\binp\\b|pagespeed|\\baria\\b|wcag|lector de pantalla|screen reader|navegaci[oó]n por teclado)\\b",
                        "priority":  8,
                        "requires":  [
 
@@ -413,6 +414,16 @@
                        "group":  "growth",
                        "entrypoint":  false,
                        "keywords":  "(?i)\\b(seo|posicionamiento|posicionar|salir en google|keywords?|palabras clave|search console|google analytics|ga4|anal[ií]tica|google tag manager|gtm|contenedor de etiquetas|datalayer|consent mode|píxel|pixel de meta|campañ\\w*|google ads|meta ads|posthog|matomo|informe de (visitas|tr[aá]fico))\\b",
+                       "priority":  8,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "email-html",
+                       "group":  "growth",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(email transaccional|emails? de (bienvenida|pedido|confirmaci[oó]n|reset)|newsletters?|mjml|react-email|plantillas? de (email|correo)|email html|maqueta\\w* (el|un|los) (email|correo)|se ve roto en outlook|mailable)\\b",
                        "priority":  8,
                        "requires":  [
 

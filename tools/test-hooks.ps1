@@ -76,6 +76,11 @@ $null = Case 'console.log con allow -> pasa' 'code-hygiene.mjs' @{ tool_name='Ed
 $null = Case 'Write con debugger -> bloquea' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\P.astro'; content="<script>`ndebugger`n</script>" } } 2
 $null = Case 'archivo de test -> pasa' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\app.test.ts'; content='console.log(1)' } } 0
 
+# --- code-hygiene: tests desactivados y marcadores de conflicto ---
+$null = Case 'introduce it.only -> bloquea' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.test.ts'; old_string="it('suma', fn)"; new_string="it.only('suma', fn)" } } 2
+$null = Case 'it.only ya existia -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.test.ts'; old_string="it.only('suma', fn); const a = 1"; new_string="it.only('suma', fn); const a = 2" } } 0
+$null = Case 'marcador de conflicto -> bloquea' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\app.ts'; content="const a = 1;`n<<<<<<< HEAD`nconst b = 2;" } } 2
+
 # --- code-hygiene: vetos de gustos.md ---
 $null = Case 'veto carousel -> bloquea' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Home.astro'; old_string='<div>'; new_string='<div><Carousel autoplay />' } } 2
 $null = Case 'sin termino vetado -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Home.astro'; old_string='<div>'; new_string='<div><Galeria />' } } 0

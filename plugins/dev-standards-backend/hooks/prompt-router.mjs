@@ -29,7 +29,11 @@ const rules = [].concat(cfg.router)
     .sort((a, b) => ((b.entrypoint ? 1 : 0) - (a.entrypoint ? 1 : 0)) || ((b.priority || 0) - (a.priority || 0)));
 
 const FrontGroups = ['front', 'motion', '3d', 'design'];
-let matched = rules.filter(r => { try { return psRegex(r.keywords).test(prompt); } catch { return false; } });
+// Acentos fuera en AMBOS lados: \b de JS no es Unicode ("í" no es \w), asi que una keyword que empiece
+// por vocal acentuada jamas casaria. Normalizar tambien hace el match tolerante a prompts sin tildes.
+const deaccent = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '');
+const nPrompt = deaccent(prompt);
+let matched = rules.filter(r => { try { return psRegex(deaccent(r.keywords)).test(nPrompt); } catch { return false; } });
 if (!matched.length) process.exit(0);
 
 // Si algo de front matchea y el proyecto no tiene design system, el entrypoint de front entra SIEMPRE primero.

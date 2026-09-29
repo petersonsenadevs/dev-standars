@@ -69,7 +69,7 @@ Ensure-Dir $pluginsDir
 $entries = @()
 
 # Nucleo que necesita cualquier plugin para que el planner funcione (skill-map cita code-quality y devlog)
-$coreSkills = @('devlog', 'project-planner', 'code-quality', 'deploy-ops')
+$coreSkills = @('devlog', 'project-planner', 'code-quality', 'deploy-ops', 'email-html')
 $routerDir  = @((Join-Path $root 'core\skills-plugin\skill-router'))
 
 # --- core: metodologia + TODOS los hooks (menos los de front) ---

@@ -30,6 +30,10 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 | Auth: login, registro, reset, OAuth, 2FA, API keys | `references/auth-patterns.md` |
 | Colas, jobs, emails en background, cron | `references/jobs-and-queues.md` |
 | Caché (qué, claves, invalidación, stampede) | `references/caching.md` |
+| Esquema de BD, índices, migraciones seguras, full-text | `references/database-design.md` |
+| Tiempo real: websockets, SSE, broadcasting, presencia | `references/realtime.md` |
+| Uploads, S3/R2, imágenes en servidor, URLs firmadas | `references/files-media.md` |
+| Chat/IA en el producto: RAG, streaming, costes, evals | `references/llm-apps.md` |
 | Dinero, fechas/zonas, race conditions, únicos, soft delete | `references/data-integrity.md` |
 | APIs externas, webhooks, pagos, email transaccional | `references/integrations.md` |
 | Crear o arreglar tests | `references/testing.md` §pirámide + §stack correspondiente |

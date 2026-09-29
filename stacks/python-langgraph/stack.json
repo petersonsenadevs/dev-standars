@@ -13,6 +13,7 @@
     "code-quality",
     "skill-router",
     "deploy-ops",
+    "email-html",
     "skills"
   ],
   "settingsPartial": "settings.partial.json",

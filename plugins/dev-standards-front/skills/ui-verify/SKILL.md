@@ -31,6 +31,12 @@ Después ABRE las capturas (Read) y revisa lo que el script no ve: jerarquía, e
 Pide al usuario abrir la URL y reporta contra el checklist: DevTools responsive en los 3 anchos (móvil primero),
 toggle de dark, consola limpia, Tab por la página. Deja explícito en el devlog que la verificación fue manual.
 
+## Construir bien antes de verificar (lectura por tarea)
+| Tarea | Lee solo |
+|---|---|
+| Construir UI accesible (ARIA, teclado, formularios, modales) | `references/a11y-build.md` — lo que axe no ve |
+| Core Web Vitals: LCP/CLS/INP, Lighthouse, presupuesto JS | `references/web-performance.md` (backend → `code-quality/references/performance.md`) |
+
 ## Crítica visual (OBLIGATORIA para el veredicto APTA)
 Tras la pasada técnica, ABRE las capturas (Read) y evalúalas con `references/visual-critique.md`:
 8 ejes 1-5 (jerarquía, aire, alineación, contraste percibido, consistencia, densidad móvil, fotos,

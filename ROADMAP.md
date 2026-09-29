@@ -48,6 +48,10 @@ plataforma profundas, heredar app nativa) — y Swift solo con Mac disponible.
   react-next.md, uploads de archivos como receta propia.
 - [ ] Refresco periódico (~mensual): `tools/vendor.ps1` (upstream de skills), `vendor-effects.ps1 -Missing`
   y los índices scrapeados de `front-activation/references/sources/` (instrucciones en cada índice).
+- [x] Tanda "más pro" back+front (2026-09-29): referencias database-design, realtime, files-media,
+  llm-apps (back) y a11y-build, web-performance, forms-ux (front); skill email-html; muros de tests
+  desactivados (.only/.skip) y marcadores de conflicto; catalogo backend ampliado. Pendiente natural:
+  estrenar cada pieza en proyecto real.
 - [x] Más stacks y lenguajes (2026-09-22): 4 stacks completos nuevos — `wordpress` (themes/plugins/Woo),
   `node-api` (Express/NestJS), `nuxt`, `sveltekit` — y 3 lenguajes como referencias de code-quality
   (`go.md`, `java.md`, `csharp.md`). Detección de versiones ampliada (WP, go.mod, pom/gradle, .csproj).

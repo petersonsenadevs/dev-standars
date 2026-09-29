@@ -104,6 +104,7 @@ Tres capas, todas automáticas:
 
 | Skill | Prio | Cuándo usarla | Señales que la activan (muestra) |
 |---|---|---|---|
+| `email-html` | 8 | Maquetar o arreglar emails HTML (transaccionales y newsletters): react-email/MJML/plantillas del framework, compatibilidad Gmail/Outlook, dark mode, texto plano y pruebas antes de enviar | email transaccional, emails de bienvenida, newsletters, mjml, react-email, plantillas de email, email html, maqueta el email… |
 | `marketing-seo` | 8 | Posicionar y medir la web: SEO on-page y local, keywords, Search Console, GA4, Google Tag Manager (contenedor, dataLayer, Consent Mode) y MCPs de analítica para operar con agentes | seo, posicionamiento, posicionar, salir en google, keywords, palabras clave, search console, google analytics… |
 
 ### Operaciones y despliegue (grupo `ops`)
@@ -143,7 +144,7 @@ Hooks en Node (`.mjs`, agnósticos de OS). Los que BLOQUEAN salen con exit 2 y e
 | `guard.mjs` | PreToolUse Bash/PowerShell | BLOQUEA: git push, destructivos de BD/git, rm -rf, deploy a prod sin aprobación (escape `DEV_STANDARDS_ALLOW_DEPLOY=1`), jQuery/Bootstrap (`DEV_STANDARDS_ALLOW_LIB=1`), devops peligroso (curl\|bash, chmod 777, dd, mkfs, docker prune, parar servicios, vaciar firewall, crontab -r); commits: rama protegida, Conventional ≤72, sin co-autores. |
 | `protect-files.mjs` | PreToolUse Edit/Write | BLOQUEA editar: generados por dev-standards, secretos (.env, *.pem, credentials), dependencias/artefactos, migraciones versionadas, conventions.md/json sellados y `protectedPaths` del proyecto. |
 | `secrets-guard.mjs` | PreToolUse Edit/Write | BLOQUEA escribir credenciales reales (AWS, GitHub, Stripe, OpenAI/Anthropic, PEM, JWT, cadenas con password); ignora placeholders. |
-| `code-hygiene.mjs` | PreToolUse Edit/Write | BLOQUEA introducir console.log/debugger/dd()/var_dump/ray y los términos vetados en `gustos.md` §No (escape puntual: comentario `dev-standards-allow`). |
+| `code-hygiene.mjs` | PreToolUse Edit/Write | BLOQUEA introducir: console.log/debugger/dd()/var_dump/ray, términos vetados en `gustos.md` §No, marcadores de conflicto de git, y `.only`/`.skip`/xit en archivos de test (escape puntual: comentario `dev-standards-allow`). |
 | `conventions-guard.mjs` | PreToolUse Edit/Write | BLOQUEA código que viole las reglas ejecutables de `conventions.json` (/adoptar): la convención del proyecto gana. |
 | `front-skill-reminder.mjs` | PreToolUse Edit/Write (front) | Primera edición de UI: BLOQUEA una vez si no hay design system NI brief (obliga a preguntar); después recuerda ui-ux-pro-max y las reglas duras de UI. |
 | `format-on-save.mjs` | PostToolUse | Formatea el archivo guardado con la herramienta del stack (Pint/Prettier/ruff) si existe. Nunca bloquea. |

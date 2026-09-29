@@ -1,5 +1,8 @@
 # Rendimiento: medir, priorizar, optimizar
 
+> Esto es rendimiento de BACKEND (queries, caché, N+1). Lo que pasa del servidor al píxel — Core Web
+> Vitals, LCP/CLS/INP, Lighthouse, presupuesto JS — vive en `ui-verify §references/web-performance.md`.
+
 ## Índice
 
 - [Principio: medir antes de optimizar](#principio-medir-antes-de-optimizar)

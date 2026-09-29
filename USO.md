@@ -28,7 +28,9 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
   parar servicios, vaciar el firewall, `crontab -r`). Los hooks son Node (`.mjs`): funcionan igual en
   Windows, macOS y Linux.
 - **Muros nuevos**: jQuery/Bootstrap bloqueados al instalar (salvo aprobación explícita); `console.log`/`dd()`/
-  `debugger` bloqueados al introducirse en código fuente; los términos entre acentos graves en la sección "No"
+  `debugger` bloqueados al introducirse en código fuente; `.only`/`.skip`/`xit` introducidos en tests
+  bloqueados (desactivan la suite en CI sin que se note); marcadores de conflicto de git (`<<<<<<<`)
+  bloqueados al guardarse; los términos entre acentos graves en la sección "No"
   de `gustos.md` se bloquean de verdad; primera edición de UI sin brief ni design system → muro (una vez por sesión); deploy a producción
   (`--prod`) bloqueado hasta tu aprobación explícita.
 - **Memoria de gustos**: tus opiniones de diseño van a `design-system/<slug>/gustos.md`; un veto no se re-propone.

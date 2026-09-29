@@ -69,6 +69,47 @@ Si la tarea es de arquitectura (módulos, dominio rico), primero el árbol B1 de
 | PR/commits/revisión | `git-and-reviews.md` |
 | Migraciones seguras | `php-laravel.md` §Migraciones (o la del stack); DDD: `ddd-hexagonal §persistence/migrations-and-domain.md` |
 
+## Base de datos y búsqueda
+| Tarea / síntoma | Receta |
+|---|---|
+| Diseñar tablas/esquema nuevo | `database-design.md` §Esquema |
+| "¿Le pongo índice?" / query lenta con EXPLAIN | `database-design.md` §Índices (+ `performance.md` §medir) |
+| Cambiar/renombrar columna con datos en prod | `database-design.md` §Migraciones seguras (expandir→contraer) |
+| Contador cacheado, snapshot en pedido, reporting | `database-design.md` §Desnormalizar con cabeza |
+| Buscador del sitio / "el LIKE no encuentra nada" | `database-design.md` §Búsqueda full-text |
+
+## Tiempo real
+| Tarea / síntoma | Receta |
+|---|---|
+| Notificaciones en vivo, chat, dashboard vivo | `realtime.md` §Elegir transporte + §Broadcasting por stack |
+| Progreso de un job / streaming al navegador | `realtime.md` §Elegir transporte (SSE) |
+| "Al reconectar se pierde el estado" | `realtime.md` §Reconexión y presencia |
+| Sockets con 2+ instancias / no escala | `realtime.md` §Escalado |
+
+## Archivos y media
+| Tarea / síntoma | Receta |
+|---|---|
+| Subida de archivos/avatares/documentos | `files-media.md` §Upload seguro + §Por stack |
+| ¿Disco o S3/R2? / "se borran al desplegar" | `files-media.md` §Dónde guardar |
+| Miniaturas/optimización de imágenes | `files-media.md` §Imágenes en servidor |
+| Facturas privadas, descargas autorizadas | `files-media.md` §Servir y descargar (URLs firmadas) |
+
+## IA / LLM en el producto
+| Tarea / síntoma | Receta |
+|---|---|
+| Chat o asistente en la app | `llm-apps.md` §Arquitectura mínima + §Streaming |
+| "Que responda sobre NUESTROS datos/docs" | `llm-apps.md` §RAG |
+| Factura del proveedor disparada / límites | `llm-apps.md` §Costes y límites |
+| "A veces responde mal y no sabemos cuándo" | `llm-apps.md` §Evals |
+| Inyección de prompt / salida sin validar | `llm-apps.md` §Seguridad |
+
+## Emails (construcción → skill `email-html`)
+| Tarea / síntoma | Receta |
+|---|---|
+| Maquetar email de bienvenida/pedido/newsletter | skill `email-html` (`build-emails.md`) |
+| "Se ve roto en Outlook/Gmail" | skill `email-html` (`compatibility-testing.md`) |
+| Envío, colas, bounces, proveedor | `integrations.md` + `jobs-and-queues.md` (esto sí es de aquí) |
+
 ## Escalones a ddd-hexagonal (cuando la versión simple se queda corta)
 | Necesitas garantía de… | Sube a |
 |---|---|
