@@ -5,6 +5,10 @@ argument-hint: [notas opcionales, p. ej. "solo backend" o "el idioma oficial es 
 
 Aplica `code-quality §references/adopt-conventions.md` paso a paso ($ARGUMENTS):
 
+0. **Mira si hay algo que analizar**: si el proyecto está vacío o recién creado (sin código fuente real),
+   NO inventes evidencia — pasa al **modo entrevista** (§7 de la referencia): 5–7 preguntas con propuesta
+   por defecto (idioma del código, naming, validación, CSS, tests) y el mismo resultado sellado. El resto
+   de pasos aplican igual desde el 3.
 1. **Analiza con evidencia**: configs (.editorconfig, linters, tsconfig, pint), 3–5 archivos por capa
    (los más recientes), tests y `git log --oneline -30`. Notas con ejemplos literales archivo:línea.
 2. **Entrevista corta** (máx. 5 preguntas, solo lo ambiguo, cada una con propuesta por defecto).

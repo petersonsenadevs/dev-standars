@@ -1,7 +1,7 @@
 {
     "name":  "bundle-animation-components",
     "description":  "Bundle dev-standards \u0027animation-components\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): react-spring-physics, animated-component-libraries, scroll-reveal-libraries, animejs, lottie-animations.",
-    "version":  "2026.9.22",
+    "version":  "2026.9.29",
     "author":  {
                    "name":  "dev-standards"
                },

@@ -34,6 +34,10 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - **Memoria de gustos**: tus opiniones de diseño van a `design-system/<slug>/gustos.md`; un veto no se re-propone.
 - **Consciente de versiones**: al arrancar la sesión detecta las versiones reales (PHP/Laravel/Node/framework)
   y avisa si algo está sin soporte (EOL); el agente aplica las prácticas de ESA versión, no de la última.
+- **Consciente de nuevo vs existente**: si hay código previo sin convenciones selladas te propone `/adoptar`
+  (y mientras tanto imita el código vecino); si está vacío, empieza por `/brief` + `/plan` (o `/adoptar` en
+  modo entrevista). Si el proyecto ya lleva su diario (CHANGELOG, ADRs) o su CLAUDE.md, **pregunta antes de
+  adaptarse** — puedes dejar tu CLAUDE.md intacto (las reglas van a `CLAUDE.dev-standards.md`).
 - **Convenciones adoptadas** (`/adoptar`): en proyectos heredados, las convenciones se analizan, se pactan
   contigo y se sellan como inmutables; el hook `conventions-guard` bloquea el código que las viole.
 

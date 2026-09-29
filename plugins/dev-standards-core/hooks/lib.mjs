@@ -204,6 +204,22 @@ export function planStatus(root) {
 
 export function pad3(n) { return String(n).padStart(3, '0'); }
 
+export function projectMaturity(root) {
+    // ¿Proyecto nuevo o existente? Guía la puerta de entrada: /adoptar (existente) vs /brief + /plan (nuevo).
+    const commits = parseInt(git(root, ['rev-list', '--count', 'HEAD']) || '0', 10) || 0;
+    const hasCode = ['src', 'app', 'apps', 'lib', 'resources', 'components', 'pages', 'packages'].some(d => fs.existsSync(path.join(root, d)))
+        || ['composer.json', 'package.json', 'pyproject.toml', 'go.mod', 'pom.xml'].some(f => fs.existsSync(path.join(root, f)));
+    const ownDiary = ['CHANGELOG.md', path.join('docs', 'decisions'), path.join('docs', 'adr'), 'HISTORY.md']
+        .find(f => fs.existsSync(path.join(root, f))) || null;
+    return {
+        existing: hasCode,
+        commits,
+        ownDiary: ownDiary ? ownDiary.replace(/\\/g, '/') : null,
+        ownGuide: fs.existsSync(path.join(root, 'CLAUDE.project.md')),
+        hasConventions: fs.existsSync(path.join(root, 'conventions.md')),
+    };
+}
+
 // --- deteccion de versiones del stack (en vivo, sin estado: composer/package/pyproject) ---
 function firstMajorMinor(spec) {
     const m = /(\d+)(?:\.(\d+))?/.exec(String(spec || ''));

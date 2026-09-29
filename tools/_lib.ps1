@@ -60,6 +60,18 @@ function Read-Md { param([string]$Path) Read-Utf8 $Path }
 
 function Ensure-Dir { param([string]$Path) if (-not (Test-Path $Path)) { New-Item -ItemType Directory -Force -Path $Path | Out-Null } }
 
+function Ask-YesNo {
+    # Pregunta interactiva con valor por defecto. En modo no interactivo (stdin redirigido, CI,
+    # DEV_STANDARDS_ASSUME_YES=1) devuelve el default sin preguntar: sync/init nunca se cuelgan.
+    param([string]$Message, [bool]$DefaultYes = $true)
+    if ($env:DEV_STANDARDS_ASSUME_YES -eq '1') { return $DefaultYes }
+    try { if ([Console]::IsInputRedirected) { return $DefaultYes } } catch { return $DefaultYes }
+    $hint = if ($DefaultYes) { '[S/n]' } else { '[s/N]' }
+    try { $r = Read-Host "$Message $hint" } catch { return $DefaultYes }
+    if ([string]::IsNullOrWhiteSpace($r)) { return $DefaultYes }
+    return ($r.Trim() -match '^(s|si|sí|y|yes)$')
+}
+
 function Write-Utf8 {
     param([string]$Path, [string]$Content)
     Ensure-Dir (Split-Path -Parent $Path)

@@ -43,9 +43,16 @@ Write-Host "== dev-standards :: init =="
 Write-Host "Stack: $Stack"
 Write-Host "Proyecto: $Path"
 
-# 1) Esqueleto de devlog/
+# 1) Esqueleto de devlog/ — si el proyecto ya lleva su propio diario, preguntar antes de montar el nuestro
 $today   = Get-Date -Format 'yyyy-MM-dd'
 $devlog  = Join-Path $Path 'devlog'
+$ownDiary = @('CHANGELOG.md', 'HISTORY.md', 'docs\decisions', 'docs\adr') | Where-Object { Test-Path (Join-Path $Path $_) } | Select-Object -First 1
+$makeDevlog = $true
+if ($ownDiary -and -not (Test-Path $devlog)) {
+    $makeDevlog = Ask-YesNo "El proyecto ya lleva su propio diario ($ownDiary). ¿Crear tambien devlog/ de dev-standards? (los hooks lo piden al cerrar tareas)" $true
+    if (-not $makeDevlog) { Write-Host "  devlog/ omitido: se respeta el diario propio ($ownDiary). El agente preguntara como documentar." }
+}
+if ($makeDevlog) {
 $dayDir  = Join-Path $devlog $today
 Ensure-Dir $dayDir
 
@@ -63,8 +70,9 @@ $decis = Join-Path $dayDir 'DECISIONES.md'
 if (-not (Test-Path $decis)) { Write-Utf8 $decis "# Decisiones - $today`n`n" }
 
 Write-Host "  devlog/ inicializado ($today)"
+}
 
-# 1b) Semilla del plan (skill project-planner)
+# 1b) Semilla del plan (skill project-planner) — nunca se pisa un plan existente
 $planDir = Join-Path $Path 'plan'
 Ensure-Dir $planDir
 $planTpl = Join-Path $root 'core\skills\project-planner\templates'

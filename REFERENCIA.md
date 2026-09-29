@@ -138,7 +138,7 @@ Hooks en Node (`.mjs`, agnósticos de OS). Los que BLOQUEAN salen con exit 2 y e
 
 | Hook | Evento | Qué hace |
 |---|---|---|
-| `session-start.mjs` | SessionStart | Inyecta estado: stack/perfil, versiones detectadas con aviso EOL, convenciones adoptadas, git, design system, plan, devlog y protocolo de skills. |
+| `session-start.mjs` | SessionStart | Inyecta estado: stack/perfil, si el proyecto es NUEVO (→ /brief + /plan) o EXISTENTE (→ /adoptar), diario propio detectado, versiones con aviso EOL, convenciones adoptadas, git, design system, plan, devlog y protocolo de skills. |
 | `prompt-router.mjs` | UserPromptSubmit | Sugiere la skill que encaja con la petición (tabla del §1), una vez por skill y sesión. |
 | `guard.mjs` | PreToolUse Bash/PowerShell | BLOQUEA: git push, destructivos de BD/git, rm -rf, deploy a prod sin aprobación (escape `DEV_STANDARDS_ALLOW_DEPLOY=1`), jQuery/Bootstrap (`DEV_STANDARDS_ALLOW_LIB=1`), devops peligroso (curl\|bash, chmod 777, dd, mkfs, docker prune, parar servicios, vaciar firewall, crontab -r); commits: rama protegida, Conventional ≤72, sin co-autores. |
 | `protect-files.mjs` | PreToolUse Edit/Write | BLOQUEA editar: generados por dev-standards, secretos (.env, *.pem, credentials), dependencias/artefactos, migraciones versionadas, conventions.md/json sellados y `protectedPaths` del proyecto. |

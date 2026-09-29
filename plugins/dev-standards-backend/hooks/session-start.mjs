@@ -6,7 +6,7 @@ import path from 'node:path';
 import {
     readHookInput, projectRoot, getMarker, gitBranch, gitDirty, designSystemMaster,
     planStatus, todayDevlog, devlogNextNumber, hookConfig, outHookJson, todayStr, pad3,
-    detectVersions, eolWarnings,
+    detectVersions, eolWarnings, projectMaturity,
 } from './lib.mjs';
 
 readHookInput();
@@ -20,6 +20,16 @@ if (marker) {
     if (inst.length) L.push(`- Skills/bundles opcionales instalados: ${inst.join(', ')}`);
 } else {
     L.push('- Sin .dev-standards.json: detecta el stack (composer.json / package.json / pyproject.toml) antes de asumir nada.');
+}
+const mat = projectMaturity(root);
+if (mat.existing && !mat.hasConventions) {
+    L.push('- Proyecto EXISTENTE' + (mat.commits ? ` (${mat.commits} commits)` : '') + ': hay codigo previo con su propio estilo y SIN convenciones selladas. Antes de escribir codigo nuevo, propon /adoptar (analiza el estilo real y lo sella); mientras tanto imita el codigo vecino, no tu preferencia.'
+        + (mat.ownGuide ? ' Lee CLAUDE.project.md (guia propia del proyecto: manda sobre lo generico).' : ''));
+} else if (!mat.existing) {
+    L.push('- Proyecto NUEVO/vacio: no asumas nada del usuario. Empieza por /brief (que quiere, en llano) y /plan; si quiere fijar convenciones desde el principio, /adoptar en modo entrevista.');
+}
+if (mat.ownDiary) {
+    L.push(`- Diario propio del proyecto detectado (${mat.ownDiary}): antes de usar el devlog de dev-standards, pregunta UNA vez al usuario que prefiere (su formato, devlog, o ambos) y respeta su decision el resto del proyecto.`);
 }
 const versions = detectVersions(root);
 if (versions.length) {

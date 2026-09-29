@@ -88,22 +88,33 @@ function Render-Claude {
     $rules = Get-CombinedRules -Stack $Stack -ExtraSkills $ExtraSkills -Bundles $Bundles -SkillsRelPath '.claude/skills'
     $hasFront = [bool]$Stack.Meta.frontProfile
 
-    # 1) CLAUDE.md — si ya existe uno del proyecto (sin nuestra marca), respaldarlo antes de sobrescribir
+    # 1) CLAUDE.md — si ya existe uno del proyecto (sin nuestra marca), PREGUNTAR antes de adaptarlo.
+    #    Decision persistente: si existe CLAUDE.dev-standards.md, el usuario eligio "no tocar mi CLAUDE.md"
+    #    y las reglas generadas siguen yendo alli en cada sync sin volver a preguntar.
     $claudeMd = Join-Path $ProjectPath 'CLAUDE.md'
-    if (Test-Path $claudeMd) {
+    $altMd = Join-Path $ProjectPath 'CLAUDE.dev-standards.md'
+    $writeTarget = $claudeMd
+    if (Test-Path $altMd) {
+        $writeTarget = $altMd
+    } elseif (Test-Path $claudeMd) {
         $existing = Get-Content $claudeMd -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
         if ($existing -and $existing -notmatch 'GENERADO por dev-standards') {
-            $backup = Join-Path $ProjectPath 'CLAUDE.project.md'
-            if (-not (Test-Path $backup)) { Write-Utf8 $backup $existing }
-            Write-Host "  [claude]     CLAUDE.md existente respaldado en CLAUDE.project.md (revisa si quieres fusionarlo)"
+            if (Ask-YesNo "Este proyecto ya tiene CLAUDE.md propio. ¿Respaldarlo en CLAUDE.project.md e importarlo desde el generado?" $true) {
+                $backup = Join-Path $ProjectPath 'CLAUDE.project.md'
+                if (-not (Test-Path $backup)) { Write-Utf8 $backup $existing }
+                Write-Host "  [claude]     CLAUDE.md existente respaldado en CLAUDE.project.md (importado desde el generado)"
+            } else {
+                $writeTarget = $altMd
+                Write-Host "  [claude]     CLAUDE.md intacto; reglas generadas en CLAUDE.dev-standards.md (anade '@CLAUDE.dev-standards.md' a tu CLAUDE.md para cargarlas)"
+            }
         }
     }
     # Si hay guia propia del proyecto (CLAUDE.project.md), el CLAUDE.md generado la importa SIEMPRE al principio:
     # las reglas del proyecto no se pierden por instalar dev-standards.
-    if (Test-Path (Join-Path $ProjectPath 'CLAUDE.project.md')) {
+    if ($writeTarget -eq $claudeMd -and (Test-Path (Join-Path $ProjectPath 'CLAUDE.project.md'))) {
         $rules = "@CLAUDE.project.md`n`n> Este proyecto tiene guia PROPIA en CLAUDE.project.md (importada arriba): sus reglas especificas`n> (dominio, comandos, estructura) MANDAN sobre lo generico de este archivo cuando choquen.`n`n" + $rules
     }
-    Write-Utf8 $claudeMd $rules
+    Write-Utf8 $writeTarget $rules
 
     # 2) Skills -> .claude/skills/<skill>/
     $installed = Copy-Skills -Stack $Stack -Dst (Join-Path $ProjectPath '.claude\skills') -Extra $ExtraSkills -Bundles $Bundles

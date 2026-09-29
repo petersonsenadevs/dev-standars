@@ -12,6 +12,11 @@ Documenta el trabajo en `devlog/` en la raíz del proyecto siguiendo la metodolo
 - Al terminar un paso/feature/fix relevante.
 - Cuando una entrada corrige o mejora una anterior.
 
+## Proyecto con diario propio
+Si el proyecto ya documenta a su manera (CHANGELOG.md, `docs/decisions/`, ADRs) y aún no hay decisión
+tomada: pregunta UNA vez al usuario qué prefiere (su formato, este devlog, o ambos con roles distintos),
+anota la decisión en la primera entrada (o en su diario) y respétala el resto del proyecto sin re-preguntar.
+
 ## Pasos
 1. Determina la fecha real: `Get-Date -Format 'yyyy-MM-dd HH:mm'`.
 2. Asegura la carpeta del día: `devlog/<YYYY-MM-DD>/`.

@@ -1,7 +1,7 @@
 # Adoptar convenciones de un proyecto existente (/adoptar)
 
 Índice: 1 Cuándo · 2 Qué analizar · 3 Entrevista · 4 Salida (conventions.md + conventions.json) ·
-5 Inmutabilidad · 6 Conflictos con dev-standards
+5 Inmutabilidad · 6 Conflictos con dev-standards · 7 Modo entrevista (proyecto nuevo/vacío)
 
 ## 1. Cuándo
 - Proyecto existente/heredado (de otro equipo o de antes de dev-standards) con un estilo propio marcado.
@@ -67,3 +67,20 @@ Solo convierte en regla lo **regexeable sin falsos positivos** (3–8 reglas); e
 - **EXCEPTO los muros de seguridad e higiene**, que aplican siempre: secretos fuera del código, nada
   destructivo sin aprobación, sin `console.log`/`dd()` nuevos, Conventional Commits ≤72 sin co-autores.
   Si el proyecto commitea distinto, dilo en la entrevista y pacta con el usuario qué formato fijamos.
+
+## 7. Modo entrevista (proyecto nuevo o vacío)
+Sin código no hay evidencia que analizar: las convenciones se DEFINEN preguntando, no se inventan.
+- **5–7 preguntas, una a una, cada una con propuesta por defecto** (para poder responder "ok" y seguir).
+  No preguntes lo que ya diga el brief, el stack o dev-standards (commits, seguridad: eso ya está fijado):
+  1. Idioma del código y los comentarios (propuesta: código en inglés, comentarios/UI en español).
+  2. Naming de archivos y componentes según el stack (propuesta: la convención oficial del framework).
+  3. Dónde vive la lógica (propuesta del stack: servicios/actions finos, nada en controladores/páginas).
+  4. Validación de entrada (propuesta según stack: FormRequests / zod / class-validator).
+  5. Enfoque CSS si hay front (propuesta: la del perfil del stack — Tailwind + tokens del design system).
+  6. Tests: framework, ubicación y naming (propuesta: la oficial del stack; `it()` en el idioma elegido).
+  7. Lo que el usuario quiera fijar de su cosecha ("¿algo que NO quieras ver en este código?" → vetos).
+- Salida idéntica a §4 (mismos archivos, mismo sello), anotando en el encabezado
+  "Definidas por entrevista el YYYY-MM-DD (proyecto nuevo, sin código previo)". Reglas ejecutables solo
+  las inequívocas; el resto queda en conventions.md como guía.
+- Cuando el proyecto ya tenga código real, ofrece re-ejecutar /adoptar en modo evidencia para CONTRASTAR
+  lo pactado con lo construido (y ajustar con el ok del usuario).
