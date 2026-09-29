@@ -27,4 +27,10 @@ if [ -f tools/test-router.ps1 ]; then
     echo "[dev-standards] test-router.ps1 FALLA. Ejecutalo para ver el detalle: tools/test-router.ps1" >&2; exit 1
   fi
 fi
+if [ -f tools/test-init-parity.ps1 ]; then
+  powershell -NoProfile -ExecutionPolicy Bypass -File tools/test-init-parity.ps1 >/dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    echo "[dev-standards] test-init-parity.ps1 FALLA (init.ps1 vs init.mjs divergen). Detalle: tools/test-init-parity.ps1" >&2; exit 1
+  fi
+fi
 exit 0

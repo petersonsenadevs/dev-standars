@@ -18,15 +18,11 @@ config, hooks y comandos versionados con el proyecto). Pasos, en orden:
 3. **Confirma con el usuario** en una sola pregunta: stack elegido + herramientas (claude solo, o
    claude,codex) + si el proyecto ya tiene CLAUDE.md/AGENTS.md/diario propio, qué quiere hacer con
    ellos (respaldar e importar es el default sano).
-4. **Ejecuta** según el entorno:
-   - **Windows**: `powershell -NoProfile -ExecutionPolicy Bypass -File "<repo>\tools\init-project.ps1" -Stack <stack> -Path "<raiz>" -Tools <herramientas>`
-     (si el proyecto ya tiene `.dev-standards.json`, usa `sync.ps1 -Path`: es una actualización).
-   - **WSL/Linux/macOS**: el INSTALADOR es PowerShell de Windows (los hooks que instala sí son Node y
-     funcionan en cualquier OS). NO inventes puentes: dile al usuario el camino soportado — ejecutar el
-     instalador **desde una PowerShell de Windows apuntando al proyecto por `\\wsl$\...`**:
-     `D:\dev-standards\tools\init-project.ps1 -Stack <stack> -Path "\\wsl$\<distro>\ruta\al\proyecto" -Tools claude`
-     y mientras tanto puede seguir con el plugin (que ya le da skills+muros+comandos). No instales pwsh
-     ni ejecutes los .ps1 con pwsh en Linux: no está soportado todavía.
+4. **Ejecuta el instalador agnóstico** (Node, funciona en Windows, WSL, Linux y macOS por igual):
+   `node "<repo>/tools/init.mjs" --stack <stack> --path "<raiz-del-proyecto>" --tools claude`
+   (añade `,codex` si el usuario usa Codex; si el proyecto ya tiene `.dev-standards.json` el mismo
+   comando actúa como actualización). Solo cursor/windsurf requieren la versión PowerShell en Windows
+   (`tools\sync.ps1`). No inventes otros caminos ni scripts que no existan.
 5. **Cierra**: resume qué se instaló (skills, hooks, comandos, guía respaldada si la había) y pide al
    usuario REINICIAR la sesión de Claude Code para que cargue la config del proyecto (los hooks del
    plugin y los del proyecto se deduplican solos por marcador de sesión).

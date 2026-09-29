@@ -340,7 +340,9 @@ $script:LoadProtocol = @(
 function Get-ActivationRows {
     param([string[]]$Installed, [string]$RelPath, [string[]]$Groups)
     $rows = @()
-    foreach ($sk in ($script:Registry.skills | Sort-Object -Property @{Expression={$_.priority}; Descending=$true})) {
+    # Orden determinista (prioridad desc, nombre asc): Sort-Object de PS 5.1 es inestable en empates y
+    # la suite de paridad con init.mjs exige salida identica.
+    foreach ($sk in ($script:Registry.skills | Sort-Object -Property @{Expression={$_.priority}; Descending=$true}, @{Expression={$_.name}})) {
         if ($Groups -notcontains $sk.group) { continue }
         if ($Installed -contains $sk.name) { $rows += ('| {0} | `{1}/{2}/SKILL.md` |' -f $sk.when, $RelPath, $sk.name) }
     }

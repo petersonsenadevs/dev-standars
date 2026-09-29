@@ -81,9 +81,10 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
 - **Claude Code**: `/plugin marketplace add petersonsenadevs/dev-standars` →
   `/plugin install dev-standards-all@dev-standards` — TODO el paquete (recomendado); packs ligeros: `-front`, `-backend`, `-core`, `bundle-*`.
 - **Del plugin al proyecto completo en un comando**: abre Claude en tu proyecto y escribe **`/instalar`** —
-  clona el repo a `~\.dev-standards` si falta, detecta el stack (o se lo dices: `/instalar laravel`),
-  te confirma qué hacer con tu CLAUDE.md/diario si ya existen, y ejecuta `init-project`/`sync` por ti.
-  Requiere Windows (el tooling de instalación es PowerShell); reinicia la sesión al terminar.
+  clona el repo a `~/.dev-standards` si falta, detecta el stack (o se lo dices: `/instalar laravel`),
+  te confirma qué hacer con tu CLAUDE.md/diario si ya existen, y ejecuta el instalador agnóstico
+  (`tools/init.mjs`, Node): **funciona en Windows, WSL, Linux y macOS**. Reinicia la sesión al terminar.
+  (Solo cursor/windsurf y `-GitHooks` siguen necesitando la versión PowerShell en Windows.)
 - **Codex / Cursor / Windsurf** (skills globales):
   `irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex`.
 

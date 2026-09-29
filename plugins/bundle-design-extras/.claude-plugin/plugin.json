@@ -1,7 +1,7 @@
 {
     "name":  "bundle-design-extras",
     "description":  "Bundle dev-standards \u0027design-extras\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ui-ux-pro-max, ui-styling, design-system, graphic-design, slides, brand, banner-design.",
-    "version":  "1.0.45",
+    "version":  "1.0.46",
     "author":  {
                    "name":  "dev-standards"
                },

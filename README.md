@@ -38,9 +38,9 @@ nada por hecho.
 # Skills globales para Codex / Cursor / Windsurf (Windows PowerShell):
 irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex
 
-# Manual por proyecto (equivalente a /instalar, sin plugin de por medio):
+# Manual por proyecto (equivalente a /instalar; Node = Windows, WSL, Linux y macOS):
 git clone https://github.com/petersonsenadevs/dev-standars.git
-.\dev-standars\tools\init-project.ps1 -Stack laravel -Path "D:\proyectos\mi-app" -Tools claude,codex
+node dev-standars/tools/init.mjs --stack laravel --path /ruta/mi-app --tools claude,codex
 ```
 
 Requisitos, actualización y las vías al detalle: **[INSTALL.md](INSTALL.md)**.
