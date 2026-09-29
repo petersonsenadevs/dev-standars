@@ -20,7 +20,14 @@
 .PARAMETER Version
   Version para plugin.json (por defecto: fecha yyyy.M.d).
 #>
-param([string]$Version = (Get-Date -Format 'yyyy.M.d'))
+param([string]$Version = '')
+# Version monotona por commit (1.0.<n>): dos builds del mismo dia ya no comparten version,
+# asi /plugin marketplace update SIEMPRE detecta que hay plugin nuevo que refrescar.
+if (-not $Version) {
+    $n = 0
+    try { $n = [int]((git -C $PSScriptRoot rev-list --count HEAD 2>$null | Out-String).Trim()) } catch {}
+    $Version = if ($n) { "1.0.$($n + 1)" } else { (Get-Date -Format 'yyyy.M.d') }
+}
 
 . (Join-Path $PSScriptRoot '_lib.ps1')
 $root      = Get-StandardsRoot
