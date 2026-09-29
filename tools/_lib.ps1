@@ -60,6 +60,40 @@ function Read-Md { param([string]$Path) Read-Utf8 $Path }
 
 function Ensure-Dir { param([string]$Path) if (-not (Test-Path $Path)) { New-Item -ItemType Directory -Force -Path $Path | Out-Null } }
 
+function Resolve-GuideTarget {
+    # Comun a los renderers que escriben una guia en la raiz (CLAUDE.md, AGENTS.md): si el proyecto ya
+    # tiene la suya (sin nuestra marca), PREGUNTA antes de adaptarla. Con "si": respaldo en <base>.project.md
+    # y el generado la referencia arriba (lo del proyecto MANDA). Con "no": la guia queda intacta y las
+    # reglas van a <base>.dev-standards.md (decision persistente: si ese archivo existe, no se re-pregunta).
+    # Devuelve @{ Target = ruta donde escribir; Rules = reglas con el puntero anadido si procede }.
+    param([string]$ProjectPath, [string]$FileName, [string]$Rules, [string]$ImportSyntax = '')
+    $main = Join-Path $ProjectPath $FileName
+    $base = [System.IO.Path]::GetFileNameWithoutExtension($FileName)
+    $alt = Join-Path $ProjectPath "$base.dev-standards.md"
+    $backupName = "$base.project.md"
+    $backup = Join-Path $ProjectPath $backupName
+    $target = $main
+    if (Test-Path $alt) {
+        $target = $alt
+    } elseif (Test-Path $main) {
+        $existing = Get-Content $main -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
+        if ($existing -and $existing -notmatch 'GENERADO por dev-standards') {
+            if (Ask-YesNo "Este proyecto ya tiene $FileName propio. ¿Respaldarlo en $backupName y referenciarlo desde el generado?" $true) {
+                if (-not (Test-Path $backup)) { Write-Utf8 $backup $existing }
+                Write-Host "  [guia]       $FileName respaldado en $backupName (referenciado desde el generado)"
+            } else {
+                $target = $alt
+                Write-Host "  [guia]       $FileName intacto; reglas generadas en $base.dev-standards.md (referencialo tu desde $FileName si quieres cargarlas)"
+            }
+        }
+    }
+    if ($target -eq $main -and (Test-Path $backup)) {
+        $head = if ($ImportSyntax) { $ImportSyntax } else { "LEE PRIMERO $backupName (guia propia de este proyecto) antes de aplicar lo de abajo." }
+        $Rules = "$head`n`n> Este proyecto tiene guia PROPIA en ${backupName}: sus reglas especificas (dominio, comandos,`n> estructura) MANDAN sobre lo generico de este archivo cuando choquen.`n`n" + $Rules
+    }
+    return @{ Target = $target; Rules = $Rules }
+}
+
 function Ask-YesNo {
     # Pregunta interactiva con valor por defecto. En modo no interactivo (stdin redirigido, CI,
     # DEV_STANDARDS_ASSUME_YES=1) devuelve el default sin preguntar: sync/init nunca se cuelgan.
