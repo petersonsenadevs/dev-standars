@@ -5,24 +5,23 @@ Escribes las reglas UNA vez y viajan a Claude Code, Codex, Cursor, Windsurf y An
 skills que se activan solas, muros que bloquean de verdad y verificación obligatoria antes de dar
 nada por hecho.
 
-![Skills](https://img.shields.io/badge/skills-41-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Hooks](https://img.shields.io/badge/muros-13_hooks-red) ![Idioma](https://img.shields.io/badge/idioma-español-yellow)
+<!-- GEN:resumen -->
+![Skills](https://img.shields.io/badge/skills-41-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Muros](https://img.shields.io/badge/muros-13_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-12-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
 
-## Qué hace por ti
-
-- **Enrutamiento automático**: pides en llano ("mejora la página de precios") y el agente sabe qué
-  skill leer, en qué orden y solo la sección necesaria. Sin invocar nada a mano.
-- **Muros, no consejos**: git push, deploys a producción, secretos en código, `console.log`,
-  tests desactivados con `.only`, librerías vetadas o clichés de "web hecha con IA" se **bloquean**
-  con el motivo — no se "recomiendan evitar".
-- **Consciente del proyecto**: detecta versiones reales (y avisa de EOL), si el proyecto es nuevo
-  (→ brief + plan) o heredado (→ `/adoptar` sus convenciones y sellarlas), y respeta la guía y el
-  diario que el proyecto ya tenga — preguntando antes de adaptarse.
-- **Diseño acompañado**: entrevista sin tecnicismos, blueprint aprobable + maquetas A/B antes de
-  construir, checkpoint por sección, memoria de gustos con vetos ejecutables y lista negra anti-IA.
-- **Nada se da por hecho sin verificar**: build+lint+types+tests tras tocar código, verificación
-  móvil-primero tras tocar UI, checklist de lanzamiento y deploy con red (backup + rollback + smoke).
-- **Todo documentado solo**: cada paso deja devlog; el plan manda; esta docu se regenera en cada
-  commit desde las fuentes — no puede mentir.
+| Grupo | Skills | Entra por |
+|---|---|---|
+| **Planificación** (1) | project-planner | `project-planner` |
+| **Enrutado** (2) | front-activation, skill-router | `skill-router` |
+| **Calidad de código** (1) | code-quality | router |
+| **Arquitectura** (1) | ddd-hexagonal | router |
+| **Documentación** (1) | devlog | router |
+| **Front y diseño** (7) | design-system, image-gen, modern-web-design, skill de marca de la agencia… | `ui-ux-pro-max` |
+| **Animación** (9) | animated-component-libraries, animejs, barba-js, gsap-scrolltrigger… | router |
+| **3D / WebGL** (12) | aframe-webxr, babylonjs-engine, blender-web-pipeline, lightweight-3d-effects… | router |
+| **Diseño gráfico y marca** (4) | banner-design, brand, graphic-design, slides | router |
+| **Marketing y SEO** (2) | email-html, marketing-seo | router |
+| **Operaciones y despliegue** (1) | deploy-ops | router |
+<!-- /GEN:resumen -->
 
 ## Instalación rápida
 
@@ -39,37 +38,97 @@ git clone https://github.com/petersonsenadevs/dev-standars.git
 .\dev-standars\tools\init-project.ps1 -Stack laravel -Path "D:\proyectos\mi-app" -Tools claude,codex
 ```
 
-Detalle de cada vía, requisitos y actualización: **[INSTALL.md](INSTALL.md)**.
+Requisitos, actualización y las tres vías al detalle: **[INSTALL.md](INSTALL.md)**.
+
+---
+
+## Los muros bloquean de verdad (no "recomiendan")
+
+Lo peligroso no se le pide por favor al agente: un hook lo **deniega** con el motivo, antes de que ocurra.
+
+```text
+> git push origin main
+[BLOQUEADO por dev-standards] git push está prohibido sin aprobación explícita.
+
+> netlify deploy --prod
+[BLOQUEADO] Deploy a PRODUCCIÓN detectado. Requiere aprobación explícita del usuario
+(checklist /desplegar: backup fresco verificado + plan de rollback + smoke posterior).
+
+> it.only('calcula el total', ...)
+[BLOQUEADO] Estás introduciendo .only en un test: un test enfocado que llega a CI
+desactiva la suite en silencio.
+
+> <span class="badge">AGENDA ABIERTA ESTE MES</span>
+[BLOQUEADO] Badge de disponibilidad: urgencia falsa que delata web hecha con IA.
+Lista negra: anti-ia.md (qué usar en su lugar).
+```
+
+También: secretos en código, `console.log` nuevos, migraciones ya desplegadas, archivos generados,
+`rm -rf`, `chmod 777`, `curl|bash`, marcadores de conflicto, vetos del cliente en `gustos.md`…
+**→ Los 13 muros, uno a uno, con sus escapes: [docs/hooks.md](docs/hooks.md)**
+
+## Pides en llano, el agente sabe qué leer
+
+Sin invocar skills a mano: un enrutador con 41 skills registradas detecta la tarea y carga SOLO la
+sección necesaria (disciplina de contexto: nada se lee entero).
+
+| Tú dices… | El agente usa… |
+|---|---|
+| "haz la landing de la clínica" | `ui-ux-pro-max` — y ANTES te entrevista (brief) y te enseña 2 maquetas A/B |
+| "los usuarios duplican pedidos con doble clic" | `code-quality` → receta de idempotencia y race conditions |
+| "monta el webhook de Stripe" | `code-quality` → integraciones (verificación de firma, reintentos, idempotencia) |
+| "dockeriza el proyecto y súbelo" | `deploy-ops` → Docker multi-stage + checklist de deploy (y el muro de producción) |
+| "añade un chatbot que responda con nuestros docs" | `code-quality` → llm-apps (RAG, streaming, costes, evals) |
+| "se ve roto en el móvil" | `ui-verify` → verificación 375px-primero con Playwright + crítica visual |
+
+**→ Las 41 skills por grupo, con las señales que activan cada una: [docs/skills.md](docs/skills.md)**
+
+## Sabe en qué proyecto está
+
+- **Versiones reales**: detecta Laravel 11, React 19, Python 3.12… (también en monorepos) y aplica las
+  prácticas de ESA versión — con aviso si algo está sin soporte (EOL).
+- **Nuevo vs heredado**: proyecto vacío → brief + plan; proyecto con código → `/adoptar` analiza su
+  estilo real, lo pacta contigo y lo **sella como inmutable** (un hook bloquea el código que lo viole).
+- **Respeta lo que ya hay**: tu `CLAUDE.md`/`AGENTS.md`, tu diario, tu plan — pregunta antes de adaptarse.
+
+## Diseño acompañado (y sin olor a IA)
+
+Entrevista sin tecnicismos (`/brief`) → blueprint aprobable → **2 maquetas A/B** que se ven →
+construcción con checkpoint por sección → verificación móvil-primero → checklist de lanzamiento.
+Tus opiniones van a una memoria de gustos con **vetos ejecutables**, y una **lista negra anti-IA**
+(badges de disponibilidad, numeración de secciones, "trusted by" gris, métricas inventadas…) está
+prohibida por defecto y vigilada por hook + crítica visual.
+
+**→ Los 12 comandos y los flujos completos: [docs/comandos.md](docs/comandos.md)**
 
 ## Documentación
 
 | Documento | Qué encontrarás |
 |---|---|
 | **[INSTALL.md](INSTALL.md)** | Instalar paso a paso: por proyecto, como plugin o skills globales; actualizar |
-| **[USO.md](USO.md)** | El día a día: qué es automático, qué frases activan cada cosa, los muros y sus escapes |
-| **[docs/skills.md](docs/skills.md)** | Las 41 skills por grupo: cuándo salta cada una y con qué señales (enrutamiento) |
-| **[docs/comandos.md](docs/comandos.md)** | Los 12 comandos slash con su explicación y los flujos típicos |
+| **[USO.md](USO.md)** | El día a día: qué es automático, qué frases activan cada cosa, muros y escapes |
+| **[docs/skills.md](docs/skills.md)** | Las 41 skills por grupo: cuándo salta cada una y con qué señales |
+| **[docs/comandos.md](docs/comandos.md)** | Los 12 comandos slash explicados + flujos típicos |
 | **[docs/hooks.md](docs/hooks.md)** | Los 13 hooks/muros: qué bloquea cada uno y sus escapes |
-| **[docs/stacks.md](docs/stacks.md)** | Los 9 stacks (+ Go/Java/C# como referencias) y los bundles opcionales |
-| **[docs/arquitectura.md](docs/arquitectura.md)** | Cómo funciona por dentro: registro único, capas vendor/overlay, disciplina de contexto, paridad entre herramientas |
-| **[REFERENCIA.md](REFERENCIA.md)** | Todo el catálogo en UNA página (para leer del tirón) |
+| **[docs/stacks.md](docs/stacks.md)** | Los 9 stacks (+ Go/Java/C#) y los bundles opcionales |
+| **[docs/arquitectura.md](docs/arquitectura.md)** | Cómo funciona por dentro: registro único, vendor/overlay, disciplina de contexto |
+| **[REFERENCIA.md](REFERENCIA.md)** | Todo el catálogo en UNA página |
+| **[CHANGELOG.md](CHANGELOG.md)** | Qué cambió en cada versión (generado del devlog) |
 | **[ROADMAP.md](ROADMAP.md)** | Qué está hecho y qué viene |
-| `devlog/` | La historia completa de decisiones, entrada a entrada (42 y subiendo) |
 
-> `docs/`, `REFERENCIA.md` y los `plugins/` **se generan desde las fuentes de verdad en cada commit**
-> (`tools/build-docs.ps1` + pre-commit): si añades una skill o un hook sin documentar, el build falla.
+> Los badges, `docs/`, `REFERENCIA.md` y `CHANGELOG.md` **se regeneran en cada commit desde las fuentes
+> de verdad**: si añades una skill o un hook sin documentar, el build falla. La docu no puede mentir.
 
 ## Cómo se mantiene sano
 
 Tres suites corren en cada commit (el pre-commit no deja pasar nada roto):
 
-- `check-skills.ps1` — 11 checks de conectividad: registro ↔ skills 1:1, límites de tamaño, citas y
-  referencias que resuelven, tablas generadas al día.
+- `check-skills.ps1` — 11 checks de conectividad: registro ↔ skills 1:1, límites de tamaño, citas que resuelven.
 - `test-router.ps1` — 51 casos dorados de "frase del usuario → skill correcta".
 - `test-hooks.ps1` — 34 casos de los muros (lo que debe bloquear, bloquea; lo legítimo, pasa).
 
 ## Filosofía en una frase
 
 El agente no "intenta acordarse" de las normas: **las normas viven en archivos versionados, se cargan
-solas cuando tocan, y lo importante se bloquea por hook** — lo demás es documentación que se regenera
-para no mentir. Cada error real de un proyecto vuelve aquí como regla, muro o caso de test.
+solas cuando tocan, y lo importante se bloquea por hook**. Cada error real de un proyecto vuelve aquí
+como regla, muro o caso de test — el paquete aprende del uso.

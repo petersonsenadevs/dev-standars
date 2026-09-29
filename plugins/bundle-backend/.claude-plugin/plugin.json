@@ -1,9 +1,0 @@
-{
-    "name":  "bundle-backend",
-    "description":  "Bundle dev-standards \u0027backend\u0027: code-quality, ddd-hexagonal.",
-    "version":  "2026.8.25",
-    "author":  {
-                   "name":  "dev-standards"
-               },
-    "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
-}

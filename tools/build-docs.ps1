@@ -199,3 +199,57 @@ $R.Add(''); $R.Add('## 4. Stacks y bundles'); $R.Add('')
 foreach ($x in $stacksBody) { $R.Add($x) }
 Write-Utf8 (Join-Path $root 'REFERENCIA.md') ($R -join "`n")
 Write-Host "  [docs] REFERENCIA.md ($($R.Count) lineas)"
+
+# ============================================================ README: bloque GEN:resumen (badges + numeros vivos)
+$readmePath = Join-Path $root 'README.md'
+if (Test-Path $readmePath) {
+    $md = Read-Utf8 $readmePath
+    $nSkills = @($script:Registry.skills).Count
+    $nStacks = @(Get-ChildItem (Join-Path $root 'stacks') -Directory).Count
+    $nHooks = @(Get-ChildItem (Join-Path $root 'core\hooks') -Filter *.mjs | Where-Object { $_.Name -ne 'lib.mjs' }).Count
+    $nCmds = @(Get-ChildItem (Join-Path $root 'core\commands') -Filter *.md).Count
+    $nPlugins = @(Get-ChildItem (Join-Path $root 'plugins') -Directory -ErrorAction SilentlyContinue).Count
+    $ver = ''
+    try { $ver = ((git -C $root describe --tags --abbrev=0 2>$null) | Out-String).Trim() } catch {}
+    $B = New-Object System.Collections.Generic.List[string]
+    $verBadge = if ($ver) { "![Version](https://img.shields.io/badge/version-$ver-black) " } else { '' }
+    $B.Add("$verBadge![Skills](https://img.shields.io/badge/skills-$nSkills-blue) ![Stacks](https://img.shields.io/badge/stacks-$nStacks-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-$nPlugins-purple) ![Muros](https://img.shields.io/badge/muros-${nHooks}_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-$nCmds-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)")
+    $B.Add('')
+    $B.Add('| Grupo | Skills | Entra por |')
+    $B.Add('|---|---|---|')
+    foreach ($g in @($script:Registry.groups.PSObject.Properties.Name)) {
+        $skills = @($script:Registry.skills | Where-Object { $_.group -eq $g })
+        if (-not $skills.Count) { continue }
+        $entry = @($skills | Where-Object { $_.entrypoint } | ForEach-Object { "``$($_.name)``" })
+        $names = @($skills | Sort-Object name | Select-Object -First 4 | ForEach-Object { $_.name })
+        $sample = ($names -join ', ') + $(if ($skills.Count -gt 4) { '…' } else { '' })
+        $B.Add("| **$($script:Registry.groups.$g)** ($($skills.Count)) | $sample | $(if ($entry.Count) { $entry -join ', ' } else { 'router' }) |")
+    }
+    $block = $B -join "`n"
+    $md2 = [regex]::Replace($md, '(?s)(<!-- GEN:resumen -->).*?(<!-- /GEN:resumen -->)', ('${1}' + "`n$block`n" + '${2}'))
+    if ($md2 -ne $md) { Write-Utf8 $readmePath $md2; Write-Host '  [docs] README.md (bloque GEN:resumen)' }
+}
+
+# ============================================================ CHANGELOG.md desde devlog/INDEX.md
+$idxPath = Join-Path $root 'devlog\INDEX.md'
+if (Test-Path $idxPath) {
+    $rows = @()
+    foreach ($line in ((Read-Utf8 $idxPath) -split "`r?`n")) {
+        if ($line -match '^\|\s*(\d{3})\s*\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]+?)\s*\|\s*(\w+)\s*\|') {
+            $rows += [pscustomobject]@{ N = $Matches[1]; Fecha = $Matches[2]; Titulo = $Matches[3]; Tipo = $Matches[4] }
+        }
+    }
+    $C = New-Object System.Collections.Generic.List[string]
+    $C.Add('<!-- GENERADO por tools/build-docs.ps1 desde devlog/INDEX.md. El detalle de cada entrada vive en devlog/<fecha>/NNN-*.md -->')
+    $C.Add(''); $C.Add('# Changelog'); $C.Add('')
+    $C.Add('Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `devlog/`.')
+    $C.Add('')
+    foreach ($fecha in ($rows | Group-Object Fecha | Sort-Object Name -Descending)) {
+        $C.Add("## $($fecha.Name)")
+        $C.Add('')
+        foreach ($r in ($fecha.Group | Sort-Object N -Descending)) { $C.Add(('- **{0}** — {1} (entrada {2})' -f $r.Tipo, $r.Titulo, $r.N)) }
+        $C.Add('')
+    }
+    Write-Utf8 (Join-Path $root 'CHANGELOG.md') ($C -join "`n")
+    Write-Host "  [docs] CHANGELOG.md ($($rows.Count) entradas)"
+}
