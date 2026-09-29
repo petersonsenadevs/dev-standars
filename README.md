@@ -101,18 +101,18 @@ D:\dev-standards\tools\vendor.ps1
 
 ## Instalación remota (un comando, desde GitHub)
 
-Con el repo publicado en GitHub (`<owner>/dev-standards`):
+Con el repo publicado en GitHub (`petersonsenadevs/dev-standars`):
 
 - **Claude Code** (plugins con hooks, comandos y router):
   ```
-  /plugin marketplace add <owner>/dev-standards
+  /plugin marketplace add petersonsenadevs/dev-standars
   /plugin install dev-standards-front@dev-standards
   ```
   Actualizar: `/plugin marketplace update dev-standards`. Los `plugins/` y `.claude-plugin/` van versionados
   en el repo (el pre-commit los regenera en cada commit para que nunca queden desfasados).
 - **Codex / Cursor / Windsurf** (skills globales autodescubiertas) — PowerShell 5.1+:
   ```powershell
-  irm https://raw.githubusercontent.com/<owner>/dev-standards/main/tools/install.ps1 | iex
+  irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex
   ```
   Clona/actualiza el repo en `~\.dev-standards` y ejecuta `install-skills.ps1` (núcleo + front por defecto;
   `$env:DEV_STANDARDS_ALL='1'` para todas). Repetir el mismo comando actualiza.

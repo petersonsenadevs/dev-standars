@@ -6,8 +6,10 @@ Actualizado: 2026-09-18. Las tandas completadas viven en `devlog/INDEX.md` (029 
 - [ ] **Estreno real del ciclo completo**: un proyecto de verdad con `/brief` → `/propuestas` (maquetas A/B)
   → construir → `/repaso` → `/lanzar`. Lo que falle ahí define la siguiente tanda (regla aprendida:
   lo real destapa más que construir en vacío).
-- [ ] **Publicar en GitHub** (todo preparado desde el commit `a069964`): falta decidir **owner** y
-  **público/privado**. Activa `/plugin marketplace add <owner>/dev-standards` y el `irm … install.ps1 | iex`.
+- [x] **Publicado en GitHub** (2026-09-29): https://github.com/petersonsenadevs/dev-standars (público).
+  Activos `/plugin marketplace add petersonsenadevs/dev-standars` y el `irm … install.ps1 | iex`.
+  Pendiente menor: renombrar el repo a `dev-standards` si se quiere corregir la errata (GitHub redirige;
+  actualizar entonces las URLs de README/INSTALL/install.ps1).
 - [ ] En `un proyecto Laravel`: verificación móvil de `/escombros` (F2-T1), fotos reales del servicio,
   cifras de contadores confirmadas, alta del subdominio en Netlify/DNS, y commit del proyecto.
 - [x] Evals ejecutadas (2026-09-18, 1,65 $): landing 1.0 ✅ · backend 0.67 · **efecto 0 — sin el hook

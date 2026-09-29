@@ -79,8 +79,8 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
 ## 6. Instalación remota (cuando el repo esté en GitHub)
 
 Pendiente del primer push. Entonces será:
-`/plugin marketplace add <owner>/dev-standards` (Claude) y
-`irm https://raw.githubusercontent.com/<owner>/dev-standards/main/tools/install.ps1 | iex` (Codex y resto).
+`/plugin marketplace add petersonsenadevs/dev-standars` (Claude) y
+`irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex` (Codex y resto).
 
 ## Chuleta
 

@@ -5,7 +5,7 @@
 .DESCRIPTION
   Pensado para ejecutarse con un solo comando (PowerShell 5.1+):
 
-    irm https://raw.githubusercontent.com/OWNER/dev-standards/main/tools/install.ps1 | iex
+    irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex
 
   Hace tres cosas:
     1. Clona (o actualiza) el repo en ~\.dev-standards (git si existe; si no, ZIP de GitHub).
@@ -18,7 +18,7 @@
 #>
 $ErrorActionPreference = 'Stop'
 
-$repo = if ($env:DEV_STANDARDS_REPO) { $env:DEV_STANDARDS_REPO } else { 'https://github.com/OWNER/dev-standards' }
+$repo = if ($env:DEV_STANDARDS_REPO) { $env:DEV_STANDARDS_REPO } else { 'https://github.com/petersonsenadevs/dev-standars' }
 $dest = if ($env:DEV_STANDARDS_DIR)  { $env:DEV_STANDARDS_DIR }  else { Join-Path $HOME '.dev-standards' }
 $slug = ($repo -replace '^https?://github\.com/', '') -replace '\.git$', ''
 
