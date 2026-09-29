@@ -59,6 +59,9 @@ con tu negocio? ¿qué te gusta de cada una? Se pueden mezclar (los colores de A
 - 2026-09-17 · "los fondos oscuros me encantan" (elección de dirección B)
 ## No (vetado — NUNCA proponer de nuevo sin preguntar)
 - 2026-09-17 · carruseles automáticos ("me marean") — términos bloqueados: `carousel`, `swiper`
+- (siembra por defecto en todo proyecto nuevo) lista negra anti-IA — términos bloqueados: `agenda abierta`,
+  `slots disponibles`, `trusted by`, `al siguiente nivel` (el resto de la lista ya lo bloquea el hook
+  globalmente: ver ui-ux-pro-max references/es/anti-ia.md)
 <!-- Pon entre acentos graves el término técnico: el hook code-hygiene BLOQUEA de verdad cualquier
      edición que lo introduzca en el código. -->
 ## Dudas / pendiente
@@ -71,6 +74,23 @@ con tu negocio? ¿qué te gusta de cada una? Se pueden mezclar (los colores de A
   un veto) se apunta en `gustos.md` en el momento, con fecha y cita corta. Sin gustos.md previo, se crea.
 - Se **lee antes de cada tarea de diseño** y prevalece sobre inspiración, tendencias y todo lo generado
   (solo BRAND.md está por encima). Un veto no se re-propone sin preguntar explícitamente.
+
+## Regla permanente: referencias con rotación (el anti-"siempre Stripe")
+
+Al proponer direcciones A/B o citar ejemplos de diseño: 2-3 referencias **por dirección**, sacadas de
+`inspiration.md` **filtradas por la industria del cliente** — webs del sector o de sectores con el mismo
+mood, no siempre las mismas. **Stripe, Linear, Apple, Notion, Airbnb y Vercel están vetadas como
+muletilla**: solo se citan si el usuario las nombra o el proyecto es literalmente de su sector. Cada
+referencia se cita con el PORQUÉ concreto ("mira cómo X resuelve el menú de servicios"), no como
+adorno de autoridad.
+
+## Regla permanente: checkpoint por sección (acompañar de verdad)
+
+Al construir (maquetas o página final): se termina UNA sección → se enseña (captura o URL) → UNA
+pregunta concreta y cerrada ("¿este hero te transmite cercanía o lo prefieres más serio?") → la
+respuesta va a `gustos.md` → siguiente sección. **Nunca más de una sección sin enseñar nada.** Si el
+usuario está ausente, se avanza marcando cada decisión como propia ("criterio mío, se cambia sin
+drama") y se le presenta el lote con las preguntas acumuladas al volver.
 
 ## Regla permanente: justificar en el idioma del usuario
 

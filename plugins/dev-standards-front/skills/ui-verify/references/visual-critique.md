@@ -23,6 +23,11 @@ Puntúa cada eje 1-5 mirando la imagen (no el código). Un 1-2 en cualquiera = c
    ¿Alguna imagen IA con defectos (manos, texto) que se coló?
 8. **Test de portada**: ¿la distinguirías de una plantilla genérica? ¿Hay UNA decisión memorable
    (checklist de `ui-ux-pro-max §references/es/inspiration.md` §5)?
+9. **Olor a IA** (`ui-ux-pro-max §references/es/anti-ia.md`): ¿aparece ALGO de la lista negra?
+   Badge de disponibilidad con puntito, numeración de secciones ("02 — TRABAJOS"), meta-línea de
+   servicios con interpuntos en el hero, "trusted by" gris, métricas inventadas, gradiente violeta
+   por defecto, marquee de tecnologías, tres cards clónicas por sección. UNA sola de estas = nota 1-2
+   en este eje (y por tanto NO se entrega hasta limpiarla).
 
 ## Cómo reportar
 Tabla eje×viewport con nota y UNA frase por fallo señalando dónde ("375: el tel del hero queda pegado

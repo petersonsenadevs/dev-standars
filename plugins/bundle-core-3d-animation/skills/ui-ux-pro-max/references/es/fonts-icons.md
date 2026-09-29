@@ -44,7 +44,15 @@ Atipo (pago what-you-want) — verifica licencia antes de usar en cliente.
 | Iconoir | Outline fino minimalista | Sitios editoriales/premium |
 | Remix Icon | Outline+fill, algo chino-tech | Apps con muchos conceptos de negocio |
 | Solar / Mingcute (Iconify) | Bold/duotone modernos | Landings con personalidad; via Iconify |
+| Hugeicons | Outline redondeado amable, 4000+ | Producto/consumer con look actual |
+| Streamline | Varios estilos, muy sistemático | Proyectos que exigen coherencia total |
+| Iconoir / Feather | Ultrafinos minimalistas | Editorial, lujo, portfolios sobrios |
 | Simple Icons | Solo logos de marcas | Redes sociales y tech-stack; nunca para UI |
+
+**Regla anti-default**: Lucide NO es "el" set, es UNO más — usarlo exige el mismo motivo que cualquier
+otro. El set se elige por la PERSONALIDAD de la marca (fino=premium, redondeado=cercano, duotone=juguetón,
+bold=contundente), se escribe en `MASTER.md` ("Iconos: Phosphor duotone") y no se repite el del proyecto
+anterior sin motivo. Con Iconify (`@iconify-json/<set>`) cambiar de set cuesta una línea: no hay excusa.
 
 - En Astro: `astro-icon` con `@iconify-json/<set>` (ya en este stack). En React/Vue: paquete del set o `unplugin-icons`.
 - Reglas: mismo set en todo el proyecto · tamaño consistente (16/20/24) · `stroke-width` uniforme ·

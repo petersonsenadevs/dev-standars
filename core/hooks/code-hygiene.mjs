@@ -72,6 +72,21 @@ for (const pair of pairs) {
     }
 }
 
+// --- 1b. Olor a IA (lista negra global de ui-ux-pro-max references/es/anti-ia.md) ---
+const aiSlopPatterns = [
+    { p: /agenda (abierta|disponible)|slots? (disponibles?|libres?)|disponible para (nuevos )?proyectos/i, m: 'un badge de disponibilidad ("agenda abierta", "slots disponibles"): urgencia falsa que delata web hecha con IA' },
+    { p: /(^|[>\s"'])0\d\s*[—–-]\s*[A-ZÁÉÍÓÚ]/m, m: 'numeracion de secciones ("02 — TRABAJOS"): el tic mas reconocible del portfolio-IA' },
+];
+for (const pair of pairs) {
+    for (const ap of aiSlopPatterns) {
+        const hit = testIntroduced(ap.p, pair[0], pair[1]);
+        if (hit) {
+            process.stderr.write(`[BLOQUEADO por dev-standards] Estas introduciendo ${ap.m}: '${hit}'. Lista negra: ui-ux-pro-max references/es/anti-ia.md (que usar en su lugar). Solo si el USUARIO lo pidio por su nombre: anade 'dev-standards-allow' en esa linea y anotalo en gustos.md.\n`);
+            process.exit(2);
+        }
+    }
+}
+
 // --- 2. Vetos de gustos.md (términos entre acentos graves bajo "## No") ---
 const root = projectRoot();
 const gustos = findFirstFile(path.join(root, 'design-system'), 'gustos.md');

@@ -39,8 +39,8 @@ toggle de dark, consola limpia, Tab por la página. Deja explícito en el devlog
 
 ## Crítica visual (OBLIGATORIA para el veredicto APTA)
 Tras la pasada técnica, ABRE las capturas (Read) y evalúalas con `references/visual-critique.md`:
-8 ejes 1-5 (jerarquía, aire, alineación, contraste percibido, consistencia, densidad móvil, fotos,
-test de portada). Nota 1-2 en cualquiera = corregir antes de entregar. Antes de publicar la web:
+9 ejes 1-5 (jerarquía, aire, alineación, contraste percibido, consistencia, densidad móvil, fotos,
+test de portada, olor a IA). Nota 1-2 en cualquiera = corregir antes de entregar. Antes de publicar la web:
 `/lanzar` → `references/launch-checklist.md` (SEO, PageSpeed, medición, legales, dominio).
 
 ## Informe (va al devlog y a la tarjeta del plan)

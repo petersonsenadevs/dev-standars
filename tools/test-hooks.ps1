@@ -81,6 +81,11 @@ $null = Case 'introduce it.only -> bloquea' 'code-hygiene.mjs' @{ tool_name='Edi
 $null = Case 'it.only ya existia -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.test.ts'; old_string="it.only('suma', fn); const a = 1"; new_string="it.only('suma', fn); const a = 2" } } 0
 $null = Case 'marcador de conflicto -> bloquea' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\app.ts'; content="const a = 1;`n<<<<<<< HEAD`nconst b = 2;" } } 2
 
+# --- code-hygiene: lista negra anti-IA ---
+$null = Case 'badge agenda abierta -> bloquea' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\Hero.astro'; content='<span class="badge">AGENDA ABIERTA ESTE MES</span>' } } 2
+$null = Case 'numeracion de seccion -> bloquea' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Trabajos.astro'; old_string='<h2>Trabajos</h2>'; new_string='<h2>02 — TRABAJOS</h2>' } } 2
+$null = Case 'agenda del evento -> pasa' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\Evento.astro'; content='<p>Consulta la agenda del evento y su programa</p>' } } 0
+
 # --- code-hygiene: vetos de gustos.md ---
 $null = Case 'veto carousel -> bloquea' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Home.astro'; old_string='<div>'; new_string='<div><Carousel autoplay />' } } 2
 $null = Case 'sin termino vetado -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Home.astro'; old_string='<div>'; new_string='<div><Galeria />' } } 0
