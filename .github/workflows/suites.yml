@@ -1,0 +1,46 @@
+name: suites
+
+# Las mismas comprobaciones que el pre-commit local, en GitHub: si alguien commitea sin el hook
+# (o lo salta), aquí se ve. Windows porque el tooling del repo es PowerShell 5.1.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  suites:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # tags incluidos: la versión de los plugins sale de ellos
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Archivos generados al día (plugins y docs)
+        shell: powershell
+        run: |
+          # Misma versión que la commiteada: la del plugin core (evita diferencias por el nº de commits)
+          $env:DEV_STANDARDS_RELEASE = (Get-Content plugins\dev-standards-core\.claude-plugin\plugin.json -Raw | ConvertFrom-Json).version
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-plugins.ps1 | Out-Null
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-docs.ps1 | Out-Null
+          git -c core.autocrlf=true diff --stat --exit-code -- plugins .claude-plugin docs REFERENCIA.md
+          if ($LASTEXITCODE -ne 0) { Write-Host 'Hay archivos generados sin actualizar: ejecuta build-plugins y build-docs y commitea.'; exit 1 }
+
+      - name: check-skills (conectividad y reglas de Codex)
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\check-skills.ps1
+
+      - name: test-router (frase del usuario -> skill)
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-router.ps1
+
+      - name: test-hooks (muros)
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-hooks.ps1
+
+      - name: test-init-parity (instalador PowerShell = instalador Node)
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-init-parity.ps1

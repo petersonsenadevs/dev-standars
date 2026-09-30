@@ -11,7 +11,9 @@ copiar demos: es destilar la técnica y que la colección crezca con cada proyec
 Cada índice dice cómo refrescarse (scraping con WebFetch/Chrome). Fecha de cosecha: 2026-09-16.
 
 ## 0b. Código vendorizado (en el repo dev-standards, licencias MIT verificadas)
-`core/effects-vendor/` — **empieza por su `INDEX.md`** (autogenerado, por categoría): ~60 demos completos
+`core/effects-vendor/` — **no viene al clonar el repo** (pesa 274 MB): descárgala con
+`tools/vendor-effects.ps1 -Missing` (clona cada repo original, verifica su licencia y regenera el índice).
+**Empieza por su `INDEX.md`**, que sí está versionado (autogenerado, por categoría): ~60 demos completos
 de Codrops (cursores, texto, scroll-layout, hover, menús, transiciones, galerías — incluida la tienda
 Astro con View Transitions), **uiverse-galaxy** (~3.800 elementos UI), **whirl** + **css-loaders**
 (loaders CSS), **fancy-components** (React animado de fancycomponents.dev) y **vanta** (fondos WebGL).

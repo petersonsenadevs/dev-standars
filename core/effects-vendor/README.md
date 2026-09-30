@@ -1,3 +1,6 @@
+> **No se versiona** (274 MB): solo `INDEX.md`, este README y `manifest.json` van en git, para que el
+> repo se clone rápido. Para tener el código: `tools/vendor-effects.ps1 -Missing`.
+
 # effects-vendor — código real de efectos, con licencia verificada
 
 Repos completos vendorizados por `tools/vendor-effects.ps1` según `manifest.json`. Cada carpeta lleva su

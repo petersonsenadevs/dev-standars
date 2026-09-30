@@ -7,3 +7,10 @@ desktop.ini
 __pycache__/
 # Repos de efectos sin licencia confirmada (vendor-effects.ps1): solo cache local
 core/effects-vendor/_local/
+# Colección de efectos (274 MB): NO se versiona para que el repo se clone rápido (Codex corta a los 30 s).
+# Se regenera desde sus repos originales con tools/vendor-effects.ps1 -Missing. Sí se versionan el
+# índice, el README y el manifiesto (qué hay y de dónde sale).
+core/effects-vendor/*/
+!core/effects-vendor/INDEX.md
+!core/effects-vendor/README.md
+!core/effects-vendor/manifest.json
