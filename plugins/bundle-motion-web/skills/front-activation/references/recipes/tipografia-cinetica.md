@@ -12,6 +12,11 @@ párrafos de lectura. Para reveal por líneas y por caracteres ya existen receta
 - Split-flap
 - Titular gigante con scroll
 - Dividir texto correctamente
+- Pretext: texto calculado sin el DOM
+- Texto que rodea una forma en movimiento
+- Titular que se reajusta mientras cambia el ancho
+- Altura exacta para listas y masonry
+- Texto en canvas o WebGL con saltos de línea
 
 ## Fuente variable animada
 
@@ -98,3 +103,58 @@ Toda animación por letras o palabras necesita dividir el texto sin romper la ac
 - `Splitting.js` (vendor, sin GSAP): añade variables CSS por carácter (`--char-index`) para animar solo con CSS.
 - Siempre: el texto completo accesible (`aria-label` en el contenedor y `aria-hidden` en los fragmentos) y
   volver a dividir al cambiar el tamaño de ventana si se divide por líneas.
+
+## Pretext: texto calculado sin el DOM
+
+`@chenglou/pretext` (MIT, 15 KB, sin dependencias) calcula saltos de línea y alturas con aritmética:
+mide cada segmento una vez con canvas (`prepare`) y después cualquier ancho cuesta ~0,001 ms
+(`layout`), sin tocar el DOM ni provocar reflow. Eso permite recalcular el texto en cada fotograma.
+No es una librería de animación: es el cálculo que hace posibles las recetas de abajo.
+Reglas:
+- `prepare()` una vez por texto y fuente; `layout()` todas las veces que quieras.
+- Espera a que la fuente esté cargada (`await document.fonts.ready`) antes de `prepare`, y llama a
+  `clearCache()` si cambia la fuente. La fuente va como en canvas y en px: `'600 18px "Inter"'`.
+- `system-ui` no es fiable (macOS) y los ejes de fuentes variables no se aplican: usa una fuente concreta.
+- Solo en el navegador (necesita canvas 2D). En SSR, calcula en el cliente tras la hidratación.
+
+## Texto que rodea una forma en movimiento
+Un párrafo que se aparta de un círculo o una imagen que se mueve, recalculado cada fotograma:
+```js
+import { prepareWithSegments, layoutNextLineRange, materializeLineRange } from '@chenglou/pretext';
+const prep = prepareWithSegments(texto, '18px "Inter"');
+function pintar(forma) {                                   // forma = { cx, cy, r } en coordenadas del bloque
+  const lineas = []; let cursor = { segmentIndex: 0, graphemeIndex: 0 }; let y = 0;
+  for (;;) {
+    const choca = Math.abs(y + LH / 2 - forma.cy) < forma.r;
+    const x0 = choca ? forma.cx + forma.r + 12 : 0;        // si la línea cruza la forma, empieza a su derecha
+    const rango = layoutNextLineRange(prep, cursor, ANCHO - x0);
+    if (!rango) break;
+    lineas.push({ x: x0, y, texto: materializeLineRange(prep, rango).text });
+    cursor = rango.end; y += LH;                         // cursor de fin del rango: comprueba el nombre en el README de tu versión
+  }
+  return lineas;                                           // pinta en canvas o en spans posicionados
+}
+```
+Reduced-motion: forma quieta (una sola maquetación). Con muchas líneas, pinta en canvas.
+
+## Titular que se reajusta mientras cambia el ancho
+Animar el ancho de un bloque de texto (panel que se abre, tarjeta que crece) y conocer su altura
+exacta en cada fotograma para animar también el contenedor sin saltos:
+```js
+const prep = prepare(titular, '700 40px "Fraunces"');
+function alto(ancho) { return layout(prep, ancho, 44).height; }   // barato: úsalo dentro del requestAnimationFrame
+```
+Sustituye a medir con `getBoundingClientRect()` en cada fotograma (reflow en cada frame).
+
+## Altura exacta para listas y masonry
+Calcula la altura de cada tarjeta de texto ANTES de pintarla: listas virtuales con alturas variables
+sin saltos al hacer scroll, y masonry sin esperar al render. Llama a `layout(prep, anchoColumna, lh)`
+por elemento al cambiar el ancho de la columna.
+
+## Texto en canvas o WebGL con saltos de línea
+Canvas no parte líneas solo; `layoutWithLines` te da las líneas ya cortadas para `fillText` o para
+convertirlas en geometría o texturas en Three.js o Pixi:
+```js
+const { lines } = layoutWithLines(prepareWithSegments(texto, '16px "Inter"'), 320, 24);
+lines.forEach((l, i) => ctx.fillText(l.text, 0, (i + 1) * 24));
+```

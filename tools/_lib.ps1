@@ -455,18 +455,25 @@ function Get-SessionSection {
 }
 
 # Construye el bloque de reglas combinado (base + metodología + stack + front + skills).
+# Modo ahorro (opcional, solo en CLAUDE.md): mismo texto EXACTO que init.mjs (la suite de paridad lo compara).
+$script:AhorroDevlog = 'Documenta cada paso relevante en `devlog/<fecha>/NNN-slug.md` con la skill `devlog` (numeración global e INDEX.md al día). El hook stop-guard lo exige al cerrar la tarea.' + "`n"
+$script:AhorroGit = 'Una rama por tarea (nunca commits en main, master ni develop), Conventional Commits de 72 caracteres como máximo y sin co-autores, y nunca `git push` sin aprobación explícita. El hook guard lo hace cumplir.' + "`n"
+$script:AhorroEstilo = "`n---`n`n# Modo ahorro`n`n" + 'Respuestas técnicas en estilo telegráfico: sin preámbulos ni resúmenes repetidos, frases cortas, primero el resultado y el código. Excepciones, en lenguaje normal y completo: `/brief`, `/propuestas`, `/repaso`, `/estimar` y `/entregar`, cualquier texto para el cliente y cualquier explicación que pida el usuario. Las skills cargan sus descripciones solas: abre solo la sección que necesites.' + "`n"
+
 function Get-CombinedRules {
     param([Parameter(Mandatory)]$Stack, [string[]]$ExtraSkills = @(), [string[]]$Bundles = @(), [string]$SkillsRelPath = '.claude/skills')
     $root = $script:StandardsRoot
     $sd   = $Stack.Dir
+    $ahProp = $Stack.PSObject.Properties['Ahorro']
+    $ahorro = ($ahProp -and $ahProp.Value) -and ($SkillsRelPath -eq '.claude/skills')
     $parts = @(
         (Read-Md (Join-Path $root 'core\prompts\base-systemprompt.md')),
         "`n---`n`n# Acciones prohibidas (global)`n",
         (Read-Md (Join-Path $root 'core\methodology\prohibited-actions.md')),
         "`n---`n`n# Metodología de devlog`n",
-        (Read-Md (Join-Path $root 'core\methodology\devlog.md')),
+        $(if ($ahorro) { $script:AhorroDevlog } else { Read-Md (Join-Path $root 'core\methodology\devlog.md') }),
         "`n---`n`n# Flujo de Git`n",
-        (Read-Md (Join-Path $root 'core\methodology\git-workflow.md')),
+        $(if ($ahorro) { $script:AhorroGit } else { Read-Md (Join-Path $root 'core\methodology\git-workflow.md') }),
         "`n---`n",
         (Read-Md (Join-Path $sd $Stack.Meta.systemprompt)),
         "`n---`n`n# Mejores prácticas del stack`n",
@@ -488,5 +495,5 @@ function Get-CombinedRules {
     $header + ($parts -join "`n") +
         (Get-ActivationSection -Stack $Stack -Extra $ExtraSkills -Bundles $Bundles -RelPath $SkillsRelPath) +
         (Get-SessionSection -Stack $Stack) +
-        (Get-SkillsSection -Stack $Stack -Extra $ExtraSkills -Bundles $Bundles -RelPath $SkillsRelPath)
+        $(if ($ahorro) { $script:AhorroEstilo } else { Get-SkillsSection -Stack $Stack -Extra $ExtraSkills -Bundles $Bundles -RelPath $SkillsRelPath })
 }

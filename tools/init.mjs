@@ -277,17 +277,25 @@ function skillsSection(stack, extra, bundles, relPath) {
     }
     return lines.join('\n') + '\n';
 }
+// Modo ahorro (opcional, solo en CLAUDE.md): quita lo que en Claude Code ya cubren las skills y los hooks
+// (lista de skills, metodología completa de devlog y git) y pide respuestas técnicas telegráficas, salvo lo
+// dirigido al cliente. AGENTS.md (Codex, sin hooks) queda completo. Mismo texto exacto que _lib.ps1.
+const AHORRO_DEVLOG = 'Documenta cada paso relevante en `devlog/<fecha>/NNN-slug.md` con la skill `devlog` (numeración global e INDEX.md al día). El hook stop-guard lo exige al cerrar la tarea.\n';
+const AHORRO_GIT = 'Una rama por tarea (nunca commits en main, master ni develop), Conventional Commits de 72 caracteres como máximo y sin co-autores, y nunca `git push` sin aprobación explícita. El hook guard lo hace cumplir.\n';
+const AHORRO_ESTILO = '\n---\n\n# Modo ahorro\n\nRespuestas técnicas en estilo telegráfico: sin preámbulos ni resúmenes repetidos, frases cortas, primero el resultado y el código. Excepciones, en lenguaje normal y completo: `/brief`, `/propuestas`, `/repaso`, `/estimar` y `/entregar`, cualquier texto para el cliente y cualquier explicación que pida el usuario. Las skills cargan sus descripciones solas: abre solo la sección que necesites.\n';
+
 function combinedRules(stack, extra, bundles, relPath) {
     const md = f => readUtf8(f);
     const sd = stack.dir;
+    const ahorro = !!stack.ahorro && relPath === '.claude/skills';
     const parts = [
         md(path.join(ROOT, 'core', 'prompts', 'base-systemprompt.md')),
         '\n---\n\n# Acciones prohibidas (global)\n',
         md(path.join(ROOT, 'core', 'methodology', 'prohibited-actions.md')),
         '\n---\n\n# Metodología de devlog\n',
-        md(path.join(ROOT, 'core', 'methodology', 'devlog.md')),
+        ahorro ? AHORRO_DEVLOG : md(path.join(ROOT, 'core', 'methodology', 'devlog.md')),
         '\n---\n\n# Flujo de Git\n',
-        md(path.join(ROOT, 'core', 'methodology', 'git-workflow.md')),
+        ahorro ? AHORRO_GIT : md(path.join(ROOT, 'core', 'methodology', 'git-workflow.md')),
         '\n---\n',
         md(path.join(sd, stack.meta.systemprompt)),
         '\n---\n\n# Mejores prácticas del stack\n',
@@ -306,7 +314,7 @@ function combinedRules(stack, extra, bundles, relPath) {
     return header + parts.join('\n')
         + activationSection(stack, extra, bundles, relPath)
         + sessionSection(stack)
-        + skillsSection(stack, extra, bundles, relPath);
+        + (ahorro ? AHORRO_ESTILO : skillsSection(stack, extra, bundles, relPath));
 }
 
 // ---------------------------------------------------------------- perfil de front efectivo
@@ -570,7 +578,7 @@ async function seedProject(projectPath) {
 function lista(v) { return String(v || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean); }
 
 function parseArgs(argv) {
-    const a = { path: process.cwd(), tools: null, stack: null, skills: [], bundle: [], seleccion: null, grupos: null, soloSkills: null, hooks: null, comandos: null, interactivo: false };
+    const a = { path: process.cwd(), tools: null, stack: null, skills: [], bundle: [], seleccion: null, grupos: null, soloSkills: null, hooks: null, comandos: null, interactivo: false, ahorro: null };
     for (let i = 0; i < argv.length; i++) {
         const k = argv[i];
         const next = () => argv[++i];
@@ -585,6 +593,8 @@ function parseArgs(argv) {
         else if (k === '--hooks') a.hooks = lista(next());
         else if (k === '--comandos') a.comandos = lista(next());
         else if (k === '--interactivo' || k === '-i') a.interactivo = true;
+        else if (k === '--ahorro') a.ahorro = true;
+        else if (k === '--sin-ahorro') a.ahorro = false;
         else if (k === '--help' || k === '-h') { a.help = true; }
         else warn(`Flag desconocido: ${k}`);
     }
@@ -697,6 +707,8 @@ async function modoInteractivo(a) {
             const cmds = fs.readdirSync(path.join(ROOT, 'core', 'commands')).filter(f => f.endsWith('.md')).map(f => f.replace(/\.md$/, ''));
             a.comandos = await elegirVarios(rl, 'Comandos:', cmds.map(c => [c, `/${c}`]));
         }
+        const ah = await preguntar(rl, '\n¿Modo ahorro de tokens? CLAUDE.md compacto y respuestas técnicas telegráficas (lo del cliente sigue en lenguaje normal) [s/N]: ');
+        a.ahorro = /^s/i.test(ah);
         const ok = await preguntar(rl, '\n¿Instalar con esta selección? [S/n]: ');
         if (/^n/i.test(ok)) { log('Cancelado. No se ha tocado nada.'); process.exit(0); }
     } finally { rl.close(); }
@@ -708,7 +720,7 @@ async function main() {
         log('Uso: node tools/init.mjs                       -> instalador interactivo (sin argumentos, en terminal)');
         log('     node tools/init.mjs --stack <nombre> --path <ruta> [--tools claude,codex]');
         log('       [--seleccion todo|categorias|a-medida] [--grupos front,motion,3d,quality,architecture,growth,ops,design]');
-        log('       [--solo-skills a,b] [--hooks guard,stop-guard,...] [--comandos plan,verificar,...] [--skills a,b] [--bundle x]');
+        log('       [--solo-skills a,b] [--hooks guard,stop-guard,...] [--comandos plan,verificar,...] [--skills a,b] [--bundle x] [--ahorro|--sin-ahorro]');
         log('Stacks: ' + fs.readdirSync(path.join(ROOT, 'stacks')).join(', '));
         return;
     }
@@ -745,6 +757,7 @@ async function main() {
         seleccion = marker.seleccion;
     }
     stack.selection = seleccion;
+    stack.ahorro = a.ahorro !== null ? a.ahorro : !!(marker && marker.ahorro);
 
     log('== dev-standards :: init (Node, agnóstico de OS) ==');
     log(`Stack: ${stack.name}`);
@@ -777,6 +790,7 @@ async function main() {
         if (fpSource) markerObj.frontProfileSource = fpSource;
     }
     if (seleccion) markerObj.seleccion = seleccion;
+    if (stack.ahorro) markerObj.ahorro = true;
     writeUtf8(markerPath, JSON.stringify(markerObj, null, 2));
     log('Listo. Config regenerada. Abre una sesión NUEVA del agente para que cargue todo.');
 }

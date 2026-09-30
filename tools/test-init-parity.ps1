@@ -81,6 +81,7 @@ $sel = [ordered]@{ modo = 'categorias'; grupos = @('motion', 'ops'); hooks = @('
 foreach ($p in $a, $b) {
     $m = (Read-Utf8 (Join-Path $p '.dev-standards.json')) | ConvertFrom-Json
     $m | Add-Member -NotePropertyName seleccion -NotePropertyValue $sel -Force
+    $m | Add-Member -NotePropertyName ahorro -NotePropertyValue $true -Force
     Write-Utf8 (Join-Path $p '.dev-standards.json') ($m | ConvertTo-Json -Depth 6)
 }
 $env:DEV_STANDARDS_ASSUME_YES = '1'
@@ -95,6 +96,11 @@ if (Test-Path (Join-Path $b '.claude\skills\ui-ux-pro-max')) { Fail '[seleccion]
 if (-not (Test-Path (Join-Path $b '.claude\skills\gsap-scrolltrigger'))) { Fail '[seleccion] falta gsap-scrolltrigger (grupo motion)' }
 $hk = Read-Utf8 (Join-Path $b '.claude\settings.json')
 if ($hk -match 'code-hygiene' -or $hk -notmatch 'guard\.mjs' -or $hk -notmatch 'edit-tracker') { Fail '[seleccion] hooks registrados no coinciden con guard + stop-guard (+ edit-tracker y session-end)' }
+# Modo ahorro: CLAUDE.md compacto (sin lista de skills, con la sección de estilo); AGENTS.md completo (Codex no tiene hooks)
+$cm = Read-Utf8 (Join-Path $b 'CLAUDE.md'); $ag = Read-Utf8 (Join-Path $b 'AGENTS.md')
+if ($cm -notmatch '# Modo ahorro' -or $cm -match '# Skills disponibles') { Fail '[ahorro] CLAUDE.md no esta en modo compacto' }
+if ($ag -notmatch '# Skills disponibles' -or $ag -match '# Modo ahorro') { Fail '[ahorro] AGENTS.md deberia seguir completo' }
+Write-Host ("  AGENTS.md (completo) {0} vs CLAUDE.md (ahorro) {1} caracteres" -f $ag.Length, $cm.Length)
 
 Remove-Item $a, $b -Recurse -Force -ErrorAction SilentlyContinue
 Write-Host "Paridad init.ps1 vs init.mjs ($Stack): $(if ($fail) { "$fail diferencias" } else { 'OK' })"

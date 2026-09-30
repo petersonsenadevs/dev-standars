@@ -42,6 +42,18 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
   adaptarse** — puedes dejar tu CLAUDE.md intacto (las reglas van a `CLAUDE.dev-standards.md`).
 - **Convenciones adoptadas** (`/adoptar`): en proyectos heredados, las convenciones se analizan, se pactan
   contigo y se sellan como inmutables; el hook `conventions-guard` bloquea el código que las viole.
+- **Muros de backend**: bloquea migraciones que borran o renombran columnas y tablas en la parte `up`
+  (lo destructivo va con tu aprobación), `env('…')` de Laravel fuera de `config/` (con la caché de config
+  devuelve null) y logs con datos personales (`$request->all()`, `req.body`, contraseñas o tokens). La
+  primera vez que toca backend en la sesión le recuerda la receta de su stack.
+- **Depuración con método**: cuando un test, build o lint falla, el agente recibe el método de `/depurar`
+  (reproducir → aislar → hipótesis → un cambio cada vez) en lugar de probar a ciegas. Tras tres intentos
+  fallidos se para y te lo cuenta.
+- **Assets pesados**: al cerrar la tarea avisa (sin bloquear) de imágenes de más de 500 KB, SVG de más de
+  150 KB, fuentes TTF/OTF sin convertir a WOFF2 y vídeos de más de 5 MB añadidos en las últimas 24 horas.
+- **Modo ahorro** (opcional, `--ahorro` al instalar): CLAUDE.md compacto (unos 7.000 caracteres menos por
+  sesión) y respuestas técnicas en estilo telegráfico. Los textos para el cliente, `/brief`, `/propuestas`,
+  `/estimar` y `/entregar` siguen en lenguaje completo. Se quita con `--sin-ahorro`.
 
 ## 3. Comandos slash (Claude Code) — atajos
 
@@ -57,6 +69,10 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 | `/desplegar [entorno]` | Deploy con red: PRE (backup+rollback+aprobación) → deploy → smoke POST | Cada subida a producción |
 | `/adoptar [notas]` | Analiza un proyecto existente y sella sus convenciones como regla inmutable (+ hook que las hace cumplir) | Al entrar en un proyecto heredado |
 | `/revisar-ui [url]` | Pasada de UI en navegador (375/768/1440, dark, consola, axe) | "Revisa cómo se ve" |
+| `/depurar [síntoma]` | Depuración con método: reproducir, aislar, hipótesis, arreglo y test que lo cubre | "No funciona", error 500, tests en rojo (se activa solo al fallar una prueba) |
+| `/estimar [alcance]` | Estimación en horas con rango (mínimo, previsto, máximo) y lo que suele olvidarse | Antes de dar un presupuesto |
+| `/entregar` | Paquete de entrega al cliente en `docs/entrega/`: manual, accesos (sin contraseñas), mantenimiento | Al cerrar un proyecto |
+| `/mapa` | `docs/MAPA.md`: cómo está montado el proyecto y dónde tocar para cada cosa | Al heredar un proyecto o para que entre alguien nuevo |
 
 ## 4. Frases en llano que activan cada cosa (sin slash)
 
@@ -69,6 +85,11 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - "se ve mal en el móvil" → ui-verify.
 - "añade login / el webhook de stripe / se duplican pedidos / va lento" → recetas backend por síntoma.
 - "no me gusta X / nunca me pongas Y" → queda vetado en gustos.md.
+- "no funciona / da error 500 / los tests están en rojo" → depurar.
+- "¿cuántas horas es esto? / prepárame el presupuesto" → estimación.
+- "prepara la entrega al cliente / el manual de uso" → paquete de entrega.
+- "explícame este proyecto / haz un mapa del proyecto" → mapa del proyecto.
+- "texto que rodea una forma / titular que se reajusta al ancho" → recetas de Pretext.
 
 ## 5. Flujos típicos de principio a fin
 

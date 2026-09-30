@@ -416,7 +416,7 @@
                        "name":  "front-activation",
                        "group":  "routing",
                        "entrypoint":  false,
-                       "keywords":  "(?i)\\b(blobs?|gooey|metaballs?|morph\\w*|separador(es)? (de onda|entre secciones)|onda entre secciones|clip-path|view transitions?|scroll-driven|animation-timeline|starting-style|anchor positioning|texto (sobre|en) (una )?curva|fuentes? variables?|split.?flap|microinteracci\\w*|skeleton|preloader|men[uú] a pantalla completa|hamburguesa animada|liquid glass|dithering|ascii|efecto (de )?fluido|globo 3d|trazo que se dibuja|dibujar el (trazo|logo)|v[ií]deo dentro del texto|bento|rejilla rota|composici[oó]n de (la )?p[aá]gina|pantalla dividida)\\b",
+                       "keywords":  "(?i)\\b(blobs?|gooey|metaballs?|morph\\w*|separador(es)? (de onda|entre secciones)|onda entre secciones|clip-path|view transitions?|scroll-driven|animation-timeline|starting-style|anchor positioning|texto (sobre|en) (una )?curva|fuentes? variables?|split.?flap|microinteracci\\w*|skeleton|preloader|men[uú] a pantalla completa|hamburguesa animada|liquid glass|dithering|ascii|efecto (de )?fluido|globo 3d|trazo que se dibuja|dibujar el (trazo|logo)|v[ií]deo dentro del texto|bento|rejilla rota|composici[oó]n de (la )?p[aá]gina|pantalla dividida|pretext|texto que rodea|texto alrededor de (la|una) (forma|imagen)|medir (el )?texto sin el dom)\\b",
                        "priority":  8,
                        "requires":  [
                                         "ui-ux-pro-max"

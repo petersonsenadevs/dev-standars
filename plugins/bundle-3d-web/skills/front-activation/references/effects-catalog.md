@@ -148,6 +148,10 @@ Cuando la tipografía ES el diseño. Una pieza protagonista por página; nunca a
 | Texto que se resalta al leerlo / highlight on scroll | front-activation → `references/recipes/tipografia-cinetica.md` §Texto que se resalta al leerlo | Todos | Resaltado ya aplicado | Bajo |
 | Split-flap (panel de aeropuerto) / split-flap text | front-activation → `references/recipes/tipografia-cinetica.md` §Split-flap | Todos | Palabra final directa | Bajo |
 | Titular gigante con scroll / oversized scrolling headline | front-activation → `references/recipes/tipografia-cinetica.md` §Titular gigante con scroll | Todos | Titular estático | Medio |
+| Texto que rodea una forma en movimiento (Pretext) / text wrap around moving shape | front-activation → `references/recipes/tipografia-cinetica.md` §Texto que rodea una forma en movimiento | Todos (navegador) | Forma quieta, una sola maquetación | Medio |
+| Titular que se reajusta al cambiar el ancho (Pretext) / reflowing headline | front-activation → `references/recipes/tipografia-cinetica.md` §Titular que se reajusta mientras cambia el ancho | Todos (navegador) | Sin animación de ancho | Bajo |
+| Altura exacta para listas y masonry (Pretext) / exact text height | front-activation → `references/recipes/tipografia-cinetica.md` §Altura exacta para listas y masonry | Todos (navegador) | Mantener | Bajo |
+| Texto multilínea en canvas o WebGL (Pretext) / canvas text wrapping | front-activation → `references/recipes/tipografia-cinetica.md` §Texto en canvas o WebGL con saltos de línea | Todos (canvas, Three, Pixi) | Mantener | Medio |
 
 ## Microinteracciones, menús y entrada
 

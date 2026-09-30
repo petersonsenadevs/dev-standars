@@ -30,7 +30,9 @@ param(
     [string[]]$Tools,
     [string[]]$Skills,
     [string[]]$Bundle,
-    [switch]$GitHooks
+    [switch]$GitHooks,
+    [switch]$Ahorro,
+    [switch]$SinAhorro
 )
 
 . (Join-Path $PSScriptRoot '_lib.ps1')
@@ -58,6 +60,9 @@ $stackObj = Get-Stack -Name $Stack
 # Seleccion hecha con el instalador interactivo (init.mjs): se respeta en cada sync
 $selection = if ($marker -and $marker.seleccion) { $marker.seleccion } else { $null }
 $stackObj | Add-Member -NotePropertyName Selection -NotePropertyValue $selection -Force
+# Modo ahorro: el switch manda; si no, lo guardado en el marcador
+$ahorroVal = if ($SinAhorro) { $false } elseif ($Ahorro) { $true } else { [bool]($marker -and $marker.ahorro) }
+$stackObj | Add-Member -NotePropertyName Ahorro -NotePropertyValue $ahorroVal -Force
 
 $validTools = @{
     claude      = 'Render-Claude'
@@ -114,6 +119,7 @@ $markerObj = [ordered]@{
 }
 if ($wantGit) { $markerObj.gitHooks = $true }
 if ($selection) { $markerObj.seleccion = $selection }
+if ($ahorroVal) { $markerObj.ahorro = $true }
 if ($stackObj.Meta.frontProfile) {
     $markerObj.frontProfile = $stackObj.Meta.frontProfile
     if ($fpSource) { $markerObj.frontProfileSource = $fpSource }

@@ -33,6 +33,12 @@ Sin menú, con los mismos resultados: `--seleccion categorias --grupos front,mot
 `--seleccion a-medida --solo-skills backend-audit --hooks guard,stop-guard --comandos plan,verificar`
 (`node tools/init.mjs --help` lista todo). Dentro de Claude o Codex, `/instalar` hace las mismas preguntas.
 
+**Modo ahorro de tokens** (opcional; el menú lo pregunta al final): `--ahorro`. El CLAUDE.md queda
+compacto (sin la lista de skills, que Claude ya carga por su cuenta, y con el devlog y el flujo de git
+resumidos en una línea, porque los hooks los hacen cumplir) y las respuestas técnicas pasan a estilo
+telegráfico. Ahorra en torno a un 30 % del CLAUDE.md. AGENTS.md (Codex) sigue completo, porque Codex no
+tiene hooks. Se guarda en el marcador; `--sin-ahorro` (o `sync.ps1 -SinAhorro`) lo quita.
+
 ## 1. Proyecto nuevo o existente — la vía recomendada (Claude Y Codex a la vez)
 
 ```powershell
@@ -123,6 +129,7 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
 |---|---|
 | Proyecto nuevo con todo (Claude+Codex) | `init-project.ps1 -Stack <stack> -Path <ruta> -Tools claude,codex` |
 | Traer los últimos cambios al proyecto | `sync.ps1 -Path <ruta>` |
+| CLAUDE.md compacto (modo ahorro) | `init.mjs --path <ruta> --ahorro` o `sync.ps1 -Path <ruta> -Ahorro` |
 | Añadir el bundle de animación/3D después | `sync.ps1 -Path <ruta> -Bundle core-3d-animation` |
 | Solo plugin de Claude | `/plugin marketplace add D:\dev-standards` → `/plugin install dev-standards-all@dev-standards` |
 | Solo skills globales de Codex | `install-skills.ps1 -Agents codex` |

@@ -6,6 +6,11 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-09-30
 
+- **feature** — Modo ahorro de tokens opcional (CLAUDE.md compacto) · v1.3.0 (entrada 060)
+- **feature** — Recetas con Pretext: texto medido sin el DOM (rodear formas, reajuste, masonry, canvas) (entrada 059)
+- **build** — Colección de efectos fuera de git (Codex no clonaba) + CI con las suites (entrada 058)
+- **feature** — Aviso de assets pesados al cerrar + skill instalar-proyecto para Codex (entrada 057)
+- **feature** — /depurar (y aviso automático al fallar un test), /estimar, /entregar, /mapa y muros de backend (entrada 056)
 - **feature** — Instalador interactivo (todo / categorías / a medida) con selección persistente y poda + /instalar en Codex sin barras · v1.2.0 (entrada 055)
 - **fix** — /instalar en Codex: sin $NOMBRE en el texto (Codex lo toma como argumento) + check 12 ampliado · v1.1.2 (entrada 054)
 - **fix** — La versión del plugin sale de los tags (una sola numeración) + homepage en el manifest · v1.1.1 (entrada 053)
