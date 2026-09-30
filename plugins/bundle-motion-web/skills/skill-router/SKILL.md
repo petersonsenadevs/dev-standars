@@ -67,6 +67,7 @@ description: "ÚSAME PRIMERO en cualquier tarea no trivial: árbol de decisión 
 | Banners para redes, ads y heros | `banner-design` (si está instalada) | Diseño gráfico y marca |
 | Logos, iconos, identidad corporativa, mockups (generación con IA) | `graphic-design` (si está instalada) | Diseño gráfico y marca |
 | Voz de marca, identidad visual, guías de marca | `brand` (si está instalada) | Diseño gráfico y marca |
+| Auditar backend y arquitectura con pruebas (herramientas por stack, evidencia por hallazgo, informe), deuda técnica, código legado, dependencias circulares y refactor seguro con tests de caracterización | `backend-audit` | Calidad de código |
 | Escribir o refactorizar lógica, crear tests, manejar errores/logs, seguridad, rendimiento, diseñar endpoints/APIs, revisar o abrir un PR | `code-quality` | Calidad de código |
 | Módulo con reglas de negocio ricas, varios contextos, refactor de arquitectura desde MVC, "¿cómo estructuro esto?" (empieza por su checklist "¿hace falta?") | `ddd-hexagonal` (si está instalada) | Arquitectura |
 | Maquetar o arreglar emails HTML (transaccionales y newsletters): react-email/MJML/plantillas del framework, compatibilidad Gmail/Outlook, dark mode, texto plano y pruebas antes de enviar | `email-html` | Marketing y SEO |

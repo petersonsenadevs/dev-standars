@@ -15,6 +15,10 @@ Aplica `code-quality §references/adopt-conventions.md` paso a paso ($ARGUMENTS)
 3. **Escribe `conventions.md`** (humano: regla + ejemplo real por sección) y **`conventions.json`**
    (3–8 reglas ejecutables sin falsos positivos para el hook conventions-guard), ambos en la raíz y
    con el sello `dev-standards:inmutable` (§4 de la referencia tiene el esquema exacto).
+3b. **Reglas de arquitectura** (backend): propón 3-5 reglas de capas adaptadas a la estructura REAL
+   (`backend-audit §references/reglas-arquitectura.md`) como tests de arquitectura (Pest, ArchUnit,
+   NetArchTest) o configuración de Deptrac / dependency-cruiser / import-linter. Con el ok del usuario
+   se crean, y `/verificar` las comprueba en cada cierre de tarea.
 4. Enséñale al usuario el resumen de lo adoptado y las reglas ejecutables ANTES de sellar; con su ok,
    guarda y anota en el devlog qué se adoptó y qué quedó pendiente de decidir.
 

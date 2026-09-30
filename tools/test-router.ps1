@@ -111,6 +111,10 @@ $cases = @(
     @{ n = 'microinteracciones';    prompt = 'mejora las microinteracciones de los botones del formulario'; expect = 'front-activation' }
     @{ n = 'liquid glass';          prompt = 'haz la barra de navegación con efecto liquid glass';        expect = 'front-activation' }
     @{ n = 'composicion pagina';    prompt = 'cambia la composición de la página a una rejilla rota';     expect = 'front-activation' }
+    @{ n = 'auditar backend';       prompt = 'audita el backend y encuentra la deuda técnica';             skills = @('backend-audit','code-quality','skill-router'); expect = 'backend-audit'; expectFirst = 'backend-audit' }
+    @{ n = 'dependencias circulares'; prompt = 'creo que hay dependencias circulares entre los módulos';   skills = @('backend-audit','code-quality','skill-router'); expect = 'backend-audit' }
+    @{ n = 'refactor seguro';       prompt = 'quiero un refactor seguro del servicio de facturas';         skills = @('backend-audit','code-quality','skill-router'); expect = 'backend-audit'; expectFirst = 'backend-audit' }
+    @{ n = 'auditoria seo no back'; prompt = 'haz una auditoría seo de la web';                            skills = @('backend-audit','marketing-seo','skill-router'); expect = 'marketing-seo'; forbid = 'backend-audit' }
     @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
 )
 

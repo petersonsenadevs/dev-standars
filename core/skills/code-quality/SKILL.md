@@ -45,6 +45,7 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 | Abrir o revisar un PR, commits | `references/git-and-reviews.md` §checklist |
 | Qué API/sintaxis permite la versión del stack, upgrades, EOL | `references/stack-versions.md` (la versión REAL manda) |
 | Proyecto heredado: adoptar sus convenciones (/adoptar) | `references/adopt-conventions.md` |
+| Auditar el backend, deuda técnica, refactor grande (/auditar, /refactor) | skill `backend-audit` (encuentra con pruebas; las recetas de aquí lo arreglan) |
 | Verificar el proyecto tras TUS cambios | `scripts/verify-build.mjs` (lint+types+tests+build; corrige hasta 0 fallos) |
 
 ## Principios transversales (aplican siempre, sin leer nada más)

@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-09-30
 
+- **feature** — Auditoría de backend con pruebas: skill backend-audit, /auditar, /refactor, reglas de arquitectura en /verificar (entrada 051)
 - **docs** — Guía de prueba para dirección (docs/guia-de-prueba.md): instalar y probarlo todo en una tarde (entrada 050)
 - **feature** — Efectos 44→79 (CSS moderno, formas/SVG, tipografía cinética, microinteracciones, WebGL), composiciones de página, +8 repos MIT (entrada 049)
 

@@ -440,7 +440,7 @@ async function renderClaude(stack, projectPath, extra, bundles) {
     if (exists(cmdSrc)) {
         const cmdDst = path.join(projectPath, '.claude', 'commands');
         ensureDir(cmdDst);
-        const names = ['instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md',
+        const names = ['instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md',
             ...(hasFront ? ['brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md'] : [])];
         for (const n of names) if (exists(path.join(cmdSrc, n))) fs.copyFileSync(path.join(cmdSrc, n), path.join(cmdDst, n));
     }

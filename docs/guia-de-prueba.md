@@ -21,6 +21,23 @@ dev-standards convierte nuestra forma de trabajar en algo que el agente de IA **
 El valor está en que **da igual quién o qué agente trabaje el proyecto: el resultado sale con el mismo
 estándar de calidad**.
 
+## Dónde instalarlo: los scopes
+
+Hay dos piezas. El **plugin** da las skills, los muros y los comandos. La **instalación en el proyecto**
+(`/instalar`) añade lo específico del proyecto: reglas del stack en `CLAUDE.md`, versiones, comandos de
+verificación, perfil de diseño, `devlog/`, `plan/` y convenciones.
+
+| Scope del plugin | Dónde queda | Para quién |
+|---|---|---|
+| `user` (recomendado, por defecto) | `~/.claude` | Tú, en todos tus proyectos |
+| `project` | `.claude/settings.json` del repo (va en git) | Todo el equipo que clone el repo |
+| `local` | `.claude/settings.local.json` (no va en git) | Solo tú, solo en ese repo |
+
+Dentro de Claude, `/plugin` te pregunta el scope al instalar. En la terminal:
+`claude plugin install dev-standards-all@dev-standards --scope project`.
+
+Recomendación: plugin `dev-standards-all` con scope `user` + `/instalar` en cada proyecto real.
+
 ## 1. Instalar (10 minutos)
 
 **Requisitos**: Claude Code, Node 18 o superior y Git. Python 3 es opcional (el buscador de diseño lo usa).
@@ -155,6 +172,18 @@ muro o un caso de test del paquete, y a partir de ahí no vuelve a pasar en ning
 | `/verificar` | Build, lint, tests y móvil antes de cerrar |
 | `/adoptar` | Sellar las convenciones de un proyecto existente |
 | `/lanzar` · `/desplegar` | Checklist de lanzamiento y deploy con red de seguridad |
+
+### Desde la terminal (mantenimiento)
+
+| Quiero… | Comando |
+|---|---|
+| Traer la última versión del plugin | `claude plugin marketplace update dev-standards` |
+| Ver qué plugins tengo | `claude plugin list` |
+| Ver qué trae el plugin y cuántos tokens cuesta | `claude plugin details dev-standards-all@dev-standards` |
+| Desinstalarlo | `claude plugin uninstall dev-standards-all@dev-standards` (con `--scope` si no era `user`) |
+| Actualizar un proyecto | `node <repo>/tools/init.mjs --path <proyecto>` o `/instalar` dentro de Claude |
+| Añadir animación y 3D | `<repo>\tools\sync.ps1 -Path <proyecto> -Bundle core-3d-animation` |
+| Hooks de git en el proyecto | `<repo>\tools\sync.ps1 -Path <proyecto> -GitHooks` |
 
 Más detalle: [USO.md](../USO.md) (día a día) · [docs/skills.md](skills.md) (las 41 skills) ·
 [docs/hooks.md](hooks.md) (todos los muros) · [REFERENCIA.md](../REFERENCIA.md) (todo en una página).

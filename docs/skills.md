@@ -15,7 +15,7 @@ El agente decide solo, en tres capas automáticas:
 3. **Tablas de activación** (`skill-router` y `front-activation`, generadas del registro): el agente las
    consulta cuando duda; `references/decision-trees.md` tiene los árboles de decisión completos.
 
-Total: **41 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo, señales, prioridad, dependencias).
+Total: **42 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo, señales, prioridad, dependencias).
 
 ### Planificación (grupo `planning`, 1 skill)
 
@@ -30,10 +30,11 @@ Total: **41 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo
 | **`skill-router`** (entrada) | 0 | Empezar cualquier tarea no trivial: decide qué skill y sección leer (tabla de activación + protocolo de carga) | que stack, elegir stack, con que lo hago, que skill |
 | `front-activation` | 8 | Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea; efectos concretos del catálogo (79 recetas: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado) | blobs, gooey, metaballs, morph, separadores de onda, onda entre secciones, clip-path, view transitions… |
 
-### Calidad de código (grupo `quality`, 1 skill)
+### Calidad de código (grupo `quality`, 2 skills)
 
 | Skill | Prio | Cuándo usarla | Señales que la activan (muestra) |
 |---|---|---|---|
+| `backend-audit` | 8 | Auditar backend y arquitectura con pruebas (herramientas por stack, evidencia por hallazgo, informe), deuda técnica, código legado, dependencias circulares y refactor seguro con tests de caracterización | audit, deuda tecnica, codigo legado, legacy, hotspots, acoplamiento, dependencias circulares, analiza el backend… |
 | `code-quality` | 5 | Escribir o refactorizar lógica, crear tests, manejar errores/logs, seguridad, rendimiento, diseñar endpoints/APIs, revisar o abrir un PR | tests, refactor, revisa, pull request, seguridad, security, rendimiento, performance… |
 
 ### Arquitectura (grupo `architecture`, 1 skill)

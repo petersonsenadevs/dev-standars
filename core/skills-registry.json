@@ -38,6 +38,17 @@
       "installedBy": "base"
     },
     {
+      "name": "backend-audit",
+      "group": "quality",
+      "when": "Auditar backend y arquitectura con pruebas (herramientas por stack, evidencia por hallazgo, informe), deuda técnica, código legado, dependencias circulares y refactor seguro con tests de caracterización",
+      "keywords": "(?i)\\b(audit\\w*(?!\\s+(el |la |de |del )?(seo|ui|dise|accesib|web|email))|deuda t[eé]cnica|c[oó]digo legado|legacy|hotspots?|acoplamiento|dependencias circulares|analiza (el|la) (backend|arquitectura|c[oó]digo)|huecos (en|del) (el )?(backend|c[oó]digo)|code smells?|olores? (de|del) c[oó]digo|refactor(izar)? segur\\w*|tests? de caracterizaci[oó]n|deptrac|dependency.cruiser|tests? de arquitectura)\\b",
+      "priority": 8,
+      "requires": [
+        "code-quality"
+      ],
+      "installedBy": "base"
+    },
+    {
       "name": "ddd-hexagonal",
       "group": "architecture",
       "when": "Módulo con reglas de negocio ricas, varios contextos, refactor de arquitectura desde MVC, \"¿cómo estructuro esto?\" (empieza por su checklist \"¿hace falta?\")",

@@ -24,6 +24,7 @@
                    "devlog",
                    "project-planner",
                    "code-quality",
+                   "backend-audit",
                    "deploy-ops",
                    "email-html",
                    "ui-ux-pro-max",
@@ -56,6 +57,16 @@
                        "priority":  5,
                        "requires":  [
 
+                                    ]
+                   },
+                   {
+                       "name":  "backend-audit",
+                       "group":  "quality",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(audit\\w*(?!\\s+(el |la |de |del )?(seo|ui|dise|accesib|web|email))|deuda t[eé]cnica|c[oó]digo legado|legacy|hotspots?|acoplamiento|dependencias circulares|analiza (el|la) (backend|arquitectura|c[oó]digo)|huecos (en|del) (el )?(backend|c[oó]digo)|code smells?|olores? (de|del) c[oó]digo|refactor(izar)? segur\\w*|tests? de caracterizaci[oó]n|deptrac|dependency.cruiser|tests? de arquitectura)\\b",
+                       "priority":  8,
+                       "requires":  [
+                                        "code-quality"
                                     ]
                    },
                    {

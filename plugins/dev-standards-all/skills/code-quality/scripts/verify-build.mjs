@@ -40,6 +40,16 @@ if (!cmds.size) {
         if (fs.existsSync(path.join(root, 'artisan'))) cmds.set('test', 'php artisan test');
     }
 }
+// Reglas de arquitectura (backend-audit references/reglas-arquitectura.md): si el proyecto tiene su
+// configuracion, se comprueban siempre. Los tests de arquitectura de Pest/ArchUnit ya van en 'test'.
+if (!cmds.has('arch')) {
+    const deptracBin = ['deptrac.bat', 'deptrac'].map(n => path.join(root, 'vendor', 'bin', n)).find(f => fs.existsSync(f));
+    const deptracCfg = ['deptrac.yaml', 'deptrac.yml'].find(f => fs.existsSync(path.join(root, f)));
+    const depcruiseCfg = ['.dependency-cruiser.cjs', '.dependency-cruiser.js'].find(f => fs.existsSync(path.join(root, f)));
+    if (deptracBin && deptracCfg) cmds.set('arch', `"${deptracBin}" analyse --no-progress`);
+    else if (depcruiseCfg) cmds.set('arch', `npx depcruise src --config ${depcruiseCfg}`);
+    else if (fs.existsSync(path.join(root, '.importlinter'))) cmds.set('arch', 'lint-imports');
+}
 if (!cmds.size) { console.log('[verify-build] No hay comandos que ejecutar (ni config.json ni package/composer reconocibles).'); process.exit(2); }
 
 const results = [];
