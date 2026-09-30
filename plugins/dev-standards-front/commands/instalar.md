@@ -7,9 +7,10 @@ Uso: `/instalar [stack opcional: laravel, next, astro, vue-ts, nuxt, sveltekit, 
 Convierte esta instalación de plugin en la instalación COMPLETA por proyecto (stacks, CLAUDE.md,
 config, hooks y comandos versionados con el proyecto). Pasos, en orden:
 
-1. **Localiza el repo de estándares** (primero que exista): `$env:DEV_STANDARDS_HOME` →
-   `~/.dev-standards` → `D:\dev-standards`. Si no existe ninguno:
-   `git clone https://github.com/petersonsenadevs/dev-standars.git "$HOME/.dev-standards"`.
+1. **Localiza el repo de estándares** (primero que exista): la carpeta que indique la variable de
+   entorno DEV_STANDARDS_HOME → `.dev-standards` dentro de la carpeta del usuario → `D:\dev-standards`.
+   Si no existe ninguno, clónalo en `.dev-standards` dentro de la carpeta del usuario (ruta absoluta):
+   `git clone https://github.com/petersonsenadevs/dev-standars.git <carpeta-del-usuario>/.dev-standards`.
    Si existe: `git -C <repo> pull --ff-only` para tenerlo al día (si falla por permisos/red, sigue con lo local y avísalo).
 2. **Detecta el stack** del proyecto actual (salvo que el usuario lo haya indicado tras el comando): laravel/framework en
    composer.json → `laravel` · wp-includes/ → `wordpress` · en package.json: next → `next`, nuxt →

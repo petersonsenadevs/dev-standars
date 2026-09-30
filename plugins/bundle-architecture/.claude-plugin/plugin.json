@@ -1,7 +1,7 @@
 {
     "name":  "bundle-architecture",
     "description":  "Bundle dev-standards \u0027architecture\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ddd-hexagonal, code-quality.",
-    "version":  "1.1.1",
+    "version":  "1.1.2",
     "author":  {
                    "name":  "dev-standards"
                },

@@ -227,6 +227,8 @@ if (Test-Path $plugRoot) {
 foreach ($cf in (Get-ChildItem (Join-Path $root 'core\commands') -Filter *.md)) {
     $ct = Read-Utf8 $cf.FullName
     if ($ct -match '\$ARGUMENTS' -or $ct -match '(?m)^argument-hint:') { Fail "commands/$($cf.Name)" 'usa $ARGUMENTS o argument-hint: Codex no lo migrara (usa la linea "Uso:" y texto normal)' }
+    # Codex toma CUALQUIER $NOMBRE ($HOME, $env:X, $1) como argumento del comando y lo descarta (visto con /instalar).
+    elseif ($ct -match '\$[A-Za-z0-9_{]') { Fail "commands/$($cf.Name)" "contiene '$($Matches[0])...': Codex lo toma como argumento y no migra el comando (escribe la ruta o variable en texto, sin el signo)" }
 }
 
 # --- 11: los .ps1 del tooling con BOM UTF-8 (dev-003: sin BOM, PS 5.1 lee ANSI y corrompe literales con acentos).

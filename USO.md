@@ -102,7 +102,7 @@ descarga los plugins `dev-standards-*`):
 
 **Por qué antes solo aparecía `/verificar`**: Codex solo convierte los comandos que **no usan
 argumentos**. Hasta la 1.0.x, 14 de los 15 comandos llevaban `$ARGUMENTS` o `argument-hint` y Codex los
-descartaba sin avisar; `verificar` era el único sin argumentos. Desde la 1.1.0 ningún comando los usa
+descartaba sin avisar; `verificar` era el único sin argumentos. Ojo: Codex también cuenta como argumento cualquier `$NOMBRE` escrito en el texto (`$HOME`, `$env:X`); por eso `/instalar` siguió sin aparecer hasta la 1.1.2. Desde la 1.1.2 ningún comando usa ninguna de las dos cosas
 (la pista de uso va en una línea "Uso:" del propio comando) y `check-skills` falla si alguien vuelve a
 añadirlos. En Claude no cambia nada: lo que escribas tras el comando le llega igual.
 Tras actualizar el marketplace en Codex, **reinstala o actualiza el plugin** para que vuelva a convertir
