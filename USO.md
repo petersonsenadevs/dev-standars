@@ -105,8 +105,11 @@ argumentos**. Hasta la 1.0.x, 14 de los 15 comandos llevaban `$ARGUMENTS` o `arg
 descartaba sin avisar; `verificar` era el único sin argumentos. Ojo: Codex también cuenta como argumento cualquier `$NOMBRE` escrito en el texto (`$HOME`, `$env:X`); por eso `/instalar` siguió sin aparecer hasta la 1.1.2. Desde la 1.1.2 ningún comando usa ninguna de las dos cosas
 (la pista de uso va en una línea "Uso:" del propio comando) y `check-skills` falla si alguien vuelve a
 añadirlos. En Claude no cambia nada: lo que escribas tras el comando le llega igual.
-Tras actualizar el marketplace en Codex, **reinstala o actualiza el plugin** para que vuelva a convertir
-los comandos.
+Tras actualizar el marketplace en Codex, **reinstala o actualiza el plugin desde la app** para que
+vuelva a convertir los comandos. **No lo actualices con la CLI** (`codex plugin marketplace upgrade`):
+la CLI descarga la versión nueva pero no convierte los comandos, y la app, al verla ya descargada, no
+los convierte después (el plugin aparece sin ningún comando). Si te pasa: desinstala y vuelve a instalar
+el plugin desde la app.
 
 **b) Con las skills globales** (`install.ps1` → `~/.agents/skills` y `~/.codex/skills`): solo skills, sin
 comandos ni hooks. Desde la 1.1.0 instala por defecto también `backend-audit`, `deploy-ops`,
