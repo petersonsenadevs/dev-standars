@@ -21,12 +21,21 @@
   Version para plugin.json (por defecto: fecha yyyy.M.d).
 #>
 param([string]$Version = '')
-# Version monotona por commit (1.0.<n>): dos builds del mismo dia ya no comparten version,
-# asi /plugin marketplace update SIEMPRE detecta que hay plugin nuevo que refrescar.
+# Version del plugin = version de producto (tags de git), siempre creciente:
+#  - Release: DEV_STANDARDS_RELEASE=1.2.0 al commitear -> plugin 1.2.0, y despues se crea el tag v1.2.0.
+#  - Entre releases: ultimo tag vX.Y.Z + commits desde el -> X.Y.(Z+N+1) (el +1 porque el pre-commit
+#    construye ANTES de crear el commit). Asi cada commit sube la version y /plugin update siempre refresca.
+if (-not $Version) { $Version = $env:DEV_STANDARDS_RELEASE }
 if (-not $Version) {
-    $n = 0
-    try { $n = [int]((git -C $PSScriptRoot rev-list --count HEAD 2>$null | Out-String).Trim()) } catch {}
-    $Version = if ($n) { "1.0.$($n + 1)" } else { (Get-Date -Format 'yyyy.M.d') }
+    $desc = ''
+    try { $desc = ((git -C $PSScriptRoot describe --tags --long --match 'v[0-9]*' 2>$null) | Out-String).Trim() } catch {}
+    if ($desc -match '^v(\d+)\.(\d+)\.(\d+)-(\d+)-g') {
+        $Version = '{0}.{1}.{2}' -f $Matches[1], $Matches[2], ([int]$Matches[3] + [int]$Matches[4] + 1)
+    } else {
+        $n = 0
+        try { $n = [int]((git -C $PSScriptRoot rev-list --count HEAD 2>$null | Out-String).Trim()) } catch {}
+        $Version = if ($n) { "1.0.$($n + 1)" } else { (Get-Date -Format 'yyyy.M.d') }
+    }
 }
 
 . (Join-Path $PSScriptRoot '_lib.ps1')
@@ -39,7 +48,7 @@ function New-Plugin {
     $dir = Join-Path $pluginsDir $Name
     if (Test-Path $dir) { Remove-Item $dir -Recurse -Force }
     Ensure-Dir (Join-Path $dir '.claude-plugin')
-    $manifest = [ordered]@{ name = $Name; description = $Description; version = $Version; author = $author; license = 'MIT (skills de terceros: ver LICENSE.upstream en cada skill)' }
+    $manifest = [ordered]@{ name = $Name; description = $Description; version = $Version; author = $author; homepage = 'https://github.com/petersonsenadevs/dev-standars'; repository = 'https://github.com/petersonsenadevs/dev-standars'; license = 'MIT (skills de terceros: ver LICENSE.upstream en cada skill)' }
     Write-Utf8 (Join-Path $dir '.claude-plugin\plugin.json') ($manifest | ConvertTo-Json -Depth 4)
     $skillsDst = Join-Path $dir 'skills'
     Ensure-Dir $skillsDst

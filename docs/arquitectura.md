@@ -121,3 +121,17 @@ py -3 .claude/skills/ui-ux-pro-max/scripts/search.py "fintech dashboard" --desig
 | Muros en vivo (hooks) | ✔ | — (los cubren los githooks + las reglas) |
 | Comandos slash | ✔ | — (frases en llano equivalentes: USO.md §4) |
 | Guía propia del proyecto | CLAUDE.project.md importada | AGENTS.project.md referenciada |
+
+## Versiones
+
+Una sola numeración para todo: la versión que ves en Claude y en Codex es la del tag de git.
+
+| Tipo de cambio | Versión | Cómo se publica |
+|---|---|---|
+| Tanda de funcionalidades | sube el segundo número (1.1.0 → 1.2.0) | `DEV_STANDARDS_RELEASE=1.2.0 git commit …` y luego `git tag -a v1.2.0` |
+| Arreglos | sube el tercero (1.1.0 → 1.1.1) | igual, con `DEV_STANDARDS_RELEASE=1.1.1` y tag `v1.1.1` |
+| Cambio incompatible (obliga a reinstalar) | sube el primero (2.0.0) | igual |
+
+Entre dos releases, cada commit sube solo el tercer número (último tag + commits desde él), así
+`/plugin marketplace update` siempre detecta que hay versión nueva. El `CHANGELOG.md` se genera del
+devlog; en GitHub, cada tag puede tener su Release con esa parte del changelog.

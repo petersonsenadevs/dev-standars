@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-09-30
 
+- **fix** — La versión del plugin sale de los tags (una sola numeración) + homepage en el manifest · v1.1.1 (entrada 053)
 - **fix** — Comandos compatibles con Codex (sin $ARGUMENTS/argument-hint) + check 12 + skills globales completas · v1.1.0 (entrada 052)
 - **feature** — Auditoría de backend con pruebas: skill backend-audit, /auditar, /refactor, reglas de arquitectura en /verificar (entrada 051)
 - **docs** — Guía de prueba para dirección (docs/guia-de-prueba.md): instalar y probarlo todo en una tarde (entrada 050)

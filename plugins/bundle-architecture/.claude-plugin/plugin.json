@@ -1,9 +1,11 @@
 {
     "name":  "bundle-architecture",
     "description":  "Bundle dev-standards \u0027architecture\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ddd-hexagonal, code-quality.",
-    "version":  "1.0.50",
+    "version":  "1.1.1",
     "author":  {
                    "name":  "dev-standards"
                },
+    "homepage":  "https://github.com/petersonsenadevs/dev-standars",
+    "repository":  "https://github.com/petersonsenadevs/dev-standars",
     "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
 }

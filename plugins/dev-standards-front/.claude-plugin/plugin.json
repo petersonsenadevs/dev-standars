@@ -1,9 +1,11 @@
 {
     "name":  "dev-standards-front",
     "description":  "Front y diseño todo en uno: UI UX Pro Max (design systems, 79 estilos, 192 paletas, 22 stacks) + GSAP ScrollTrigger + Three.js, con capa en español, perfiles por stack (Laravel+Inertia+Vue, Next.js, Astro, Vue 3), tabla de activación y hook recordatorio.",
-    "version":  "1.0.50",
+    "version":  "1.1.1",
     "author":  {
                    "name":  "dev-standards"
                },
+    "homepage":  "https://github.com/petersonsenadevs/dev-standars",
+    "repository":  "https://github.com/petersonsenadevs/dev-standars",
     "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
 }
