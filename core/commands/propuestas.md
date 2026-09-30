@@ -1,9 +1,10 @@
 ---
 description: Modo propuesta — blueprint aprobable + 2 maquetas A/B visuales antes de construir
-argument-hint: [página, p. ej. "home" o "landing de escombros"]
 ---
 
-Aplica `ui-ux-pro-max §references/es/proposal-mode.md` completo para $ARGUMENTS (o la página principal):
+Uso: `/propuestas [página, p. ej. "home" o "landing de escombros"]` — el argumento es opcional salvo que se indique lo contrario; si no llega, aplica el comportamiento por defecto de abajo.
+
+Aplica `ui-ux-pro-max §references/es/proposal-mode.md` completo para lo que el usuario escribió tras el comando (o la página principal):
 
 1. Si no hay brief → primero `/brief` (no propongas a ciegas).
 2. **Blueprint**: escribe `design-system/<slug>/blueprint.md` (secciones + contenido esbozado REAL +

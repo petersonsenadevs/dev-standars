@@ -61,6 +61,10 @@ lo respalda y lo respeta.
 **Paso 3** — cierra la sesión y **abre una nueva** en el mismo proyecto. Las skills, los muros y los
 comandos se cargan al arrancar.
 
+> **¿Usas Codex?** Codex lee el mismo marketplace. Las skills funcionan y, desde la versión 1.1.0,
+> también los comandos (Codex los convierte en skills `source-command-<nombre>`: pídelo en llano, por
+> ejemplo "haz el brief"). Los muros no están garantizados en Codex. Detalle en [USO.md](../USO.md) §6.
+
 > Alternativa sin plugin: `git clone https://github.com/petersonsenadevs/dev-standars.git` y después
 > `node dev-standars/tools/init.mjs --stack laravel --path <tu-proyecto> --tools claude`.
 

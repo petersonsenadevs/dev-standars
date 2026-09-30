@@ -1,9 +1,10 @@
 ---
 description: Checklist de lanzamiento — todo lo que se comprueba antes de publicar la web
-argument-hint: [url de preview/producción]
 ---
 
-Pasa ENTERO `ui-verify §references/launch-checklist.md` sobre $ARGUMENTS, con evidencia por punto
+Uso: `/lanzar [url de preview/producción]` — el argumento es opcional salvo que se indique lo contrario; si no llega, aplica el comportamiento por defecto de abajo.
+
+Pasa ENTERO `ui-verify §references/launch-checklist.md` sobre lo que el usuario escribió tras el comando, con evidencia por punto
 (comando, captura o URL — nada "de memoria"):
 
 1. Técnica (bloqueante): `verify-build.mjs` + `verify-ui.mjs` en 0 + crítica visual

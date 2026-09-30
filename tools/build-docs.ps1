@@ -83,7 +83,9 @@ function Get-CommandsBody {
         if ($txt -match '(?s)^---(.*?)---') {
             $fmBlock = $Matches[1]
             if ($fmBlock -match '(?m)^description:\s*(.+)$') { $desc = $Matches[1].Trim() }
-            if ($fmBlock -match '(?m)^argument-hint:\s*(.+)$') { $hint = $Matches[1].Trim() }
+        }
+        # La pista de uso vive en la linea "Uso: `/cmd <args>`" (sin argument-hint: Codex no migra comandos con argumentos)
+        if ($txt -match '(?m)^Uso: `/\S+\s*([^`]*)`') { $hint = $Matches[1].Trim()
         }
         $L.Add("| ``/$($f.BaseName)`` | $hint | $desc |")
     }

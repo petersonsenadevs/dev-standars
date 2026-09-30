@@ -221,6 +221,14 @@ if (Test-Path $plugRoot) {
     }
 }
 
+# --- 12: comandos compatibles con Codex. Codex convierte los comandos de Claude en skills SOLO si no usan
+#         argumentos: con $ARGUMENTS o argument-hint el comando desaparece en Codex (visto en su cache real:
+#         solo se migraba /verificar). La pista va en la linea "Uso:" y el texto habla de "lo que el usuario escribio".
+foreach ($cf in (Get-ChildItem (Join-Path $root 'core\commands') -Filter *.md)) {
+    $ct = Read-Utf8 $cf.FullName
+    if ($ct -match '\$ARGUMENTS' -or $ct -match '(?m)^argument-hint:') { Fail "commands/$($cf.Name)" 'usa $ARGUMENTS o argument-hint: Codex no lo migrara (usa la linea "Uso:" y texto normal)' }
+}
+
 # --- 11: los .ps1 del tooling con BOM UTF-8 (dev-003: sin BOM, PS 5.1 lee ANSI y corrompe literales con acentos).
 #         Los hooks ya son .mjs (Node, UTF-8 nativo): sin requisito de BOM. ---
 foreach ($ps in (Get-ChildItem (Join-Path $root 'tools'), (Join-Path $root 'tools\renderers') -Filter *.ps1 -ErrorAction SilentlyContinue)) {

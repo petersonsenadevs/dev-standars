@@ -1,9 +1,10 @@
 ---
 description: Deploy con red — checklist PRE/DEPLOY/POST/ROLLBACK con evidencia y aprobación explícita
-argument-hint: [entorno u objetivo, p. ej. "producción" o "staging"]
 ---
 
-Aplica `deploy-ops §references/deploy-checklist.md` para $ARGUMENTS, con evidencia por punto:
+Uso: `/desplegar [entorno u objetivo, p. ej. "producción" o "staging"]` — el argumento es opcional salvo que se indique lo contrario; si no llega, aplica el comportamiento por defecto de abajo.
+
+Aplica `deploy-ops §references/deploy-checklist.md` para lo que el usuario escribió tras el comando, con evidencia por punto:
 
 1. **PRE**: suites en verde (verify-build), `/lanzar` APTA si aplica, **backup fresco verificado**,
    plan de rollback escrito en una línea, migraciones revisadas (¿expansivas?), y — para producción —

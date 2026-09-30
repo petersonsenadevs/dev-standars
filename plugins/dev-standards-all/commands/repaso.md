@@ -1,9 +1,10 @@
 ---
 description: Sesión de revisión conversacional — repasamos la web juntos, sección a sección
-argument-hint: [url o página, p. ej. "http://localhost:4321" o "la home"]
 ---
 
-Aplica `ui-ux-pro-max §references/es/review-session.md` sobre $ARGUMENTS:
+Uso: `/repaso [url o página, p. ej. "http://localhost:4321" o "la home"]` — el argumento es opcional salvo que se indique lo contrario; si no llega, aplica el comportamiento por defecto de abajo.
+
+Aplica `ui-ux-pro-max §references/es/review-session.md` sobre lo que el usuario escribió tras el comando:
 
 1. Prepara: app corriendo, `gustos.md` y brief delante; si hay navegador (Chrome MCP) abre tú la URL,
    si no, sincronizaos por sección. Móvil primero si el negocio es local.

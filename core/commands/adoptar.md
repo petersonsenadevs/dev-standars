@@ -1,9 +1,10 @@
 ---
 description: Adoptar las convenciones de un proyecto existente y sellarlas como regla inmutable
-argument-hint: [notas opcionales, p. ej. "solo backend" o "el idioma oficial es inglés"]
 ---
 
-Aplica `code-quality §references/adopt-conventions.md` paso a paso ($ARGUMENTS):
+Uso: `/adoptar [notas opcionales, p. ej. "solo backend" o "el idioma oficial es inglés"]` — el argumento es opcional salvo que se indique lo contrario; si no llega, aplica el comportamiento por defecto de abajo.
+
+Aplica `code-quality §references/adopt-conventions.md` paso a paso (lo que el usuario escribió tras el comando):
 
 0. **Mira si hay algo que analizar**: si el proyecto está vacío o recién creado (sin código fuente real),
    NO inventes evidencia — pasa al **modo entrevista** (§7 de la referencia): 5–7 preguntas con propuesta

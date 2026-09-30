@@ -89,10 +89,31 @@ la paleta sale sola del design system. En la app de ChatGPT/Codex la genera nati
 
 ## 6. En Codex (diferencias honestas)
 
-- Las skills están (AGENTS.md + `.agents/skills/`) y se autodescubren por descripción, **pero no hay
-  hooks**: ni router ni bloqueos automáticos. Sé un punto más explícito: "usa la skill image-gen",
-  `$ui-ux-pro-max`, o pide "verifica el build" (script: `node .agents/skills/code-quality/scripts/verify-build.mjs`).
-- Los comandos slash son de Claude Code; en Codex pide lo mismo en llano.
+Codex puede usar dev-standards de dos formas, y conviene saber qué llega con cada una.
+
+**a) Con el marketplace de plugins de Codex** (el mismo repo: Codex lo añade como marketplace git y
+descarga los plugins `dev-standards-*`):
+
+| Pieza | ¿Funciona en Codex? |
+|---|---|
+| Skills | **Sí**, todas las del plugin. Se descubren solas por su descripción o con `$nombre-de-skill`. |
+| Comandos | **Sí, desde la versión 1.1.0.** Codex no tiene comandos slash propios: convierte cada comando de Claude en una skill llamada `source-command-<nombre>` (por ejemplo `source-command-brief`). Se usan pidiéndolo en llano ("haz el brief", "ejecuta el comando plan") o mencionando esa skill. |
+| Hooks (muros) | **No garantizados.** Codex lee nuestro `hooks.json`, pero sus herramientas no se llaman como las de Claude (Bash, Edit…), así que los bloqueos pueden no saltar. En Codex la protección viene de las reglas de `AGENTS.md` y de los hooks de git (`sync.ps1 -GitHooks`). |
+
+**Por qué antes solo aparecía `/verificar`**: Codex solo convierte los comandos que **no usan
+argumentos**. Hasta la 1.0.x, 14 de los 15 comandos llevaban `$ARGUMENTS` o `argument-hint` y Codex los
+descartaba sin avisar; `verificar` era el único sin argumentos. Desde la 1.1.0 ningún comando los usa
+(la pista de uso va en una línea "Uso:" del propio comando) y `check-skills` falla si alguien vuelve a
+añadirlos. En Claude no cambia nada: lo que escribas tras el comando le llega igual.
+Tras actualizar el marketplace en Codex, **reinstala o actualiza el plugin** para que vuelva a convertir
+los comandos.
+
+**b) Con las skills globales** (`install.ps1` → `~/.agents/skills` y `~/.codex/skills`): solo skills, sin
+comandos ni hooks. Desde la 1.1.0 instala por defecto también `backend-audit`, `deploy-ops`,
+`marketing-seo`, `email-html` y `devlog`, que antes faltaban (`DEV_STANDARDS_ALL=1` instala todas).
+
+En ambos casos, para lo que en Claude hacen los hooks, sé un punto más explícito en Codex: "usa la skill
+image-gen", `$ui-ux-pro-max`, o "verifica el build" (`node .agents/skills/code-quality/scripts/verify-build.mjs`).
 
 ## 7. Mapa de dónde vive cada cosa (por si quieres mirar)
 

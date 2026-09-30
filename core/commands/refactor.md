@@ -1,9 +1,10 @@
 ---
 description: Refactor seguro — tests de caracterización primero, pasos pequeños verificados y mismo comportamiento demostrado
-argument-hint: <objetivo, p. ej. "sacar la lógica de precios de OrderController">
 ---
 
-Aplica `backend-audit §references/refactor-seguro.md` para: $ARGUMENTS
+Uso: `/refactor <objetivo, p. ej. "sacar la lógica de precios de OrderController">` — el argumento es opcional salvo que se indique lo contrario; si no llega, aplica el comportamiento por defecto de abajo.
+
+Aplica `backend-audit §references/refactor-seguro.md` para: lo que el usuario escribió tras el comando
 
 1. **Objetivo en una frase** y por qué (si viene de `/auditar`, enlaza el hallazgo). Rama propia.
 2. **Suite en verde antes de empezar** (`/verificar`). Si está en rojo, dilo y para: primero se arregla.

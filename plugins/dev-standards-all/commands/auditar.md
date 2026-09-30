@@ -1,9 +1,10 @@
 ---
 description: Auditoría del backend y la arquitectura con pruebas — herramientas reales, evidencia por hallazgo, informe y plan
-argument-hint: [área opcional, p. ej. "pagos", "API pública" o "antes de producción"]
 ---
 
-Aplica `backend-audit §references/protocolo.md` completo para $ARGUMENTS (o todo el backend):
+Uso: `/auditar [área opcional, p. ej. "pagos", "API pública" o "antes de producción"]` — el argumento es opcional salvo que se indique lo contrario; si no llega, aplica el comportamiento por defecto de abajo.
+
+Aplica `backend-audit §references/protocolo.md` completo para lo que el usuario escribió tras el comando (o todo el backend):
 
 1. **Alcance**: acuerda con el usuario en una pregunta el área y el objetivo (antes de refactorizar,
    heredar el proyecto, un incidente o salir a producción). Si no lo sabe, propón empezar por los hotspots.

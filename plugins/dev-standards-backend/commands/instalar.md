@@ -1,7 +1,8 @@
 ---
 description: Instala/actualiza dev-standards COMPLETO en este proyecto desde el plugin (clona el repo, detecta el stack y ejecuta init-project)
-argument-hint: [stack opcional: laravel, next, astro, vue-ts, nuxt, sveltekit, wordpress, node-api, python-langgraph]
 ---
+
+Uso: `/instalar [stack opcional: laravel, next, astro, vue-ts, nuxt, sveltekit, wordpress, node-api, python-langgraph]` — el argumento es opcional salvo que se indique lo contrario; si no llega, aplica el comportamiento por defecto de abajo.
 
 Convierte esta instalación de plugin en la instalación COMPLETA por proyecto (stacks, CLAUDE.md,
 config, hooks y comandos versionados con el proyecto). Pasos, en orden:
@@ -10,7 +11,7 @@ config, hooks y comandos versionados con el proyecto). Pasos, en orden:
    `~/.dev-standards` → `D:\dev-standards`. Si no existe ninguno:
    `git clone https://github.com/petersonsenadevs/dev-standars.git "$HOME/.dev-standards"`.
    Si existe: `git -C <repo> pull --ff-only` para tenerlo al día (si falla por permisos/red, sigue con lo local y avísalo).
-2. **Detecta el stack** del proyecto actual (salvo que $ARGUMENTS lo diga): laravel/framework en
+2. **Detecta el stack** del proyecto actual (salvo que el usuario lo haya indicado tras el comando): laravel/framework en
    composer.json → `laravel` · wp-includes/ → `wordpress` · en package.json: next → `next`, nuxt →
    `nuxt`, @sveltejs/kit → `sveltekit`, astro → `astro`, vue sin meta-framework → `vue-ts`,
    express/@nestjs → `node-api` · pyproject.toml → `python-langgraph`. Si hay duda entre dos,

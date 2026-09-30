@@ -1,7 +1,7 @@
 {
     "name":  "bundle-core-3d-animation",
     "description":  "Bundle dev-standards \u0027core-3d-animation\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): threejs-webgl, gsap-scrolltrigger, react-three-fiber, motion-framer, babylonjs-engine.",
-    "version":  "1.0.49",
+    "version":  "1.0.50",
     "author":  {
                    "name":  "dev-standards"
                },
