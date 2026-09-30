@@ -15,6 +15,12 @@ Cada índice dice cómo refrescarse (scraping con WebFetch/Chrome). Fecha de cos
 de Codrops (cursores, texto, scroll-layout, hover, menús, transiciones, galerías — incluida la tienda
 Astro con View Transitions), **uiverse-galaxy** (~3.800 elementos UI), **whirl** + **css-loaders**
 (loaders CSS), **fancy-components** (React animado de fancycomponents.dev) y **vanta** (fondos WebGL).
+Añadidos 2026-09-30 para las recetas nuevas: **magicui** (componentes animados React/Tailwind), **cobe**
+(globo 3D), **webgl-fluid** (fluido en GPU), **splitting** (dividir texto sin GSAP), **vivus** (trazos SVG),
+**blobs** y **flubber** (formas orgánicas y morph), **css-doodle** (patrones generativos).
+**Excluido a propósito: React Bits** — su licencia es "MIT + Commons Clause", que prohíbe redistribuir
+los componentes (este repo es público). Se puede USAR en un proyecto concreto, pero no vendorizar aquí;
+el script rechaza ya automáticamente cualquier LICENSE con Commons Clause o "no redistribuir".
 Gestionado por `tools/vendor-effects.ps1` + `manifest.json` (verifica el LICENSE real de cada repo;
 `stripMedia` quita media pesada conservando el código). Nota: los repos GitHub de Codrops son MIT aunque
 las descargas de su web tengan licencia restrictiva — vendorizar siempre desde GitHub. CodePen NO permite

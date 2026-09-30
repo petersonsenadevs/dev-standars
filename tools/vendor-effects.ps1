@@ -37,7 +37,12 @@ foreach ($r in $man.repos) {
 
     # verificar licencia declarada
     $licFile = Get-ChildItem $dest -Filter 'LICENSE*' -File -ErrorAction SilentlyContinue | Select-Object -First 1
-    $licOk = $licFile -and ((Get-Content $licFile.FullName -Raw) -match [regex]::Escape($r.license))
+    $licTxt = if ($licFile) { Get-Content $licFile.FullName -Raw } else { '' }
+    # "MIT + Commons Clause" y similares contienen la palabra MIT pero PROHIBEN redistribuir: no valen para
+    # un repo publico. Se rechazan aunque el texto declarado aparezca.
+    $restrictive = $licTxt -match '(?i)commons clause|non-commercial|noncommercial|may not (sell|redistribute)|do not (sell|redistribute)'
+    if ($restrictive) { Write-Warning "  LICENSE con clausula restrictiva (Commons Clause / no redistribuir): NO se versiona" }
+    $licOk = $licFile -and ($licTxt -match [regex]::Escape($r.license)) -and -not $restrictive
     if (-not $licOk -and $r.commit) {
         Write-Warning ("  LICENSE no confirma '{0}': movido a _local (no se versiona)" -f $r.license)
         $localRoot = Join-Path $base '_local'; $null = New-Item -ItemType Directory -Force $localRoot

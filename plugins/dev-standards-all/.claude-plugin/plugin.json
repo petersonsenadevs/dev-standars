@@ -1,7 +1,7 @@
 {
     "name":  "dev-standards-all",
     "description":  "Todas las skills de dev-standards (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.",
-    "version":  "1.0.46",
+    "version":  "1.0.47",
     "author":  {
                    "name":  "dev-standards"
                },

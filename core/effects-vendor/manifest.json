@@ -1118,6 +1118,78 @@
       "for": "Loaders SVG animados clasicos",
       "commit": true,
       "stripMedia": false
+    },
+    {
+      "name": "magicui",
+      "repo": "magicuidesign/magicui",
+      "license": "MIT",
+      "category": "componentes-ui",
+      "for": "Componentes animados React/Tailwind (marquee, bento, border beam, globe, dock): referencia de microinteracciones y bento",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "cobe",
+      "repo": "shuding/cobe",
+      "license": "MIT",
+      "category": "webgl",
+      "for": "Globo 3D WebGL de ~5 kB con marcadores (receta Globo 3D)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "webgl-fluid",
+      "repo": "PavelDoGreat/WebGL-Fluid-Simulation",
+      "license": "MIT",
+      "category": "webgl",
+      "for": "Simulacion de fluidos en GPU que sigue al raton (receta Fluido)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "splitting",
+      "repo": "shshaw/Splitting",
+      "license": "MIT",
+      "category": "tipografia",
+      "for": "Divide texto en caracteres/palabras con variables CSS (tipografia cinetica sin GSAP)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "vivus",
+      "repo": "maxwellito/vivus",
+      "license": "MIT",
+      "category": "svg",
+      "for": "Dibujado de trazos SVG sin GSAP (receta Dibujado de trazo)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "blobs",
+      "repo": "g-harel/blobs",
+      "license": "MIT",
+      "category": "formas",
+      "for": "Genera blobs SVG organicos por semilla (receta Blob organico)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "flubber",
+      "repo": "veltman/flubber",
+      "license": "MIT",
+      "category": "formas",
+      "for": "Interpola entre dos paths SVG cualesquiera (receta Morph entre formas)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "css-doodle",
+      "repo": "css-doodle/css-doodle",
+      "license": "MIT",
+      "category": "formas",
+      "for": "Patrones y formas generativas con CSS (fondos y texturas de marca)",
+      "commit": true,
+      "stripMedia": true
     }
   ]
 }

@@ -204,7 +204,7 @@
       "name": "pixijs-2d",
       "group": "3d",
       "when": "Gráficos 2D/partículas en canvas con PixiJS",
-      "keywords": "(?i)\\b(pixi(\\.js)?|canvas 2d|sprites?|displacement|filtro 2d|pixelate|chromatic aberration|glow|liquid|distorsi[oó]n 2d)\\b",
+      "keywords": "(?i)\\b(pixi(\\.js)?|canvas 2d|sprites?|displacement|filtro 2d|pixelate|chromatic aberration|glow|liquid(?! glass)|distorsi[oó]n 2d)\\b",
       "priority": 10,
       "requires": [],
       "installedBy": "bundle"
@@ -339,9 +339,9 @@
     {
       "name": "front-activation",
       "group": "routing",
-      "when": "Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea",
-      "keywords": "",
-      "priority": 0,
+      "when": "Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea; efectos concretos del catálogo (79 recetas: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado)",
+      "keywords": "(?i)\\b(blobs?|gooey|metaballs?|morph\\w*|separador(es)? (de onda|entre secciones)|onda entre secciones|clip-path|view transitions?|scroll-driven|animation-timeline|starting-style|anchor positioning|texto (sobre|en) (una )?curva|fuentes? variables?|split.?flap|microinteracci\\w*|skeleton|preloader|men[uú] a pantalla completa|hamburguesa animada|liquid glass|dithering|ascii|efecto (de )?fluido|globo 3d|trazo que se dibuja|dibujar el (trazo|logo)|v[ií]deo dentro del texto|bento|rejilla rota|composici[oó]n de (la )?p[aá]gina|pantalla dividida)\\b",
+      "priority": 8,
       "requires": [
         "ui-ux-pro-max"
       ],

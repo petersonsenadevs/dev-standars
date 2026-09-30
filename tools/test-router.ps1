@@ -106,6 +106,11 @@ $cases = @(
     @{ n = 'email roto outlook';    prompt = 'el email de bienvenida se ve roto en outlook';               skills = @('email-html','code-quality','skill-router'); expect = 'email-html' }
     @{ n = 'core web vitals';       prompt = 'mejora el lcp y los core web vitals de la home';             expect = 'ui-verify' }
     @{ n = 'aria lector pantalla';  prompt = 'revisa los aria y el uso con lector de pantalla del formulario'; expect = 'ui-verify' }
+    @{ n = 'separador y blob';      prompt = 'pon un separador de onda entre secciones y un blob detrás de la foto'; expect = 'front-activation' }
+    @{ n = 'view transitions';      prompt = 'añade view transitions entre las páginas del sitio';        expect = 'front-activation' }
+    @{ n = 'microinteracciones';    prompt = 'mejora las microinteracciones de los botones del formulario'; expect = 'front-activation' }
+    @{ n = 'liquid glass';          prompt = 'haz la barra de navegación con efecto liquid glass';        expect = 'front-activation' }
+    @{ n = 'composicion pagina';    prompt = 'cambia la composición de la página a una rejilla rota';     expect = 'front-activation' }
     @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
 )
 

@@ -10,7 +10,7 @@ Esta skill es el punto de entrada cuando el proyecto NO tiene el bloque "Front y
 
 ## Árbol de front (empieza aquí)
 1. ¿Tarea de UI (página, componente, layout, tema)? → 1º `ui-ux-pro-max` (design system + patrón + componentes).
-2. ¿Efecto concreto (marquee, parallax, hover WebGL…)? → `references/effects-catalog.md` (receta por efecto); si no está: `references/effect-sources.md` (Codrops/CodePen + protocolo para hacerlo receta).
+2. ¿Efecto concreto (marquee, parallax, hover WebGL, blob, gooey, view transitions, microinteracción…)? → `references/effects-catalog.md` (79 recetas; las nuevas en `references/recipes/`: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado); si no está: `references/effect-sources.md` (Codrops/CodePen + protocolo para hacerlo receta).
 3. ¿Animación? → árbol F2 de `skill-router/references/decision-trees.md`.
 4. ¿3D? → árbol F3 del mismo archivo. Antes de implementar cualquier efecto, valida el coste con F4.
 

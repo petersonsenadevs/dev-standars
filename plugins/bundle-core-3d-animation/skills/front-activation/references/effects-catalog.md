@@ -10,8 +10,15 @@
 - [Fondos](#fondos)
 - [Transiciones y navegación](#transiciones-y-navegación)
 - [3D](#3d)
+- [CSS nativo moderno](#css-nativo-moderno)
+- [Formas y SVG](#formas-y-svg)
+- [Tipografía cinética](#tipografía-cinética)
+- [Microinteracciones, menús y entrada](#microinteracciones-menús-y-entrada)
+- [WebGL avanzado](#webgl-avanzado)
 - [Reglas al aplicar cualquier efecto](#reglas-al-aplicar-cualquier-efecto)
 - [Si el efecto no está aquí](#si-el-efecto-no-está-aquí)
+
+> Antes de elegir efectos, elige la COMPOSICIÓN de la página: ui-ux-pro-max → `references/es/composiciones.md` (bento, editorial, rejilla rota, pantalla dividida, storytelling…). Cambiar la estructura aleja más de la plantilla que cualquier animación.
 
 ## Cómo usar este catálogo
 
@@ -101,6 +108,76 @@ está activo: aplicarlo es obligatorio siempre, con `gsap.matchMedia()` o media 
 |---|---|---|---|---|
 | Hover distortion WebGL / WebGL image distortion | threejs-webgl → `references/es/shaders-basics.md` §6.3 Hover distortion sobre una imagen (ratón con inercia: §6.5) | Todos | Imagen plana `<img>` | Alto |
 | Displacement 2D / PixiJS displacement filter | pixijs-2d → `references/filters_effects.md` §DisplacementFilter (en Built-in Filters) | Todos | Imagen plana sin filtro | Alto |
+
+## CSS nativo moderno
+
+Lo más ligero: sin JS, en el hilo de composición. Empieza aquí antes de meter una librería; siempre dentro de `@supports`.
+
+| Efecto (es / en) | Receta: skill → archivo §sección o línea | Stacks | Reduced-motion | Coste móvil |
+|---|---|---|---|---|
+| Animación ligada al scroll / scroll-driven animation | front-activation → `references/recipes/css-moderno.md` §Animación ligada al scroll | Todos | Estado final estático | Bajo |
+| Reveal al entrar en pantalla (CSS) / view() reveal | front-activation → `references/recipes/css-moderno.md` §Reveal al entrar en pantalla | Todos | Sin animación (visible) | Bajo |
+| View Transitions entre páginas / cross-document view transitions | front-activation → `references/recipes/css-moderno.md` §View Transitions entre páginas | MPA: Astro, Blade, WordPress | Sin transición | Bajo |
+| Entradas con @starting-style / entry transitions | front-activation → `references/recipes/css-moderno.md` §Entradas con starting-style | Todos | Aparición instantánea | Bajo |
+| Tooltips y menús anclados / anchor positioning | front-activation → `references/recipes/css-moderno.md` §Anchor positioning | Todos | Mantener (sin animación) | Bajo |
+| Galería con scroll-snap / scroll snap gallery | front-activation → `references/recipes/css-moderno.md` §Scroll-snap con estado | Todos | Mantener | Bajo |
+
+## Formas y SVG
+
+Siluetas, cortes y máscaras: lo que más aleja de la web de cajas. Una familia de formas por proyecto, fijada en el MASTER.
+
+| Efecto (es / en) | Receta: skill → archivo §sección o línea | Stacks | Reduced-motion | Coste móvil |
+|---|---|---|---|---|
+| Blob orgánico / organic blob | front-activation → `references/recipes/formas-svg.md` §Blob orgánico | Todos | Forma estática | Bajo |
+| Separadores de onda, curva o diagonal / section dividers | front-activation → `references/recipes/formas-svg.md` §Separadores entre secciones | Todos | Mantener (estático) | Bajo |
+| Morph de clip-path / clip-path reveal | front-activation → `references/recipes/formas-svg.md` §Morph de clip-path | Todos | Recorte final directo | Bajo |
+| Máscara de imagen con forma / shaped image mask | front-activation → `references/recipes/formas-svg.md` §Máscaras de imagen con forma | Todos | Mantener (estático) | Bajo |
+| Efecto gooey / gooey effect | front-activation → `references/recipes/formas-svg.md` §Efecto gooey | Todos | Sin fusión (elementos separados) | Medio |
+| Dibujado de trazo / SVG line drawing | front-activation → `references/recipes/formas-svg.md` §Dibujado de trazo | Todos | Trazo completo | Bajo |
+| Morph entre formas o iconos / shape morph | front-activation → `references/recipes/formas-svg.md` §Morph entre formas | Todos | Cambio instantáneo | Bajo |
+| Texto sobre una curva / text on path | front-activation → `references/recipes/formas-svg.md` §Texto sobre una curva | Todos | Sin rotación | Bajo |
+
+## Tipografía cinética
+
+Cuando la tipografía ES el diseño. Una pieza protagonista por página; nunca animar párrafos de lectura.
+
+| Efecto (es / en) | Receta: skill → archivo §sección o línea | Stacks | Reduced-motion | Coste móvil |
+|---|---|---|---|---|
+| Fuente variable animada / variable font animation | front-activation → `references/recipes/tipografia-cinetica.md` §Fuente variable animada | Todos (fuente con ejes) | Peso fijo | Bajo |
+| Vídeo dentro del texto / video text mask | front-activation → `references/recipes/tipografia-cinetica.md` §Vídeo dentro del texto | Todos | Poster fijo (vídeo pausado) | Medio |
+| Texto que se resalta al leerlo / highlight on scroll | front-activation → `references/recipes/tipografia-cinetica.md` §Texto que se resalta al leerlo | Todos | Resaltado ya aplicado | Bajo |
+| Split-flap (panel de aeropuerto) / split-flap text | front-activation → `references/recipes/tipografia-cinetica.md` §Split-flap | Todos | Palabra final directa | Bajo |
+| Titular gigante con scroll / oversized scrolling headline | front-activation → `references/recipes/tipografia-cinetica.md` §Titular gigante con scroll | Todos | Titular estático | Medio |
+
+## Microinteracciones, menús y entrada
+
+Respuestas de 150-300 ms que informan de algo. Si no informa, es decoración.
+
+| Efecto (es / en) | Receta: skill → archivo §sección o línea | Stacks | Reduced-motion | Coste móvil |
+|---|---|---|---|---|
+| Estados de botón (cargando → hecho) / button states | front-activation → `references/recipes/microinteracciones.md` §Estados de botón | Todos | Cambio de estado sin transición | Bajo |
+| Toggle y checkbox animados / animated toggle | front-activation → `references/recipes/microinteracciones.md` §Toggle y checkbox animados | Todos | Sin transición | Bajo |
+| Skeleton con brillo / shimmer skeleton | front-activation → `references/recipes/microinteracciones.md` §Skeleton con brillo | Todos | Skeleton estático | Bajo |
+| Like con explosión / like burst | front-activation → `references/recipes/microinteracciones.md` §Like con explosión | Todos | Cambio de icono sin partículas | Bajo |
+| Toasts apilables / stacked toasts | front-activation → `references/recipes/microinteracciones.md` §Toasts apilables | Todos | Aparición instantánea | Bajo |
+| Loader con marca / branded loader | front-activation → `references/recipes/microinteracciones.md` §Loader con marca | Todos | Loader estático o texto | Bajo |
+| Menú a pantalla completa / fullscreen menu | front-activation → `references/recipes/microinteracciones.md` §Menú a pantalla completa | Todos | Apertura instantánea | Bajo |
+| Hamburguesa que se transforma / morphing burger | front-activation → `references/recipes/microinteracciones.md` §Hamburguesa que se transforma | Todos | Cambio de icono directo | Bajo |
+| Preloader con porcentaje real / real-progress preloader | front-activation → `references/recipes/microinteracciones.md` §Preloader con porcentaje | Solo con assets pesados (3D, vídeo) | Barra sin animación | Bajo |
+| Intro de marca / brand intro | front-activation → `references/recipes/microinteracciones.md` §Intro de marca | Todos | Sin intro | Medio |
+
+## WebGL avanzado
+
+Coste ALTO: máximo uno por página, lazy, con fallback estático en móvil. Solo si aporta al mensaje.
+
+| Efecto (es / en) | Receta: skill → archivo §sección o línea | Stacks | Reduced-motion | Coste móvil |
+|---|---|---|---|---|
+| Fluido que sigue al ratón / fluid simulation | front-activation → `references/recipes/webgl-avanzado.md` §Fluido que sigue al ratón | Todos (canvas) | Fondo estático | Alto |
+| Metaballs / metaballs shader | front-activation → `references/recipes/webgl-avanzado.md` §Metaballs | Todos (canvas) | Imagen estática | Alto |
+| Dithering, ASCII y píxel / dither-ascii-pixel post | front-activation → `references/recipes/webgl-avanzado.md` §Dithering, ASCII y píxel | Todos | Imagen procesada estática | Alto |
+| Globo 3D ligero / 3D globe (cobe) | front-activation → `references/recipes/webgl-avanzado.md` §Globo 3D | Todos | Globo sin rotación | Medio |
+| Liquid glass / refractive glass | front-activation → `references/recipes/webgl-avanzado.md` §Liquid glass | Todos (refracción solo Chromium) | Cristal sin distorsión | Medio |
+| Ruido animado en shader / animated shader noise | front-activation → `references/recipes/webgl-avanzado.md` §Ruido animado en shader | Todos | Grano estático | Medio |
 
 ## Reglas al aplicar cualquier efecto
 

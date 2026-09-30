@@ -16,6 +16,7 @@ Uso: Glob/Grep dentro de la carpeta y ADAPTAR a los tokens del proyecto (nunca p
 |---|---|---|
 | `css-loaders/` | Loaders CSS clasicos de un solo div | 35 |
 | `fancy-components/` | Componentes React animados de fancycomponents.dev (texto, hover, fisica) | 315 |
+| `magicui/` | Componentes animados React/Tailwind (marquee, bento, border beam, globe, dock): referencia de microinteracciones y bento | 969 |
 | `svg-loaders/` | Loaders SVG animados clasicos | 20 |
 | `svg-spinners/` | ~50 spinners SVG/CSS minimos, listos para incrustar | 191 |
 | `uiverse-galaxy/` | Miles de elementos UI (botones, cards, loaders, checkboxes) en CSS/Tailwind | 3805 |
@@ -46,6 +47,13 @@ Uso: Glob/Grep dentro de la carpeta y ADAPTAR a los tokens del proyecto (nunca p
 | Carpeta | Que hay | Archivos |
 |---|---|---|
 | `vanta/` | 14 fondos animados WebGL (waves, fog, net, birds) | 49 |
+
+## formas
+| Carpeta | Que hay | Archivos |
+|---|---|---|
+| `blobs/` | Genera blobs SVG organicos por semilla (receta Blob organico) | 49 |
+| `css-doodle/` | Patrones y formas generativas con CSS (fondos y texturas de marca) | 131 |
+| `flubber/` | Interpola entre dos paths SVG cualesquiera (receta Morph entre formas) | 48 |
 
 ## galerias
 | Carpeta | Que hay | Archivos |
@@ -132,6 +140,11 @@ Uso: Glob/Grep dentro de la carpeta y ADAPTAR a los tokens del proyecto (nunca p
 | `codrops-tilescroll/` | Tiles 3D al scroll | 150 |
 | `codrops-unrevealeffects/` | Unreveal Effects (demo Codrops) | 29 |
 
+## svg
+| Carpeta | Que hay | Archivos |
+|---|---|---|
+| `vivus/` | Dibujado de trazos SVG sin GSAP (receta Dibujado de trazo) | 34 |
+
 ## texto
 | Carpeta | Que hay | Archivos |
 |---|---|---|
@@ -155,6 +168,11 @@ Uso: Glob/Grep dentro de la carpeta y ADAPTAR a los tokens del proyecto (nunca p
 | `codrops-typeshuffleanimation/` | Scramble-shuffle de texto por clases | 18 |
 | `codrops-typographymotion/` | Typography Motion (demo Codrops) | 19 |
 
+## tipografia
+| Carpeta | Que hay | Archivos |
+|---|---|---|
+| `splitting/` | Divide texto en caracteres/palabras con variables CSS (tipografia cinetica sin GSAP) | 53 |
+
 ## transiciones
 | Carpeta | Que hay | Archivos |
 |---|---|---|
@@ -170,4 +188,10 @@ Uso: Glob/Grep dentro de la carpeta y ADAPTAR a los tokens del proyecto (nunca p
 | `codrops-textblocktransitions/` | Text Block Transitions (demo Codrops) | 36 |
 | `codrops-thumbfulltransition/` | Thumb Full Transition (demo Codrops) | 23 |
 | `codrops-tooltiptransition/` | Tooltip Transition (demo Codrops) | 30 |
+
+## webgl
+| Carpeta | Que hay | Archivos |
+|---|---|---|
+| `cobe/` | Globo 3D WebGL de ~5 kB con marcadores (receta Globo 3D) | 47 |
+| `webgl-fluid/` | Simulacion de fluidos en GPU que sigue al raton (receta Fluido) | 13 |
 

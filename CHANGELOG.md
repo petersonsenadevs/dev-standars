@@ -4,6 +4,10 @@
 
 Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `devlog/`.
 
+## 2026-09-30
+
+- **feature** — Efectos 44→79 (CSS moderno, formas/SVG, tipografía cinética, microinteracciones, WebGL), composiciones de página, +8 repos MIT (entrada 049)
+
 ## 2026-09-29
 
 - **feature** — Instalador agnóstico init.mjs (Windows/WSL/Linux/macOS) + suite de paridad PS↔Node (entrada 048)

@@ -33,7 +33,7 @@ description: "ÚSAME PRIMERO en cualquier tarea no trivial: árbol de decisión 
 | Si la tarea implica… | Skill | Grupo |
 |---|---|---|
 | Empezar cualquier tarea no trivial: decide qué skill y sección leer (tabla de activación + protocolo de carga) | `skill-router` **(por defecto: empieza aquí)** | Enrutado |
-| Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea | `front-activation` | Enrutado |
+| Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea; efectos concretos del catálogo (79 recetas: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado) | `front-activation` | Enrutado |
 | Arrancar un proyecto o feature, planificar, "¿qué hacemos ahora?", siguiente tarea; y SIEMPRE que exista plan/PLAN.md (se sigue el plan) | `project-planner` **(por defecto: empieza aquí)** | Planificación |
 | Crear, maquetar o rediseñar páginas, vistas, layouts, componentes, formularios, dashboards, temas, colores, tipografía, iconos, responsive, accesibilidad; archivos .vue .tsx .jsx .astro .blade.php .html .css | `ui-ux-pro-max` **(por defecto: empieza aquí)** | Front y diseño |
 | Tokens de diseño (primitivos → semánticos → componente), CSS variables, validación de tokens | `design-system` (si está instalada) | Front y diseño |
