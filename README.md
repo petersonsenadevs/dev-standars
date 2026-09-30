@@ -110,6 +110,7 @@ prohibida por defecto y vigilada por hook + crítica visual.
 
 | Documento | Qué encontrarás |
 |---|---|
+| **[docs/guia-de-prueba.md](docs/guia-de-prueba.md)** | **Empieza aquí**: instalar y probarlo todo en una tarde, prueba a prueba |
 | **[INSTALL.md](INSTALL.md)** | Instalar paso a paso: por proyecto, como plugin o skills globales; actualizar |
 | **[USO.md](USO.md)** | El día a día: qué es automático, qué frases activan cada cosa, muros y escapes |
 | **[docs/skills.md](docs/skills.md)** | Las 41 skills por grupo: cuándo salta cada una y con qué señales |

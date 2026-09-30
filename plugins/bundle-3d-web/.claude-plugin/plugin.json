@@ -1,7 +1,7 @@
 {
     "name":  "bundle-3d-web",
     "description":  "Bundle dev-standards \u00273d-web\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): threejs-webgl, react-three-fiber, gsap-scrolltrigger, web3d-integration-patterns.",
-    "version":  "1.0.47",
+    "version":  "1.0.48",
     "author":  {
                    "name":  "dev-standards"
                },
