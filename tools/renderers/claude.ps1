@@ -112,7 +112,14 @@ function Render-Claude {
         $cmdDst = Join-Path $ProjectPath '.claude\commands'
         Ensure-Dir $cmdDst
         $names = @('instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md') + $(if ($hasFront) { @('brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md') } else { @() })
-        foreach ($n in $names) { $f = Join-Path $cmdSrc $n; if (Test-Path $f) { Copy-Item $f (Join-Path $cmdDst $n) -Force } }
+        $selProp = $Stack.PSObject.Properties['Selection']
+        $cmdSel = if ($selProp -and $selProp.Value -and $selProp.Value.PSObject.Properties['comandos']) { @($selProp.Value.comandos) } else { $null }
+        foreach ($cf in (Get-ChildItem $cmdSrc -Filter *.md)) {
+            $n = $cf.Name
+            $quiero = ($names -contains $n) -and (($null -eq $cmdSel) -or ($cmdSel -contains ($n -replace '\.md$', '')))
+            if ($quiero) { Copy-Item $cf.FullName (Join-Path $cmdDst $n) -Force }
+            else { Remove-Item (Join-Path $cmdDst $n) -Force -ErrorAction SilentlyContinue }   # comando nuestro ya no elegido
+        }
     }
 
     # 3b) config.json para los hooks
@@ -136,7 +143,17 @@ function Render-Claude {
         if ($partial.permissions.deny) { $deny += $partial.permissions.deny }
         if ($partial.permissions.ask)  { $ask  += $partial.permissions.ask }
     }
-    Merge-Settings -Path (Join-Path $ProjectPath '.claude\settings.json') -Permissions @{ deny = $deny; ask = $ask } -Hooks (New-HooksJson -HasFront $useFrontHook -PathPrefix '$CLAUDE_PROJECT_DIR/.claude/hooks/')
+    # Hooks elegidos en el instalador (seleccion.hooks). Companeros: edit-tracker va con stop-guard,
+    # pre-compact con session-start y session-end (limpieza) siempre. Igual que hooksPermitidos() de init.mjs.
+    $only = @()
+    $selProp = $Stack.PSObject.Properties['Selection']
+    if ($selProp -and $selProp.Value -and $selProp.Value.PSObject.Properties['hooks']) {
+        $companeros = @{ 'stop-guard' = @('edit-tracker'); 'session-start' = @('pre-compact') }
+        $permitidos = @('session-end')
+        foreach ($h in @($selProp.Value.hooks)) { $permitidos += $h; if ($companeros.ContainsKey($h)) { $permitidos += $companeros[$h] } }
+        $only = @($permitidos | Select-Object -Unique | ForEach-Object { "$_.mjs" })
+    }
+    Merge-Settings -Path (Join-Path $ProjectPath '.claude\settings.json') -Permissions @{ deny = $deny; ask = $ask } -Hooks (New-HooksJson -HasFront $useFrontHook -PathPrefix '$CLAUDE_PROJECT_DIR/.claude/hooks/' -Only $only)
 
     # 5) .mcp.json (servidores MCP del stack)
     $mcpPath = Join-Path $Stack.Dir $Stack.Meta.mcp

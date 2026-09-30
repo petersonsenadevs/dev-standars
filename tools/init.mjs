@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));   // raíz del repo dev-standards
 const FRONT_GROUPS = ['front', 'motion', '3d', 'design'];
@@ -86,9 +87,24 @@ function resolveSkillDir(stack, name) {
     for (const c of candidates) if (exists(c) && exists(path.join(c, 'SKILL.md'))) return path.resolve(c);
     return null;
 }
+// Selección (instalador interactivo o flags): todo | categorias (grupos del registro) | a-medida (skills sueltas).
+// El núcleo va SIEMPRE: sin él los hooks (plan, devlog, cierre) no tienen a qué apuntar.
+const NUCLEO = ['skill-router', 'project-planner', 'devlog', 'code-quality'];
+
 function getSkillDirs(stack, extra, bundles) {
     const dirs = [];
     const add = d => { if (d && !dirs.includes(d)) dirs.push(d); };
+    const sel = stack.selection;
+    if (sel && (sel.modo === 'categorias' || sel.modo === 'a-medida')) {
+        const elegidas = sel.modo === 'categorias'
+            ? registry.skills.filter(s => [].concat(sel.grupos || []).includes(s.group)).map(s => s.name)
+            : [].concat(sel.skills || []);
+        for (const e of expandRequires([...NUCLEO, ...elegidas, ...(extra || []), ...expandBundles(bundles)])) {
+            const d = resolveSkillDir(stack, e);
+            if (d) add(d); else warn(`Skill '${e}' no encontrada. Ignorada.`);
+        }
+        return dirs;
+    }
     for (const s of [].concat(stack.meta.skills || [])) {
         // rutas relativas del stack.json vienen con \ o /: normalizar para Linux
         const rel = String(s).replace(/\\/g, '/');
@@ -126,6 +142,9 @@ function mergeExtraCsv(skillDst, overlayDir) {
 function copySkills(stack, dst, extra, bundles) {
     const dirs = getSkillDirs(stack, extra, bundles);
     ensureDir(dst);
+    // Quitar skills de dev-standards que ya no están seleccionadas (las propias del proyecto no se tocan)
+    const elegidas = new Set(dirs.map(d => path.basename(d)));
+    for (const s of registry.skills) if (!elegidas.has(s.name)) rmTree(path.join(dst, s.name));
     for (const d of dirs) {
         const name = path.basename(d);
         const skillDst = path.join(dst, name);
@@ -366,13 +385,37 @@ function hookSet(hasFront) {
         SessionEnd: [{ matcher: null, files: ['session-end.mjs'] }],
     };
 }
-function newHooksJson(hasFront, pathPrefix, timeout = 30) {
+// Hooks elegibles uno a uno en el instalador. Los "compañeros" van con su hook: edit-tracker solo sirve a
+// stop-guard, pre-compact prolonga session-start y session-end (limpieza) va siempre.
+const HOOKS_ELEGIBLES = [
+    ['guard', 'Muro de terminal: push, borrados, deploy a producción, commits'],
+    ['protect-files', 'Archivos protegidos: .env, generados, migraciones subidas'],
+    ['secrets-guard', 'Bloquea escribir claves y contraseñas en el código'],
+    ['code-hygiene', 'console.log, tests desactivados, conflictos, vetos y clichés de IA'],
+    ['conventions-guard', 'Hace cumplir las convenciones selladas con /adoptar'],
+    ['front-skill-reminder', 'Front: pregunta antes de diseñar y recuerda las reglas de UI'],
+    ['format-on-save', 'Formatea cada archivo con la herramienta del stack'],
+    ['stop-guard', 'No deja cerrar sin verificar ni documentar'],
+    ['session-start', 'Contexto del proyecto al arrancar la sesión'],
+    ['prompt-router', 'Sugiere la skill adecuada en cada petición'],
+];
+const HOOK_COMPANEROS = { 'stop-guard': ['edit-tracker'], 'session-start': ['pre-compact'] };
+function hooksPermitidos(sel) {
+    if (!sel || !sel.hooks) return null;                         // null = todos
+    const s = new Set(['session-end']);
+    for (const h of sel.hooks) { s.add(h); for (const c of HOOK_COMPANEROS[h] || []) s.add(c); }
+    return s;
+}
+
+function newHooksJson(hasFront, pathPrefix, timeout = 30, permitidos = null) {
     const set = hookSet(hasFront);
     const hooks = {};
     for (const [ev, groups] of Object.entries(set)) {
         const outGroups = [];
         for (const g of groups) {
-            const cmds = g.files.map(f => ({ type: 'command', command: `node "${pathPrefix}${f}"`, timeout: ev === 'SessionEnd' ? 5 : timeout }));
+            const files = permitidos ? g.files.filter(f => permitidos.has(f.replace(/\.mjs$/, ''))) : g.files;
+            if (!files.length) continue;
+            const cmds = files.map(f => ({ type: 'command', command: `node "${pathPrefix}${f}"`, timeout: ev === 'SessionEnd' ? 5 : timeout }));
             const grp = {};
             if (g.matcher) grp.matcher = g.matcher;
             grp.hooks = cmds;
@@ -442,7 +485,12 @@ async function renderClaude(stack, projectPath, extra, bundles) {
         ensureDir(cmdDst);
         const names = ['instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md',
             ...(hasFront ? ['brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md'] : [])];
-        for (const n of names) if (exists(path.join(cmdSrc, n))) fs.copyFileSync(path.join(cmdSrc, n), path.join(cmdDst, n));
+        const cmdSel = stack.selection && stack.selection.comandos ? new Set(stack.selection.comandos) : null;
+        for (const n of fs.readdirSync(cmdSrc).filter(f => f.endsWith('.md'))) {
+            const quiero = names.includes(n) && (!cmdSel || cmdSel.has(n.replace(/\.md$/, '')));
+            if (quiero) fs.copyFileSync(path.join(cmdSrc, n), path.join(cmdDst, n));
+            else fs.rmSync(path.join(cmdDst, n), { force: true });      // comando nuestro ya no elegido
+        }
     }
 
     const cfg = {
@@ -463,7 +511,7 @@ async function renderClaude(stack, projectPath, extra, bundles) {
         ask.push(...[].concat(partial.permissions.ask || []));
     }
     mergeSettings(path.join(projectPath, '.claude', 'settings.json'), { deny, ask },
-        newHooksJson(useFrontHook, '$CLAUDE_PROJECT_DIR/.claude/hooks/'));
+        newHooksJson(useFrontHook, '$CLAUDE_PROJECT_DIR/.claude/hooks/', 30, hooksPermitidos(stack.selection)));
 
     const mcp = readJson(path.join(stack.dir, stack.meta.mcp));
     if (mcp) writeUtf8(path.join(projectPath, '.mcp.json'), JSON.stringify({ mcpServers: mcp.mcpServers || {} }, null, 2));
@@ -516,29 +564,154 @@ async function seedProject(projectPath) {
     log('  plan/ inicializado (PLAN.md y brief.md son plantillas: rellenalos con la skill project-planner)');
 }
 
+function lista(v) { return String(v || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean); }
+
 function parseArgs(argv) {
-    const a = { path: process.cwd(), tools: null, stack: null, skills: [], bundle: [] };
+    const a = { path: process.cwd(), tools: null, stack: null, skills: [], bundle: [], seleccion: null, grupos: null, soloSkills: null, hooks: null, comandos: null, interactivo: false };
     for (let i = 0; i < argv.length; i++) {
         const k = argv[i];
         const next = () => argv[++i];
         if (k === '--stack') a.stack = next();
         else if (k === '--path') a.path = next();
-        else if (k === '--tools') a.tools = next().split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
-        else if (k === '--skills') a.skills = next().split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
-        else if (k === '--bundle') a.bundle = next().split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+        else if (k === '--tools') a.tools = lista(next());
+        else if (k === '--skills') a.skills = lista(next());
+        else if (k === '--bundle') a.bundle = lista(next());
+        else if (k === '--seleccion') a.seleccion = next();
+        else if (k === '--grupos') a.grupos = lista(next());
+        else if (k === '--solo-skills') a.soloSkills = lista(next());
+        else if (k === '--hooks') a.hooks = lista(next());
+        else if (k === '--comandos') a.comandos = lista(next());
+        else if (k === '--interactivo' || k === '-i') a.interactivo = true;
         else if (k === '--help' || k === '-h') { a.help = true; }
         else warn(`Flag desconocido: ${k}`);
     }
     return a;
 }
 
+// ---------------------------------------------------------------- modo interactivo
+// Cola de líneas: rl.question pierde líneas cuando la entrada llega de golpe (pegada o por tubería).
+function crearLector() {
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout, terminal: !!process.stdin.isTTY });
+    const cola = []; const esperando = []; let cerrado = false;
+    rl.on('line', l => { const r = esperando.shift(); if (r) r(l); else cola.push(l); });
+    rl.on('close', () => { cerrado = true; while (esperando.length) esperando.shift()(''); });
+    rl.leer = () => cola.length ? Promise.resolve(cola.shift()) : (cerrado ? Promise.resolve('') : new Promise(r => esperando.push(r)));
+    return rl;
+}
+async function preguntar(rl, q) { process.stdout.write(q); const r = await rl.leer(); if (!process.stdin.isTTY) process.stdout.write(r + '\n'); return (r || '').trim(); }
+async function elegirUno(rl, titulo, opciones, def = 1) {
+    log(`\n${titulo}`);
+    opciones.forEach((o, i) => log(`  ${i + 1}) ${o}`));
+    for (;;) {
+        const r = await preguntar(rl, `Elige [${def}]: `);
+        const n = r ? parseInt(r, 10) : def;
+        if (n >= 1 && n <= opciones.length) return n;
+        log('  Número no válido.');
+    }
+}
+async function elegirVarios(rl, titulo, opciones, porDefecto = 'todos') {
+    log(`\n${titulo}`);
+    opciones.forEach(([, texto], i) => log(`  ${String(i + 1).padStart(2)}) ${texto}`));
+    for (;;) {
+        const r = await preguntar(rl, `Números separados por comas, "todos" o "ninguno" [${porDefecto}]: `);
+        const v = (r || porDefecto).toLowerCase();
+        if (v === 'todos') return opciones.map(([id]) => id);
+        if (v === 'ninguno') return [];
+        // Vale el número o el nombre (y "/plan" también): "1,8" o "plan,verificar"
+        const ids = opciones.map(([id]) => id);
+        const elegidos = v.split(/[\s,]+/).filter(Boolean).map(x => {
+            const n = parseInt(x, 10);
+            if (String(n) === x && n >= 1 && n <= opciones.length) return ids[n - 1];
+            const nombre = x.replace(/^\//, '');
+            return ids.includes(nombre) ? nombre : null;
+        });
+        if (elegidos.length && elegidos.every(Boolean)) return [...new Set(elegidos)];
+        log(`  No reconozco: ${v.split(/[\s,]+/).filter((x, i) => !elegidos[i]).join(', ')}. Usa números o nombres de la lista.`);
+    }
+}
+function detectarStack(p) {
+    const j = f => readJson(path.join(p, f));
+    const composer = j('composer.json');
+    if (composer && composer.require && composer.require['laravel/framework']) return 'laravel';
+    if (exists(path.join(p, 'wp-includes')) || exists(path.join(p, 'wp-content'))) return 'wordpress';
+    const pkg = j('package.json');
+    if (pkg) {
+        const d = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
+        if (d.next) return 'next';
+        if (d.nuxt) return 'nuxt';
+        if (d['@sveltejs/kit']) return 'sveltekit';
+        if (d.astro) return 'astro';
+        if (d.vue) return 'vue-ts';
+        if (d.express || d['@nestjs/core']) return 'node-api';
+    }
+    if (exists(path.join(p, 'pyproject.toml'))) return 'python-langgraph';
+    return null;
+}
+function comprobarRequisitos() {
+    const probar = (cmd, args) => { try { return execFileSync(cmd, args, { stdio: ['ignore', 'pipe', 'ignore'], encoding: 'utf8' }).trim().split(/\r?\n/)[0]; } catch { return null; } };
+    const nodeMajor = parseInt(process.versions.node.split('.')[0], 10);
+    const filas = [
+        ['Node 18+', nodeMajor >= 18 ? `v${process.versions.node}` : null, true, 'hooks, instalador, /verificar'],
+        ['Git', probar('git', ['--version']), true, 'actualizar, hotspots, muros de commits'],
+        ['Python 3', probar('python3', ['--version']) || probar('python', ['--version']) || probar('py', ['-3', '--version']), false, 'buscador de diseño de ui-ux-pro-max'],
+    ];
+    log('\nRequisitos:');
+    for (const [n, v, obligatorio, uso] of filas) log(`  ${v ? 'OK ' : (obligatorio ? 'FALTA' : 'no  ')} ${n.padEnd(9)} ${v || (obligatorio ? 'OBLIGATORIO' : 'opcional')} — ${uso}`);
+    log('  (Playwright para ui-verify se instala por proyecto cuando haga falta: npx playwright install chromium)');
+}
+
+async function modoInteractivo(a) {
+    const rl = crearLector();
+    try {
+        log('== dev-standards :: instalador interactivo ==');
+        comprobarRequisitos();
+        const ruta = await preguntar(rl, `\nCarpeta del proyecto [${a.path}]: `);
+        if (ruta) a.path = ruta;
+        const projectPath = path.resolve(a.path);
+        const marker = readJson(path.join(projectPath, '.dev-standards.json'));
+        const stacks = fs.readdirSync(path.join(ROOT, 'stacks')).filter(s => exists(path.join(ROOT, 'stacks', s, 'stack.json')));
+        const detectado = (marker && marker.stack) || detectarStack(projectPath);
+        const iStack = await elegirUno(rl, `Stack${detectado ? ` (detectado: ${detectado})` : ''}:`, stacks, detectado ? stacks.indexOf(detectado) + 1 : 1);
+        a.stack = stacks[iStack - 1];
+        const iTools = await elegirUno(rl, 'Herramientas:', ['Claude Code', 'Claude Code + Codex', 'Solo Codex'], 1);
+        a.tools = [['claude'], ['claude', 'codex'], ['codex']][iTools - 1];
+        const iModo = await elegirUno(rl, '¿Qué quieres instalar?', [
+            'Todo (recomendado): todas las skills del stack, muros y comandos',
+            'Por categorías: eliges grupos de skills (front, animación, 3D, backend…)',
+            'A medida: eliges skills, muros y comandos uno a uno',
+        ], 1);
+        a.seleccion = ['todo', 'categorias', 'a-medida'][iModo - 1];
+        if (a.seleccion === 'categorias') {
+            const grupos = Object.entries(registry.groups).filter(([g]) => !['routing', 'planning', 'docs'].includes(g))
+                .map(([g, label]) => [g, `${label} (${registry.skills.filter(s => s.group === g).length} skills)`]);
+            a.grupos = await elegirVarios(rl, 'Categorías (el núcleo de plan, devlog y calidad va siempre):', grupos);
+        }
+        if (a.seleccion === 'a-medida') {
+            const opciones = registry.skills.filter(s => !NUCLEO.includes(s.name))
+                .map(s => [s.name, `${s.name} — ${String(s.when).slice(0, 70)}`]);
+            a.soloSkills = await elegirVarios(rl, 'Skills (el núcleo de plan, devlog y calidad va siempre):', opciones);
+            a.hooks = await elegirVarios(rl, 'Muros y hooks:', HOOKS_ELEGIBLES);
+            const cmds = fs.readdirSync(path.join(ROOT, 'core', 'commands')).filter(f => f.endsWith('.md')).map(f => f.replace(/\.md$/, ''));
+            a.comandos = await elegirVarios(rl, 'Comandos:', cmds.map(c => [c, `/${c}`]));
+        }
+        const ok = await preguntar(rl, '\n¿Instalar con esta selección? [S/n]: ');
+        if (/^n/i.test(ok)) { log('Cancelado. No se ha tocado nada.'); process.exit(0); }
+    } finally { rl.close(); }
+}
+
 async function main() {
     const a = parseArgs(process.argv.slice(2));
     if (a.help) {
-        log('Uso: node tools/init.mjs --stack <nombre> --path <ruta> [--tools claude,codex] [--skills a,b] [--bundle x]');
+        log('Uso: node tools/init.mjs                       -> instalador interactivo (sin argumentos, en terminal)');
+        log('     node tools/init.mjs --stack <nombre> --path <ruta> [--tools claude,codex]');
+        log('       [--seleccion todo|categorias|a-medida] [--grupos front,motion,3d,quality,architecture,growth,ops,design]');
+        log('       [--solo-skills a,b] [--hooks guard,stop-guard,...] [--comandos plan,verificar,...] [--skills a,b] [--bundle x]');
         log('Stacks: ' + fs.readdirSync(path.join(ROOT, 'stacks')).join(', '));
         return;
     }
+    const sinArgumentos = process.argv.length <= 2;
+    if (a.interactivo || (sinArgumentos && process.stdin.isTTY && process.env.DEV_STANDARDS_ASSUME_YES !== '1')) await modoInteractivo(a);
+
     const projectPath = path.resolve(a.path);
     ensureDir(projectPath);
     const markerPath = path.join(projectPath, '.dev-standards.json');
@@ -554,9 +727,26 @@ async function main() {
     const skills = a.skills.length ? a.skills : [].concat((marker && marker.extraSkills) || []);
     const bundles = a.bundle.length ? a.bundle : [].concat((marker && marker.bundles) || []);
 
+    // Selección: la de los flags o el menú; si no hay, la guardada en el marcador (sync la respeta).
+    let seleccion = null;
+    if (a.seleccion) {
+        if (!['todo', 'categorias', 'a-medida'].includes(a.seleccion)) throw new Error(`--seleccion debe ser todo, categorias o a-medida (recibido: ${a.seleccion})`);
+        if (a.seleccion !== 'todo' || a.hooks || a.comandos) {
+            seleccion = { modo: a.seleccion };
+            if (a.seleccion === 'categorias') seleccion.grupos = a.grupos || [];
+            if (a.seleccion === 'a-medida') seleccion.skills = a.soloSkills || [];
+            if (a.hooks) seleccion.hooks = a.hooks;
+            if (a.comandos) seleccion.comandos = a.comandos;
+        }
+    } else if (marker && marker.seleccion) {
+        seleccion = marker.seleccion;
+    }
+    stack.selection = seleccion;
+
     log('== dev-standards :: init (Node, agnóstico de OS) ==');
     log(`Stack: ${stack.name}`);
     log(`Proyecto: ${projectPath}`);
+    if (seleccion) log(`Selección: ${seleccion.modo}${seleccion.grupos ? ` (${seleccion.grupos.join(', ')})` : ''}${seleccion.hooks ? ` · hooks: ${seleccion.hooks.length}` : ''}${seleccion.comandos ? ` · comandos: ${seleccion.comandos.length}` : ''}`);
     if (!marker) await seedProject(projectPath);
 
     log(`Sincronizando '${stack.name}' en ${projectPath}`);
@@ -583,6 +773,7 @@ async function main() {
         markerObj.frontProfile = stack.meta.frontProfile;
         if (fpSource) markerObj.frontProfileSource = fpSource;
     }
+    if (seleccion) markerObj.seleccion = seleccion;
     writeUtf8(markerPath, JSON.stringify(markerObj, null, 2));
     log('Listo. Config regenerada. Abre una sesión NUEVA del agente para que cargue todo.');
 }

@@ -38,6 +38,9 @@ nada por hecho.
 # Skills globales para Codex / Cursor / Windsurf (Windows PowerShell):
 irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex
 
+# Instalador interactivo: eliges todo, por categorías o a medida (skills, muros y comandos):
+git clone https://github.com/petersonsenadevs/dev-standars.git && node dev-standars/tools/init.mjs
+
 # Manual por proyecto (equivalente a /instalar; Node = Windows, WSL, Linux y macOS):
 git clone https://github.com/petersonsenadevs/dev-standars.git
 node dev-standars/tools/init.mjs --stack laravel --path /ruta/mi-app --tools claude,codex

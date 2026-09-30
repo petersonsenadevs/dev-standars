@@ -4,6 +4,35 @@
 
 Guía rápida con los comandos exactos. Todo se ejecuta en PowerShell desde cualquier carpeta.
 
+## 0. Instalador interactivo (elige qué instalar)
+
+En una terminal, desde donde tengas clonado el repo (funciona en Windows, WSL, Linux y macOS):
+
+```
+node dev-standards/tools/init.mjs
+```
+
+Sin argumentos abre un menú que primero comprueba los requisitos (Node, Git, Python) y después pregunta:
+
+1. **Carpeta del proyecto**.
+2. **Stack**: lo detecta solo (Laravel, Next, Nuxt, WordPress…); confirmas con Enter.
+3. **Herramientas**: Claude Code, Claude Code + Codex, o solo Codex.
+4. **Qué instalar**:
+   - **Todo** (recomendado): todas las skills del stack, todos los muros y comandos.
+   - **Por categorías**: marcas grupos de skills (front, animación, 3D, calidad, arquitectura,
+     marketing y SEO, operaciones, diseño gráfico).
+   - **A medida**: eliges skills, muros (hooks) y comandos uno a uno, por número o por nombre
+     (`plan,verificar`), o `todos` / `ninguno`.
+
+El núcleo (plan, devlog, calidad y enrutado) va siempre, con cualquier selección. La selección se
+guarda en `.dev-standards.json`: cada actualización posterior (`/instalar`, `sync.ps1` o `init.mjs`) la
+respeta, y si reduces la selección se quitan las skills y comandos de dev-standards que ya no elegiste
+(las skills propias del proyecto no se tocan).
+
+Sin menú, con los mismos resultados: `--seleccion categorias --grupos front,motion` o
+`--seleccion a-medida --solo-skills backend-audit --hooks guard,stop-guard --comandos plan,verificar`
+(`node tools/init.mjs --help` lista todo). Dentro de Claude o Codex, `/instalar` hace las mismas preguntas.
+
 ## 1. Proyecto nuevo o existente — la vía recomendada (Claude Y Codex a la vez)
 
 ```powershell

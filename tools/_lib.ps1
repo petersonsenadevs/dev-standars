@@ -194,9 +194,25 @@ function Resolve-SkillDir {
 # Carpetas de skills a instalar para un stack:
 #   - declaradas en stack.json -> "skills" (rutas relativas al stack, nombres o carpeta contenedora "skills")
 #   - opcionales: -Skills (nombres) y -Bundles (expandidos con core\bundles.json)
+$script:Nucleo = @('skill-router', 'project-planner', 'devlog', 'code-quality')   # va siempre, con cualquier seleccion
+
 function Get-SkillDirs {
     param([Parameter(Mandatory)]$Stack, [string[]]$Extra = @(), [string[]]$Bundles = @())
     $dirs = New-Object System.Collections.Generic.List[string]
+    # Seleccion guardada en el marcador (instalador interactivo de init.mjs): categorias o a medida.
+    $sel = $Stack.PSObject.Properties['Selection']
+    if ($sel -and $sel.Value -and $sel.Value.modo -in @('categorias', 'a-medida')) {
+        $s = $sel.Value
+        $elegidas = if ($s.modo -eq 'categorias') {
+            @($script:Registry.skills | Where-Object { @($s.grupos) -contains $_.group } | ForEach-Object { $_.name })
+        } else { @($s.skills) }
+        foreach ($e in (Expand-Requires -Names (@($script:Nucleo) + $elegidas + @($Extra) + (Expand-Bundles -Bundles $Bundles)))) {
+            if (-not $e) { continue }
+            $d = Resolve-SkillDir -Stack $Stack -Name $e
+            if ($d) { if (-not $dirs.Contains($d)) { $dirs.Add($d) } } else { Write-Warning "Skill '$e' no encontrada. Ignorada." }
+        }
+        return @($dirs)
+    }
     $declared = @()
     if ($Stack.Meta.skills) { $declared = @($Stack.Meta.skills) }
     foreach ($s in $declared) {
@@ -244,6 +260,11 @@ function Copy-Skills {
     $root = $script:StandardsRoot
     $dirs = Get-SkillDirs -Stack $Stack -Extra $Extra -Bundles $Bundles
     Ensure-Dir $Dst
+    # Quitar skills de dev-standards que ya no estan seleccionadas (las propias del proyecto no se tocan)
+    $elegidas = @($dirs | ForEach-Object { Split-Path $_ -Leaf })
+    foreach ($sk in $script:Registry.skills) {
+        if ($elegidas -notcontains $sk.name) { $p = Join-Path $Dst $sk.name; if (Test-Path $p) { Remove-Item $p -Recurse -Force } }
+    }
     foreach ($d in $dirs) {
         $name = Split-Path $d -Leaf
         $skillDst = Join-Path $Dst $name

@@ -55,6 +55,9 @@ $Skills = @($Skills | Where-Object { $_ } | ForEach-Object { $_.ToLower() } | Se
 $Bundle = @($Bundle | Where-Object { $_ } | ForEach-Object { $_.ToLower() } | Select-Object -Unique)
 
 $stackObj = Get-Stack -Name $Stack
+# Seleccion hecha con el instalador interactivo (init.mjs): se respeta en cada sync
+$selection = if ($marker -and $marker.seleccion) { $marker.seleccion } else { $null }
+$stackObj | Add-Member -NotePropertyName Selection -NotePropertyValue $selection -Force
 
 $validTools = @{
     claude      = 'Render-Claude'
@@ -110,6 +113,7 @@ $markerObj = [ordered]@{
     standardsRoot = (Get-StandardsRoot)
 }
 if ($wantGit) { $markerObj.gitHooks = $true }
+if ($selection) { $markerObj.seleccion = $selection }
 if ($stackObj.Meta.frontProfile) {
     $markerObj.frontProfile = $stackObj.Meta.frontProfile
     if ($fpSource) { $markerObj.frontProfileSource = $fpSource }

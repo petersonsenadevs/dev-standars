@@ -229,6 +229,8 @@ foreach ($cf in (Get-ChildItem (Join-Path $root 'core\commands') -Filter *.md)) 
     if ($ct -match '\$ARGUMENTS' -or $ct -match '(?m)^argument-hint:') { Fail "commands/$($cf.Name)" 'usa $ARGUMENTS o argument-hint: Codex no lo migrara (usa la linea "Uso:" y texto normal)' }
     # Codex toma CUALQUIER $NOMBRE ($HOME, $env:X, $1) como argumento del comando y lo descarta (visto con /instalar).
     elseif ($ct -match '\$[A-Za-z0-9_{]') { Fail "commands/$($cf.Name)" "contiene '$($Matches[0])...': Codex lo toma como argumento y no migra el comando (escribe la ruta o variable en texto, sin el signo)" }
+    # Barra invertida: /instalar seguia sin migrar sin $ y era el unico comando con '\' (rutas de Windows).
+    elseif ($ct.Contains([string][char]92)) { Fail "commands/$($cf.Name)" 'contiene barras invertidas: Codex no migra el comando (usa / en las rutas, Windows las acepta)' }
 }
 
 # --- 11: los .ps1 del tooling con BOM UTF-8 (dev-003: sin BOM, PS 5.1 lee ANSI y corrompe literales con acentos).
