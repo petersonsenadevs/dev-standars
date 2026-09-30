@@ -377,9 +377,9 @@ function hookSet(hasFront) {
         UserPromptSubmit: [{ matcher: null, files: ['prompt-router.mjs'] }],
         PreToolUse: [
             { matcher: 'Bash|PowerShell', files: ['guard.mjs'] },
-            { matcher: 'Edit|Write|MultiEdit|NotebookEdit', files: ['protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs', 'conventions-guard.mjs', ...(hasFront ? ['front-skill-reminder.mjs'] : [])] },
+            { matcher: 'Edit|Write|MultiEdit|NotebookEdit', files: ['protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs', 'conventions-guard.mjs', 'backend-guard.mjs', 'back-skill-reminder.mjs', ...(hasFront ? ['front-skill-reminder.mjs'] : [])] },
         ],
-        PostToolUse: [{ matcher: 'Edit|Write|MultiEdit', files: ['format-on-save.mjs', 'edit-tracker.mjs'] }],
+        PostToolUse: [{ matcher: 'Edit|Write|MultiEdit', files: ['format-on-save.mjs', 'edit-tracker.mjs'] }, { matcher: 'Bash|PowerShell', files: ['depurar-coach.mjs'] }],
         Stop: [{ matcher: null, files: ['stop-guard.mjs'] }],
         PreCompact: [{ matcher: null, files: ['pre-compact.mjs'] }],
         SessionEnd: [{ matcher: null, files: ['session-end.mjs'] }],
@@ -393,6 +393,9 @@ const HOOKS_ELEGIBLES = [
     ['secrets-guard', 'Bloquea escribir claves y contraseñas en el código'],
     ['code-hygiene', 'console.log, tests desactivados, conflictos, vetos y clichés de IA'],
     ['conventions-guard', 'Hace cumplir las convenciones selladas con /adoptar'],
+    ['backend-guard', 'Backend: migraciones destructivas, env() fuera de config, datos personales en logs'],
+    ['back-skill-reminder', 'Backend: recuerda la receta del stack en la primera edición'],
+    ['depurar-coach', 'Si falla un test o un build, activa el método de depuración'],
     ['front-skill-reminder', 'Front: pregunta antes de diseñar y recuerda las reglas de UI'],
     ['format-on-save', 'Formatea cada archivo con la herramienta del stack'],
     ['stop-guard', 'No deja cerrar sin verificar ni documentar'],
@@ -483,7 +486,7 @@ async function renderClaude(stack, projectPath, extra, bundles) {
     if (exists(cmdSrc)) {
         const cmdDst = path.join(projectPath, '.claude', 'commands');
         ensureDir(cmdDst);
-        const names = ['instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md',
+        const names = ['instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md', 'depurar.md', 'estimar.md', 'entregar.md', 'mapa.md',
             ...(hasFront ? ['brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md'] : [])];
         const cmdSel = stack.selection && stack.selection.comandos ? new Set(stack.selection.comandos) : null;
         for (const n of fs.readdirSync(cmdSrc).filter(f => f.endsWith('.md'))) {

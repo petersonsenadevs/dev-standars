@@ -16,10 +16,14 @@ se instalan SIEMPRE; el resto solo en stacks con perfil de front.
 | `/adoptar` | [notas opcionales, p. ej. "solo backend" o "el idioma oficial es inglés"] | Adoptar las convenciones de un proyecto existente y sellarlas como regla inmutable |
 | `/auditar` | [área opcional, p. ej. "pagos", "API pública" o "antes de producción"] | Auditoría del backend y la arquitectura con pruebas — herramientas reales, evidencia por hallazgo, informe y plan |
 | `/brief` | [tipo de negocio si ya se sabe, p. ej. "restaurante"] | Entrevista de descubrimiento en lenguaje llano — para clientes que no saben el palabreo técnico |
+| `/depurar` | [síntoma o error, p. ej. "el checkout devuelve 500 con cupones"] | Depuración con método — reproducir, test que falla, hipótesis, acotar, arreglar la causa y verificar |
 | `/design-system` | [producto/industria, p. ej. "saas facturación autónomos"] | Genera (o revisa) el design system del proyecto con ui-ux-pro-max |
 | `/efecto` | <nombre del efecto> [dónde, p. ej. "marquee en el footer de logos"] | Aplica un efecto pro de frontend desde el catálogo (parallax, marquee, cursor, stacking…) |
+| `/entregar` | [proyecto o cliente] | Entrega al cliente — manual de uso, servicios y accesos, mantenimiento, cómo pedir cambios y formación |
+| `/estimar` | [qué estimar, p. ej. "la web del restaurante" o "fase 2"] | Estimación y presupuesto — horas por tarea, partidas olvidadas, riesgos y rango final para el cliente |
 | `/instalar` | [stack opcional: laravel, next, astro, vue-ts, nuxt, sveltekit, wordpress, node-api, python-langgraph] | Instala/actualiza dev-standards COMPLETO en este proyecto desde el plugin (clona el repo, detecta el stack y ejecuta init-project) |
 | `/lanzar` | [url de preview/producción] | Checklist de lanzamiento — todo lo que se comprueba antes de publicar la web |
+| `/mapa` | [área opcional, p. ej. "pagos"] | Mapa del proyecto — qué es, cómo arrancarlo, estructura, flujos críticos y dónde tocar para cada cosa |
 | `/propuestas` | [página, p. ej. "home" o "landing de escombros"] | Modo propuesta — blueprint aprobable + 2 maquetas A/B visuales antes de construir |
 | `/refactor` | <objetivo, p. ej. "sacar la lógica de precios de OrderController"> | Refactor seguro — tests de caracterización primero, pasos pequeños verificados y mismo comportamiento demostrado |
 | `/repaso` | [url o página, p. ej. "http://localhost:4321" o "la home"] | Sesión de revisión conversacional — repasamos la web juntos, sección a sección |

@@ -55,6 +55,16 @@
                                                            "type":  "command",
                                                            "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/conventions-guard.mjs\"",
                                                            "timeout":  30
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/backend-guard.mjs\"",
+                                                           "timeout":  30
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/back-skill-reminder.mjs\"",
+                                                           "timeout":  30
                                                        }
                                                    ]
                                      }
@@ -71,6 +81,16 @@
                                                         {
                                                             "type":  "command",
                                                             "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/edit-tracker.mjs\"",
+                                                            "timeout":  30
+                                                        }
+                                                    ]
+                                      },
+                                      {
+                                          "matcher":  "Bash|PowerShell",
+                                          "hooks":  [
+                                                        {
+                                                            "type":  "command",
+                                                            "command":  "node \"${CLAUDE_PLUGIN_ROOT}/hooks/depurar-coach.mjs\"",
                                                             "timeout":  30
                                                         }
                                                     ]

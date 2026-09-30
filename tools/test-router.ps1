@@ -115,6 +115,11 @@ $cases = @(
     @{ n = 'dependencias circulares'; prompt = 'creo que hay dependencias circulares entre los módulos';   skills = @('backend-audit','code-quality','skill-router'); expect = 'backend-audit' }
     @{ n = 'refactor seguro';       prompt = 'quiero un refactor seguro del servicio de facturas';         skills = @('backend-audit','code-quality','skill-router'); expect = 'backend-audit'; expectFirst = 'backend-audit' }
     @{ n = 'auditoria seo no back'; prompt = 'haz una auditoría seo de la web';                            skills = @('backend-audit','marketing-seo','skill-router'); expect = 'marketing-seo'; forbid = 'backend-audit' }
+    @{ n = 'depurar fallo';         prompt = 'la función de calcular envío no funciona y da un error 500';  skills = @('depurar','code-quality','skill-router'); expect = 'depurar'; expectFirst = 'depurar' }
+    @{ n = 'tests en rojo';         prompt = 'los tests están fallando desde el último cambio';            skills = @('depurar','code-quality','skill-router'); expect = 'depurar' }
+    @{ n = 'estimar presupuesto';   prompt = 'hazme el presupuesto de la web del restaurante';            skills = @('project-planner','code-quality','skill-router'); expect = 'project-planner' }
+    @{ n = 'entregar cliente';      prompt = 'prepara la entrega al cliente con el manual de uso';         skills = @('deploy-ops','ui-verify','skill-router'); expect = 'deploy-ops' }
+    @{ n = 'mapa proyecto';         prompt = 'explícame este proyecto, dónde está el código de pagos';     skills = @('code-quality','skill-router'); expect = 'code-quality' }
     @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
 )
 

@@ -9,9 +9,9 @@ function Get-HookSet {
         UserPromptSubmit = @(@{ matcher = $null; files = @('prompt-router.mjs') })
         PreToolUse       = @(
             @{ matcher = 'Bash|PowerShell';                   files = @('guard.mjs') },
-            @{ matcher = 'Edit|Write|MultiEdit|NotebookEdit'; files = @('protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs', 'conventions-guard.mjs') + $(if ($HasFront) { @('front-skill-reminder.mjs') } else { @() }) }
+            @{ matcher = 'Edit|Write|MultiEdit|NotebookEdit'; files = @('protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs', 'conventions-guard.mjs', 'backend-guard.mjs', 'back-skill-reminder.mjs') + $(if ($HasFront) { @('front-skill-reminder.mjs') } else { @() }) }
         )
-        PostToolUse      = @(@{ matcher = 'Edit|Write|MultiEdit'; files = @('format-on-save.mjs', 'edit-tracker.mjs') })
+        PostToolUse      = @(@{ matcher = 'Edit|Write|MultiEdit'; files = @('format-on-save.mjs', 'edit-tracker.mjs') }, @{ matcher = 'Bash|PowerShell'; files = @('depurar-coach.mjs') })
         Stop             = @(@{ matcher = $null; files = @('stop-guard.mjs') })
         PreCompact       = @(@{ matcher = $null; files = @('pre-compact.mjs') })
         SessionEnd       = @(@{ matcher = $null; files = @('session-end.mjs') })
@@ -111,7 +111,7 @@ function Render-Claude {
     if (Test-Path $cmdSrc) {
         $cmdDst = Join-Path $ProjectPath '.claude\commands'
         Ensure-Dir $cmdDst
-        $names = @('instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md') + $(if ($hasFront) { @('brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md') } else { @() })
+        $names = @('instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md', 'depurar.md', 'estimar.md', 'entregar.md', 'mapa.md') + $(if ($hasFront) { @('brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md') } else { @() })
         $selProp = $Stack.PSObject.Properties['Selection']
         $cmdSel = if ($selProp -and $selProp.Value -and $selProp.Value.PSObject.Properties['comandos']) { @($selProp.Value.comandos) } else { $null }
         foreach ($cf in (Get-ChildItem $cmdSrc -Filter *.md)) {

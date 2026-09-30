@@ -15,6 +15,7 @@ y si se cae, volver atrás en minutos.
 | Desplegar un proyecto (dónde y cómo, por stack) | `references/deploy-by-stack.md` |
 | Dockerizar (Dockerfile, compose de dev, imagen de prod) | `references/docker.md` |
 | CI/CD: pipeline en GitHub Actions, previews, deploy con aprobación | `references/ci-cd.md` |
+| Entregar el proyecto al cliente: manual, accesos, mantenimiento (/entregar) | `references/entrega-cliente.md` |
 | Entornos y secretos (.env, staging, rotación, fugas) | `references/envs-secrets.md` |
 | Colas, cron, workers, storage y logs EN producción | `references/production-runtime.md` |
 | Backups (con restore probado), uptime, Sentry, /health, incidentes | `references/backups-monitoring.md` |

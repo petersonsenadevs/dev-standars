@@ -6,13 +6,13 @@ skills que se activan solas, muros que bloquean de verdad y verificación obliga
 nada por hecho.
 
 <!-- GEN:resumen -->
-![Version](https://img.shields.io/badge/version-v1.1.2-black) ![Skills](https://img.shields.io/badge/skills-42-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Muros](https://img.shields.io/badge/muros-13_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-15-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
+![Version](https://img.shields.io/badge/version-v1.2.0-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-19-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
 
 | Grupo | Skills | Entra por |
 |---|---|---|
 | **Planificación** (1) | project-planner | `project-planner` |
 | **Enrutado** (2) | front-activation, skill-router | `skill-router` |
-| **Calidad de código** (2) | backend-audit, code-quality | router |
+| **Calidad de código** (3) | backend-audit, code-quality, depurar | router |
 | **Arquitectura** (1) | ddd-hexagonal | router |
 | **Documentación** (1) | devlog | router |
 | **Front y diseño** (7) | design-system, image-gen, modern-web-design, skill de marca de la agencia… | `ui-ux-pro-max` |

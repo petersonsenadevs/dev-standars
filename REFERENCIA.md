@@ -15,7 +15,7 @@ El agente decide solo, en tres capas automáticas:
 3. **Tablas de activación** (`skill-router` y `front-activation`, generadas del registro): el agente las
    consulta cuando duda; `references/decision-trees.md` tiene los árboles de decisión completos.
 
-Total: **42 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo, señales, prioridad, dependencias).
+Total: **43 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo, señales, prioridad, dependencias).
 
 ### Planificación (grupo `planning`, 1 skill)
 
@@ -30,11 +30,12 @@ Total: **42 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo
 | **`skill-router`** (entrada) | 0 | Empezar cualquier tarea no trivial: decide qué skill y sección leer (tabla de activación + protocolo de carga) | que stack, elegir stack, con que lo hago, que skill |
 | `front-activation` | 8 | Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea; efectos concretos del catálogo (79 recetas: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado) | blobs, gooey, metaballs, morph, separadores de onda, onda entre secciones, clip-path, view transitions… |
 
-### Calidad de código (grupo `quality`, 2 skills)
+### Calidad de código (grupo `quality`, 3 skills)
 
 | Skill | Prio | Cuándo usarla | Señales que la activan (muestra) |
 |---|---|---|---|
 | `backend-audit` | 8 | Auditar backend y arquitectura con pruebas (herramientas por stack, evidencia por hallazgo, informe), deuda técnica, código legado, dependencias circulares y refactor seguro con tests de caracterización | audit, deuda tecnica, codigo legado, legacy, hotspots, acoplamiento, dependencias circulares, analiza el backend… |
+| `depurar` | 8 | Algo falla o no funciona (tests en rojo, excepción, error 500, resultado incorrecto): método reproducir, test que falla, hipótesis, acotar y arreglar la causa | no funciona, no va, falla, fallando, depura, debug, bug, excepciones… |
 | `code-quality` | 5 | Escribir o refactorizar lógica, crear tests, manejar errores/logs, seguridad, rendimiento, diseñar endpoints/APIs, revisar o abrir un PR | tests, refactor, revisa, pull request, seguridad, security, rendimiento, performance… |
 
 ### Arquitectura (grupo `architecture`, 1 skill)
@@ -128,10 +129,14 @@ se instalan SIEMPRE; el resto solo en stacks con perfil de front.
 | `/adoptar` | [notas opcionales, p. ej. "solo backend" o "el idioma oficial es inglés"] | Adoptar las convenciones de un proyecto existente y sellarlas como regla inmutable |
 | `/auditar` | [área opcional, p. ej. "pagos", "API pública" o "antes de producción"] | Auditoría del backend y la arquitectura con pruebas — herramientas reales, evidencia por hallazgo, informe y plan |
 | `/brief` | [tipo de negocio si ya se sabe, p. ej. "restaurante"] | Entrevista de descubrimiento en lenguaje llano — para clientes que no saben el palabreo técnico |
+| `/depurar` | [síntoma o error, p. ej. "el checkout devuelve 500 con cupones"] | Depuración con método — reproducir, test que falla, hipótesis, acotar, arreglar la causa y verificar |
 | `/design-system` | [producto/industria, p. ej. "saas facturación autónomos"] | Genera (o revisa) el design system del proyecto con ui-ux-pro-max |
 | `/efecto` | <nombre del efecto> [dónde, p. ej. "marquee en el footer de logos"] | Aplica un efecto pro de frontend desde el catálogo (parallax, marquee, cursor, stacking…) |
+| `/entregar` | [proyecto o cliente] | Entrega al cliente — manual de uso, servicios y accesos, mantenimiento, cómo pedir cambios y formación |
+| `/estimar` | [qué estimar, p. ej. "la web del restaurante" o "fase 2"] | Estimación y presupuesto — horas por tarea, partidas olvidadas, riesgos y rango final para el cliente |
 | `/instalar` | [stack opcional: laravel, next, astro, vue-ts, nuxt, sveltekit, wordpress, node-api, python-langgraph] | Instala/actualiza dev-standards COMPLETO en este proyecto desde el plugin (clona el repo, detecta el stack y ejecuta init-project) |
 | `/lanzar` | [url de preview/producción] | Checklist de lanzamiento — todo lo que se comprueba antes de publicar la web |
+| `/mapa` | [área opcional, p. ej. "pagos"] | Mapa del proyecto — qué es, cómo arrancarlo, estructura, flujos críticos y dónde tocar para cada cosa |
 | `/propuestas` | [página, p. ej. "home" o "landing de escombros"] | Modo propuesta — blueprint aprobable + 2 maquetas A/B visuales antes de construir |
 | `/refactor` | <objetivo, p. ej. "sacar la lógica de precios de OrderController"> | Refactor seguro — tests de caracterización primero, pasos pequeños verificados y mismo comportamiento demostrado |
 | `/repaso` | [url o página, p. ej. "http://localhost:4321" o "la home"] | Sesión de revisión conversacional — repasamos la web juntos, sección a sección |
@@ -159,6 +164,9 @@ trabajo lo hacen las tablas de activación de las reglas generadas y los githook
 | `secrets-guard.mjs` | PreToolUse Edit/Write | BLOQUEA escribir credenciales reales (AWS, GitHub, Stripe, OpenAI/Anthropic, PEM, JWT, cadenas con password); ignora placeholders. |
 | `code-hygiene.mjs` | PreToolUse Edit/Write | BLOQUEA introducir: console.log/debugger/dd()/var_dump/ray, términos vetados en `gustos.md` §No, marcadores de conflicto de git, `.only`/`.skip`/xit en tests, y la lista negra anti-IA (badges de disponibilidad, numeración de secciones). Escape puntual: comentario `dev-standards-allow`. |
 | `conventions-guard.mjs` | PreToolUse Edit/Write | BLOQUEA código que viole las reglas ejecutables de `conventions.json` (/adoptar): la convención del proyecto gana. |
+| `backend-guard.mjs` | PreToolUse Edit/Write | BLOQUEA introducir: migraciones destructivas en la parte que se aplica (borrar o renombrar columnas o tablas: patrón expandir → contraer), `env()` fuera de `config/` en Laravel, y datos personales en logs (request completa, cuerpos, contraseñas o tokens). Escape: `dev-standards-allow` con el motivo. |
+| `back-skill-reminder.mjs` | PreToolUse Edit/Write (backend) | Primera edición de backend en la sesión: recuerda la receta del stack, las convenciones selladas y la versión real del framework. No bloquea. |
+| `depurar-coach.mjs` | PostToolUse Bash/PowerShell | Si falla un test, build o verificación, activa el método de la skill depurar (reproducir, test que falla, hipótesis, acotar, arreglar la causa). Como mucho una vez cada 20 minutos. |
 | `front-skill-reminder.mjs` | PreToolUse Edit/Write (front) | Primera edición de UI: BLOQUEA una vez si no hay design system NI brief (obliga a preguntar); después recuerda ui-ux-pro-max, el set de iconos del MASTER y las reglas duras de UI. |
 | `format-on-save.mjs` | PostToolUse | Formatea el archivo guardado con la herramienta del stack (Pint/Prettier/ruff) si existe. Nunca bloquea. |
 | `edit-tracker.mjs` | PostToolUse | Marca que se editó código; stop-guard exige verificación posterior. |

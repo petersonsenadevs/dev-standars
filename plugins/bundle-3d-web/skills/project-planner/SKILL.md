@@ -15,6 +15,7 @@ verificado y documentado. El plan vive en `plan/PLAN.md` del proyecto y es la fu
 | Arrancar proyecto/feature (no hay `plan/PLAN.md`) | `references/discovery.md` → `references/brief-and-scope.md` → `references/plan-format.md` + `templates/PLAN.md` |
 | Elegir cómo trocear y ordenar | `references/slicing-and-sequencing.md`; playbook parecido en `references/kickoff-playbooks.md` |
 | Ejecutar la siguiente tarea | `references/task-protocol.md` (+ la skill/sección que indique la tarjeta) |
+| Estimar horas y presupuesto para el cliente (/estimar) | `references/estimacion.md` |
 | Decidir qué skill usa una tarea | `references/skill-map.md` |
 | Definir "hecho" | `references/definition-of-done.md` |
 | Algo cambió / bloqueo / tarea que se dispara | `references/replanning-and-risks.md` |

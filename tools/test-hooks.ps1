@@ -81,6 +81,16 @@ $null = Case 'introduce it.only -> bloquea' 'code-hygiene.mjs' @{ tool_name='Edi
 $null = Case 'it.only ya existia -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.test.ts'; old_string="it.only('suma', fn); const a = 1"; new_string="it.only('suma', fn); const a = 2" } } 0
 $null = Case 'marcador de conflicto -> bloquea' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\app.ts'; content="const a = 1;`n<<<<<<< HEAD`nconst b = 2;" } } 2
 
+# --- backend-guard ---
+$migUp = "<?php`nreturn new class extends Migration {`n    public function up(): void { Schema::table('users', function (Blueprint `$t) { `$t->dropColumn('phone'); }); }`n    public function down(): void { }`n};"
+$migCreate = "<?php`nreturn new class extends Migration {`n    public function up(): void { Schema::create('orders', function (Blueprint `$t) { `$t->id(); }); }`n    public function down(): void { Schema::dropIfExists('orders'); }`n};"
+$null = Case 'migracion dropColumn en up -> bloquea' 'backend-guard.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\database\migrations\2026_09_30_000001_quitar_telefono.php'; content=$migUp } } 2
+$null = Case 'migracion create con dropIfExists en down -> pasa' 'backend-guard.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\database\migrations\2026_09_30_000002_crear_pedidos.php'; content=$migCreate } } 0
+$null = Case 'env() en un servicio -> bloquea' 'backend-guard.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\app\Services\Pago.php'; content="<?php`n`$k = env('STRIPE_KEY');" } } 2
+$null = Case 'env() en config -> pasa' 'backend-guard.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\config\services.php'; content="<?php`nreturn ['stripe' => env('STRIPE_KEY')];" } } 0
+$null = Case 'log de la request entera -> bloquea' 'backend-guard.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\app\Http\Controllers\Pedido.php'; content="<?php`nLog::info('pedido', `$request->all());" } } 2
+$null = Case 'log con id de pedido -> pasa' 'backend-guard.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\app\Http\Controllers\Pedido.php'; content="<?php`nLog::info('pedido creado', ['id' => `$pedido->id]);" } } 0
+
 # --- code-hygiene: lista negra anti-IA ---
 $null = Case 'badge agenda abierta -> bloquea' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\Hero.astro'; content='<span class="badge">AGENDA ABIERTA ESTE MES</span>' } } 2
 $null = Case 'numeracion de seccion -> bloquea' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Trabajos.astro'; old_string='<h2>Trabajos</h2>'; new_string='<h2>02 — TRABAJOS</h2>' } } 2
@@ -109,6 +119,10 @@ OutCase 'session-start detecta versiones' 'session-start.mjs' @{} 'Versiones det
 OutCase 'session-start detecta go.mod' 'session-start.mjs' @{} 'Go 1\.22'
 OutCase 'session-start avisa de EOL' 'session-start.mjs' @{} 'SIN SOPORTE'
 OutCase 'session-start ve convenciones' 'session-start.mjs' @{} 'Convenciones ADOPTADAS'
+
+# --- depurar-coach: un test que falla activa el metodo; uno que pasa no dice nada ---
+OutCase 'test en rojo -> metodo de depuracion' 'depurar-coach.mjs' @{ tool_name='Bash'; tool_input=@{ command='php artisan test' }; tool_response=@{ stdout="FAIL  Tests\Feature\PedidoTest`nTests: 1 failed, 12 passed" } } 'skill depurar'
+$null = Case 'test en verde -> silencio (exit 0)' 'depurar-coach.mjs' @{ tool_name='Bash'; tool_input=@{ command='npm test' }; tool_response=@{ stdout='Tests: 14 passed' } } 0
 
 [System.IO.Directory]::Delete($proj, $true)
 Write-Host "Casos: $i  Fallos: $fail"
