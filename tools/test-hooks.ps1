@@ -120,6 +120,11 @@ OutCase 'session-start detecta go.mod' 'session-start.mjs' @{} 'Go 1\.22'
 OutCase 'session-start avisa de EOL' 'session-start.mjs' @{} 'SIN SOPORTE'
 OutCase 'session-start ve convenciones' 'session-start.mjs' @{} 'Convenciones ADOPTADAS'
 
+# --- stop-guard: guardia de assets (imagen pesada y fuente sin woff2 añadidas hoy) ---
+New-Item -ItemType Directory -Force (Join-Path $proj 'public\img') | Out-Null
+[System.IO.File]::WriteAllBytes((Join-Path $proj 'public\img\hero.png'), (New-Object byte[] (900KB)))
+OutCase 'assets pesados -> aviso al cerrar' 'stop-guard.mjs' @{} 'hero\.png \(900 KB'
+
 # --- depurar-coach: un test que falla activa el metodo; uno que pasa no dice nada ---
 OutCase 'test en rojo -> metodo de depuracion' 'depurar-coach.mjs' @{ tool_name='Bash'; tool_input=@{ command='php artisan test' }; tool_response=@{ stdout="FAIL  Tests\Feature\PedidoTest`nTests: 1 failed, 12 passed" } } 'skill depurar'
 $null = Case 'test en verde -> silencio (exit 0)' 'depurar-coach.mjs' @{ tool_name='Bash'; tool_input=@{ command='npm test' }; tool_response=@{ stdout='Tests: 14 passed' } } 0

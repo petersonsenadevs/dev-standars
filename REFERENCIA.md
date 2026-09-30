@@ -15,7 +15,7 @@ El agente decide solo, en tres capas automáticas:
 3. **Tablas de activación** (`skill-router` y `front-activation`, generadas del registro): el agente las
    consulta cuando duda; `references/decision-trees.md` tiene los árboles de decisión completos.
 
-Total: **43 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo, señales, prioridad, dependencias).
+Total: **44 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo, señales, prioridad, dependencias).
 
 ### Planificación (grupo `planning`, 1 skill)
 
@@ -23,12 +23,13 @@ Total: **43 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo
 |---|---|---|---|
 | **`project-planner`** (entrada) | 20 | Arrancar un proyecto o feature, planificar, "¿qué hacemos ahora?", siguiente tarea; y SIEMPRE que exista plan/PLAN.md (se sigue el plan) | planifica, planning, roadmap, fases, hoja de ruta, que hacemos ahora, siguiente tarea, empezamos… |
 
-### Enrutado (grupo `routing`, 2 skills)
+### Enrutado (grupo `routing`, 3 skills)
 
 | Skill | Prio | Cuándo usarla | Señales que la activan (muestra) |
 |---|---|---|---|
 | **`skill-router`** (entrada) | 0 | Empezar cualquier tarea no trivial: decide qué skill y sección leer (tabla de activación + protocolo de carga) | que stack, elegir stack, con que lo hago, que skill |
 | `front-activation` | 8 | Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea; efectos concretos del catálogo (79 recetas: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado) | blobs, gooey, metaballs, morph, separadores de onda, onda entre secciones, clip-path, view transitions… |
+| `instalar-proyecto` | 8 | Instalar o actualizar dev-standards completo en el proyecto (/instalar): todo, por categorías o a medida | instalar dev.standards, actualizar dev.standards, reinstala dev.standards, instalar el paquete, instalacion de dev.standards |
 
 ### Calidad de código (grupo `quality`, 3 skills)
 
@@ -134,7 +135,7 @@ se instalan SIEMPRE; el resto solo en stacks con perfil de front.
 | `/efecto` | <nombre del efecto> [dónde, p. ej. "marquee en el footer de logos"] | Aplica un efecto pro de frontend desde el catálogo (parallax, marquee, cursor, stacking…) |
 | `/entregar` | [proyecto o cliente] | Entrega al cliente — manual de uso, servicios y accesos, mantenimiento, cómo pedir cambios y formación |
 | `/estimar` | [qué estimar, p. ej. "la web del restaurante" o "fase 2"] | Estimación y presupuesto — horas por tarea, partidas olvidadas, riesgos y rango final para el cliente |
-| `/instalar` | [stack opcional: laravel, next, astro, vue-ts, nuxt, sveltekit, wordpress, node-api, python-langgraph] | Instala/actualiza dev-standards COMPLETO en este proyecto desde el plugin (clona el repo, detecta el stack y ejecuta init-project) |
+| `/instalar` | [stack opcional, p. ej. "laravel"] | Instala o actualiza dev-standards completo en este proyecto (todo, por categorías o a medida) |
 | `/lanzar` | [url de preview/producción] | Checklist de lanzamiento — todo lo que se comprueba antes de publicar la web |
 | `/mapa` | [área opcional, p. ej. "pagos"] | Mapa del proyecto — qué es, cómo arrancarlo, estructura, flujos críticos y dónde tocar para cada cosa |
 | `/propuestas` | [página, p. ej. "home" o "landing de escombros"] | Modo propuesta — blueprint aprobable + 2 maquetas A/B visuales antes de construir |
@@ -170,7 +171,7 @@ trabajo lo hacen las tablas de activación de las reglas generadas y los githook
 | `front-skill-reminder.mjs` | PreToolUse Edit/Write (front) | Primera edición de UI: BLOQUEA una vez si no hay design system NI brief (obliga a preguntar); después recuerda ui-ux-pro-max, el set de iconos del MASTER y las reglas duras de UI. |
 | `format-on-save.mjs` | PostToolUse | Formatea el archivo guardado con la herramienta del stack (Pint/Prettier/ruff) si existe. Nunca bloquea. |
 | `edit-tracker.mjs` | PostToolUse | Marca que se editó código; stop-guard exige verificación posterior. |
-| `stop-guard.mjs` | Stop | BLOQUEA el cierre (una vez) si falta: devlog del día, verify-build tras editar código, o ui-verify móvil tras tocar UI. |
+| `stop-guard.mjs` | Stop | BLOQUEA el cierre (una vez) si falta: devlog del día, verify-build tras editar código, o ui-verify móvil tras tocar UI. Además avisa de assets pesados añadidos en las últimas 24 h (imágenes de más de 500 KB, fuentes sin woff2, vídeos grandes). |
 | `pre-compact.mjs` | PreCompact | Re-inyecta lo esencial (stack, versiones, design system, plan, reglas) para sobrevivir a la compactación de contexto. |
 | `session-end.mjs` | SessionEnd | Limpia los marcadores de sesión. |
 

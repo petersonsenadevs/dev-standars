@@ -23,6 +23,7 @@
     "skills":  [
                    "devlog",
                    "project-planner",
+                   "instalar-proyecto",
                    "code-quality",
                    "backend-audit",
                    "depurar",
@@ -391,6 +392,16 @@
                        "entrypoint":  true,
                        "keywords":  "(?i)\\b(qu[eé] (stack|framework|librer[ií]a|tecnolog[ií]a)|elegir (stack|framework|librer[ií]a)|con qu[eé] (lo )?(hago|monto|empiezo)|qu[eé] skill)\\b",
                        "priority":  0,
+                       "requires":  [
+
+                                    ]
+                   },
+                   {
+                       "name":  "instalar-proyecto",
+                       "group":  "routing",
+                       "entrypoint":  false,
+                       "keywords":  "(?i)\\b(instala(r)? dev.standards|actualiza(r)? dev.standards|reinstala\\w* dev.standards|instala(r)? el paquete|instalaci[oó]n de dev.standards|instala(r)? (los|las) (skills|est[aá]ndares) en (el|este) proyecto)\\b",
+                       "priority":  8,
                        "requires":  [
 
                                     ]

@@ -359,6 +359,15 @@
       "entrypoint": true
     },
     {
+      "name": "instalar-proyecto",
+      "group": "routing",
+      "when": "Instalar o actualizar dev-standards completo en el proyecto (/instalar): todo, por categorías o a medida",
+      "keywords": "(?i)\\b(instala(r)? dev.standards|actualiza(r)? dev.standards|reinstala\\w* dev.standards|instala(r)? el paquete|instalaci[oó]n de dev.standards|instala(r)? (los|las) (skills|est[aá]ndares) en (el|este) proyecto)\\b",
+      "priority": 8,
+      "requires": [],
+      "installedBy": "base"
+    },
+    {
       "name": "front-activation",
       "group": "routing",
       "when": "Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea; efectos concretos del catálogo (79 recetas: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado)",

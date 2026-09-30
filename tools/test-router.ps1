@@ -120,6 +120,7 @@ $cases = @(
     @{ n = 'estimar presupuesto';   prompt = 'hazme el presupuesto de la web del restaurante';            skills = @('project-planner','code-quality','skill-router'); expect = 'project-planner' }
     @{ n = 'entregar cliente';      prompt = 'prepara la entrega al cliente con el manual de uso';         skills = @('deploy-ops','ui-verify','skill-router'); expect = 'deploy-ops' }
     @{ n = 'mapa proyecto';         prompt = 'explícame este proyecto, dónde está el código de pagos';     skills = @('code-quality','skill-router'); expect = 'code-quality' }
+    @{ n = 'instalar dev-standards'; prompt = 'instala dev-standards en este proyecto por categorías';     skills = @('instalar-proyecto','skill-router'); expect = 'instalar-proyecto' }
     @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
 )
 

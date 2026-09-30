@@ -4,6 +4,7 @@
 // o marcador de sesión), deja parar y solo recuerda. Sin git o sin cambios: solo recordatorio si falta devlog.
 
 import fs from 'node:fs';
+import path from 'node:path';
 import {
     readHookInput, projectRoot, planStatus, sessionFlag, projectFlag, testOnce,
     todayDevlog, devlogIndexed, hookConfig, gitBranch, gitDirty, todayStr,
@@ -32,6 +33,33 @@ if (fs.existsSync(ceFlag)) {
         buildMsg = " Has editado codigo y NO hay verificacion posterior: ejecuta 'node <skills-dir>/code-quality/scripts/verify-build.mjs' (corre lint/types/tests/build del stack y deja constancia) o los comandos del stack a mano, corrige los fallos y pega el resultado antes de cerrar.";
     }
 }
+// Guardia de assets: imágenes pesadas, fuentes sin woff2 y vídeos grandes añadidos en las últimas 24 h.
+// Es la causa nº 1 de webs lentas. Solo avisa (va dentro del mensaje), no bloquea por sí sola.
+function revisarAssets(base) {
+    const dirs = ['public', 'static', 'assets', 'images', 'img', 'src/assets', 'src/images', 'resources/images', 'resources/img', 'resources/js/assets', 'wp-content/themes', 'wp-content/uploads'];
+    const limite = Date.now() - 24 * 60 * 60 * 1000;
+    const avisos = [];
+    const visitar = (d, prof) => {
+        if (prof > 5 || avisos.length >= 8) return;
+        let entradas = [];
+        try { entradas = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
+        for (const e of entradas) {
+            const f = path.join(d, e.name);
+            if (e.isDirectory()) { if (!/^(node_modules|vendor|build|dist|\.git|cache)$/i.test(e.name)) visitar(f, prof + 1); continue; }
+            let st; try { st = fs.statSync(f); } catch { continue; }
+            if (st.mtimeMs < limite) continue;
+            const kb = Math.round(st.size / 1024), rel = path.relative(base, f).replace(/\\/g, '/');
+            if (/\.(jpe?g|png|gif|webp|avif)$/i.test(e.name) && kb > 500) avisos.push(`${rel} (${kb} KB: comprímela a WebP o AVIF, idealmente < 300 KB)`);
+            else if (/\.svg$/i.test(e.name) && kb > 150) avisos.push(`${rel} (${kb} KB: optimiza el SVG con SVGO)`);
+            else if (/\.(ttf|otf)$/i.test(e.name)) avisos.push(`${rel} (fuente sin comprimir: usa woff2)`);
+            else if (/\.(mp4|mov|webm)$/i.test(e.name) && kb > 5 * 1024) avisos.push(`${rel} (${Math.round(kb / 1024)} MB: vídeo pesado, comprímelo y añade poster)`);
+        }
+    };
+    for (const d of dirs) visitar(path.join(base, d), 0);
+    return avisos.length ? ` Assets pesados añadidos hoy: ${avisos.join('; ')}. Revísalos antes de cerrar (ui-verify references/web-performance.md).` : '';
+}
+planMsg += revisarAssets(root);
+
 const today = todayDevlog(root);
 if (today.length) {
     const notIdx = today.filter(n => !devlogIndexed(root, n));
