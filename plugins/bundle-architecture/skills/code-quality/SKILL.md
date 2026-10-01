@@ -48,7 +48,7 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 | Auditar el backend, deuda técnica, refactor grande (/auditar, /refactor) | skill `backend-audit` (encuentra con pruebas; las recetas de aquí lo arreglan) |
 | Explicar un proyecto a quien llega nuevo: estructura, flujos, dónde tocar (/mapa) | `references/mapa-proyecto.md` |
 | Algo falla o no funciona mientras construyes | skill `depurar` (método: reproducir, test que falla, hipótesis, acotar) |
-| Verificar el proyecto tras TUS cambios | `scripts/verify-build.mjs` (lint+types+tests+build; corrige hasta 0 fallos) |
+| Verificar el proyecto tras TUS cambios | `scripts/verify-build.mjs` desde la raíz (lint+types+tests+build; corrige hasta 0 fallos). En monorepos verifica cada paquete con cambios en su carpeta y lenguaje (JS con su gestor, Python con uv/poetry, PHP, Go); `--plan` enseña qué ejecutaría, `--paquete apps/web`, `--todos`, `--sin-build` |
 
 ## Principios transversales (aplican siempre, sin leer nada más)
 1. **Lee antes de escribir**: imita naming, estructura y estilo del código vecino; no introduzcas patrones nuevos sin motivo. Si existe `conventions.md` (adoptado con `/adoptar`), es ley.

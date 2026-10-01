@@ -53,6 +53,9 @@ jobs:
       - name: test-rondas (rondas de maquetas y verificador)
         run: node tools/test-rondas.mjs
 
+      - name: test-verify-build (proyectos simples y monorepos)
+        run: node tools/test-verify-build.mjs
+
       - name: test-init-parity (instalador PowerShell = instalador Node)
         shell: powershell
         run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-init-parity.ps1

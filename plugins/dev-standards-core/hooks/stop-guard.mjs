@@ -64,27 +64,35 @@ function revisarAssets(base) {
 }
 planMsg += revisarAssets(root);
 
-// Memoria del proyecto: si el devlog de hoy trae decisiones y devlog/MEMORIA.md no se ha tocado después, se
-// exige actualizarla (bloquea una vez por sesión). Si pasa de 60 líneas, se recuerda pasar lo viejo al histórico.
+// Memoria del proyecto: si el devlog de hoy trae decisiones que devlog/MEMORIA.md (o su histórico) no recoge,
+// se exige apuntarlas (bloquea una vez por sesión). Se mira el CONTENIDO, no la fecha de los archivos: una
+// entrada está recogida si la memoria la cita ("ver 015", "dev-015", "#015") o menciona alguno de sus D-xxx.
+// Así no salta cuando el agente apunta primero la memoria y escribe después la entrada.
 let memMsg = '', memLarga = '';
 {
     const dirHoy = path.join(root, 'devlog', todayStr());
+    const mem = memoriaProyecto(root);
+    const textoMem = (readText(path.join(root, 'devlog', 'MEMORIA.md')) || '') + '\n' + (readText(path.join(root, 'devlog', 'MEMORIA-historico.md')) || '');
+    const citadas = new Set();
+    for (const m of textoMem.matchAll(/(?:\bver\b|\bentradas?\b|\bdevlog\b|\bdev-|#)\s*((?:\d{3,4}(?:\s*(?:,|y|e|\/)\s*)?)+)/gi)) {
+        for (const n of m[1].match(/\d{3,4}/g) || []) citadas.add(String(parseInt(n, 10)));
+    }
+    const idsMem = new Set((textoMem.match(/\bD-\d{1,4}\b/g) || []).map(s => s.toUpperCase()));
+    const recogida = (num, texto) => citadas.has(String(parseInt(num, 10))) || (texto.match(/\bD-\d{1,4}\b/g) || []).some(id => idsMem.has(id.toUpperCase()));
     const conDecision = [];
-    let tDec = 0;
     for (const n of todayDevlog(root)) {
-        const f = path.join(dirHoy, n);
-        if (tieneContenido(seccionMd(readText(f), 'Decisiones'))) {
-            conDecision.push(n.slice(0, 3));
-            try { tDec = Math.max(tDec, fs.statSync(f).mtimeMs); } catch {}
-        }
+        const dec = seccionMd(readText(path.join(dirHoy, n)), 'Decisiones');
+        const num = (/^(\d{3,4})/.exec(n) || [])[1];
+        if (num && tieneContenido(dec) && !recogida(num, dec)) conDecision.push(num);
     }
     const fDec = path.join(dirHoy, 'DECISIONES.md');
-    if (fs.existsSync(fDec) && tieneContenido((readText(fDec) || '').replace(/^#\s.*$/gm, ''))) {
-        conDecision.push('DECISIONES.md');
-        try { tDec = Math.max(tDec, fs.statSync(fDec).mtimeMs); } catch {}
+    const txtDec = (readText(fDec) || '').replace(/^#\s.*$/gm, '');
+    if (tieneContenido(txtDec)) {
+        // DECISIONES.md: recogido si la memoria cita alguna de sus entradas (dev-NNN) o alguno de sus D-xxx
+        const refs = (txtDec.match(/(?:dev-|#|devlog\s*|ver\s+)(\d{3,4})\b/gi) || []).map(r => r.match(/\d{3,4}/)[0]);
+        if (!refs.some(r => recogida(r, '')) && !recogida('-1', txtDec)) conDecision.push('DECISIONES.md');
     }
-    const mem = memoriaProyecto(root);
-    if (conDecision.length && (!mem.existe || mem.mtime < tDec)) {
+    if (conDecision.length) {
         memMsg = ` Hay decisiones nuevas en el devlog de hoy (${conDecision.join(', ')}) y devlog/MEMORIA.md sin actualizar: añádelas como vigentes con su D-xxx y su entrada (o marca como sustituida la que cambian), con la skill devlog (references/memoria.md).`;
     }
     if (mem.existe && mem.lineas.length > 60) {

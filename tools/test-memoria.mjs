@@ -239,10 +239,34 @@ const hook = (nombre, input, cwd = proj, env = {}) => spawnSync(process.execPath
     ok(/"decision":"block"/.test(r1.stdout) && /MEMORIA/.test(r1.stdout), 'stop-guard bloquea si hay decisión y la memoria no se actualizó', r1.stdout.slice(0, 300));
     const r2 = hook('stop-guard.mjs', { session_id: sid }, p3);
     ok(!/"decision":"block"/.test(r2.stdout), 'stop-guard solo bloquea una vez por sesión', r2.stdout.slice(0, 200));
-    // memoria actualizada después -> no bloquea
+    // tocar la memoria SIN recoger la decisión no basta (se mira el contenido, no la fecha)
     fs.utimesSync(path.join(p3, 'devlog', 'MEMORIA.md'), new Date(), new Date());
+    const r3a = hook('stop-guard.mjs', { session_id: sid + '-a2' }, p3);
+    ok(/MEMORIA\.md sin actualizar/.test(r3a.stdout), 'memoria más reciente pero sin la decisión -> sigue pidiéndola', r3a.stdout.slice(0, 200));
+    // memoria que cita la entrada -> no bloquea, aunque sea MÁS ANTIGUA que la entrada (el caso de un monorepo)
+    fs.writeFileSync(path.join(p3, 'devlog', 'MEMORIA.md'), '# Memoria del proyecto\n\n## Decisiones vigentes\n- D-001 · Algo · ver 001\n- D-002 · Resend en vez de SMTP · ver 002\n');
+    fs.utimesSync(path.join(p3, 'devlog', 'MEMORIA.md'), viejo, viejo);
     const r3 = hook('stop-guard.mjs', { session_id: sid + '-b' }, p3);
-    ok(!/MEMORIA\.md sin actualizar/.test(r3.stdout), 'memoria al día -> sin aviso', r3.stdout.slice(0, 200));
+    ok(!/MEMORIA\.md sin actualizar/.test(r3.stdout), 'memoria escrita ANTES que la entrada pero que la cita -> sin aviso', r3.stdout.slice(0, 200));
+    // recogida por D-xxx aunque la memoria no cite el número de entrada
+    fs.writeFileSync(path.join(p3, 'devlog', f, '002-cambio.md'), '# 002 — Cambio\n\n## Decisiones (resumen)\n- D-007 · Usamos Resend en vez de SMTP.\n');
+    fs.writeFileSync(path.join(p3, 'devlog', 'MEMORIA.md'), '# Memoria\n\n## Decisiones vigentes\n- D-007 · Resend para correos\n');
+    const r3b = hook('stop-guard.mjs', { session_id: sid + '-b2' }, p3);
+    ok(!/MEMORIA\.md sin actualizar/.test(r3b.stdout), 'recogida por su D-xxx -> sin aviso', r3b.stdout.slice(0, 200));
+    // trampa: "D-002" en la memoria NO es citar la entrada 002
+    fs.writeFileSync(path.join(p3, 'devlog', f, '002-cambio.md'), '# 002 — Cambio\n\n## Decisiones (resumen)\n- Usamos Resend en vez de SMTP.\n');
+    fs.writeFileSync(path.join(p3, 'devlog', 'MEMORIA.md'), '# Memoria\n\n## Decisiones vigentes\n- D-002 · Otra cosa distinta · ver 001\n');
+    const r3c = hook('stop-guard.mjs', { session_id: sid + '-b3' }, p3);
+    ok(/MEMORIA\.md sin actualizar/.test(r3c.stdout), 'un D-002 en la memoria no cuenta como citar la entrada 002', r3c.stdout.slice(0, 200));
+    // cita en lista ("ver 001, 002") y en el histórico también cuentan
+    fs.writeFileSync(path.join(p3, 'devlog', 'MEMORIA.md'), '# Memoria\n\n## Decisiones vigentes\n- D-003 · Dos cosas · ver 001, 002\n');
+    const r3d = hook('stop-guard.mjs', { session_id: sid + '-b4' }, p3);
+    ok(!/MEMORIA\.md sin actualizar/.test(r3d.stdout), '"ver 001, 002" cita las dos entradas', r3d.stdout.slice(0, 200));
+    fs.writeFileSync(path.join(p3, 'devlog', 'MEMORIA.md'), '# Memoria\n\n## Decisiones vigentes\n- D-001 · Algo · ver 001\n');
+    fs.writeFileSync(path.join(p3, 'devlog', 'MEMORIA-historico.md'), '# Histórico\n\n- D-002 · Resend: sustituida por D-009 · ver 002\n');
+    const r3e = hook('stop-guard.mjs', { session_id: sid + '-b5' }, p3);
+    ok(!/MEMORIA\.md sin actualizar/.test(r3e.stdout), 'recogida en MEMORIA-historico.md también cuenta', r3e.stdout.slice(0, 200));
+    fs.rmSync(path.join(p3, 'devlog', 'MEMORIA-historico.md'));
     // decisión vacía ("…") -> no cuenta como decisión
     fs.writeFileSync(path.join(p3, 'devlog', f, '002-cambio.md'), '# 002 — Cambio\n\n## Decisiones (resumen)\n- …\n\n## Verificación\n- ok\n');
     fs.utimesSync(path.join(p3, 'devlog', 'MEMORIA.md'), viejo, viejo);
