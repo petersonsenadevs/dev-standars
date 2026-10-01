@@ -70,6 +70,12 @@ git(m, 'init', '-q'); git(m, 'config', 'user.email', 't@t'); git(m, 'config', 'u
     ok(r.code === 0 && /no tocan ningún paquete ni código/.test(r.out), 'solo docs y devlog cambiados: nada que verificar, en verde (el caso de un monorepo)', r.out.slice(0, 200));
     git(m, 'checkout', '-q', '--', 'docs/notas.md'); fs.rmSync(path.join(m, 'devlog'), { recursive: true });
 }
+{   // lo que reescribe el instalador (.claude/hooks/*.mjs, .agents/skills/...) no es código del proyecto
+    w(m, '.claude/hooks/stop-guard.mjs', 'export {}\n'); w(m, '.agents/skills/code-quality/scripts/verify-build.mjs', 'export {}\n');
+    const r = run(m);
+    ok(r.code === 0 && /no tocan ningún paquete ni código/.test(r.out), 'cambios solo en .claude/ y .agents/: no lanza todo el monorepo (el caso de un monorepo)', r.out.slice(0, 200));
+    fs.rmSync(path.join(m, '.claude'), { recursive: true }); fs.rmSync(path.join(m, '.agents'), { recursive: true });
+}
 {
     w(m, 'tsconfig.base.json', '{}');
     const r = run(m, '--plan');
