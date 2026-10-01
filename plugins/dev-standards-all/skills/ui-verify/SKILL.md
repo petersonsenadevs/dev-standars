@@ -51,5 +51,5 @@ Tabla ancho×tema con OK/incidencias + errores de consola + veredicto `APTA` / `
 - Una UI no está "hecha" sin esta pasada documentada. Decir "debería verse bien" NO es verificar.
 - Si el script devuelve problemas, se corrigen y se re-ejecuta: no se entrega con el verificador en rojo.
 - No corrijas sobre la marcha lo ajeno a tu tarea: repórtalo (o tarjeta `X-Tn` si hay plan) y espera decisión.
-- Capturas con nombre significativo y guardadas donde indique el proyecto (o scratchpad).
+- Capturas SIEMPRE en `.ui-verify/` del proyecto, nunca en el scratchpad ni en carpetas temporales. Las del navegador (MCP) no se guardan en disco: si el usuario quiere conservarlas, usa el script.
 - No navegues fuera de la URL objetivo ni envíes formularios con datos reales.

@@ -46,6 +46,12 @@ que tienen prioridad sobre cualquier atajo.
 - No commitear en `main`/`master`/`develop`: crea rama primero.
 - Conventional Commits. Sin líneas de co-autor.
 
+## Dónde se guarda lo que generas
+Todo lo que el usuario vaya a mirar se guarda DENTRO del proyecto, nunca en el scratchpad ni en carpetas
+temporales del sistema (aunque la herramienta lo sugiera): capturas en `.ui-verify/`, maquetas en
+`design-system/<slug>/propuestas/`, comparativas, informes y documentos en `docs/` (o donde diga su skill).
+El scratchpad solo vale para scripts y archivos intermedios que nadie va a abrir. Al terminar, di la ruta.
+
 ## Estilo de trabajo
 - Escribe código que se parezca al que lo rodea (naming, idioms, densidad de comentarios).
 - Lee antes de editar. No inventes rutas ni APIs: verifícalas.

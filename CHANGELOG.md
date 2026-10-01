@@ -4,6 +4,10 @@
 
 Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `devlog/`.
 
+## 2026-10-01
+
+- **fix** — Capturas, maquetas e informes en el proyecto (no en temp) + .ui-verify ignorado por git · v1.3.1 (entrada 061)
+
 ## 2026-09-30
 
 - **feature** — Modo ahorro de tokens opcional (CLAUDE.md compacto) · v1.3.0 (entrada 060)

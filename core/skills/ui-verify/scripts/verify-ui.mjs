@@ -105,8 +105,12 @@ const audit = (mobile) => {
 const browser = await chromium.launch();
 let totalProblems = 0;
 try {
-  const { mkdirSync } = await import('node:fs');
-  if (screenshots) mkdirSync(outDir, { recursive: true });
+  const { mkdirSync, existsSync, writeFileSync } = await import('node:fs');
+  if (screenshots) {
+    mkdirSync(outDir, { recursive: true });
+    // Las capturas son evidencia local: nunca deben acabar en un commit
+    if (!existsSync(`${outDir}/.gitignore`)) writeFileSync(`${outDir}/.gitignore`, '*\n');
+  }
 
   for (const width of viewports) {
     const mobile = width < 500;
