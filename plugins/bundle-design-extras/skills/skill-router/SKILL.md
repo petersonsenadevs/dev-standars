@@ -1,25 +1,25 @@
 ---
 name: skill-router
-description: "ÚSAME PRIMERO en cualquier tarea no trivial: árbol de decisión que dice qué skill y sección leer (UI: ui-ux-pro-max; animación, 3D, calidad, arquitectura DDD, devlog) y detecta el stack. Puerta de entrada de dev-standards; contexto mínimo."
+description: "ÚSAME PRIMERO en cualquier tarea no trivial: árbol de decisión que dice qué skill y sección leer (UI: ui-ux-pro-max; animación, 3D, calidad, arquitectura DDD, devlog) y detecta el stack. Puerta de entrada de Senzu; contexto mínimo."
 ---
 
-# skill-router (dev-standards)
+# skill-router (Senzu)
 
 ## Protocolo de carga de contexto (obligatorio)
 1. **Una skill por tarea** (dos como máximo si la tarea cruza UI + lógica). Lee su `SKILL.md`; no leas otras "por si acaso".
 2. Dentro de la skill, sigue su tabla **"Lectura mínima por tarea"**: lee solo esa sección/referencia.
 3. `SKILL.upstream.md` y `references/` **se leen por secciones** (Read con offset/limit o Grep sobre el mapa de líneas), nunca enteros.
 4. No releas lo ya leído en la sesión; anota en tu razonamiento qué skill/sección usaste.
-5. Al terminar la parte especializada, vuelve al contexto del proyecto (`CLAUDE.md`/`AGENTS.md`, `design-system/*/MASTER.md`).
+5. Al terminar la parte especializada, vuelve al contexto del proyecto (`CLAUDE.md`/`AGENTS.md`, `senzu/design-system/*/MASTER.md`).
 6. Si una skill necesaria no está instalada, dilo y propón instalarla (`sync.ps1 -Skills …`, `-Bundle …`, `/plugin install …`); no improvises esa librería.
 
 ## 1. Detecta el stack (nunca lo asumas)
-`.dev-standards.json` (`stack`, `frontProfile`) → si no existe: `composer.json` (`laravel/framework`, `inertiajs/inertia-laravel`),
+`senzu/senzu.json` (`stack`, `frontProfile`) → si no existe: `composer.json` (`laravel/framework`, `inertiajs/inertia-laravel`),
 `package.json` (`next`, `astro`, `vue`, `react`), `pyproject.toml` (`fastapi`, `langgraph`). Si no está claro, pregunta.
 
 ## Árbol de decisión (empieza aquí)
 Árboles completos (global, B1/B2 backend, F2 animación, F3 3D, F4 presupuesto de efectos): `references/decision-trees.md`.
-1. ¿Existe `plan/PLAN.md`? → sigue la tarjeta `doing` (o primera `todo`) con `project-planner §references/task-protocol.md`.
+1. ¿Existe `senzu/plan/PLAN.md`? → sigue la tarjeta `doing` (o primera `todo`) con `project-planner §references/task-protocol.md`.
 2. ¿Proyecto o feature nueva? → `project-planner`.
 3. ¿Produce UI/estilos/página? → `ui-ux-pro-max` PRIMERO; después la especialista (animación F2, 3D F3).
 4. ¿Animación/scroll? → árbol F2 · ¿3D/WebGL? → árbol F3 (valida el coste con F4).
@@ -34,7 +34,7 @@ description: "ÚSAME PRIMERO en cualquier tarea no trivial: árbol de decisión 
 |---|---|---|
 | Empezar cualquier tarea no trivial: decide qué skill y sección leer (tabla de activación + protocolo de carga) | `skill-router` **(por defecto: empieza aquí)** | Enrutado |
 | Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea; efectos concretos del catálogo (79 recetas: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado) | `front-activation` | Enrutado |
-| Instalar o actualizar dev-standards completo en el proyecto (/instalar): todo, por categorías o a medida | `instalar-proyecto` | Enrutado |
+| Instalar o actualizar Senzu completo en el proyecto (/instalar): todo, por categorías o a medida | `instalar-proyecto` | Enrutado |
 | Arrancar un proyecto o feature, planificar, "¿qué hacemos ahora?", siguiente tarea; y SIEMPRE que exista plan/PLAN.md (se sigue el plan) | `project-planner` **(por defecto: empieza aquí)** | Planificación |
 | Crear, maquetar o rediseñar páginas, vistas, layouts, componentes, formularios, dashboards, temas, colores, tipografía, iconos, responsive, accesibilidad; archivos .vue .tsx .jsx .astro .blade.php .html .css | `ui-ux-pro-max` **(por defecto: empieza aquí)** | Front y diseño |
 | Tokens de diseño (primitivos → semánticos → componente), CSS variables, validación de tokens | `design-system` (si está instalada) | Front y diseño |

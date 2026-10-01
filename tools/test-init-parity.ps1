@@ -17,10 +17,10 @@ function Fail([string]$msg) { $script:fail++; Write-Host "FAIL $msg" }
 $a = Join-Path $env:TEMP 'ds-parity-ps'
 $b = Join-Path $env:TEMP 'ds-parity-node'
 Remove-Item $a, $b -Recurse -Force -ErrorAction SilentlyContinue
-$env:DEV_STANDARDS_ASSUME_YES = '1'
+$env:SENZU_ASSUME_YES = '1'
 & (Join-Path $PSScriptRoot 'init-project.ps1') -Stack $Stack -Path $a -Tools claude,codex *>$null
 node (Join-Path $PSScriptRoot 'init.mjs') --stack $Stack --path $b --tools claude,codex *>$null
-$env:DEV_STANDARDS_ASSUME_YES = ''
+$env:SENZU_ASSUME_YES = ''
 
 function Compare-Proyectos([string]$Escenario) {
     # 1) Guias byte a byte
@@ -89,10 +89,10 @@ foreach ($p in $a, $b) {
     # Un MCP propio del proyecto (como laravel-boost) debe sobrevivir a la reinstalacion
     Write-Utf8 (Join-Path $p '.mcp.json') '{ "mcpServers": { "laravel-boost": { "command": "php", "args": ["artisan", "boost:mcp"] } } }'
 }
-$env:DEV_STANDARDS_ASSUME_YES = '1'
+$env:SENZU_ASSUME_YES = '1'
 & (Join-Path $PSScriptRoot 'sync.ps1') -Path $a *>$null
 node (Join-Path $PSScriptRoot 'init.mjs') --path $b *>$null
-$env:DEV_STANDARDS_ASSUME_YES = ''
+$env:SENZU_ASSUME_YES = ''
 Compare-Proyectos 'seleccion'
 # Y que la seleccion se aplico de verdad (no solo que coincidan)
 $cmds = @(Get-ChildItem (Join-Path $b '.claude\commands') -Filter *.md | ForEach-Object BaseName | Sort-Object)
@@ -123,10 +123,10 @@ foreach ($p in $a, $b) {
     Remove-Item (Join-Path $p 'senzu') -Recurse -Force
     Write-Utf8 (Join-Path $p 'conventions.md') "# Convenciones`n"
 }
-$env:DEV_STANDARDS_ASSUME_YES = '1'
+$env:SENZU_ASSUME_YES = '1'
 & (Join-Path $PSScriptRoot 'sync.ps1') -Path $a *>$null
 node (Join-Path $PSScriptRoot 'init.mjs') --path $b *>$null
-$env:DEV_STANDARDS_ASSUME_YES = ''
+$env:SENZU_ASSUME_YES = ''
 Compare-Proyectos 'migracion'
 foreach ($p in $a, $b) {
     foreach ($viejo in 'devlog', 'plan', '.dev-standards.json', 'conventions.md') {

@@ -1,4 +1,4 @@
-# Memoria del proyecto (`devlog/MEMORIA.md`) y búsqueda en el pasado
+# Memoria del proyecto (`senzu/devlog/MEMORIA.md`) y búsqueda en el pasado
 
 ## Índice
 1. Tres niveles: memoria, índice, entradas
@@ -11,9 +11,9 @@
 ## 1. Tres niveles: memoria, índice, entradas
 | Nivel | Archivo | Cuándo se lee |
 |---|---|---|
-| Memoria | `devlog/MEMORIA.md` | Siempre: el hook session-start la inyecta al empezar y pre-compact al compactar |
-| Índice | `devlog/INDEX.md` | Para ubicar una entrada por número, fecha o título |
-| Entradas | `devlog/<fecha>/NNN-slug.md` y `DECISIONES.md` | Solo la que haga falta, por su sección |
+| Memoria | `senzu/devlog/MEMORIA.md` | Siempre: el hook session-start la inyecta al empezar y pre-compact al compactar |
+| Índice | `senzu/devlog/INDEX.md` | Para ubicar una entrada por número, fecha o título |
+| Entradas | `senzu/devlog/<fecha>/NNN-slug.md` y `DECISIONES.md` | Solo la que haga falta, por su sección |
 
 El devlog se sigue escribiendo igual: la memoria es el resumen de lo vigente con enlaces a las entradas.
 Nada se borra del devlog; viajar atrás siempre es posible.
@@ -26,9 +26,9 @@ Nada se borra del devlog; viajar atrás siempre es posible.
 - **Pendientes abiertos**: lo que está esperando a alguien (textos legales, accesos, una respuesta).
 
 **No entra**: el detalle de cómo se hizo (va en la entrada), commits, salidas de comandos, lo que ya
-dicen `conventions.md`, `design-system/*/gustos.md` o `plan/PLAN.md` (se enlaza, no se copia).
+dicen `senzu/conventions.md`, `senzu/design-system/*/gustos.md` o `senzu/plan/PLAN.md` (se enlaza, no se copia).
 
-Máximo **60 líneas**. Lo sustituido y lo cerrado se mueve a `devlog/MEMORIA-historico.md` (el buscador
+Máximo **60 líneas**. Lo sustituido y lo cerrado se mueve a `senzu/devlog/MEMORIA-historico.md` (el buscador
 también lo lee). Si la memoria no cabe en 60 líneas, el proyecto necesita resumir, no ampliar el límite.
 
 ## 3. Formato y ciclo de vida de una decisión
@@ -50,12 +50,12 @@ también lo lee). Si la memoria no cabe en 60 líneas, el proyecto necesita resu
 
 ## 4. Crear la memoria desde un devlog existente
 Cuando session-start avisa de que no hay memoria y ya hay historial:
-1. Lee `devlog/INDEX.md` entero (es corto) y todos los `DECISIONES.md`.
+1. Lee `senzu/devlog/INDEX.md` entero (es corto) y todos los `DECISIONES.md`.
 2. Abre solo la sección «Decisiones» de las entradas de tipo `decisión`, `feature` o `infra`
    (`buscar.mjs "decision" --max 20` ayuda a localizarlas).
 3. Escribe una línea por decisión que siga vigente, con su `ver NNN`. Las que se cambiaron después
    van a «Lo que no funcionó» marcadas como sustituidas.
-4. Añade las reglas del cliente que aparezcan en el devlog o en `plan/brief.md`.
+4. Añade las reglas del cliente que aparezcan en el devlog o en `senzu/plan/brief.md`.
 5. Enséñale la memoria al usuario en una lista corta y pídele que confirme o corrija antes de darla
    por buena: es la fuente de verdad a partir de ahora.
 6. Regístralo en el devlog del día (tipo `docs`).
@@ -67,12 +67,12 @@ node <skills-dir>/devlog/scripts/buscar.mjs "cola correos" --desde 2026-09 --max
 node <skills-dir>/devlog/scripts/buscar.mjs "login" --tipo decision
 ```
 - Sin dependencias, en Claude y en Codex. `<skills-dir>` es `.claude/skills` o `.agents/skills`.
-- Lee `devlog/` y, si existen, el diario y las decisiones propios del proyecto: `docs/devlog`, `docs/adr`,
+- Lee `senzu/devlog/` y, si existen, el diario y las decisiones propios del proyecto: `docs/devlog`, `docs/adr`,
   `docs/decisions`… (entradas sueltas `0137-x.md` o en carpetas por día; los ADR cuentan como decisión).
-  La cabecera dice qué fuentes leyó. `--solo-devlog` mira solo `devlog/`.
+  La cabecera dice qué fuentes leyó. `--solo-devlog` mira solo `senzu/devlog/`.
 - Tolera acentos y mayúsculas, plurales y conjugaciones («pagar» → pagos), erratas de una letra
   («stirpe»), palabras cortadas («migr») y sinónimos técnicos (login = auth = Sanctum…).
-- Sinónimos propios del proyecto en `devlog/sinonimos.json`: `[["datafono", "tpv", "cobro"]]`. Si un
+- Sinónimos propios del proyecto en `senzu/devlog/sinonimos.json`: `[["datafono", "tpv", "cobro"]]`. Si un
   grupo comparte una palabra con uno de base (aquí «cobro» con pagos), lo amplía.
 - Ranking: las palabras del título y las decisiones pesan más; gana quien cubre todas las palabras; a
   igualdad, lo más reciente. Las decisiones sustituidas salen marcadas y por detrás.
@@ -92,4 +92,4 @@ node <skills-dir>/devlog/scripts/buscar.mjs "login" --tipo decision
 | No contradecir una decisión | Regla del CLAUDE.md/AGENTS.md + memoria en contexto | No hay hook que lo vea |
 
 En Codex con el plugin, los mismos hooks hacen lo mismo. Sin plugin (solo `.agents/skills`) no hay hooks:
-AGENTS.md pide leer `devlog/MEMORIA.md` al empezar y usar el buscador.
+AGENTS.md pide leer `senzu/devlog/MEMORIA.md` al empezar y usar el buscador.

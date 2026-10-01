@@ -77,7 +77,7 @@ function Resolve-GuideTarget {
         $target = $alt
     } elseif (Test-Path $main) {
         $existing = Get-Content $main -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
-        if ($existing -and $existing -notmatch 'GENERADO por dev-standards') {
+        if ($existing -and $existing -notmatch 'GENERADO por Senzu') {
             if (Ask-YesNo "Este proyecto ya tiene $FileName propio. ¿Respaldarlo en $backupName y referenciarlo desde el generado?" $true) {
                 if (-not (Test-Path $backup)) { Write-Utf8 $backup $existing }
                 Write-Host "  [guia]       $FileName respaldado en $backupName (referenciado desde el generado)"
@@ -96,9 +96,9 @@ function Resolve-GuideTarget {
 
 function Ask-YesNo {
     # Pregunta interactiva con valor por defecto. En modo no interactivo (stdin redirigido, CI,
-    # DEV_STANDARDS_ASSUME_YES=1) devuelve el default sin preguntar: sync/init nunca se cuelgan.
+    # SENZU_ASSUME_YES=1) devuelve el default sin preguntar: sync/init nunca se cuelgan.
     param([string]$Message, [bool]$DefaultYes = $true)
-    if ($env:DEV_STANDARDS_ASSUME_YES -eq '1') { return $DefaultYes }
+    if ($env:SENZU_ASSUME_YES -eq '1' -or $env:DEV_STANDARDS_ASSUME_YES -eq '1') { return $DefaultYes }   # compat-dev-standards
     try { if ([Console]::IsInputRedirected) { return $DefaultYes } } catch { return $DefaultYes }
     $hint = if ($DefaultYes) { '[S/n]' } else { '[s/N]' }
     try { $r = Read-Host "$Message $hint" } catch { return $DefaultYes }
@@ -381,7 +381,7 @@ function Get-ActivationSection {
     if ($core.Count) {
         $L += "`n---`n`n# Planificación y calidad`n"
         if ($installed -contains 'project-planner') {
-            $L += '**Plan del proyecto:** si existe `plan/PLAN.md`, es la fuente de verdad de qué se hace ahora: elige la tarea `doing` o la primera `todo` y sigue su tarjeta (skill + sección, hecho cuando, verificar). Si no existe y la petición es un proyecto o feature (no un arreglo puntual), crea el plan con la skill `project-planner` antes de codificar.'
+            $L += '**Plan del proyecto:** si existe `senzu/plan/PLAN.md`, es la fuente de verdad de qué se hace ahora: elige la tarea `doing` o la primera `todo` y sigue su tarjeta (skill + sección, hecho cuando, verificar). Si no existe y la petición es un proyecto o feature (no un arreglo puntual), crea el plan con la skill `project-planner` antes de codificar.'
             $L += ''
         }
         $L += $script:LoadProtocol
@@ -407,9 +407,9 @@ function Get-ActivationSection {
             $L += ''
             $L += '**Antes de crear o editar UI** (páginas, componentes, estilos, layouts, formularios):'
             $L += "1. Lee ``$RelPath/ui-ux-pro-max/SKILL.md`` (flujo, perfiles y reglas duras) si aún no lo has hecho en esta sesión; solo su tabla de lectura mínima te dirá qué referencia abrir."
-            $L += '2. Si existe `design-system/*/MASTER.md`, es la fuente de verdad de estilo, color y tipografía. Si no existe, genéralo (y si hay plan, es la primera tarjeta de UI):'
+            $L += '2. Si existe `senzu/design-system/*/MASTER.md`, es la fuente de verdad de estilo, color y tipografía. Si no existe, genéralo (y si hay plan, es la primera tarjeta de UI):'
             $L += '   ```bash'
-            $L += "   python3 $RelPath/ui-ux-pro-max/scripts/search.py `"<producto industria keywords>`" --design-system -p `"<Proyecto>`" --persist -o ."
+            $L += "   python3 $RelPath/ui-ux-pro-max/scripts/search.py `"<producto industria keywords>`" --design-system -p `"<Proyecto>`" --persist -o senzu"
             $L += "   # Windows: py -3 $RelPath/ui-ux-pro-max/scripts/search.py ..."
             $L += '   ```'
             $L += "3. Guías del stack: ``python3 $RelPath/ui-ux-pro-max/scripts/search.py `"<tema>`" --stack $primary`` (y el resto de stacks del perfil si aplica)."
@@ -440,7 +440,7 @@ function Get-SessionSection {
     param([Parameter(Mandatory)]$Stack)
     $L = @("`n---`n`n# Sesión y comandos del proyecto`n")
     $L += '**Al iniciar cada sesión** (si no hay hooks que lo hagan por ti, hazlo tú): ejecuta y lee `git status -sb`, `git log --oneline -5`,'
-    $L += 'la cabecera y la fase activa de `plan/PLAN.md` (si existe) y `devlog/<hoy>/` + última entrada de `devlog/INDEX.md`. No commitees en `main`/`master`/`develop`.'
+    $L += 'la cabecera y la fase activa de `senzu/plan/PLAN.md` (si existe) y `senzu/devlog/<hoy>/` + última entrada de `senzu/devlog/INDEX.md`. No commitees en `main`/`master`/`develop`.'
     $L += '**Al cerrar**: tarea del plan actualizada (`done` con enlace al devlog), devlog del día escrito, siguiente tarea propuesta.'
     $cmds = $Stack.Meta.commands
     if ($cmds) {
@@ -456,7 +456,7 @@ function Get-SessionSection {
 
 # Construye el bloque de reglas combinado (base + metodología + stack + front + skills).
 # Modo ahorro (opcional, solo en CLAUDE.md): mismo texto EXACTO que init.mjs (la suite de paridad lo compara).
-$script:AhorroDevlog = 'Documenta cada paso relevante en `devlog/<fecha>/NNN-slug.md` con la skill `devlog` (numeración global e INDEX.md al día). El hook stop-guard lo exige al cerrar la tarea.' + "`n"
+$script:AhorroDevlog = 'Documenta cada paso relevante en `senzu/devlog/<fecha>/NNN-slug.md` con la skill `devlog` (numeración global e INDEX.md al día). El hook stop-guard lo exige al cerrar la tarea.' + "`n"
 $script:AhorroGit = 'Una rama por tarea (nunca commits en main, master ni develop), Conventional Commits de 72 caracteres como máximo y sin co-autores, y nunca `git push` sin aprobación explícita. El hook guard lo hace cumplir.' + "`n"
 $script:AhorroEstilo = "`n---`n`n# Modo ahorro`n`n" + 'Respuestas técnicas en estilo telegráfico: sin preámbulos ni resúmenes repetidos, frases cortas, primero el resultado y el código. Excepciones, en lenguaje normal y completo: `/brief`, `/propuestas`, `/repaso`, `/estimar` y `/entregar`, cualquier texto para el cliente y cualquier explicación que pida el usuario. Las skills cargan sus descripciones solas: abre solo la sección que necesites.' + "`n"
 
@@ -491,7 +491,7 @@ function Get-CombinedRules {
             $parts += (Read-Md $rf.FullName)
         }
     }
-    $header = "<!-- GENERADO por dev-standards. NO editar a mano: edita stacks\$($Stack.Name)\ y corre sync.ps1. Stack: $($Stack.Name) -->`n`n"
+    $header = "<!-- GENERADO por Senzu. NO editar a mano: edita stacks\$($Stack.Name)\ y corre sync.ps1. Stack: $($Stack.Name) -->`n`n"
     $header + ($parts -join "`n") +
         (Get-ActivationSection -Stack $Stack -Extra $ExtraSkills -Bundles $Bundles -RelPath $SkillsRelPath) +
         (Get-SessionSection -Stack $Stack) +

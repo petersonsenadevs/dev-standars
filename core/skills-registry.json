@@ -361,8 +361,8 @@
     {
       "name": "instalar-proyecto",
       "group": "routing",
-      "when": "Instalar o actualizar dev-standards completo en el proyecto (/instalar): todo, por categorías o a medida",
-      "keywords": "(?i)\\b(instala(r)? dev.standards|actualiza(r)? dev.standards|reinstala\\w* dev.standards|instala(r)? el paquete|instalaci[oó]n de dev.standards|instala(r)? (los|las) (skills|est[aá]ndares) en (el|este) proyecto)\\b",
+      "when": "Instalar o actualizar Senzu completo en el proyecto (/instalar): todo, por categorías o a medida",
+      "keywords": "(?i)\\b(instala(r)? (dev.standards|senzu)|actualiza(r)? (dev.standards|senzu)|reinstala\\w* (dev.standards|senzu)|instala(r)? el paquete|instalaci[oó]n de (dev.standards|senzu)|instala(r)? (los|las) (skills|est[aá]ndares) en (el|este) proyecto)\\b",
       "priority": 8,
       "requires": [],
       "installedBy": "base"

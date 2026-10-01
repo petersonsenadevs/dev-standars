@@ -9,7 +9,7 @@ mantienes el mismo prompt en 5 sitios.
 ## Estructura del repo
 
 ```
-dev-standards/
+Senzu/
 ├── core/                     # Reglas COMUNES a todos los lenguajes
 │   ├── methodology/          # devlog, git-flow, acciones prohibidas
 │   ├── prompts/              # systemprompt base (se hereda en cada stack)
@@ -54,7 +54,7 @@ dev-standards/
   `skill §sección` no resuelve; las tablas generadas están desactualizadas; un plugin/bundle no
   satisface `requires`; los ejemplos de tarjeta no los parsea la regex real de los hooks.
 - **Contratos únicos**: tarjeta de tarea (una regex en `core/hooks/lib.mjs`), devlog
-  (`devlog/<fecha>/NNN-slug.md`), design system (`design-system/<slug>/MASTER.md`), `hooks/config.json`
+  (`senzu/devlog/<fecha>/NNN-slug.md`), design system (`senzu/design-system/<slug>/MASTER.md`), `hooks/config.json`
   (mismas claves para proyecto y plugin).
 - **El repo se protege solo**: `.githooks/` con commit-msg (Conventional ≤72, sin co-autores) y
   pre-commit que regenera plugins+docs y ejecuta las 3 suites antes de aceptar el commit.
@@ -63,7 +63,7 @@ dev-standards/
 
 Con 41 skills y 13 hooks hace falta quién decide **qué se hace, en qué orden y con qué skill**:
 
-- `plan/PLAN.md` con **fases entregables** (walking skeleton primero) y **tareas pequeñas**
+- `senzu/plan/PLAN.md` con **fases entregables** (walking skeleton primero) y **tareas pequeñas**
   (`F1-T2 · título [S] [todo]`), cada una con skill+sección a leer, "hecho cuando" y verificación.
   Una sola tarea `doing` a la vez.
 - Los hooks lo leen: `session-start` muestra progreso y siguientes, `stop-guard` exige cerrar la
@@ -128,8 +128,8 @@ Una sola numeración para todo: la versión que ves en Claude y en Codex es la d
 
 | Tipo de cambio | Versión | Cómo se publica |
 |---|---|---|
-| Tanda de funcionalidades | sube el segundo número (1.1.0 → 1.2.0) | `DEV_STANDARDS_RELEASE=1.2.0 git commit …` y luego `git tag -a v1.2.0` |
-| Arreglos | sube el tercero (1.1.0 → 1.1.1) | igual, con `DEV_STANDARDS_RELEASE=1.1.1` y tag `v1.1.1` |
+| Tanda de funcionalidades | sube el segundo número (1.1.0 → 1.2.0) | `SENZU_RELEASE=1.2.0 git commit …` y luego `git tag -a v1.2.0` |
+| Arreglos | sube el tercero (1.1.0 → 1.1.1) | igual, con `SENZU_RELEASE=1.1.1` y tag `v1.1.1` |
 | Cambio incompatible (obliga a reinstalar) | sube el primero (2.0.0) | igual |
 
 Entre dos releases, cada commit sube solo el tercer número (último tag + commits desde él), así

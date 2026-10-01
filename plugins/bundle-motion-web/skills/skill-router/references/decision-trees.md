@@ -1,4 +1,4 @@
-# Árboles de decisión de dev-standards
+# Árboles de decisión de Senzu
 
 Puerta de entrada del sistema de skills. Cada árbol es una secuencia de preguntas sí/no; se
 responde en orden y la primera SALIDA alcanzada nombra la skill exacta (y, si aplica, el
@@ -46,12 +46,12 @@ Bootstrap ni una segunda librería de componentes sin aprobación.
 ## A. Árbol global (empieza siempre aquí)
 
 ```
-P1 ¿Existe `plan/PLAN.md` en el proyecto?
+P1 ¿Existe `senzu/plan/PLAN.md` en el proyecto?
    sí -> SALIDA: sigue la tarjeta en `doing` (o la primera `todo`) según
          `project-planner §references/task-protocol.md`. Fin.
    no -> P2
 P2 ¿Es un proyecto nuevo o una feature nueva (hay que decidir alcance y trocear)?
-   sí -> SALIDA: `project-planner` (crea `plan/PLAN.md` antes de tocar código).
+   sí -> SALIDA: `project-planner` (crea `senzu/plan/PLAN.md` antes de tocar código).
    no -> P3
 P3 ¿La tarea produce UI, estilos o una página (.vue, .tsx, .jsx, .astro, .blade.php, .html, .css)?
    sí -> SALIDA: `ui-ux-pro-max` PRIMERO (design system + patrón + componentes);

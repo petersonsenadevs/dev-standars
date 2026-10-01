@@ -9,7 +9,7 @@
   Tipos: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `perf`, `build`, `ci`.
 - Commits pequeños y atómicos. Un motivo por commit.
 - **Sin líneas de co-autor** (`Co-Authored-By`). No añadir firmas de agente.
-- Cada commit debe quedar reflejado en el `devlog/` del día (hash + mensaje).
+- Cada commit debe quedar reflejado en el `senzu/devlog/` del día (hash + mensaje).
 
 ## Push
 - **PROHIBIDO** hacer `git push` sin aprobación explícita en el momento (ver prohibited-actions.md).
@@ -17,7 +17,7 @@
 
 ## Antes de commitear
 1. Correr linter + type-check + tests del stack.
-2. Actualizar `devlog/` (entrada del día + INDEX.md).
+2. Actualizar `senzu/devlog/` (entrada del día + INDEX.md).
 3. Revisar el diff (`git diff --staged`) y describirlo en el mensaje.
 
 ## Mensajes

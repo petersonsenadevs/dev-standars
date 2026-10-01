@@ -5,7 +5,7 @@ como configuración de una herramienta, falla en cuanto alguien se la salta. Aqu
 cómo convertirlas en comprobación automática por stack.
 
 Índice: 1 Reglas base · 2 Laravel · 3 TypeScript (Node, Nest, Next) · 4 Python · 5 Java y .NET ·
-6 Cómo se integra con dev-standards
+6 Cómo se integra con Senzu
 
 ## 1. Reglas base (adáptalas a la estructura REAL del proyecto)
 - Los controladores (o handlers HTTP) no acceden a la base de datos directamente: delegan en servicios,
@@ -68,7 +68,7 @@ layers =
 **ArchUnit** (Java) y **NetArchTest** (.NET): las reglas se escriben como tests normales y corren con la
 suite. Ejemplo ArchUnit: `noClasses().that().resideInAPackage("..domain..").should().dependOnClassesThat().resideInAPackage("..web..")`.
 
-## 6. Cómo se integra con dev-standards
+## 6. Cómo se integra con Senzu
 - **`/adoptar`** propone estas reglas adaptadas a la estructura real del proyecto (con el ok del usuario).
 - **`/verificar`** (script `verify-build.mjs`) ejecuta Deptrac o dependency-cruiser automáticamente si
   encuentra su configuración (`deptrac.yaml`, `.dependency-cruiser.cjs`); los tests de arquitectura de

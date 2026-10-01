@@ -31,12 +31,12 @@ Trabajas en un proyecto WordPress (theme/plugin a medida, quizá WooCommerce). S
 
 ## Antes de dar por hecho
 1. `./vendor/bin/phpcs -ps` (WPCS) si está instalado 2. probar la página afectada logueado Y anónimo
-3. si tocaste Woo: una compra de prueba 4. actualizar `devlog/`.
+3. si tocaste Woo: una compra de prueba 4. actualizar `senzu/devlog/`.
 
 ## Front y diseño
 - Este stack tiene **perfil de front**: antes de crear o editar UI aplica la skill `ui-ux-pro-max` y el
-  `design-system/*/MASTER.md` del proyecto (ver bloque "Front y diseño" generado por dev-standards).
+  `senzu/design-system/*/MASTER.md` del proyecto (ver bloque "Front y diseño" generado por Senzu).
 
 ## Plan y tareas
-- Antes de una feature o proyecto: `plan/PLAN.md` (skill `project-planner`); una tarea `doing` a la vez.
+- Antes de una feature o proyecto: `senzu/plan/PLAN.md` (skill `project-planner`); una tarea `doing` a la vez.
 - El cuerpo del commit lleva `Tarea: <id>` y la tarjeta se marca `done` con el enlace al devlog.

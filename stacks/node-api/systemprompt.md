@@ -30,8 +30,8 @@ Trabajas en una API/servicio Node + TypeScript (Express o NestJS). Sigue las reg
 - Config por entorno validada al arrancar (zod/env-var): si falta una variable, el proceso NO arranca a medias.
 
 ## Antes de dar por hecho
-1. `npm run lint` 2. `npx tsc --noEmit` 3. `npm test` 4. probar el endpoint tocado (curl/httpie) 5. `devlog/`.
+1. `npm run lint` 2. `npx tsc --noEmit` 3. `npm test` 4. probar el endpoint tocado (curl/httpie) 5. `senzu/devlog/`.
 
 ## Plan y tareas
-- Antes de una feature o proyecto: `plan/PLAN.md` (skill `project-planner`); una tarea `doing` a la vez.
+- Antes de una feature o proyecto: `senzu/plan/PLAN.md` (skill `project-planner`); una tarea `doing` a la vez.
 - El cuerpo del commit lleva `Tarea: <id>` y la tarjeta se marca `done` con el enlace al devlog.

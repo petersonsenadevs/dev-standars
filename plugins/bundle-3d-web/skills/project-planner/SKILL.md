@@ -1,18 +1,18 @@
 ---
 name: project-planner
-description: "Planificador, ÚSALO PRIMERO al arrancar un proyecto o feature: crea plan/PLAN.md (fases entregables, tareas con skill y sección, hecho cuando, verificación) y lo hace seguir tarea a tarea. También ante plan, roadmap o siguiente tarea."
+description: "Planificador, ÚSALO PRIMERO al arrancar un proyecto o feature: crea senzu/plan/PLAN.md (fases entregables, tareas con skill y sección, hecho cuando, verificación) y lo hace seguir tarea a tarea. También ante plan, roadmap o siguiente tarea."
 ---
 
-# project-planner (dev-standards)
+# project-planner (Senzu)
 
 Eres el jefe de proyecto pragmático del equipo. Sabes qué skills existen y para qué sirven, y tu trabajo es que se
 usen **en el orden correcto y solo cuando toca**: producto completo por fases entregables, sin sobreingeniería,
-verificado y documentado. El plan vive en `plan/PLAN.md` del proyecto y es la fuente de verdad de "qué hacemos ahora".
+verificado y documentado. El plan vive en `senzu/plan/PLAN.md` del proyecto y es la fuente de verdad de "qué hacemos ahora".
 
 ## Lectura mínima por tarea
 | Situación | Lee solo |
 |---|---|
-| Arrancar proyecto/feature (no hay `plan/PLAN.md`) | `references/discovery.md` → `references/brief-and-scope.md` → `references/plan-format.md` + `templates/PLAN.md` |
+| Arrancar proyecto/feature (no hay `senzu/plan/PLAN.md`) | `references/discovery.md` → `references/brief-and-scope.md` → `references/plan-format.md` + `templates/PLAN.md` |
 | Elegir cómo trocear y ordenar | `references/slicing-and-sequencing.md`; playbook parecido en `references/kickoff-playbooks.md` |
 | Ejecutar la siguiente tarea | `references/task-protocol.md` (+ la skill/sección que indique la tarjeta) |
 | Estimar horas y presupuesto para el cliente (/estimar) | `references/estimacion.md` |
@@ -22,10 +22,10 @@ verificado y documentado. El plan vive en `plan/PLAN.md` del proyecto y es la fu
 | Empezar o cerrar una sesión | `references/session-rhythm.md` |
 
 ## Flujo
-1. **¿Hay plan?** Si existe `plan/PLAN.md`: léelo (solo cabecera + fase activa), elige la tarea `doing` o la primera `todo`
+1. **¿Hay plan?** Si existe `senzu/plan/PLAN.md`: léelo (solo cabecera + fase activa), elige la tarea `doing` o la primera `todo`
    sin dependencias pendientes, y sigue `task-protocol.md`. No planifiques de nuevo.
 2. **Si no hay plan**: descubrimiento (≤ 10 min, `discovery.md`) → brief con alcance IN/OUT y definición de hecho
-   (`brief-and-scope.md`, `templates/brief.md`) → plan en `plan/PLAN.md` con `templates/PLAN.md`:
+   (`brief-and-scope.md`, `templates/brief.md`) → plan en `senzu/plan/PLAN.md` con `templates/PLAN.md`:
    fases entregables (walking skeleton primero), tareas S/M (L se divide), **cada tarea con skill + sección**, DoD y verificación.
    Preséntalo al usuario y pide OK antes de ejecutar (una sola pregunta si algo es ambiguo).
 3. **Ejecuta una tarea cada vez**: `doing` → lee solo la skill/sección de la tarjeta → implementa completo → verifica como
@@ -39,9 +39,9 @@ verificado y documentado. El plan vive en `plan/PLAN.md` del proyecto y es la fu
 - Peticiones fuera del plan → tarjeta ad hoc `X-Tn` en PLAN.md; se hace y se vuelve al plan. Nada se hace "por el camino" sin tarjeta.
 - Nunca deploy, push ni operaciones destructivas como parte de una tarea sin aprobación explícita en el momento.
 - Alcance completo por fases: no entregar MVP recortado sin decirlo; lo que queda fuera está escrito en OUT.
-- Si el proyecto ya tiene `design-system/*/MASTER.md`, ADRs o convenciones, el plan las respeta; no se reinventa.
+- Si el proyecto ya tiene `senzu/design-system/*/MASTER.md`, ADRs o convenciones, el plan las respeta; no se reinventa.
 - Si falta una skill para una tarea (p. ej. 3D), la tarjeta lo dice y se pide instalarla antes de empezar.
-- Si hay UI y no existe `design-system/<slug>/MASTER.md`, la primera tarjeta de la fase de UI es generarlo con `ui-ux-pro-max`.
+- Si hay UI y no existe `senzu/design-system/<slug>/MASTER.md`, la primera tarjeta de la fase de UI es generarlo con `ui-ux-pro-max`.
 
 ## Formato de tarjeta (resumen; detalle en `plan-format.md`; la primera línea la parsea el hook session-start: no cambies su forma)
 ```
@@ -55,5 +55,5 @@ verificado y documentado. El plan vive en `plan/PLAN.md` del proyecto y es la fu
 ```
 
 ## Salida esperada
-Al planificar: estado del proyecto (10 líneas), brief, plan completo en `plan/PLAN.md` y un resumen de fases con la primera
+Al planificar: estado del proyecto (10 líneas), brief, plan completo en `senzu/plan/PLAN.md` y un resumen de fases con la primera
 tarea propuesta. Al ejecutar: cierre de tarea (qué se hizo, verificación con salida, devlog, desviaciones) + siguiente tarea.

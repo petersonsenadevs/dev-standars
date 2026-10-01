@@ -14,12 +14,12 @@ trabajo lo hacen las tablas de activación de las reglas generadas y los githook
 |---|---|---|
 | `session-start.mjs` | SessionStart | Inyecta estado: stack/perfil, si el proyecto es NUEVO (→ /brief + /plan) o EXISTENTE (→ /adoptar), diario propio detectado, versiones con aviso EOL, convenciones adoptadas, git, design system, plan, devlog y protocolo de skills. |
 | `prompt-router.mjs` | UserPromptSubmit | Sugiere la skill que encaja con la petición (señales de docs/skills.md), una vez por skill y sesión. |
-| `guard.mjs` | PreToolUse Bash/PowerShell | BLOQUEA: git push, destructivos de BD/git, rm -rf, deploy a prod sin aprobación (escape `DEV_STANDARDS_ALLOW_DEPLOY=1`), jQuery/Bootstrap (`DEV_STANDARDS_ALLOW_LIB=1`), devops peligroso (curl\|bash, chmod 777, dd, mkfs, docker prune, parar servicios, vaciar firewall, crontab -r); commits: rama protegida, Conventional ≤72, sin co-autores. |
-| `protect-files.mjs` | PreToolUse Edit/Write | BLOQUEA editar: generados por dev-standards, secretos (.env, *.pem, credentials), dependencias/artefactos, migraciones versionadas, conventions.md/json sellados y `protectedPaths` del proyecto. |
+| `guard.mjs` | PreToolUse Bash/PowerShell | BLOQUEA: git push, destructivos de BD/git, rm -rf, deploy a prod sin aprobación (escape `SENZU_ALLOW_DEPLOY=1`), jQuery/Bootstrap (`SENZU_ALLOW_LIB=1`), devops peligroso (curl\|bash, chmod 777, dd, mkfs, docker prune, parar servicios, vaciar firewall, crontab -r); commits: rama protegida, Conventional ≤72, sin co-autores. |
+| `protect-files.mjs` | PreToolUse Edit/Write | BLOQUEA editar: generados por Senzu, secretos (.env, *.pem, credentials), dependencias/artefactos, migraciones versionadas, conventions.md/json sellados y `protectedPaths` del proyecto. |
 | `secrets-guard.mjs` | PreToolUse Edit/Write | BLOQUEA escribir credenciales reales (AWS, GitHub, Stripe, OpenAI/Anthropic, PEM, JWT, cadenas con password); ignora placeholders. |
-| `code-hygiene.mjs` | PreToolUse Edit/Write | BLOQUEA introducir: console.log/debugger/dd()/var_dump/ray, términos vetados en `gustos.md` §No, marcadores de conflicto de git, `.only`/`.skip`/xit en tests, y la lista negra anti-IA (badges de disponibilidad, numeración de secciones). Escape puntual: comentario `dev-standards-allow`. |
+| `code-hygiene.mjs` | PreToolUse Edit/Write | BLOQUEA introducir: console.log/debugger/dd()/var_dump/ray, términos vetados en `gustos.md` §No, marcadores de conflicto de git, `.only`/`.skip`/xit en tests, y la lista negra anti-IA (badges de disponibilidad, numeración de secciones). Escape puntual: comentario `senzu-allow`. |
 | `conventions-guard.mjs` | PreToolUse Edit/Write | BLOQUEA código que viole las reglas ejecutables de `conventions.json` (/adoptar): la convención del proyecto gana. |
-| `backend-guard.mjs` | PreToolUse Edit/Write | BLOQUEA introducir: migraciones destructivas en la parte que se aplica (borrar o renombrar columnas o tablas: patrón expandir → contraer), `env()` fuera de `config/` en Laravel, y datos personales en logs (request completa, cuerpos, contraseñas o tokens). Escape: `dev-standards-allow` con el motivo. |
+| `backend-guard.mjs` | PreToolUse Edit/Write | BLOQUEA introducir: migraciones destructivas en la parte que se aplica (borrar o renombrar columnas o tablas: patrón expandir → contraer), `env()` fuera de `config/` en Laravel, y datos personales en logs (request completa, cuerpos, contraseñas o tokens). Escape: `senzu-allow` con el motivo. |
 | `back-skill-reminder.mjs` | PreToolUse Edit/Write (backend) | Primera edición de backend en la sesión: recuerda la receta del stack, las convenciones selladas y la versión real del framework. No bloquea. |
 | `depurar-coach.mjs` | PostToolUse Bash/PowerShell | Si falla un test, build o verificación, activa el método de la skill depurar (reproducir, test que falla, hipótesis, acotar, arreglar la causa). Como mucho una vez cada 20 minutos. |
 | `front-skill-reminder.mjs` | PreToolUse Edit/Write (front) | Primera edición de UI: BLOQUEA una vez si no hay design system NI brief (obliga a preguntar); después recuerda ui-ux-pro-max, el set de iconos del MASTER y las reglas duras de UI. |
@@ -30,7 +30,7 @@ trabajo lo hacen las tablas de activación de las reglas generadas y los githook
 | `session-end.mjs` | SessionEnd | Limpia los marcadores de sesión. |
 
 ### Escapes (siempre con aprobación explícita del usuario, documentada en el devlog)
-- `DEV_STANDARDS_ALLOW_DEPLOY=1` — deploy a producción tras la aprobación del checklist `/desplegar`.
-- `DEV_STANDARDS_ALLOW_LIB=1` — instalar una librería vetada (jQuery/Bootstrap) si el usuario lo pide.
-- Comentario `dev-standards-allow` en la línea — excepción puntual de code-hygiene (script CLI con console.log, test .skip justificado, patrón anti-IA pedido por su nombre).
+- `SENZU_ALLOW_DEPLOY=1` — deploy a producción tras la aprobación del checklist `/desplegar`.
+- `SENZU_ALLOW_LIB=1` — instalar una librería vetada (jQuery/Bootstrap) si el usuario lo pide.
+- Comentario `senzu-allow` en la línea — excepción puntual de code-hygiene (script CLI con console.log, test .skip justificado, patrón anti-IA pedido por su nombre).
 - Convenciones selladas: se cambian borrando `conventions.*` y re-ejecutando `/adoptar` (decisión del usuario).

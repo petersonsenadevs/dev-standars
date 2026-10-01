@@ -3,7 +3,7 @@ name: lightweight-3d-effects
 description: "Efectos 3D ligeros y decorativos con Zdog (pseudo-3D), Vanta.js (fondos animados WebGL) y Vanilla-Tilt (tilt parallax en tarjetas). Para heros, landings, iconos 3D, tilt cards. No para escenas 3D reales, modelos glTF ni WebXR."
 ---
 
-# lightweight-3d-effects (índice dev-standards, ES)
+# lightweight-3d-effects (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (1091 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -52,5 +52,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (1091 líneas). 
 - Respeta `prefers-reduced-motion`: desactiva fondos animados y tilt (no lo cubre el upstream; es norma del proyecto).
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json).
 - Las tres librerías son vanilla (funcionan en Vue, Astro, HTML plano); el upstream incluye wrappers React para Vanta (L476) y Tilt (L676). En SSR (Next/Astro) inicializa solo en cliente (`useEffect` / `client:only`), Vanta necesita `window`.

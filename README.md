@@ -1,4 +1,6 @@
-# dev-standards
+# Senzu
+
+*Una semilla y el proyecto se recupera.* (Antes **dev-standards**.)
 
 **El estándar de trabajo de la agencia convertido en sistema ejecutable para agentes de IA.**
 Escribes las reglas UNA vez y viajan a Claude Code, Codex, Cursor, Windsurf y Antigravity — con
@@ -27,8 +29,8 @@ nada por hecho.
 
 ```text
 # 1) Claude Code — plugin desde el marketplace (cualquier máquina/OS):
-/plugin marketplace add petersonsenadevs/dev-standars
-/plugin install dev-standards-all@dev-standards          # TODO el paquete (recomendado)
+/plugin marketplace add petersonsenadevs/senzu
+/plugin install senzu-all@senzu          # TODO el paquete (recomendado)
 #   packs ligeros si no quieres todo: -front (12 skills), -backend, -core, bundle-*
 
 # 2) ...y desde el plugin, la instalación COMPLETA del proyecto en un comando:
@@ -36,13 +38,13 @@ nada por hecho.
 /instalar                    # clona el repo si falta, detecta el stack y lo deja todo configurado
 
 # Skills globales para Codex / Cursor / Windsurf (Windows PowerShell):
-irm https://raw.githubusercontent.com/petersonsenadevs/dev-standars/main/tools/install.ps1 | iex
+irm https://raw.githubusercontent.com/petersonsenadevs/senzu/main/tools/install.ps1 | iex
 
 # Instalador interactivo: eliges todo, por categorías o a medida (skills, muros y comandos):
-git clone https://github.com/petersonsenadevs/dev-standars.git && node dev-standars/tools/init.mjs
+git clone https://github.com/petersonsenadevs/senzu.git && node dev-standars/tools/init.mjs
 
 # Manual por proyecto (equivalente a /instalar; Node = Windows, WSL, Linux y macOS):
-git clone https://github.com/petersonsenadevs/dev-standars.git
+git clone https://github.com/petersonsenadevs/senzu.git
 node dev-standars/tools/init.mjs --stack laravel --path /ruta/mi-app --tools claude,codex
 ```
 
@@ -56,7 +58,7 @@ Lo peligroso no se le pide por favor al agente: un hook lo **deniega** con el mo
 
 ```text
 > git push origin main
-[BLOQUEADO por dev-standards] git push está prohibido sin aprobación explícita.
+[BLOQUEADO por Senzu] git push está prohibido sin aprobación explícita.
 
 > netlify deploy --prod
 [BLOQUEADO] Deploy a PRODUCCIÓN detectado. Requiere aprobación explícita del usuario

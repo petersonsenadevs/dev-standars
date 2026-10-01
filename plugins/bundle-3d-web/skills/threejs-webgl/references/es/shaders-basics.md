@@ -365,7 +365,7 @@ Ventajas: sin strings GLSL, composable, mismo código en WebGL2 y WebGPU, ruido 
 ## Mesh gradient / aurora en shader propio
 
 Fondo animado tipo mesh gradient/aurora: el plano fullscreen del §6.1 con 3-4 colores del design system
-(`design-system/*/MASTER.md`) como uniforms y el `snoise` del §5 para el flujo. Es un fondo: `setPixelRatio(1)`
+(`senzu/design-system/*/MASTER.md`) como uniforms y el `snoise` del §5 para el flujo. Es un fondo: `setPixelRatio(1)`
 (el gradiente suave no gana nada con DPR 2 y cuesta 4x) y pausa el render fuera de viewport.
 
 ```ts

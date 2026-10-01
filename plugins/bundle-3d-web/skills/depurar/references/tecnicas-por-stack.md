@@ -9,13 +9,13 @@
 - **Bisección en el código**: comenta o salta la mitad del flujo sospechoso y mira si el error sigue.
 - **Reducir la entrada**: quita datos de la entrada que falla hasta quedarte con el caso mínimo.
 - **Comparar con lo que funciona**: mismo flujo con datos que sí van; la diferencia suele ser la causa.
-- **Logs temporales** con `dev-standards-allow` en la línea (el hook lo exige) y borrados antes de cerrar.
+- **Logs temporales** con `senzu-allow` en la línea (el hook lo exige) y borrados antes de cerrar.
   Registra el VALOR y el TIPO (`gettype`, `typeof`, `type()`), no solo "llega aquí".
 
 ## Laravel / PHP
 - Depurador: Xdebug con el IDE (punto de ruptura en la línea, inspección de variables).
 - Sin depurador: `logger()->debug('ctx', compact('a', 'b'))` y leer `storage/logs/laravel.log`
-  (`dd()` y `dump()` los bloquea el hook: si los necesitas un momento, `dev-standards-allow` y fuera).
+  (`dd()` y `dump()` los bloquea el hook: si los necesitas un momento, `senzu-allow` y fuera).
 - Consultas: `DB::enableQueryLog()` + `DB::getQueryLog()`, o `->toRawSql()` en el builder.
 - Errores silenciosos: `php artisan config:clear` y `cache:clear` (configuración cacheada vieja),
   `php artisan queue:restart` (workers con código viejo), `tail -f storage/logs/laravel.log`.

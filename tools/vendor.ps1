@@ -79,7 +79,7 @@ foreach ($s in $Sources) {
 $uxSkill = Join-Path $vendorDir 'ui-ux-pro-max'
 if (Test-Path $uxSkill) {
     $note = @(
-        '> [dev-standards] Paths patched by tools/vendor.ps1: `<skills-dir>` is the folder where this skill was installed',
+        '> [senzu] Paths patched by tools/vendor.ps1: `<skills-dir>` is the folder where this skill was installed',
         '> (`.claude/skills` for Claude Code, `.agents/skills` for Codex/Antigravity/Cursor, `.cursor/skills`, `.windsurf/skills`).',
         '> Run scripts with `python3` (Linux/macOS/WSL) or `py -3` (Windows).',
         ''

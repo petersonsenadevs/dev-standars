@@ -1,11 +1,11 @@
 # Metodología de Devlog (OBLIGATORIA)
 
-Cada paso relevante y **cada commit** se documenta en la carpeta `devlog/` en la raíz del proyecto.
+Cada paso relevante y **cada commit** se documenta en la carpeta `senzu/devlog/` en la raíz del proyecto.
 
 ## Estructura dentro del proyecto
 
 ```
-devlog/
+senzu/devlog/
 ├── INDEX.md                     # Índice global, numeración correlativa de TODOS los devlogs
 ├── MEMORIA.md                   # Lo VIGENTE: decisiones, reglas del cliente, lo que no funcionó, pendientes (≤ 60 líneas)
 ├── MEMORIA-historico.md         # Lo sustituido o cerrado que sale de la memoria (se crea cuando hace falta)
@@ -35,7 +35,7 @@ devlog/
    indica en el campo `Mejora a:` con el número de la entrada previa. Así queda la
    trazabilidad de qué evolucionó.
 6. `INDEX.md` se actualiza en cada entrada nueva (tabla: nº, fecha, título, tipo, mejora-a, tarea).
-7. **Campo `Tarea:`**: id de la tarjeta de `plan/PLAN.md` que cierra la entrada (`F1-T2`, `X-T1`)
+7. **Campo `Tarea:`**: id de la tarjeta de `senzu/plan/PLAN.md` que cierra la entrada (`F1-T2`, `X-T1`)
    o `—` si no hay plan o la entrada no corresponde a una tarjeta.
 
 ## Plantilla de entrada (`NNN-slug.md`)

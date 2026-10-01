@@ -68,4 +68,4 @@ anterior sin motivo. Con Iconify (`@iconify-json/<set>`) cambiar de set cuesta u
 - Display font en párrafos largos (ilegible) o texto en gris #999 sobre blanco (contraste < 4.5).
 
 Búsqueda upstream: `search.py "<mood>" --domain typography` da más pairings con URLs; estas tablas
-son el atajo curado. La elección final SIEMPRE queda escrita en `design-system/<slug>/MASTER.md`.
+son el atajo curado. La elección final SIEMPRE queda escrita en `senzu/design-system/<slug>/MASTER.md`.

@@ -3,7 +3,7 @@ name: lottie-animations
 description: "Animaciones Lottie/dotLottie (JSON de After Effects) en web, React, Vue y Svelte: lottie-web, @lottiefiles/dotlottie-*, lottie-react, iconos animados, loaders, scroll/hover. No para animaciones con estados (usa rive-interactive)."
 ---
 
-# lottie-animations (índice dev-standards, ES)
+# lottie-animations (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (692 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -51,5 +51,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (692 líneas). *
 - Respeta `prefers-reduced-motion`: sin autoplay/loop, muestra el primer frame o un estático (norma del proyecto, no del upstream).
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json).
 - React → `@lottiefiles/dotlottie-react` (o `lottie-react` si necesitas `interactivity` scroll/cursor); Vue → `@lottiefiles/dotlottie-vue`; Svelte → `@lottiefiles/dotlottie-svelte`; Astro/vanilla → `@lottiefiles/dotlottie-web` sobre `<canvas>` (solo cliente, necesita `window`).

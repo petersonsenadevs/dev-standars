@@ -156,7 +156,7 @@ else {
     if (!cam || !cam.length) objetivo = candidatos;
     else {
         objetivo = subpaquetes.filter(d => cam.some(f => f.startsWith(d + path.sep)));
-        // Carpetas de agentes (las reescribe el instalador de dev-standards), documentación y diario no son
+        // Carpetas de agentes (las reescribe el instalador de Senzu), documentación y diario no son
         // código del proyecto: un .mjs en .claude/hooks no debe disparar la verificación de todo el monorepo
         const NO_CODIGO = /^(\.claude|\.agents|\.codex|\.cursor|\.windsurf|\.github|\.githooks|\.ui-verify|senzu|devlog|docs?|plan|design-system)([\\/]|$)/i;
         const sueltos = cam.filter(f => !subpaquetes.some(d => f.startsWith(d + path.sep)) && !NO_CODIGO.test(path.relative(root, f)));
@@ -224,5 +224,5 @@ process.exit(0);
 
 function constancia() {   // flag para el stop-guard (mismo esquema de hash que core/hooks/lib.mjs)
     const hash = crypto.createHash('md5').update(root.toLowerCase(), 'utf8').digest('hex').slice(0, 12);
-    fs.writeFileSync(path.join(os.tmpdir(), `dev-standards-verified-${hash}.flag`), '');
+    fs.writeFileSync(path.join(os.tmpdir(), `dev-standards-verified-${hash}.flag`), '');   // compat-dev-standards (nombre interno compartido con lib.mjs)
 }

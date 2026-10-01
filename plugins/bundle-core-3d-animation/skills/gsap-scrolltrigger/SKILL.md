@@ -3,26 +3,26 @@ name: gsap-scrolltrigger
 description: "Animación web con GSAP 3 + ScrollTrigger + Lenis: entradas al hacer scroll, pin/scrub, parallax, scroll horizontal, reveals, transiciones de página, sincronía con 3D. Vue/Inertia, Next, Astro, vanilla. No para hovers CSS ni estados simples."
 ---
 
-# gsap-scrolltrigger (capa dev-standards, en español)
+# gsap-scrolltrigger (capa Senzu, en español)
 
 Skill upstream (inglés): `SKILL.upstream.md` (API completa, patrones, integración con Three.js y React),
 `references/api_reference.md`, `references/common_patterns.md`, `references/easing_guide.md`,
 `assets/starter_scroll/`, `assets/easings/easing_visualizer.html`, `scripts/generate_animation.py`, `scripts/timeline_builder.py`.
-Capa dev-standards (español): `references/es/` y `templates/`.
+Capa Senzu (español): `references/es/` y `templates/`.
 
 El movimiento **refuerza jerarquía y feedback**; nunca es decoración gratuita. Duraciones, easing y "qué se anima"
-salen del `design-system/*/MASTER.md` del proyecto (skill `ui-ux-pro-max`); si no existe, usa 150/250/400 ms,
+salen del `senzu/design-system/*/MASTER.md` del proyecto (skill `ui-ux-pro-max`); si no existe, usa 150/250/400 ms,
 `power2.out` para entradas y `power1.inOut` para scrubs.
 
 ## 1. Detectar el stack e integrar
-| Stack (perfil dev-standards) | Referencia | Plantillas | Puntos críticos |
+| Stack (perfil Senzu) | Referencia | Plantillas | Puntos críticos |
 |---|---|---|---|
 | Vue 3 (SPA o con Laravel + Inertia) | `references/es/vue.md` | `templates/useGsap.ts`, `ScrollReveal.vue`, `HorizontalScroll.vue`, `useLenis.ts` | `gsap.context` en `onMounted` + `revert()` en `onBeforeUnmount`; con Inertia: `router.on('finish')` → `ScrollTrigger.refresh()`, matar triggers al navegar, layouts persistentes, SSR-safe. |
 | Next.js / React | `references/es/next.md` | `templates/useGsapReact.tsx` | `@gsap/react` `useGSAP({ scope })`, `"use client"`, `contextSafe`, refresh por `pathname`, StrictMode. |
 | Astro | `references/es/astro.md` | `templates/gsap-astro.ts` | GSAP en `<script>` vanilla, SIN isla (islands React solo para Motion/R3F/estado); `astro:page-load` / `astro:before-swap` (View Transitions), scripts deduplicados. |
 | Vanilla / otros | `SKILL.upstream.md` | `assets/starter_scroll/` | `gsap.matchMedia`, `ScrollTrigger.refresh()` tras cargar imágenes/fuentes. |
 
-Detecta el stack como indica `ui-ux-pro-max/SKILL.md` §1 (`.dev-standards.json` → `composer.json`/`package.json`).
+Detecta el stack como indica `ui-ux-pro-max/SKILL.md` §1 (`senzu/senzu.json` → `composer.json`/`package.json`).
 
 ## 1b. Lectura mínima por tarea
 | Tarea | Lee solo |

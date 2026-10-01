@@ -7,7 +7,7 @@ defender delante del cliente. Una estimación es un **rango con supuestos**, nun
 5 Rango final · 6 Presupuesto · 7 Salida · 8 Errores típicos
 
 ## 1. De dónde sale la estimación
-- Con `plan/PLAN.md`: se estima tarjeta a tarjeta (lo más fiable).
+- Con `senzu/plan/PLAN.md`: se estima tarjeta a tarjeta (lo más fiable).
 - Solo con brief o una descripción: primero se trocea en fases y tareas S/M/L con el mismo criterio
   del plan (`plan-format.md`), aunque no se escriba el plan completo. **Sin troceo no se estima.**
 - Si falta información que cambia el tamaño (¿hay pasarela de pago?, ¿cuántos idiomas?, ¿quién pone
@@ -54,7 +54,7 @@ El presupuesto se hace sobre el **previsto**; el máximo sirve para decidir el c
   mantenimiento posterior, licencias y servicios de terceros (hosting, plugins de pago, APIs).
 
 ## 7. Salida
-`plan/estimacion.md` con: resumen (rango y previsto), tabla por fase (horas mínimo, previsto y máximo;
+`senzu/plan/estimacion.md` con: resumen (rango y previsto), tabla por fase (horas mínimo, previsto y máximo;
 importe si hay tarifa), partidas añadidas, riesgos con su efecto, supuestos, exclusiones y lo que
 cambiaría la estimación. Lenguaje para el cliente en el resumen; detalle técnico debajo.
 

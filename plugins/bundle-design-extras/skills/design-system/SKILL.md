@@ -3,15 +3,15 @@ name: design-system
 description: "Tokens de diseño en 3 capas (primitivo, semántico, componente) con scripts de generación y validación. Úsala DESPUÉS de ui-ux-pro-max para formalizar los tokens del design system ya decidido; en proyectos pequeños basta @theme. No elige paleta."
 ---
 
-# design-system (capa dev-standards, en español)
+# design-system (capa Senzu, en español)
 
 Skill upstream (inglés): `SKILL.upstream.md` (arquitectura, scripts, specs, sistema de slides),
 `references/token-architecture.md`, `primitive-tokens.md`, `semantic-tokens.md`, `component-tokens.md`,
 `component-specs.md`, `states-and-variants.md`, `tailwind-integration.md`, `templates/design-tokens-starter.json`,
-`scripts/generate-tokens.cjs`, `scripts/validate-tokens.cjs`. Capa dev-standards (español): `references/es/tokens-por-stack.md`.
-El sistema de slides upstream (`search-slides.py`, `data/slide-*.csv`, Chart.js) queda **fuera** del alcance dev-standards.
+`scripts/generate-tokens.cjs`, `scripts/validate-tokens.cjs`. Capa Senzu (español): `references/es/tokens-por-stack.md`.
+El sistema de slides upstream (`search-slides.py`, `data/slide-*.csv`, Chart.js) queda **fuera** del alcance Senzu.
 
-Aquí se **formaliza** lo que `ui-ux-pro-max` decidió: el `design-system/<slug>/MASTER.md` (estilo, paleta, tipografía)
+Aquí se **formaliza** lo que `ui-ux-pro-max` decidió: el `senzu/design-system/<slug>/MASTER.md` (estilo, paleta, tipografía)
 se convierte en un JSON de tokens versionado, CSS generado y reglas verificables. `ui-styling` consume los tokens.
 
 ## 1. Cuándo sí / cuándo no
@@ -47,9 +47,9 @@ referencia nada. Dark mode y temas solo redefinen la capa semántica.
 ## 4. Scripts upstream (ejecutar con node, sin dependencias)
 ```bash
 SK=<skills-dir>/design-system            # .claude/skills · .agents/skills · .cursor/skills
-cp $SK/templates/design-tokens-starter.json design-system/tokens.json    # punto de partida DTCG ($value/$type)
-node $SK/scripts/generate-tokens.cjs --config design-system/tokens.json -o resources/css/tokens.css   # CSS vars
-node $SK/scripts/generate-tokens.cjs --config design-system/tokens.json --format tailwind             # bloque para @theme
+cp $SK/templates/design-tokens-starter.json senzu/design-system/tokens.json    # punto de partida DTCG ($value/$type)
+node $SK/scripts/generate-tokens.cjs --config senzu/design-system/tokens.json -o resources/css/tokens.css   # CSS vars
+node $SK/scripts/generate-tokens.cjs --config senzu/design-system/tokens.json --format tailwind             # bloque para @theme
 node $SK/scripts/validate-tokens.cjs --dir resources/js --ignore vendor   # hex/px/rem sueltos; --fix solo sugiere
 ```
 - Referencias en JSON con llaves: `"$value": "{primitive.color.blue.600}"`; el generador las resuelve.

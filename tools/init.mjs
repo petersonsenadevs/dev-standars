@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Instalador AGNÓSTICO de dev-standards (Node >= 18): funciona en Windows, WSL, Linux y macOS.
+// Instalador AGNÓSTICO de Senzu (Node >= 18): funciona en Windows, WSL, Linux y macOS.
 // Port fiel de init-project.ps1 + sync.ps1 para las herramientas claude y codex/antigravity
 // (cursor/windsurf siguen en la versión PowerShell). La suite tools/test-init-parity.ps1 compara
 // la salida de ambos instaladores en cada commit: si divergen, el pre-commit falla.
@@ -15,7 +15,7 @@ import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
-const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));   // raíz del repo dev-standards
+const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));   // raíz del repo de Senzu
 const FRONT_GROUPS = ['front', 'motion', '3d', 'design'];
 const CORE_GROUPS = ['planning', 'routing', 'quality', 'architecture', 'growth', 'ops', 'docs'];
 
@@ -36,7 +36,7 @@ function log(msg) { console.log(msg); }
 function warn(msg) { console.warn('AVISO: ' + msg); }
 
 async function askYesNo(message, defaultYes = true) {
-    if (process.env.DEV_STANDARDS_ASSUME_YES === '1') return defaultYes;
+    if ((process.env.SENZU_ASSUME_YES || process.env.DEV_STANDARDS_ASSUME_YES) === '1') return defaultYes;   // compat-dev-standards
     if (!process.stdin.isTTY) return defaultYes;
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
     const hint = defaultYes ? '[S/n]' : '[s/N]';
@@ -142,7 +142,7 @@ function mergeExtraCsv(skillDst, overlayDir) {
 function copySkills(stack, dst, extra, bundles) {
     const dirs = getSkillDirs(stack, extra, bundles);
     ensureDir(dst);
-    // Quitar skills de dev-standards que ya no están seleccionadas (las propias del proyecto no se tocan)
+    // Quitar skills de Senzu que ya no están seleccionadas (las propias del proyecto no se tocan)
     const elegidas = new Set(dirs.map(d => path.basename(d)));
     for (const s of registry.skills) if (!elegidas.has(s.name)) rmTree(path.join(dst, s.name));
     for (const d of dirs) {
@@ -194,7 +194,7 @@ function activationSection(stack, extra, bundles, relPath) {
     if (core.length) {
         L.push('\n---\n\n# Planificación y calidad\n');
         if (installed.includes('project-planner')) {
-            L.push('**Plan del proyecto:** si existe `plan/PLAN.md`, es la fuente de verdad de qué se hace ahora: elige la tarea `doing` o la primera `todo` y sigue su tarjeta (skill + sección, hecho cuando, verificar). Si no existe y la petición es un proyecto o feature (no un arreglo puntual), crea el plan con la skill `project-planner` antes de codificar.');
+            L.push('**Plan del proyecto:** si existe `senzu/plan/PLAN.md`, es la fuente de verdad de qué se hace ahora: elige la tarea `doing` o la primera `todo` y sigue su tarjeta (skill + sección, hecho cuando, verificar). Si no existe y la petición es un proyecto o feature (no un arreglo puntual), crea el plan con la skill `project-planner` antes de codificar.');
             L.push('');
         }
         L.push(LOAD_PROTOCOL);
@@ -218,9 +218,9 @@ function activationSection(stack, extra, bundles, relPath) {
             L.push('');
             L.push('**Antes de crear o editar UI** (páginas, componentes, estilos, layouts, formularios):');
             L.push(`1. Lee \`${relPath}/ui-ux-pro-max/SKILL.md\` (flujo, perfiles y reglas duras) si aún no lo has hecho en esta sesión; solo su tabla de lectura mínima te dirá qué referencia abrir.`);
-            L.push('2. Si existe `design-system/*/MASTER.md`, es la fuente de verdad de estilo, color y tipografía. Si no existe, genéralo (y si hay plan, es la primera tarjeta de UI):');
+            L.push('2. Si existe `senzu/design-system/*/MASTER.md`, es la fuente de verdad de estilo, color y tipografía. Si no existe, genéralo (y si hay plan, es la primera tarjeta de UI):');
             L.push('   ```bash');
-            L.push(`   python3 ${relPath}/ui-ux-pro-max/scripts/search.py "<producto industria keywords>" --design-system -p "<Proyecto>" --persist -o .`);
+            L.push(`   python3 ${relPath}/ui-ux-pro-max/scripts/search.py "<producto industria keywords>" --design-system -p "<Proyecto>" --persist -o senzu`);
             L.push(`   # Windows: py -3 ${relPath}/ui-ux-pro-max/scripts/search.py ...`);
             L.push('   ```');
             L.push(`3. Guías del stack: \`python3 ${relPath}/ui-ux-pro-max/scripts/search.py "<tema>" --stack ${primary}\` (y el resto de stacks del perfil si aplica).`);
@@ -250,7 +250,7 @@ function activationSection(stack, extra, bundles, relPath) {
 function sessionSection(stack) {
     const L = ['\n---\n\n# Sesión y comandos del proyecto\n'];
     L.push('**Al iniciar cada sesión** (si no hay hooks que lo hagan por ti, hazlo tú): ejecuta y lee `git status -sb`, `git log --oneline -5`,');
-    L.push('la cabecera y la fase activa de `plan/PLAN.md` (si existe) y `devlog/<hoy>/` + última entrada de `devlog/INDEX.md`. No commitees en `main`/`master`/`develop`.');
+    L.push('la cabecera y la fase activa de `senzu/plan/PLAN.md` (si existe) y `senzu/devlog/<hoy>/` + última entrada de `senzu/devlog/INDEX.md`. No commitees en `main`/`master`/`develop`.');
     L.push('**Al cerrar**: tarea del plan actualizada (`done` con enlace al devlog), devlog del día escrito, siguiente tarea propuesta.');
     const cmds = stack.meta.commands;
     if (cmds && Object.keys(cmds).length) {
@@ -280,7 +280,7 @@ function skillsSection(stack, extra, bundles, relPath) {
 // Modo ahorro (opcional, solo en CLAUDE.md): quita lo que en Claude Code ya cubren las skills y los hooks
 // (lista de skills, metodología completa de devlog y git) y pide respuestas técnicas telegráficas, salvo lo
 // dirigido al cliente. AGENTS.md (Codex) queda completo. Mismo texto exacto que _lib.ps1.
-const AHORRO_DEVLOG = 'Documenta cada paso relevante en `devlog/<fecha>/NNN-slug.md` con la skill `devlog` (numeración global e INDEX.md al día). El hook stop-guard lo exige al cerrar la tarea.\n';
+const AHORRO_DEVLOG = 'Documenta cada paso relevante en `senzu/devlog/<fecha>/NNN-slug.md` con la skill `devlog` (numeración global e INDEX.md al día). El hook stop-guard lo exige al cerrar la tarea.\n';
 const AHORRO_GIT = 'Una rama por tarea (nunca commits en main, master ni develop), Conventional Commits de 72 caracteres como máximo y sin co-autores, y nunca `git push` sin aprobación explícita. El hook guard lo hace cumplir.\n';
 const AHORRO_ESTILO = '\n---\n\n# Modo ahorro\n\nRespuestas técnicas en estilo telegráfico: sin preámbulos ni resúmenes repetidos, frases cortas, primero el resultado y el código. Excepciones, en lenguaje normal y completo: `/brief`, `/propuestas`, `/repaso`, `/estimar` y `/entregar`, cualquier texto para el cliente y cualquier explicación que pida el usuario. Las skills cargan sus descripciones solas: abre solo la sección que necesites.\n';
 
@@ -310,7 +310,7 @@ function combinedRules(stack, extra, bundles, relPath) {
             parts.push(md(path.join(rulesDir, rf)));
         }
     }
-    const header = `<!-- GENERADO por dev-standards. NO editar a mano: edita stacks\\${stack.name}\\ y corre sync.ps1. Stack: ${stack.name} -->\n\n`;
+    const header = `<!-- GENERADO por Senzu. NO editar a mano: edita stacks\\${stack.name}\\ y corre sync.ps1. Stack: ${stack.name} -->\n\n`;
     return header + parts.join('\n')
         + activationSection(stack, extra, bundles, relPath)
         + sessionSection(stack)
@@ -346,7 +346,7 @@ function effectiveFrontProfile(stack, projectPath, marker) {
 async function resolveGuideTarget(projectPath, fileName, rules, importSyntax) {
     const main = path.join(projectPath, fileName);
     const base = fileName.replace(/\.md$/, '');
-    const alt = path.join(projectPath, `${base}.dev-standards.md`);
+    const alt = path.join(projectPath, `${base}.dev-standards.md`);   // compat-dev-standards (nombre que ya existe en proyectos)
     const backupName = `${base}.project.md`;
     const backup = path.join(projectPath, backupName);
     let target = main;
@@ -354,7 +354,7 @@ async function resolveGuideTarget(projectPath, fileName, rules, importSyntax) {
         target = alt;
     } else if (exists(main)) {
         const existing = readUtf8(main);
-        if (existing && !/GENERADO por dev-standards/.test(existing)) {
+        if (existing && !/GENERADO por Senzu/.test(existing)) {
             if (await askYesNo(`Este proyecto ya tiene ${fileName} propio. ¿Respaldarlo en ${backupName} y referenciarlo desde el generado?`, true)) {
                 if (!exists(backup)) writeUtf8(backup, existing);
                 log(`  [guia]       ${fileName} respaldado en ${backupName} (referenciado desde el generado)`);
@@ -741,7 +741,7 @@ function comprobarRequisitos() {
 async function modoInteractivo(a) {
     const rl = crearLector();
     try {
-        log('== dev-standards :: instalador interactivo ==');
+        log('== Senzu :: instalador interactivo ==');
         comprobarRequisitos();
         const ruta = await preguntar(rl, `\nCarpeta del proyecto [${a.path}]: `);
         if (ruta) a.path = ruta;
@@ -796,7 +796,7 @@ async function main() {
         return;
     }
     const sinArgumentos = process.argv.length <= 2;
-    if (a.interactivo || (sinArgumentos && process.stdin.isTTY && process.env.DEV_STANDARDS_ASSUME_YES !== '1')) await modoInteractivo(a);
+    if (a.interactivo || (sinArgumentos && process.stdin.isTTY && (process.env.SENZU_ASSUME_YES || process.env.DEV_STANDARDS_ASSUME_YES) !== '1')) await modoInteractivo(a);   // compat-dev-standards
 
     const projectPath = path.resolve(a.path);
     ensureDir(projectPath);
@@ -833,7 +833,7 @@ async function main() {
     stack.selection = seleccion;
     stack.ahorro = a.ahorro !== null ? a.ahorro : !!(marker && marker.ahorro);
 
-    log('== dev-standards :: init (Node, agnóstico de OS) ==');
+    log('== Senzu :: init (Node, agnóstico de OS) ==');
     log(`Stack: ${stack.name}`);
     log(`Proyecto: ${projectPath}`);
     if (seleccion) log(`Selección: ${seleccion.modo}${seleccion.grupos ? ` (${seleccion.grupos.join(', ')})` : ''}${seleccion.hooks ? ` · hooks: ${seleccion.hooks.length}` : ''}${seleccion.comandos ? ` · comandos: ${seleccion.comandos.length}` : ''}`);

@@ -10,7 +10,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 |---|---|
 | Una vez por proyecto | `D:\dev-standards\tools\init-project.ps1 -Stack <stack> -Path <ruta> -Tools claude,codex` |
 | Stacks disponibles | `laravel` · `next` · `astro` · `vue-ts` · `nuxt` · `sveltekit` · `wordpress` · `node-api` · `python-langgraph` (Go/Java/C# como referencias de code-quality) |
-| Tras cada mejora de dev-standards | `D:\dev-standards\tools\sync.ps1 -Path <ruta>` **+ sesión nueva del agente** |
+| Tras cada mejora de Senzu | `D:\dev-standards\tools\sync.ps1 -Path <ruta>` **+ sesión nueva del agente** |
 | Refrescar la colección de efectos | `D:\dev-standards\tools\vendor-effects.ps1 -Missing` |
 | Ver que el paquete está sano | `tools\check-skills.ps1` + `tools\test-router.ps1` |
 | Catálogo completo (skills, enrutamiento, comandos, muros) | [`REFERENCIA.md`](REFERENCIA.md) (generado, siempre al día) |
@@ -33,7 +33,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
   bloqueados al guardarse; los términos entre acentos graves en la sección "No"
   de `gustos.md` se bloquean de verdad; primera edición de UI sin brief ni design system → muro (una vez por sesión); deploy a producción
   (`--prod`) bloqueado hasta tu aprobación explícita.
-- **Memoria de gustos**: tus opiniones de diseño van a `design-system/<slug>/gustos.md`; un veto no se re-propone.
+- **Memoria de gustos**: tus opiniones de diseño van a `senzu/design-system/<slug>/gustos.md`; un veto no se re-propone.
 - **Consciente de versiones**: al arrancar la sesión detecta las versiones reales (PHP/Laravel/Node/framework)
   y avisa si algo está sin soporte (EOL); el agente aplica las prácticas de ESA versión, no de la última.
 - **Consciente de nuevo vs existente**: si hay código previo sin convenciones selladas te propone `/adoptar`
@@ -49,7 +49,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - **Depuración con método**: cuando un test, build o lint falla, el agente recibe el método de `/depurar`
   (reproducir → aislar → hipótesis → un cambio cada vez) en lugar de probar a ciegas. Tras tres intentos
   fallidos se para y te lo cuenta.
-- **Memoria del proyecto** (`devlog/MEMORIA.md`): decisiones vigentes, reglas del cliente, lo que no
+- **Memoria del proyecto** (`senzu/devlog/MEMORIA.md`): decisiones vigentes, reglas del cliente, lo que no
   funcionó y lo pendiente, en una línea cada cosa con su entrada del devlog. Llega sola al empezar cada
   sesión; si el día trae una decisión nueva y no se apuntó en la memoria, no deja cerrar. Antes de llevarte
   la contraria con algo ya decidido, el agente tiene que citarlo y preguntarte. El devlog se sigue
@@ -61,7 +61,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
   agente no hace push ni commitea en main. En un proyecto puedes darle `push` (ramas que no son main),
   `push-main` (también main) o `commit-main`. El push forzado, lo destructivo y los secretos siguen
   bloqueados siempre. Puedes apagar hooks concretos con `--apagar-hooks format-on-save,front-skill-reminder`
-  (guard, secretos y archivos protegidos no se apagan). Se guarda en `.dev-standards.json`, que el agente
+  (guard, secretos y archivos protegidos no se apagan). Se guarda en `senzu/senzu.json`, que el agente
   no puede tocar: ni editándolo, ni desde la terminal, ni lanzando él el instalador con esos flags o
   respondiendo él al menú. Vale para Claude y para Codex. Es una barrera contra errores y atajos, no una
   caja fuerte: el guard lee el texto de los comandos, así que un agente empeñado podría sortearlo con un
@@ -76,7 +76,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 
 | Comando | Para qué | Cuándo usarlo |
 |---|---|---|
-| `/plan` | Crea/retoma `plan/PLAN.md` con tarjetas | Proyecto o feature nueva |
+| `/plan` | Crea/retoma `senzu/plan/PLAN.md` con tarjetas | Proyecto o feature nueva |
 | `/siguiente` | Coge la siguiente tarjeta del plan | Cada vez que quieras avanzar |
 | `/brief` | Entrevista en llano (sin palabreo técnico) | Antes de diseñar nada nuevo |
 | `/propuestas [página]` | Blueprint aprobable + 2 maquetas A/B que se VEN | Proyecto nuevo, rediseño, o "no sé lo que quiero" |
@@ -118,7 +118,7 @@ maquetas, pulsas «Tu opinión» y votas Sí / No cada pieza (letra, botones, co
 pegas en el chat (o lo dices con tus palabras) → `/ronda` → nueva ronda: lo que te gustó fijo en todas, lo
 vetado fuera y algo nuevo en cada una → repites hasta que digas «esta» → el agente construye → `/verificar`
 (+ móvil) → devlog → commit (te lo pedirá, nunca push sin tu ok). Todas las rondas quedan en
-`design-system/<slug>/propuestas/index.html` y las decisiones en `gustos.md`.
+`senzu/design-system/<slug>/propuestas/index.html` y las decisiones en `gustos.md`.
 
 **Rediseño de algo existente**: "quiero renovar la página X" → brief corto + `/propuestas X` →
 construir sobre la elegida.
@@ -134,7 +134,7 @@ la paleta sale sola del design system. En la app de ChatGPT/Codex la genera nati
 
 ## 6. En Codex (diferencias honestas)
 
-Codex puede usar dev-standards de dos formas, y conviene saber qué llega con cada una.
+Codex puede usar Senzu de dos formas, y conviene saber qué llega con cada una.
 
 **a) Con el marketplace de plugins de Codex** (el mismo repo: Codex lo añade como marketplace git y
 descarga los plugins `dev-standards-*`):
@@ -158,14 +158,14 @@ el plugin desde la app.
 
 **b) Con las skills globales** (`install.ps1` → `~/.agents/skills` y `~/.codex/skills`): solo skills, sin
 comandos ni hooks. Desde la 1.1.0 instala por defecto también `backend-audit`, `deploy-ops`,
-`marketing-seo`, `email-html` y `devlog`, que antes faltaban (`DEV_STANDARDS_ALL=1` instala todas).
+`marketing-seo`, `email-html` y `devlog`, que antes faltaban (`SENZU_ALL=1` instala todas).
 
 Con las skills globales (sin plugin) no hay hooks: ahí sé un punto más explícito en Codex: "usa la skill
 image-gen", `$ui-ux-pro-max`, o "verifica el build" (`node .agents/skills/code-quality/scripts/verify-build.mjs`).
 
 ## 7. Mapa de dónde vive cada cosa (por si quieres mirar)
 
-`design-system/<slug>/` → BRAND.md (marca) · gustos.md (tus vetos) · blueprint.md · propuestas/ (maquetas) ·
-MASTER.md (tokens) · prompts.md (imágenes) — `plan/` → PLAN.md y brief.md — `devlog/` → diario del proyecto —
-En dev-standards: `core/effects-vendor/INDEX.md` (124 carpetas de efectos) · `front-activation/references/`
+`senzu/design-system/<slug>/` → BRAND.md (marca) · gustos.md (tus vetos) · blueprint.md · propuestas/ (maquetas) ·
+MASTER.md (tokens) · prompts.md (imágenes) — `senzu/plan/` → PLAN.md y brief.md — `senzu/devlog/` → diario del proyecto —
+En Senzu: `core/effects-vendor/INDEX.md` (124 carpetas de efectos) · `front-activation/references/`
 (catálogo y fuentes) · `code-quality/references/backend-catalog.md` (backend por síntoma).

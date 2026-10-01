@@ -3,28 +3,28 @@ name: ui-ux-pro-max
 description: "SKILL POR DEFECTO de front: ante cualquier landing, página, web, hero, componente, formulario, dashboard, tema o rediseño úsala PRIMERO (elige estilo, paleta, tipografía y patrón; design system por stack). Después, la especialista. No para backend."
 ---
 
-# ui-ux-pro-max (capa dev-standards, en español)
+# ui-ux-pro-max (capa Senzu, en español)
 
 Esta skill es **UI UX Pro Max** (upstream, en inglés: `SKILL.upstream.md`, `references/pro-rules.md`,
 `references/quick-reference.md`) más una capa propia en español con **perfiles por stack de front**,
 plantillas y guías (`references/es/`). Eres el diseñador de producto del equipo: antes de escribir UI decides
-estilo, paleta, tipografía y patrón, lo persistes en `design-system/<slug>/MASTER.md` y luego implementas
+estilo, paleta, tipografía y patrón, lo persistes en `senzu/design-system/<slug>/MASTER.md` y luego implementas
 con las guías del stack. Nunca improvises colores, fuentes o espaciados en mitad de un componente.
 
 ## 1. Detectar el stack (obligatorio, nunca asumir)
-1. `.dev-standards.json` en la raíz → `frontProfile.stacks` (orden de prioridad para `--stack`).
+1. `senzu/senzu.json` en la raíz → `frontProfile.stacks` (orden de prioridad para `--stack`).
 2. Si no existe: `composer.json` con `inertiajs/inertia-laravel` → perfil Laravel+Inertia; `package.json` con
    `next` → Next.js; `astro` → Astro; `vue` sin Inertia → Vue 3; `svelte`/`nuxt`/`angular` → sus stacks upstream.
 3. Si sigue sin estar claro, pregunta. Anota el perfil en el devlog.
 
-| Perfil (dev-standards) | `--stack` (en orden) | Particularidades que SIEMPRE aplican |
+| Perfil (Senzu) | `--stack` (en orden) | Particularidades que SIEMPRE aplican |
 |---|---|---|
 | Laravel + Inertia + Vue 3 | `laravel`, `vue`, `html-tailwind`, `shadcn` | Layouts persistentes, `<Head>`, `useForm` con `form.errors.campo` + `form.processing`, `preserveScroll`, partial reloads, flash messages, Ziggy, SSR opcional; componentes shadcn-vue/Reka UI; dark mode con clase en `app.blade.php`. |
 | Next.js (App Router) + React | `nextjs`, `react`, `shadcn`, `html-tailwind` | Server/Client Components (`"use client"` solo donde haga falta), `next/image`, `next/font`, `metadata`, `loading.tsx`/`error.tsx`, forms con server actions + `useActionState`, shadcn/ui. |
 | Astro (+ React islands) | `astro`, `react`, `shadcn`, `html-tailwind` | HTML primero; efectos de scroll/GSAP en `<script>` vanilla (SIN isla); UI interactiva con estado o animación declarativa (Motion, R3F, shadcn/ui) → island React con `client:visible`/`client:idle`; View Transitions, content collections, `<Image>`, SEO en `<head>`. |
 | Vue 3 + TS (SPA) | `vue`, `html-tailwind`, `shadcn` | `<script setup lang="ts">`, composables, Pinia, VueUse, Reka UI/shadcn-vue, `<Transition>`, Teleport, router guards, lazy routes. |
 
-Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`data/stacks/*.extra.csv`).
+Las filas marcadas `(es)` en las guías de stack provienen de Senzu (`data/stacks/*.extra.csv`).
 
 ## 1b. Lectura mínima por tarea (no cargues más; `SKILL.upstream.md` y referencias por secciones)
 | Tarea | Lee solo |
@@ -34,7 +34,7 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 | Landing / marketing | §2 flujo + `references/es/page-patterns.md` + `references/es/industry-rules.md` + `references/es/copywriting.md` (titulares/CTAs) |
 | Dashboard / admin / tabla | `references/es/components-spec.md` §Table, §Empty state, §Skeleton + `--stack` guías |
 | Formulario | `components-spec.md` §Input, §Form (tu stack) + `references/es/accessibility.md` §Formularios |
-| Componente suelto | `components-spec.md` (solo ese componente) + tokens de `design-system/*/MASTER.md` |
+| Componente suelto | `components-spec.md` (solo ese componente) + tokens de `senzu/design-system/*/MASTER.md` |
 | Tema / tokens / dark mode | `references/es/tokens-tailwind.md` (sección de tu stack) |
 | Auditoría de UI · repaso CON el usuario | `references/es/review-rubric.md` · juntos: `references/es/review-session.md` |
 | "Que se vea moderna" (hero, bento, aurora, glass, glow) | `references/es/modern-look.md` (recetas + CSS moderno nativo §9) |
@@ -44,14 +44,14 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 1. **Brief** (`references/es/brief-discovery.md`): checklist de lo que hay que saber (marca/guideline, objetivo,
    audiencia, contenido real, restricciones) + entrevista en lenguaje llano con glosario cliente→técnico;
    pide SIEMPRE 2-3 webs de referencia (protocolo en `references/es/inspiration.md`). Manual de marca →
-   `design-system/<slug>/BRAND.md`. Proyecto nuevo/rediseño → **modo propuesta** (`references/es/proposal-mode.md`):
+   `senzu/design-system/<slug>/BRAND.md`. Proyecto nuevo/rediseño → **modo propuesta** (`references/es/proposal-mode.md`):
    blueprint aprobado + 2 maquetas A/B que se VEN, y solo después construir.
-2. **Design system del proyecto**: si existe `design-system/*/MASTER.md`, es la fuente de verdad (y `pages/<página>.md`
+2. **Design system del proyecto**: si existe `senzu/design-system/*/MASTER.md`, es la fuente de verdad (y `pages/<página>.md`
    prevalece para esa página). Si no existe, genéralo y persístelo desde la raíz del proyecto:
    ```bash
-   python3 <skills-dir>/ui-ux-pro-max/scripts/search.py "<producto industria keywords>" --design-system -p "<Proyecto>" --persist -o .
-   # Windows:  py -3 <skills-dir>/ui-ux-pro-max/scripts/search.py "..." --design-system -p "<Proyecto>" --persist -o .
-   # Página concreta:  ... --design-system --page checkout -p "<Proyecto>" --persist -o .
+   python3 <skills-dir>/ui-ux-pro-max/scripts/search.py "<producto industria keywords>" --design-system -p "<Proyecto>" --persist -o senzu
+   # Windows:  py -3 <skills-dir>/ui-ux-pro-max/scripts/search.py "..." --design-system -p "<Proyecto>" --persist -o senzu
+   # Página concreta:  ... --design-system --page checkout -p "<Proyecto>" --persist -o senzu
    # Dials opcionales: --variance 1-10  --motion 1-10  --density 1-10
    ```
    `<skills-dir>` = `.claude/skills` (Claude Code) · `.agents/skills` (Codex/Antigravity/Cursor) · `.cursor/skills` · `.windsurf/skills` · `${CLAUDE_PLUGIN_ROOT}/skills` (instalada como plugin).
@@ -66,7 +66,7 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 7. **Antes de entregar (bloqueante)**: checklist de `references/pro-rules.md` + `references/es/accessibility.md`.
    Comprueba 375 / 768 / 1440 px y dark mode si tienes navegador; documenta en devlog lo verificado y lo pendiente.
 
-## 3. Reglas duras (upstream + dev-standards)
+## 3. Reglas duras (upstream + Senzu)
 1. Iconos SVG (Phosphor/Lucide/Heroicons) con `aria-hidden` y texto accesible — **nunca emojis como iconos**.
 2. Contraste 4.5:1 texto normal, 3:1 texto grande/iconos/bordes; verificado en claro y oscuro.
 3. Responsive 375–1440 px sin scroll horizontal; `clamp()`/container queries cuando aporten; zoom no bloqueado.
@@ -81,7 +81,7 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 12. Sin segunda librería de componentes ni fuentes nuevas sin aprobación; se reutiliza lo que ya hay en el proyecto.
 
 ## 4. Prioridad de fuentes de verdad
-`design-system/<slug>/BRAND.md` (manual de marca) → `gustos.md` (vetos y preferencias acumulados: léelo SIEMPRE; un veto no se re-propone) → `pages/<página>.md` → `MASTER.md` → en proyectos de la agencia, `skill de marca de la agencia/references/brand.md` → tokens existentes en el proyecto →
+`senzu/design-system/<slug>/BRAND.md` (manual de marca) → `gustos.md` (vetos y preferencias acumulados: léelo SIEMPRE; un veto no se re-propone) → `pages/<página>.md` → `MASTER.md` → en proyectos de la agencia, `skill de marca de la agencia/references/brand.md` → tokens existentes en el proyecto →
 resultados de `search.py` → tu criterio (documentado en MASTER.md si te desvías).
 
 ## 5. Recursos
@@ -91,7 +91,7 @@ resultados de `search.py` → tu criterio (documentado en MASTER.md si te desví
   `fonts-icons.md` · `resources-toolbox.md` · `inspiration.md` · `modern-look.md` · `copywriting.md` · `measurement.md` · `review-session.md` · `workflow.md` · `tokens-tailwind.md` · `forms-ux.md` (formularios que la gente TERMINA: campos, validación, multi-step — léela al maquetar cualquier formulario) · `anti-ia.md` (lista NEGRA de patrones que delatan web hecha con IA + rotación de referencias: léela ANTES de proponer o maquetar) · `composiciones.md` (las maneras de ordenar la página —bento, editorial, rejilla rota, pantalla dividida, storytelling— por tipo de negocio: elige composición ANTES que efectos).
 - `references/es/components-spec.md` — anatomía, estados y a11y de los componentes base (formularios por stack).
 - `references/es/accessibility.md` — WCAG 2.2 AA práctico. `references/es/review-rubric.md` — auditar UI existente.
-- `data/` — CSV buscables (upstream) + filas `(es)` de dev-standards en `data/stacks/`.
+- `data/` — CSV buscables (upstream) + filas `(es)` de Senzu en `data/stacks/`.
 
 ## 6. Salida esperada cuando diseñas
 Primero un bloque corto: **Perfil/stack**, **Patrón**, **Estilo**, **Paleta (tokens)**, **Tipografía**, **Efectos**,

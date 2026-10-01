@@ -3,7 +3,7 @@
 - **Objetivo:** <una frase: qué resultado observable obtiene el usuario>
 - **Estado:** en curso | pausado | cerrado · **Actualizado:** YYYY-MM-DD
 - **Stack / perfil:** <laravel · Laravel + Inertia + Vue 3 + Tailwind>
-- **Brief:** `plan/brief.md` · **Design system:** `design-system/<slug>/MASTER.md` (si aplica) · **Devlog:** `devlog/INDEX.md`
+- **Brief:** `senzu/plan/brief.md` · **Design system:** `senzu/design-system/<slug>/MASTER.md` (si aplica) · **Devlog:** `senzu/devlog/INDEX.md`
 - **Definición de hecho global:** <tests y lint en verde, a11y básica, sin secretos, devlog al día, sin deploy>
 
 ## Alcance

@@ -23,7 +23,7 @@ jobs:
         shell: powershell
         run: |
           # Misma versión que la commiteada: la del plugin core (evita diferencias por el nº de commits)
-          $env:DEV_STANDARDS_RELEASE = (Get-Content plugins\dev-standards-core\.claude-plugin\plugin.json -Raw | ConvertFrom-Json).version
+          $env:SENZU_RELEASE = (Get-Content plugins\senzu-core\.claude-plugin\plugin.json -Raw | ConvertFrom-Json).version
           powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-plugins.ps1 | Out-Null
           powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-docs.ps1 | Out-Null
           git -c core.autocrlf=true diff --stat --exit-code -- plugins .claude-plugin docs REFERENCIA.md

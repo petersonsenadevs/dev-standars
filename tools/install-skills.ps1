@@ -1,7 +1,7 @@
 ﻿#requires -Version 5.1
 <#
 .SYNOPSIS
-  Instala skills de dev-standards (vendor + overlay fusionados) de forma GLOBAL para cada agente,
+  Instala skills de Senzu (vendor + overlay fusionados) de forma GLOBAL para cada agente,
   sin necesidad de inicializar un proyecto.
 .DESCRIPTION
   Copia las skills pedidas a las carpetas de skills de usuario:

@@ -9,7 +9,7 @@ function Render-Windsurf {
     $header = @"
 ---
 trigger: always_on
-description: dev-standards ($($Stack.Name))
+description: Senzu ($($Stack.Name))
 ---
 
 "@

@@ -3,7 +3,7 @@ name: blender-web-pipeline
 description: "Exportar modelos Blender a glTF/GLB para web: bpy, Draco, decimación, baking, LODs, texturas, lotes por CLI (blender --background). No para renderizar 3D en navegador (threejs-webgl, babylonjs-engine) ni pintar PBR (substance-3d-texturing)."
 ---
 
-# blender-web-pipeline (índice dev-standards, ES)
+# blender-web-pipeline (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (613 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -53,4 +53,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (613 líneas). *
 - Si usas Draco, la web debe registrar el decodificador (`DRACOLoader.setDecoderPath`), o el modelo no cargará.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Esta skill se ejecuta fuera del front (Blender + Python); su salida .glb se consume desde threejs-webgl (vanilla/Vue/Astro), react-three-fiber (React) o babylonjs-engine. Coloca los .glb en `public/models/` y el decodificador Draco en `public/draco/`.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Esta skill se ejecuta fuera del front (Blender + Python); su salida .glb se consume desde threejs-webgl (vanilla/Vue/Astro), react-three-fiber (React) o babylonjs-engine. Coloca los .glb en `public/models/` y el decodificador Draco en `public/draco/`.

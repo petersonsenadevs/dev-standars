@@ -2,7 +2,7 @@
 
 El brief es la página que convierte una petición ("hazme una landing") en un acuerdo
 verificable. Se escribe antes del plan, cabe en una pantalla y vive en la cabecera de
-`plan/PLAN.md` (sección "Brief"). Si el brief no está claro, el plan será ruido.
+`senzu/plan/PLAN.md` (sección "Brief"). Si el brief no está claro, el plan será ruido.
 
 ## Índice
 
@@ -69,7 +69,7 @@ formulado o pertenece a una fase distinta.
 |------|------------------------|---------|
 | Stack | ¿Qué no se puede cambiar? | Laravel 12 + Inertia + Vue 3; sin añadir React |
 | Plazo | ¿Hay fecha dura? ¿Qué debe estar para esa fecha? | Demo el 15/09: F1 y F2 completas |
-| Marca | ¿Logo, paleta, tipografía, tono? | Paleta corporativa en `design-system/web/MASTER.md`; tono cercano, tuteo |
+| Marca | ¿Logo, paleta, tipografía, tono? | Paleta corporativa en `senzu/design-system/web/MASTER.md`; tono cercano, tuteo |
 | Datos | ¿Datos reales? ¿Migraciones destructivas? ¿RGPD? | BD de producción; solo migraciones aditivas; datos personales cifrados en reposo |
 | Legal/compliance | ¿Cookies, facturación legal, accesibilidad exigida? | Facturas con numeración correlativa sin huecos (ley española) |
 | Operación | ¿Dónde se despliega? ¿Quién despliega? | Forge; despliega el usuario, nunca el agente |
@@ -189,4 +189,4 @@ Aquí el dominio es rico (numeración, rectificativas, impuestos): el plan asign
 - [ ] Supuestos numerados (S1..Sn), reversibles y anotados.
 - [ ] Preguntas con dueño, default y tarea bloqueada.
 - [ ] Alcance negociado como producto completo por fases; ninguna fase es un prototipo.
-- [ ] Brief copiado en la cabecera de `plan/PLAN.md`.
+- [ ] Brief copiado en la cabecera de `senzu/plan/PLAN.md`.

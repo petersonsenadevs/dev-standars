@@ -3,7 +3,7 @@ name: locomotive-scroll
 description: "Scroll suave y parallax con Locomotive Scroll: data-scroll-*, sticky, scroll horizontal, eventos scroll/call, sync con GSAP ScrollTrigger (scrollerProxy). No para reveals simples (scroll-reveal-libraries) ni scroll sin smooth (gsap)."
 ---
 
-# locomotive-scroll (índice dev-standards, ES)
+# locomotive-scroll (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (480 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -51,4 +51,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (480 líneas). *
 - SSR-safe: instancia solo en cliente (`useEffect`/`onMounted`/`client:only`), nunca en el nivel superior del módulo.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Es vanilla JS y sirve en HTML estático, Astro, Vue (instancia en `onMounted`, destruye en `onUnmounted`) y React (`useEffect` con cleanup). En proyectos React con GSAP, valora ScrollSmoother (gsap-scrolltrigger) para evitar dos sistemas de scroll; con barba-js, destruye y recrea la instancia en cada transición.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Es vanilla JS y sirve en HTML estático, Astro, Vue (instancia en `onMounted`, destruye en `onUnmounted`) y React (`useEffect` con cleanup). En proyectos React con GSAP, valora ScrollSmoother (gsap-scrolltrigger) para evitar dos sistemas de scroll; con barba-js, destruye y recrea la instancia en cada transición.

@@ -1,14 +1,14 @@
-# Roadmap de dev-standards (para que nada se olvide)
+# Roadmap de Senzu (para que nada se olvide)
 
-Actualizado: 2026-09-18. Las tandas completadas viven en `devlog/INDEX.md` (029 entradas).
+Actualizado: 2026-09-18. Las tandas completadas viven en `senzu/devlog/INDEX.md` (029 entradas).
 
 ## 1. Pendientes que dependen del usuario
 - [ ] **Estreno real del ciclo completo**: un proyecto de verdad con `/brief` → `/propuestas` (maquetas A/B)
   → construir → `/repaso` → `/lanzar`. Lo que falle ahí define la siguiente tanda (regla aprendida:
   lo real destapa más que construir en vacío).
-- [x] **Publicado en GitHub** (2026-09-29): https://github.com/petersonsenadevs/dev-standars (público).
-  Activos `/plugin marketplace add petersonsenadevs/dev-standars` y el `irm … install.ps1 | iex`.
-  Pendiente menor: renombrar el repo a `dev-standards` si se quiere corregir la errata (GitHub redirige;
+- [x] **Publicado en GitHub** (2026-09-29): https://github.com/petersonsenadevs/senzu (público).
+  Activos `/plugin marketplace add petersonsenadevs/senzu` y el `irm … install.ps1 | iex`.
+  Pendiente menor: renombrar el repo a `Senzu` si se quiere corregir la errata (GitHub redirige;
   actualizar entonces las URLs de README/INSTALL/install.ps1).
 - [ ] En `un proyecto Laravel`: verificación móvil de `/escombros` (F2-T1), fotos reales del servicio,
   cifras de contadores confirmadas, alta del subdominio en Netlify/DNS, y commit del proyecto.
@@ -61,7 +61,7 @@ plataforma profundas, heredar app nativa) — y Swift solo con Mac disponible.
 - [x] Stacks conscientes de versión (2026-09-22): session-start detecta versiones reales (composer/package/
   pyproject) + aviso EOL; referencia `code-quality/references/stack-versions.md` (qué cambia entre majors).
 - [x] `/adoptar` (2026-09-22): convenciones de proyectos heredados analizadas, pactadas y selladas como
-  inmutables (`conventions.md` + `conventions.json` ejecutable + hook `conventions-guard`).
+  inmutables (`senzu/conventions.md` + `senzu/conventions.json` ejecutable + hook `conventions-guard`).
 - [x] **Instalador agnóstico en Node** (2026-09-29): `tools/init.mjs` — init+sync para claude y
   codex/antigravity en Windows/WSL/Linux/macOS. Suite `test-init-parity.ps1` en el pre-commit:
   compara la salida de ambos instaladores (3 stacks probados byte a byte) para que no diverjan.
@@ -74,5 +74,5 @@ plataforma profundas, heredar app nativa) — y Swift solo con Mac disponible.
 
 ## Cómo se usa este archivo
 Al cerrar una tanda: marcar lo hecho y añadir lo nuevo que quede pendiente. El planner y los agentes
-pueden leerlo, pero la fuente de tareas de un proyecto sigue siendo su `plan/PLAN.md`; esto es el
+pueden leerlo, pero la fuente de tareas de un proyecto sigue siendo su `senzu/plan/PLAN.md`; esto es el
 backlog del PAQUETE.

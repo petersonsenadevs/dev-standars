@@ -3,7 +3,7 @@ name: animejs
 description: "Animaciones DOM/CSS/SVG con Anime.js: timelines con offsets, stagger (grid, from center), dibujo y morphing de paths SVG, keyframes, easings spring/steps. No para scroll-driven complejo (gsap-scrolltrigger) ni React (motion-framer)."
 ---
 
-# animejs (índice dev-standards, ES)
+# animejs (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (525 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -51,5 +51,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (525 líneas). *
 - Sin `loop: true` infinitos por defecto; respeta `prefers-reduced-motion` (salta al estado final con `seek(duration)` o no animes).
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Es framework-agnóstica: vanilla y Astro (en `<script>` cliente o `client:*`), Vue (`onMounted`/`onUnmounted`), React (`useEffect` con cleanup, L255-278).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Es framework-agnóstica: vanilla y Astro (en `<script>` cliente o `client:*`), Vue (`onMounted`/`onUnmounted`), React (`useEffect` con cleanup, L255-278).
 - SSR-safe solo si se importa y ejecuta en cliente; en Next/Nuxt/Astro no invoques `anime()` en módulos de servidor.

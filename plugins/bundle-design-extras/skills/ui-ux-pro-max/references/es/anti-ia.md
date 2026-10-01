@@ -24,7 +24,7 @@ explícitamente por su nombre. Algunos además están bloqueados por hook (marca
 ## Cómo se hace cumplir (tres capas)
 1. **Al construir**: esta lista es parte de la lectura de toda tarea de UI nueva; ante la duda, fuera.
 2. **Hook** (⛔): `code-hygiene` bloquea los regexeables (frases de disponibilidad, numeración de
-   secciones) al escribirse en archivos de front. Escape puntual: `dev-standards-allow` si el usuario
+   secciones) al escribirse en archivos de front. Escape puntual: `senzu-allow` si el usuario
    lo pidió con su nombre — y anótalo en `gustos.md`.
 3. **Crítica visual**: el eje 9 de `ui-verify §references/visual-critique.md` ("olor a IA") puntúa 1-2
    si aparece cualquiera de esta tabla → NO APTA hasta limpiarlo.

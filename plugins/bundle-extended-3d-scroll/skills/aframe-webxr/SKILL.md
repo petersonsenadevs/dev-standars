@@ -3,7 +3,7 @@ name: aframe-webxr
 description: "Escenas 3D/VR/AR declarativas en HTML con A-Frame (ECS sobre Three.js): WebXR, controladores VR, AR hit-test, visores 360, componentes custom. No para control fino de Three.js (threejs-webgl) ni para React (react-three-fiber)."
 ---
 
-# aframe-webxr (índice dev-standards, ES)
+# aframe-webxr (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (1076 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -51,5 +51,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (1076 líneas). 
 - Ofrece siempre fallback no-XR (desktop/móvil con look-controls) y respeta `prefers-reduced-motion` desactivando `animation__*` en bucle.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). A-Frame es vanilla/HTML-first: en Vue o Astro funciona con el script CDN o `import 'aframe'` solo en cliente (no SSR).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). A-Frame es vanilla/HTML-first: en Vue o Astro funciona con el script CDN o `import 'aframe'` solo en cliente (no SSR).
 - En React usa `useEffect` + refs (L731-770) y registra componentes antes de montar `<a-scene>`; si el proyecto ya es React+Three, prefiere `react-three-fiber`.

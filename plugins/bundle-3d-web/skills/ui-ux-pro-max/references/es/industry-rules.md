@@ -2,7 +2,7 @@
 
 Uso: localiza la industria, toma estilo/patrón como punto de partida y lanza `search.py` con las keywords de paleta y
 tipografía (`--domain color` / `--domain typography`) para obtener valores reales; el estilo se busca con `--domain style`.
-El resultado se persiste en `design-system/<slug>/MASTER.md`. Si el brief contradice la tabla, gana el brief (documentado).
+El resultado se persiste en `senzu/design-system/<slug>/MASTER.md`. Si el brief contradice la tabla, gana el brief (documentado).
 
 Categorías de estilo: `minimal`, `glass`, `brutalist`, `bento`, `corporate`, `editorial`, `dark-mode`, `luxury`,
 `saas`, `dashboard`, `playful`, `organic`, `swiss`, `3d-immersive`, `scroll-story`, `high-contrast-a11y`,

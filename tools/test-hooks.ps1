@@ -20,7 +20,7 @@ Set-Content -Path (Join-Path $proj 'design-system\demo\gustos.md') -Encoding UTF
 
 function Invoke-Hook([string]$HookFile, [hashtable]$Payload, [string]$Sid) {
     $env:CLAUDE_PROJECT_DIR = $proj
-    $env:DEV_STANDARDS_TEST_ISOLATED = '1'
+    $env:SENZU_TEST_ISOLATED = '1'
     $json = ($Payload | ConvertTo-Json -Compress -Depth 5)
     $json = -join ($json.ToCharArray() | ForEach-Object { if ([int]$_ -gt 127) { '\u{0:x4}' -f [int]$_ } else { $_ } })
     $script:lastOut = ($json | node (Join-Path $root "core\hooks\$HookFile") 2>&1 | Out-String)
@@ -50,16 +50,16 @@ function Case([string]$Name, [string]$Hook, [hashtable]$Payload, [int]$Expect, [
 
 # --- guard: librerias vetadas ---
 $null = Case 'npm i jquery -> bloquea' 'guard.mjs' @{ tool_name='Bash'; tool_input=@{ command='npm install jquery' } } 2
-$env:DEV_STANDARDS_ALLOW_LIB = '1'
+$env:SENZU_ALLOW_LIB = '1'
 $null = Case 'jquery con ALLOW_LIB -> pasa' 'guard.mjs' @{ tool_name='Bash'; tool_input=@{ command='npm install jquery' } } 0
-$env:DEV_STANDARDS_ALLOW_LIB = ''
+$env:SENZU_ALLOW_LIB = ''
 $null = Case 'npm run build -> pasa' 'guard.mjs' @{ tool_name='Bash'; tool_input=@{ command='npm run build' } } 0
 
 # --- guard: muro de deploy a produccion ---
 $null = Case 'netlify --prod -> bloquea' 'guard.mjs' @{ tool_name='Bash'; tool_input=@{ command='netlify deploy --prod' } } 2
-$env:DEV_STANDARDS_ALLOW_DEPLOY = '1'
+$env:SENZU_ALLOW_DEPLOY = '1'
 $null = Case 'deploy con ALLOW_DEPLOY -> pasa' 'guard.mjs' @{ tool_name='Bash'; tool_input=@{ command='netlify deploy --prod' } } 0
-$env:DEV_STANDARDS_ALLOW_DEPLOY = ''
+$env:SENZU_ALLOW_DEPLOY = ''
 $null = Case 'netlify preview -> pasa' 'guard.mjs' @{ tool_name='Bash'; tool_input=@{ command='netlify deploy --alias rama' } } 0
 
 # --- guard: devops/linux peligrosos ---
@@ -72,7 +72,7 @@ $null = Case 'curl descarga simple -> pasa' 'guard.mjs' @{ tool_name='Bash'; too
 # --- code-hygiene: debug ---
 $null = Case 'introduce console.log -> bloquea' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.ts'; old_string='const a = 1;'; new_string='const a = 1; console.log(a);' } } 2
 $null = Case 'console.log ya existia -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\app.ts'; old_string='console.log(a); const a = 1;'; new_string='console.log(a); const a = 2;' } } 0
-$null = Case 'console.log con allow -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\cli.ts'; old_string='x'; new_string="console.log('hola') // dev-standards-allow" } } 0
+$null = Case 'console.log con allow -> pasa' 'code-hygiene.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\cli.ts'; old_string='x'; new_string="console.log('hola') // senzu-allow" } } 0
 $null = Case 'Write con debugger -> bloquea' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\P.astro'; content="<script>`ndebugger`n</script>" } } 2
 $null = Case 'archivo de test -> pasa' 'code-hygiene.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\app.test.ts'; content='console.log(1)' } } 0
 
@@ -105,8 +105,8 @@ $sid = Case 'primera edicion UI sin brief -> bloquea' 'front-skill-reminder.mjs'
 $null = Case 'segunda edicion misma sesion -> pasa' 'front-skill-reminder.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\Hero.astro' } } 0 $sid
 
 # --- conventions-guard: convenciones adoptadas (/adoptar) ---
-Set-Content -Path (Join-Path $proj 'conventions.json') -Encoding UTF8 -Value '{"_sello":"dev-standards:inmutable","rules":[{"files":"\\.(ts|tsx)$","forbid":"\\binterface\\s+\\w","why":"este proyecto usa type, no interface"}]}'
-Set-Content -Path (Join-Path $proj 'conventions.md') -Encoding UTF8 -Value "# Convenciones`n<!-- dev-standards:inmutable -->`nUsar type, no interface."
+Set-Content -Path (Join-Path $proj 'conventions.json') -Encoding UTF8 -Value '{"_sello":"senzu:inmutable","rules":[{"files":"\\.(ts|tsx)$","forbid":"\\binterface\\s+\\w","why":"este proyecto usa type, no interface"}]}'
+Set-Content -Path (Join-Path $proj 'conventions.md') -Encoding UTF8 -Value "# Convenciones`n<!-- senzu:inmutable -->`nUsar type, no interface."
 $null = Case 'convencion interface -> bloquea' 'conventions-guard.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\tipos.ts'; old_string='const x = 1;'; new_string='interface Foo { a: string }' } } 2
 $null = Case 'regla no aplica a php -> pasa' 'conventions-guard.mjs' @{ tool_name='Write'; tool_input=@{ file_path='C:\x\src\Foo.php'; content='interface Foo {}' } } 0
 $null = Case 'interface ya existia -> pasa' 'conventions-guard.mjs' @{ tool_name='Edit'; tool_input=@{ file_path='C:\x\src\tipos.ts'; old_string='interface Foo { a: string }'; new_string='interface Foo { a: string; b: number }' } } 0

@@ -29,7 +29,7 @@ Total: **44 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo
 |---|---|---|---|
 | **`skill-router`** (entrada) | 0 | Empezar cualquier tarea no trivial: decide qué skill y sección leer (tabla de activación + protocolo de carga) | que stack, elegir stack, con que lo hago, que skill |
 | `front-activation` | 8 | Empezar una tarea de UI, animación o 3D: detecta el perfil de front y la lectura mínima por tarea; efectos concretos del catálogo (79 recetas: CSS moderno, formas y SVG, tipografía cinética, microinteracciones, WebGL avanzado) | blobs, gooey, metaballs, morph, separadores de onda, onda entre secciones, clip-path, view transitions… |
-| `instalar-proyecto` | 8 | Instalar o actualizar dev-standards completo en el proyecto (/instalar): todo, por categorías o a medida | instalar dev.standards, actualizar dev.standards, reinstala dev.standards, instalar el paquete, instalacion de dev.standards |
+| `instalar-proyecto` | 8 | Instalar o actualizar Senzu completo en el proyecto (/instalar): todo, por categorías o a medida | instalar dev.standards, actualizar dev.standards, reinstala dev.standards, instalar el paquete, instalacion de dev.standards |
 
 ### Calidad de código (grupo `quality`, 3 skills)
 

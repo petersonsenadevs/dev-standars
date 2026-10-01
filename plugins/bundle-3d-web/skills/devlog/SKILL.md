@@ -5,7 +5,7 @@ description: Devlog del proyecto como diario y memoria: entrada del día e INDEX
 
 # Skill: devlog
 
-Documenta el trabajo en `devlog/` en la raíz del proyecto siguiendo la metodología del equipo.
+Documenta el trabajo en `senzu/devlog/` en la raíz del proyecto siguiendo la metodología del equipo.
 
 ## Cuándo usar
 - Antes de cada `git commit`.
@@ -19,25 +19,25 @@ anota la decisión en la primera entrada (o en su diario) y respétala el resto 
 
 ## Pasos
 1. Determina la fecha real: `Get-Date -Format 'yyyy-MM-dd HH:mm'`.
-2. Asegura la carpeta del día: `devlog/<YYYY-MM-DD>/`.
+2. Asegura la carpeta del día: `senzu/devlog/<YYYY-MM-DD>/`.
 3. Calcula el siguiente número correlativo GLOBAL leyendo el mayor `NNN` existente en
-   todo `devlog/**` y sumando 1 (formato de 3 dígitos: `001`, `002`…).
-4. Crea `devlog/<fecha>/NNN-<slug>.md` con la plantilla de entrada.
+   todo `senzu/devlog/**` y sumando 1 (formato de 3 dígitos: `001`, `002`…).
+4. Crea `senzu/devlog/<fecha>/NNN-<slug>.md` con la plantilla de entrada.
 5. Si esta entrada mejora/corrige otra, rellena `Mejora a: NNN`.
 6. Registra los commits del paso (hash corto + mensaje).
-7. Si hubo decisiones, añádelas a `devlog/<fecha>/DECISIONES.md` **y a `devlog/MEMORIA.md`** como vigentes
+7. Si hubo decisiones, añádelas a `senzu/devlog/<fecha>/DECISIONES.md` **y a `senzu/devlog/MEMORIA.md`** como vigentes
    (`D-xxx · decisión y porqué · ver NNN`); si sustituyen a otra, márcala como sustituida (references/memoria.md).
-8. Actualiza `devlog/INDEX.md` (tabla: nº, fecha, título, tipo, mejora-a, tarea).
-9. Si la entrada cierra una tarjeta de `plan/PLAN.md`, rellena `Tarea: <id>` y pon la ruta de la
+8. Actualiza `senzu/devlog/INDEX.md` (tabla: nº, fecha, título, tipo, mejora-a, tarea).
+9. Si la entrada cierra una tarjeta de `senzu/plan/PLAN.md`, rellena `Tarea: <id>` y pon la ruta de la
    entrada en el campo `Devlog:` de la tarjeta al marcarla `done`.
 
 ## Memoria y búsqueda en el pasado
 | Necesito… | Haz |
 |---|---|
-| Saber qué está decidido | `devlog/MEMORIA.md` (te llega al iniciar la sesión). No la contradigas sin citarla y preguntar. |
+| Saber qué está decidido | `senzu/devlog/MEMORIA.md` (te llega al iniciar la sesión). No la contradigas sin citarla y preguntar. |
 | Algo que no está en la memoria («¿por qué…?», «¿cuándo cambiamos…?») | `node <skills-dir>/devlog/scripts/buscar.mjs "palabras"` → abre SOLO la entrada indicada, por la sección |
 | Crear la memoria en un proyecto con historial | references/memoria.md § Crear la memoria desde un devlog existente |
-| Memoria de más de 60 líneas | Pasa lo sustituido o cerrado a `devlog/MEMORIA-historico.md` |
+| Memoria de más de 60 líneas | Pasa lo sustituido o cerrado a `senzu/devlog/MEMORIA-historico.md` |
 
 Al responder sobre el pasado, cita la entrada (`según la 034…`). Si el buscador no encuentra nada tras
 probar sinónimos, dilo: «no hay nada registrado sobre esto». Nunca lo supongas.
@@ -48,7 +48,7 @@ Ver `templates/devlog-day.md` de esta skill. Campos mínimos:
 Commits, Decisiones, Verificación, Próximos pasos.
 
 ## Resumen de fase
-Al cerrar una fase de `plan/PLAN.md` se escribe una entrada normal de tipo `docs` (misma plantilla
+Al cerrar una fase de `senzu/plan/PLAN.md` se escribe una entrada normal de tipo `docs` (misma plantilla
 y numeración; `Tarea:` con el id de la tarjeta de cierre si existe) con: qué se entregó y cómo lo
 verifica el usuario paso a paso, enlaces a las entradas de cada tarea de la fase, verificación
 global (suite, CI) y una retro corta (qué mantener, qué cambiar). Se enlaza desde la tarjeta de

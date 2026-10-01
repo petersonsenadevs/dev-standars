@@ -3,7 +3,7 @@ name: babylonjs-engine
 description: "Motor 3D Babylon.js 7: escenas WebGL/WebGPU, cámaras, luces, PBR, glTF, física Havok, sombras, GUI, WebXR, juegos en navegador. Disparadores: Babylon, @babylonjs/core, Havok. No para Three.js/R3F ni efectos 3D ligeros."
 ---
 
-# babylonjs-engine (índice dev-standards, ES)
+# babylonjs-engine (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (1233 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -56,5 +56,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (1233 líneas). 
 - Solo en cliente: Babylon toca `window`/canvas; en Next.js/Astro usa componentes client-only o `dynamic(..., { ssr: false })`.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Librería agnóstica: vanilla/Vite (usa el starter), React (patrón L771-825 con refs), Vue/Astro (mismo patrón en `onMounted`/`client:only`).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Librería agnóstica: vanilla/Vite (usa el starter), React (patrón L771-825 con refs), Vue/Astro (mismo patrón en `onMounted`/`client:only`).
 - Si package.json ya trae `three` o `@react-three/fiber`, no introduzcas Babylon: usa `threejs-webgl` / `react-three-fiber`.

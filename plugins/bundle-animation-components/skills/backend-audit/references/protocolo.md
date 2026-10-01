@@ -12,7 +12,7 @@ de cada hallazgo · 6 Priorización · 7 Informe y plan · 8 Qué NO hacer
 - Límite de tiempo acordado. Una auditoría sin límite no termina.
 
 ## 2. Inventario (lo que hay, sin juzgar todavía)
-- Stack y versiones (lo inyecta session-start) y convenciones (`conventions.md` si existe).
+- Stack y versiones (lo inyecta session-start) y convenciones (`senzu/conventions.md` si existe).
 - Estructura: módulos o carpetas principales, puntos de entrada (rutas, comandos, colas, cron, webhooks).
 - Qué herramientas de calidad YA tiene el proyecto (linters, análisis estático, tests, CI). Úsalas antes
   de proponer otras.
@@ -54,7 +54,7 @@ Gravedad (crítica, alta, media, baja) según `catalogo-hallazgos.md`, ajustada 
 ## 7. Informe y plan
 - Informe con la plantilla de `informe.md` en `docs/auditoria/<AAAA-MM-DD>-<area>.md`.
 - Presenta al usuario el resumen ejecutivo y los 3-5 hallazgos principales; pregunta qué se arregla.
-- Lo aprobado → tarjetas en `plan/PLAN.md`, cada una con su hallazgo enlazado, la receta que lo arregla
+- Lo aprobado → tarjetas en `senzu/plan/PLAN.md`, cada una con su hallazgo enlazado, la receta que lo arregla
   y cómo se verifica. Los refactores grandes se hacen con `/refactor`.
 - Devlog con herramientas ejecutadas, hallazgos por gravedad y decisiones.
 

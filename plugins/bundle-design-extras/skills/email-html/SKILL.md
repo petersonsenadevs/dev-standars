@@ -3,7 +3,7 @@ name: email-html
 description: "Emails HTML que se ven bien en Gmail/Outlook/Apple Mail: transaccionales y newsletters con react-email/MJML o plantillas del framework, dark mode, texto plano y pruebas antes de enviar. Úsala al maquetar o arreglar cualquier email."
 ---
 
-# email-html (dev-standards)
+# email-html (Senzu)
 
 Los emails NO son webs: el CSS moderno muere en Outlook y cada cliente renderiza distinto. Esta skill
 cubre la CONSTRUCCIÓN de la plantilla; el envío (proveedor, colas, reintentos) es de `code-quality

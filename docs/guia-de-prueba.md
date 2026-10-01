@@ -1,13 +1,13 @@
 [← Volver al README](../README.md)
 
-# Guía de prueba: dev-standards en una tarde
+# Guía de prueba: Senzu en una tarde
 
 Para probar el paquete **completo** en un proyecto real y ver dónde está el valor. Unos 60-90 minutos.
 No hace falta leer nada más antes: cada prueba dice qué escribir y qué debería pasar.
 
 ## Qué es y por qué importa (30 segundos)
 
-dev-standards convierte nuestra forma de trabajar en algo que el agente de IA **cumple solo**:
+Senzu convierte nuestra forma de trabajar en algo que el agente de IA **cumple solo**:
 
 - **Sabe qué hacer sin que se lo digas**: pides en llano y el agente carga la skill adecuada (41 skills:
   diseño, efectos, backend, deploy, SEO, emails…), leyendo solo la parte necesaria.
@@ -25,7 +25,7 @@ estándar de calidad**.
 
 Hay dos piezas. El **plugin** da las skills, los muros y los comandos. La **instalación en el proyecto**
 (`/instalar`) añade lo específico del proyecto: reglas del stack en `CLAUDE.md`, versiones, comandos de
-verificación, perfil de diseño, `devlog/`, `plan/` y convenciones.
+verificación, perfil de diseño, `senzu/devlog/`, `senzu/plan/` y convenciones.
 
 | Scope del plugin | Dónde queda | Para quién |
 |---|---|---|
@@ -34,9 +34,9 @@ verificación, perfil de diseño, `devlog/`, `plan/` y convenciones.
 | `local` | `.claude/settings.local.json` (no va en git) | Solo tú, solo en ese repo |
 
 Dentro de Claude, `/plugin` te pregunta el scope al instalar. En la terminal:
-`claude plugin install dev-standards-all@dev-standards --scope project`.
+`claude plugin install senzu-all@senzu --scope project`.
 
-Recomendación: plugin `dev-standards-all` con scope `user` + `/instalar` en cada proyecto real.
+Recomendación: plugin `senzu-all` con scope `user` + `/instalar` en cada proyecto real.
 
 ## 1. Instalar (10 minutos)
 
@@ -44,8 +44,8 @@ Recomendación: plugin `dev-standards-all` con scope `user` + `/instalar` en cad
 
 **Paso 1 — el plugin completo**, una vez por máquina. Dentro de Claude Code:
 ```
-/plugin marketplace add petersonsenadevs/dev-standars
-/plugin install dev-standards-all@dev-standards
+/plugin marketplace add petersonsenadevs/senzu
+/plugin install senzu-all@senzu
 ```
 Cierra Claude Code y ábrelo de nuevo.
 
@@ -65,7 +65,7 @@ comandos se cargan al arrancar.
 > también los comandos (Codex los convierte en skills `source-command-<nombre>`: pídelo en llano, por
 > ejemplo "haz el brief"). Los muros no están garantizados en Codex. Detalle en [USO.md](../USO.md) §6.
 
-> Alternativa sin plugin: `git clone https://github.com/petersonsenadevs/dev-standars.git` y después
+> Alternativa sin plugin: `git clone https://github.com/petersonsenadevs/senzu.git` y después
 > `node dev-standars/tools/init.mjs --stack laravel --path <tu-proyecto> --tools claude`.
 
 ## 2. Comprobar que funciona (2 minutos)
@@ -87,10 +87,10 @@ debería pasar** → **qué mirar**.
 **Escribe**: `/adoptar`
 **Debería**: analizar el código real (configuración, varios archivos por capa, commits) y hacerte como
 mucho 5 preguntas, cada una con una propuesta, sobre lo que no esté claro. Después sella las
-convenciones del proyecto en `conventions.md`.
+convenciones del proyecto en `senzu/conventions.md`.
 **Mira**: si luego le pides código que rompa una convención sellada como regla (por ejemplo validar
 dentro del controlador si el proyecto usa FormRequests), **le bloquea la edición**. Las convenciones
-que no se pueden comprobar automáticamente quedan escritas en `conventions.md` y el agente las sigue.
+que no se pueden comprobar automáticamente quedan escritas en `senzu/conventions.md` y el agente las sigue.
 
 ### Prueba 2 — Diseño acompañado: el brief
 **Escribe**: `/brief` (o "quiero rediseñar la home")
@@ -131,9 +131,9 @@ las prácticas de **la versión real** de vuestro framework.
 
 ### Prueba 7 — Plan y seguimiento
 **Escribe**: `/plan` con una feature real ("sistema de reservas con recordatorio por email")
-**Debería**: crear `plan/PLAN.md` con fases entregables y tareas pequeñas; cada tarea indica qué skill
+**Debería**: crear `senzu/plan/PLAN.md` con fases entregables y tareas pequeñas; cada tarea indica qué skill
 usar y cómo se verifica. Después, `/siguiente` ejecuta la siguiente tarea.
-**Mira**: que al terminar cada tarea deje una entrada en `devlog/` (qué se hizo, cómo se verificó).
+**Mira**: que al terminar cada tarea deje una entrada en `senzu/devlog/` (qué se hizo, cómo se verificó).
 
 ### Prueba 8 — No da nada por hecho
 Tras cualquier cambio de código o de interfaz, intenta que dé la tarea por terminada.
@@ -181,10 +181,10 @@ muro o un caso de test del paquete, y a partir de ahí no vuelve a pasar en ning
 
 | Quiero… | Comando |
 |---|---|
-| Traer la última versión del plugin | `claude plugin marketplace update dev-standards` |
+| Traer la última versión del plugin | `claude plugin marketplace update Senzu` |
 | Ver qué plugins tengo | `claude plugin list` |
-| Ver qué trae el plugin y cuántos tokens cuesta | `claude plugin details dev-standards-all@dev-standards` |
-| Desinstalarlo | `claude plugin uninstall dev-standards-all@dev-standards` (con `--scope` si no era `user`) |
+| Ver qué trae el plugin y cuántos tokens cuesta | `claude plugin details senzu-all@senzu` |
+| Desinstalarlo | `claude plugin uninstall senzu-all@senzu` (con `--scope` si no era `user`) |
 | Actualizar un proyecto | `node <repo>/tools/init.mjs --path <proyecto>` o `/instalar` dentro de Claude |
 | Añadir animación y 3D | `<repo>\tools\sync.ps1 -Path <proyecto> -Bundle core-3d-animation` |
 | Hooks de git en el proyecto | `<repo>\tools\sync.ps1 -Path <proyecto> -GitHooks` |

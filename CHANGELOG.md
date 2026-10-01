@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-10-01
 
+- **feature** — dev-standards pasa a llamarse Senzu y todo lo del proyecto va a senzu/ (migración automática) · v2.0.0 (entrada 069)
 - **fix** — verify-build entiende monorepos (paquetes y lenguajes) y el aviso de memoria mira el contenido · v1.6.2 (entrada 068)
 - **fix** — El buscador lee también docs/devlog y los ADR del proyecto (un monorepo: de 14 a 200 entradas) · v1.6.1 (entrada 067)
 - **feature** — Rondas de maquetas con piezas votables, /ronda y verificador (fijado, vetado, algo nuevo) · v1.6.0 (entrada 066)

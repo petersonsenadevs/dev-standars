@@ -1,11 +1,11 @@
 {
     "name":  "bundle-design-extras",
-    "description":  "Bundle dev-standards \u0027design-extras\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ui-ux-pro-max, ui-styling, design-system, graphic-design, slides, brand, banner-design.",
-    "version":  "1.6.4",
+    "description":  "Bundle Senzu \u0027design-extras\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ui-ux-pro-max, ui-styling, design-system, graphic-design, slides, brand, banner-design.",
+    "version":  "2.0.0",
     "author":  {
-                   "name":  "dev-standards"
+                   "name":  "Senzu"
                },
-    "homepage":  "https://github.com/petersonsenadevs/dev-standars",
-    "repository":  "https://github.com/petersonsenadevs/dev-standars",
+    "homepage":  "https://github.com/petersonsenadevs/senzu",
+    "repository":  "https://github.com/petersonsenadevs/senzu",
     "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
 }

@@ -9,7 +9,7 @@
   let { titulo, items = [] }: Props = $props();     // props (antes: export let)
   let abierto = $state(false);                       // estado reactivo (antes: let + asignación)
   let total = $derived(items.length);                // computado (antes: $:)
-  $effect(() => { console.log(total); return () => {/* cleanup */} });  // dev-standards-allow
+  $effect(() => { console.log(total); return () => {/* cleanup */} });  // senzu-allow
 </script>
 ```
 - Svelte 4 (sin runes): `export let`, `$:`, stores con `$store`. **No mezclar estilos en un proyecto.**

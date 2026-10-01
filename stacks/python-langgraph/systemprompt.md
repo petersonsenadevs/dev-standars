@@ -33,8 +33,8 @@ Trabajas en un proyecto Python con LangGraph/LangChain. Reglas base + estas.
 - Cuidado con prompt injection en entradas externas; valida y acota lo que llega a las tools.
 
 ## Antes de commitear
-1. `ruff format .` 2. `ruff check .` 3. `mypy .` 4. `pytest` 5. actualizar `devlog/`.
+1. `ruff format .` 2. `ruff check .` 3. `mypy .` 4. `pytest` 5. actualizar `senzu/devlog/`.
 
 ## Plan y tareas
-- Antes de una feature o proyecto: `plan/PLAN.md` (skill `project-planner`); una tarea `doing` a la vez.
+- Antes de una feature o proyecto: `senzu/plan/PLAN.md` (skill `project-planner`); una tarea `doing` a la vez.
 - El cuerpo del commit lleva `Tarea: <id>` y la tarjeta se marca `done` con el enlace al devlog.

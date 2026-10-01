@@ -21,7 +21,7 @@ No es una auditoría: si algo no se deduce en 10 minutos, se pregunta o se anota
 - Objetivo: responder "qué es este proyecto, en qué estado está y qué me impide empezar".
 - Presupuesto: 10 minutos de lectura. Si el repo es enorme, se lee lo indicado y nada más.
 - Salida: bloque "Estado del proyecto" (10 líneas) + lista de preguntas + lista de riesgos.
-- Todo lo descubierto alimenta la cabecera de `plan/PLAN.md` (ver `plan-format.md`).
+- Todo lo descubierto alimenta la cabecera de `senzu/plan/PLAN.md` (ver `plan-format.md`).
 
 ## Orden de lectura
 
@@ -29,22 +29,22 @@ Leer en este orden y parar en cuanto se tenga la información; cada paso tiene u
 
 | # | Fuente | Tope | Qué responde |
 |---|--------|------|--------------|
-| 1 | `.dev-standards.json` | 30 s | Stack declarado, skills instaladas, versión de estándares |
+| 1 | `senzu/senzu.json` | 30 s | Stack declarado, skills instaladas, versión de estándares |
 | 2 | `CLAUDE.md` / `AGENTS.md` | 1 min | Reglas del proyecto, comandos, convenciones obligatorias |
 | 3 | `package.json` / `composer.json` / `pyproject.toml` | 1 min | Framework, versiones, scripts (`test`, `lint`, `build`) |
 | 4 | Estructura de carpetas (2 niveles) | 1 min | Arquitectura real: MVC, módulos, DDD, monorepo |
-| 5 | `design-system/*/MASTER.md` | 1 min | Tokens, tipografía, componentes ya definidos |
-| 6 | `devlog/INDEX.md` + última entrada `devlog/<YYYY-MM-DD>/NNN-<slug>.md` | 2 min | Qué se hizo, qué quedó a medias, decisiones recientes |
+| 5 | `senzu/design-system/*/MASTER.md` | 1 min | Tokens, tipografía, componentes ya definidos |
+| 6 | `senzu/devlog/INDEX.md` + última entrada `senzu/devlog/<YYYY-MM-DD>/NNN-<slug>.md` | 2 min | Qué se hizo, qué quedó a medias, decisiones recientes |
 | 7 | `git log --oneline -20` | 30 s | Ritmo, convención de commits, última actividad |
 | 8 | Tests existentes | 1 min | Cobertura aproximada, framework, si pasan |
 | 9 | CI (`.github/workflows`, `.gitlab-ci.yml`) | 1 min | Qué se verifica automáticamente |
-| 10 | `plan/PLAN.md` si existe | 1 min | Plan vigente: no se planifica desde cero si hay uno |
+| 10 | `senzu/plan/PLAN.md` si existe | 1 min | Plan vigente: no se planifica desde cero si hay uno |
 
 Si el paso 10 encuentra un plan activo, el trabajo es continuar, no rehacer.
 
 ## Qué extraer de cada fuente
 
-**`.dev-standards.json`**: campo `stack` (p. ej. `laravel-inertia-vue`, `nextjs`, `astro`,
+**`senzu/senzu.json`**: campo `stack` (p. ej. `laravel-inertia-vue`, `nextjs`, `astro`,
 `vue3`, `python-langgraph`) y lista `skills`. Si falta una skill que el plan necesitará,
 se anota como "skill pendiente de instalar" (ver `task-protocol.md`).
 
@@ -59,11 +59,11 @@ composer), scripts disponibles. Anotar qué script verifica qué: `pnpm test`, `
 **Estructura**: buscar señales de arquitectura: `app/Domain`, `src/modules`, `packages/*`,
 `app/Http/Controllers` gigantes. Detectar módulos existentes para no duplicarlos.
 
-**`design-system/*/MASTER.md`**: si existe, la UI ya tiene reglas; el plan asignará
+**`senzu/design-system/*/MASTER.md`**: si existe, la UI ya tiene reglas; el plan asignará
 `ui-ux-pro-max` con la sección concreta. Si no existe y el trabajo tiene UI, la primera tarjeta
 de la fase de UI será generarlo con `ui-ux-pro-max` (SKILL.md §2, paso 2).
 
-**Devlog**: la última entrada (`devlog/<YYYY-MM-DD>/NNN-<slug>.md`, la de mayor `NNN`) suele
+**Devlog**: la última entrada (`senzu/devlog/<YYYY-MM-DD>/NNN-<slug>.md`, la de mayor `NNN`) suele
 decir qué se dejó abierto. Copiar literalmente "pendientes" a las preguntas o a OUT/supuestos del plan.
 
 **Git log**: si los commits siguen Conventional Commits, el plan lo exige; si no, se propone
@@ -75,17 +75,17 @@ antes de empezar es riesgo, no tarea propia (salvo que bloquee).
 ## Comandos útiles
 
 ```bash
-cat .dev-standards.json
+cat senzu/senzu.json
 sed -n '1,80p' CLAUDE.md
 find . -maxdepth 2 -type d -not -path '*/node_modules*' -not -path '*/.git*' -not -path '*/vendor*'
-ls design-system/*/MASTER.md 2>/dev/null
-sed -n '1,40p' devlog/INDEX.md && ls devlog/*/[0-9][0-9][0-9]-*.md | sort | tail -1
+ls senzu/design-system/*/MASTER.md 2>/dev/null
+sed -n '1,40p' senzu/devlog/INDEX.md && ls senzu/devlog/*/[0-9][0-9][0-9]-*.md | sort | tail -1
 git log --oneline -20
 find . -name '*.test.*' -o -name '*Test.php' -o -name 'test_*.py' | grep -v node_modules | wc -l
 ls .github/workflows 2>/dev/null
 ```
 
-En PowerShell: `Get-Content .dev-standards.json`, `Get-ChildItem -Depth 1 -Directory`,
+En PowerShell: `Get-Content senzu/senzu.json`, `Get-ChildItem -Depth 1 -Directory`,
 `git log --oneline -20` funcionan igual.
 
 ## Qué preguntar al usuario
@@ -103,7 +103,7 @@ Preguntas típicas que SÍ merecen hacerse:
 
 Preguntas que NO se hacen (se deducen o se asume y se anota):
 
-- Qué framework usar: lo dice `.dev-standards.json`.
+- Qué framework usar: lo dice `senzu/senzu.json`.
 - Convención de commits: lo dice el git log.
 - Qué skill aplicar: lo decide el planner con `skill-map.md`.
 
@@ -123,7 +123,7 @@ Bloque que abre la conversación de planificación y se copia en la cabecera del
 ## Estado del proyecto (2026-08-25)
 - Stack: Laravel 12 + Inertia + Vue 3.5, pnpm, PHP 8.4. Skills: ui-ux-pro-max, code-quality, devlog.
 - Arquitectura: MVC clásico; sin capa de dominio; 14 controladores, 2 muy grandes (Orders, Users).
-- Design system: existe `design-system/admin/MASTER.md` (tokens y 12 componentes).
+- Design system: existe `senzu/design-system/admin/MASTER.md` (tokens y 12 componentes).
 - Tests: 23 tests Pest, pasan en 40 s. Sin tests de front. CI: GitHub Actions ejecuta pest + pint.
 - Devlog: 31 entradas; última (2026-08-20) deja pendiente "paginación de pedidos".
 - Git: Conventional Commits, actividad diaria, rama `main` protegida.
@@ -148,10 +148,10 @@ Cada señal detectada se convierte en una fila del registro de riesgos (ver
 | Dependencias 2+ major atrás | Incompatibilidades con skills/ejemplos | Anotar; actualizar solo si bloquea |
 | Sin `.env.example` | Onboarding roto | Tarea S: crearlo con claves vacías |
 | Sin CI | Verificación manual | Tarea S en F1: workflow mínimo lint + test |
-| Sin design system y hay UI | UI inconsistente | Primera tarjeta de la fase de UI: generar `design-system/<slug>/MASTER.md` con `ui-ux-pro-max` |
+| Sin design system y hay UI | UI inconsistente | Primera tarjeta de la fase de UI: generar `senzu/design-system/<slug>/MASTER.md` con `ui-ux-pro-max` |
 | Controlador/servicio > 500 líneas | Cambios caros y arriesgados | Considerar `ddd-hexagonal` solo si se toca mucho ese módulo |
 | Secretos en el repo | Seguridad | Tarea inmediata: rotar y mover a `.env`; avisar al usuario |
-| Sin devlog | Sin memoria entre sesiones | Tarea S: inicializar `devlog/INDEX.md` antes de la primera tarea real |
+| Sin devlog | Sin memoria entre sesiones | Tarea S: inicializar `senzu/devlog/INDEX.md` antes de la primera tarea real |
 
 No se convierte cada riesgo en trabajo: se registra y se actúa solo sobre los que afectan
 al alcance actual.
@@ -160,7 +160,7 @@ al alcance actual.
 
 Si el repo está vacío o solo tiene el scaffold del framework:
 
-1. Confirmar stack con el usuario (una pregunta) si `.dev-standards.json` no existe.
+1. Confirmar stack con el usuario (una pregunta) si `senzu/senzu.json` no existe.
 2. El descubrimiento se reduce a: manifiesto + scaffold + skills instaladas.
 3. La fase 1 del plan siempre incluye: inicializar devlog, `.env.example`, script de test
    que pase (aunque sea un test trivial), CI mínima y, si hay UI, design system.
@@ -171,7 +171,7 @@ Si el repo está vacío o solo tiene el scaffold del framework:
 - [ ] Leídas las 10 fuentes en orden (o marcadas como inexistentes).
 - [ ] Sé qué comando ejecuta tests, lint y tipos.
 - [ ] Sé qué skills están instaladas y cuáles faltarán.
-- [ ] Existe o no `plan/PLAN.md`; si existe, continúo en vez de rehacer.
+- [ ] Existe o no `senzu/plan/PLAN.md`; si existe, continúo en vez de rehacer.
 - [ ] Bloque "Estado del proyecto" escrito en 10 líneas con números.
 - [ ] Preguntas al usuario: ≤ 5, cada una con valor por defecto.
 - [ ] Señales de riesgo anotadas con reacción prevista.

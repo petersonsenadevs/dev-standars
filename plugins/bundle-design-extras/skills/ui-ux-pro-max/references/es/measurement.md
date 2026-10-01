@@ -9,7 +9,7 @@ o Plausible/Matomo si el cliente quiere evitar cookies (más simple legalmente).
 2. Nada de PII en eventos ni URLs (ni email ni teléfono del visitante como parámetro).
 3. Detrás del consentimiento SIEMPRE (Consent Mode v2 en GA4); probado en tiempo real antes de lanzar.
 4. Nombres de evento estables y en snake_case (`click_llamar`, `form_presupuesto`); documentados en
-   `plan/brief.md` §Medición para que el cliente y el futuro tú sepan qué significa cada uno.
+   `senzu/plan/brief.md` §Medición para que el cliente y el futuro tú sepan qué significa cada uno.
 5. UTM en toda campaña externa (`?utm_source=google_business&utm_medium=perfil`); enlaces internos SIN utm.
 
 ## 2. Conversiones por tipo de negocio

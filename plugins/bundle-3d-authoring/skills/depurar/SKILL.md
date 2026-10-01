@@ -3,7 +3,7 @@ name: depurar
 description: "Método para arreglar bugs sin dar palos de ciego: reproducir, test que falla, hipótesis, acotar, arreglar y verificar. Úsala cuando algo falla o no funciona mientras construyes (tests en rojo, excepción, error 500, resultado incorrecto)."
 ---
 
-# depurar (dev-standards)
+# depurar (Senzu)
 
 Un bug se arregla **entendiéndolo**, no probando cambios hasta que deje de fallar. Cambiar cosas al
 azar arregla el síntoma, esconde la causa y rompe otra cosa. Esta skill se usa en dos momentos:
@@ -38,7 +38,7 @@ azar arregla el síntoma, esconde la causa y rompe otra cosa. Esta skill se usa 
 - **Tres intentos fallidos = parar.** Si tras tres cambios sigue fallando, la hipótesis es mala: vuelve
   al paso 3 y 4 con lo aprendido, o pide contexto al usuario. No sigas cambiando cosas.
 - **Un cambio cada vez**, con el test ejecutado después. Varios cambios juntos = no sabes cuál arregló.
-- **Logs temporales**: permitidos durante la depuración con el comentario `dev-standards-allow`
+- **Logs temporales**: permitidos durante la depuración con el comentario `senzu-allow`
   (el hook de higiene lo exige) y **se quitan antes de cerrar**.
 - **No toques el test para que pase.** Si el test estaba mal, dilo y explica por qué; si no, el que está
   mal es el código.

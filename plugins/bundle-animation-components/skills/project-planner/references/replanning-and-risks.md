@@ -1,7 +1,7 @@
 # Replanificación, riesgos y bloqueos
 
 El plan es una hipótesis que se corrige con lo que se aprende. Replanificar no es fracasar:
-es mantener `plan/PLAN.md` fiel a la realidad sin perder la historia. Este documento fija
+es mantener `senzu/plan/PLAN.md` fiel a la realidad sin perder la historia. Este documento fija
 cuándo se replanifica, cómo se registra y cómo se gestionan riesgos y bloqueos.
 
 ## Índice
@@ -64,7 +64,7 @@ sub-viñetas si hace falta:
 ```
 
 Etiquetas: `[alcance]`, `[técnico]`, `[tamaño]`, `[bloqueo]`, `[descartada]`, `[riesgo]`.
-Con `grep '^\- 20' plan/PLAN.md` se obtiene el historial completo.
+Con `grep '^\- 20' senzu/plan/PLAN.md` se obtiene el historial completo.
 
 ## Registro de riesgos
 

@@ -9,7 +9,7 @@ se instalan SIEMPRE; el resto solo en stacks con perfil de front.
 
 | Comando | Argumento | Qué hace |
 |---|---|---|
-| `/plan` | [descripción del proyecto o feature] | Crea o retoma el plan del proyecto (plan/PLAN.md) con la skill project-planner |
+| `/plan` | [descripción del proyecto o feature] | Crea o retoma el plan del proyecto (senzu/plan/PLAN.md) con la skill project-planner |
 | `/siguiente` | [id de tarea opcional, p. ej. F1-T3] | Ejecuta la siguiente tarea del plan (task-protocol de project-planner) |
 | `/verificar` |  | Verifica el proyecto tras los cambios — build, lint, types, tests y (si hay UI) móvil |
 | `/desplegar` | [entorno u objetivo, p. ej. "producción" o "staging"] | Deploy con red — checklist PRE/DEPLOY/POST/ROLLBACK con evidencia y aprobación explícita |
@@ -21,7 +21,7 @@ se instalan SIEMPRE; el resto solo en stacks con perfil de front.
 | `/efecto` | <nombre del efecto> [dónde, p. ej. "marquee en el footer de logos"] | Aplica un efecto pro de frontend desde el catálogo (parallax, marquee, cursor, stacking…) |
 | `/entregar` | [proyecto o cliente] | Entrega al cliente — manual de uso, servicios y accesos, mantenimiento, cómo pedir cambios y formación |
 | `/estimar` | [qué estimar, p. ej. "la web del restaurante" o "fase 2"] | Estimación y presupuesto — horas por tarea, partidas olvidadas, riesgos y rango final para el cliente |
-| `/instalar` | [stack opcional, p. ej. "laravel"] | Instala o actualiza dev-standards completo en este proyecto (todo, por categorías o a medida) |
+| `/instalar` | [stack opcional, p. ej. "laravel"] | Instala o actualiza Senzu completo en este proyecto (todo, por categorías o a medida) |
 | `/lanzar` | [url de preview/producción] | Checklist de lanzamiento — todo lo que se comprueba antes de publicar la web |
 | `/mapa` | [área opcional, p. ej. "pagos"] | Mapa del proyecto — qué es, cómo arrancarlo, estructura, flujos críticos y dónde tocar para cada cosa |
 | `/propuestas` | [página, p. ej. "home" o "landing de escombros"] | Modo propuesta — blueprint aprobable + 2 maquetas A/B visuales antes de construir |

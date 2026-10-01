@@ -3,7 +3,7 @@ name: pixijs-2d
 description: "PixiJS v8: render 2D WebGL/WebGPU para sprites, sprite sheets, partículas (ParticleContainer), Graphics vectorial, filtros/shaders, BitmapText, juegos 2D y HUD sobre Three.js. No para 3D (threejs-webgl) ni DOM (gsap-scrolltrigger)."
 ---
 
-# pixijs-2d (índice dev-standards, ES)
+# pixijs-2d (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (935 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -51,5 +51,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (935 líneas). *
 - En móvil/gama baja: `antialias: false`, `resolution: 1`, `cullable = true`; el canvas debe crearse solo en cliente (SSR-safe: `useEffect`/`onMounted`).
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). PixiJS es agnóstico: en vanilla/Astro instancia en un `<script>` cliente; en React sigue L605-643; en Vue replica el mismo patrón en `onMounted`/`onBeforeUnmount`.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). PixiJS es agnóstico: en vanilla/Astro instancia en un `<script>` cliente; en React sigue L605-643; en Vue replica el mismo patrón en `onMounted`/`onBeforeUnmount`.
 - Para animar propiedades de Pixi con scroll usa `gsap-scrolltrigger`; para combinarlo con 3D, `threejs-webgl` (overlay L647-687).

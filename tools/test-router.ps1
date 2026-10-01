@@ -39,7 +39,7 @@ function Invoke-Case([hashtable]$c, [int]$i) {
     if ($c.designSystem) { Ensure-Dir (Join-Path $dsRoot 'x'); Write-Utf8 (Join-Path $dsRoot 'x\MASTER.md') '# DS' }
     if ($c.designSystem -ne $true -and (Test-Path $dsRoot)) { throw 'harness: design-system no se pudo limpiar' }
     $env:CLAUDE_PROJECT_DIR = $proj
-    $env:DEV_STANDARDS_TEST_ISOLATED = '1'   # el hook ignora ~/.claude global: la suite no depende de que plugins tenga la maquina
+    $env:SENZU_TEST_ISOLATED = '1'   # el hook ignora ~/.claude global: la suite no depende de que plugins tenga la maquina
     $sid = "rt$i-" + [guid]::NewGuid().ToString('N').Substring(0, 4)
     $json = (@{ session_id = $sid; prompt = $c.prompt } | ConvertTo-Json -Compress)
     # Transporte 100% ASCII: escapar no-ASCII a \uXXXX para que ninguna codepage del pipe pueda corromper acentos.
@@ -133,6 +133,7 @@ $cases = @(
     @{ n = 'entregar cliente';      prompt = 'prepara la entrega al cliente con el manual de uso';         skills = @('deploy-ops','ui-verify','skill-router'); expect = 'deploy-ops' }
     @{ n = 'mapa proyecto';         prompt = 'explícame este proyecto, dónde está el código de pagos';     skills = @('code-quality','skill-router'); expect = 'code-quality' }
     @{ n = 'instalar dev-standards'; prompt = 'instala dev-standards en este proyecto por categorías';     skills = @('instalar-proyecto','skill-router'); expect = 'instalar-proyecto' }
+    @{ n = 'instalar senzu'; prompt = 'actualiza senzu en este proyecto por categorías';     skills = @('instalar-proyecto','skill-router'); expect = 'instalar-proyecto' }
     @{ n = 'prompt trivial';        prompt = 'hola';                                                       expectSilence = $true }
 )
 

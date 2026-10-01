@@ -40,7 +40,7 @@ de sección, se corrige la tarjeta y este mapa.
 
 | Tarea | Skill §sección | Salida esperada |
 |-------|----------------|-----------------|
-| Crear design system / tema | `ui-ux-pro-max §2. Flujo obligatorio` (paso 2) + `ui-ux-pro-max §references/es/tokens-tailwind` | `design-system/<slug>/MASTER.md` con tokens, tipografía, espaciado |
+| Crear design system / tema | `ui-ux-pro-max §2. Flujo obligatorio` (paso 2) + `ui-ux-pro-max §references/es/tokens-tailwind` | `senzu/design-system/<slug>/MASTER.md` con tokens, tipografía, espaciado |
 | Página nueva (landing, dashboard) | `ui-ux-pro-max §references/es/page-patterns "<tipo>"` | Página con secciones, jerarquía, responsive, a11y |
 | Componente (formulario, tabla, modal) | `ui-ux-pro-max §references/es/components-spec "<Componente>"` | Componente con estados (vacío, carga, error), teclado, ARIA |
 | Ajuste visual sobre lo existente | `ui-ux-pro-max §references/es/review-rubric` | Diff pequeño verificado con la rúbrica |
@@ -49,7 +49,7 @@ de sección, se corrige la tarjeta y este mapa.
 | Componente React/Next | `code-quality §references/react-next "Server Components vs Client Components"` | Componente con límites server/client claros |
 | Página Astro | `code-quality §references/astro "Modelo mental: HTML primero, islas mínimas"` | Página estática con islas mínimas |
 
-Si hay UI y no existe `design-system/<slug>/MASTER.md`, la primera tarjeta de la fase de UI
+Si hay UI y no existe `senzu/design-system/<slug>/MASTER.md`, la primera tarjeta de la fase de UI
 es generarlo con `ui-ux-pro-max`.
 
 ## Animación y 3D
@@ -111,7 +111,7 @@ Restricción heredada del brief: si "solo migraciones aditivas", la DoD de la ta
 
 | Tarea | Skill §sección | Salida esperada |
 |-------|----------------|-----------------|
-| Entrada de devlog por tarea | `devlog §Plantilla de entrada` | `devlog/<YYYY-MM-DD>/NNN-<slug>.md` con `Tarea: <id>`; `devlog/INDEX.md` actualizado |
+| Entrada de devlog por tarea | `devlog §Plantilla de entrada` | `senzu/devlog/<YYYY-MM-DD>/NNN-<slug>.md` con `Tarea: <id>`; `senzu/devlog/INDEX.md` actualizado |
 | Resumen de fase | `devlog §Resumen de fase` | Entrada de tipo docs con lo entregado, verificación y retro; enlaza todas las tareas |
 | Decisión de arquitectura | `ddd-hexagonal §templates/docs/adr` | `docs/adr/NNN-titulo.md` con contexto, decisión, consecuencias |
 | Ficha de contexto y glosario del módulo | `ddd-hexagonal §templates/docs/context-sheet` + `ddd-hexagonal §templates/docs/glossary` | Contexto delimitado, lenguaje ubicuo, integraciones |
@@ -161,7 +161,7 @@ Notación en la tarjeta: `Skill: code-quality §references/api-design` y `ui-ux-
 
 ## Skill no instalada
 
-Si el mapa asigna una skill que no está en `.dev-standards.json`:
+Si el mapa asigna una skill que no está en `senzu/senzu.json`:
 
 1. Se escribe igualmente en la tarjeta (la asignación es correcta).
 2. Se añade en "Notas": `requiere instalar <skill>`.
@@ -174,6 +174,6 @@ Si el mapa asigna una skill que no está en `.dev-standards.json`:
 - [ ] Ninguna tarea combina más de dos skills.
 - [ ] Animación/3D separadas de la tarea de lógica.
 - [ ] `ddd-hexagonal` solo donde hay dominio rico; los CRUD usan `code-quality`.
-- [ ] Toda tarea termina con `devlog §Plantilla de entrada` (`devlog/<YYYY-MM-DD>/NNN-<slug>.md`).
+- [ ] Toda tarea termina con `devlog §Plantilla de entrada` (`senzu/devlog/<YYYY-MM-DD>/NNN-<slug>.md`).
 - [ ] Skills no instaladas listadas para el usuario.
 - [ ] Secciones citadas comprobadas: el archivo `§ruta.md` o el encabezado `##` existen.

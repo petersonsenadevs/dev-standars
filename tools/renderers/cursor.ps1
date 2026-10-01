@@ -7,7 +7,7 @@ function Render-Cursor {
     $rules = Get-CombinedRules -Stack $Stack -ExtraSkills $ExtraSkills -Bundles $Bundles -SkillsRelPath '.cursor/skills'
     $frontmatter = @"
 ---
-description: dev-standards ($($Stack.Name)) - reglas de trabajo, devlog y acciones prohibidas
+description: Senzu ($($Stack.Name)) - reglas de trabajo, devlog y acciones prohibidas
 globs:
 alwaysApply: true
 ---

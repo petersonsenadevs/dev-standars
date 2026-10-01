@@ -34,7 +34,7 @@ Cada componente se copia a `components/ui/<nombre>/` como código propio (SFC + 
 
 shadcn-vue genera `:root` / `.dark` con variables semánticas y un `@theme inline` que las expone como utilidades
 (`bg-background`, `text-muted-foreground`, `border-border`, `ring-ring`). Sus valores se sustituyen por los del
-`design-system/<slug>/MASTER.md`; los primitivos de marca van en `@theme` (`ui-ux-pro-max/references/es/tokens-tailwind.md`).
+`senzu/design-system/<slug>/MASTER.md`; los primitivos de marca van en `@theme` (`ui-ux-pro-max/references/es/tokens-tailwind.md`).
 
 ```css
 @import "tailwindcss";

@@ -21,10 +21,10 @@ Se refuerzan por dos capas: (1) `permissions.deny` en settings y (2) hooks que i
 8. **Tocar secretos**: crear/rotar/exponer `.env`, claves, tokens, credenciales.
 
 ## Archivos que no se editan desde el agente
-Se leen, pero no se modifican a mano (se regeneran con dev-standards o los gestiona el humano):
-- **Generados por dev-standards**: `CLAUDE.md`, `AGENTS.md`, `.cursor/rules/*`, `.windsurf/rules/*`,
+Se leen, pero no se modifican a mano (se regeneran con Senzu o los gestiona el humano):
+- **Generados por Senzu**: `CLAUDE.md`, `AGENTS.md`, `.cursor/rules/*`, `.windsurf/rules/*`,
   `.claude/skills/**`, `.agents/skills/**`, `.cursor/skills/**`, `.claude/hooks/**`, `.claude/settings.json`,
-  `.mcp.json`, `.dev-standards.json`. Si hace falta cambiarlos, se propone el cambio en dev-standards y se reinstala.
+  `.mcp.json`, `senzu/senzu.json`. Si hace falta cambiarlos, se propone el cambio en Senzu y se reinstala.
 - **Secretos**: `.env*`, `*.pem`, `*.key`, `credentials*`. Solo se documenta la variable en `.env.example`.
 - **Dependencias y artefactos**: `vendor/`, `node_modules/`, `dist/`, `build/`.
 - **Migraciones ya versionadas** (se crea una nueva, nunca se edita una aplicada) y **lockfiles**

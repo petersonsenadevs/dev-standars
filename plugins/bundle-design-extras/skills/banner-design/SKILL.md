@@ -3,7 +3,7 @@ name: banner-design
 description: "Diseña banners (cover, header, display ad, hero web, print) en HTML/CSS + visual IA y exporta PNG a medida exacta. Disparadores: banner, cabecera, portada social, Google Ads, hero. No para vídeo, webs completas ni imprenta."
 ---
 
-# banner-design (índice dev-standards, ES)
+# banner-design (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (196 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -53,4 +53,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (196 líneas). *
 - Exportar a las dimensiones exactas de la plataforma; comprimir si supera 5 MB.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). El banner es HTML/CSS estático independiente del framework; si el proyecto tiene tokens de marca (`assets/design-tokens.css`) úsalos en lugar de colores ad hoc, y para la paleta/voz remite a `brand`.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). El banner es HTML/CSS estático independiente del framework; si el proyecto tiene tokens de marca (`assets/design-tokens.css`) úsalos en lugar de colores ad hoc, y para la paleta/voz remite a `brand`.

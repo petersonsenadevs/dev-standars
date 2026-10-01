@@ -10,7 +10,7 @@ copiar demos: es destilar la técnica y que la colección crezca con cada proyec
 - `sources/showcases-index.md` — categorías de Awwwards, estudios a seguir, estado de Godly/Hoverstat.es.
 Cada índice dice cómo refrescarse (scraping con WebFetch/Chrome). Fecha de cosecha: 2026-09-16.
 
-## 0b. Código vendorizado (en el repo dev-standards, licencias MIT verificadas)
+## 0b. Código vendorizado (en el repo Senzu, licencias MIT verificadas)
 `core/effects-vendor/` — **no viene al clonar el repo** (pesa 274 MB): descárgala con
 `tools/vendor-effects.ps1 -Missing` (clona cada repo original, verifica su licencia y regenera el índice).
 **Empieza por su `INDEX.md`**, que sí está versionado (autogenerado, por categoría): ~60 demos completos
@@ -82,8 +82,8 @@ descarga automatizada (Cloudflare): sus pens se consultan en el navegador (índi
    - Look/CSS moderno → sección en `ui-ux-pro-max/references/es/modern-look.md`.
    - Shader/canvas → sección en `threejs-webgl/references/es/shaders-basics.md`.
    - Fila nueva en `effects-catalog.md` (efecto | receta §sección | stacks | reduced-motion | coste móvil).
-   - En dev-standards: `build-routers` → `check-skills` → `test-router` → commit (`docs(effects): …`).
-   - En un proyecto cliente sin acceso al repo: documenta la receta en el devlog y márcala "candidata a dev-standards".
+   - En Senzu: `build-routers` → `check-skills` → `test-router` → commit (`docs(effects): …`).
+   - En un proyecto cliente sin acceso al repo: documenta la receta en el devlog y márcala "candidata a Senzu".
 5. **Cita la fuente** en la receta o el devlog (autor + URL): es honesto y permite volver al original.
 
 ## 4. Técnica famosa → receta que ya tenemos (no reinventar)

@@ -1,21 +1,25 @@
 ---
 name: instalar-proyecto
-description: "Instala o actualiza dev-standards COMPLETO en el proyecto actual (clona el paquete, detecta el stack, pregunta todo, por categorías o a medida y ejecuta el instalador). Úsala con /instalar o cuando pidan instalar o actualizar dev-standards."
+description: "Instala o actualiza Senzu COMPLETO en el proyecto actual (clona el paquete, detecta el stack, pregunta todo, por categorías o a medida y ejecuta el instalador). Úsala con /instalar o cuando pidan instalar o actualizar Senzu."
 ---
 
-# instalar-proyecto (dev-standards)
+# instalar-proyecto (Senzu)
 
 Convierte la instalación del plugin en la instalación COMPLETA del proyecto: reglas del stack en
-CLAUDE.md o AGENTS.md, skills, muros, comandos, configuración, `devlog/` y `plan/`, todo versionado con
-el proyecto. Si el proyecto ya está instalado (existe `.dev-standards.json`), el mismo proceso lo
+CLAUDE.md o AGENTS.md, skills, muros, comandos, configuración, `senzu/devlog/` y `senzu/plan/`, todo versionado con
+el proyecto. Proyecto instalado con la versión antigua (devlog/, plan/, design-system/ y
+`.dev-standards.json` en la raíz): el instalador lo migra solo a `senzu/` con git mv (conserva el
+historial). Avísale antes, y después dile qué se movió y que revise sus propios documentos si citaban
+esas rutas; si no quiere moverlo, `--sin-migrar`. Si el proyecto ya está instalado (existe `senzu/senzu.json`), el mismo proceso lo
 actualiza respetando la selección guardada. No toques nada más del proyecto en esta tarea.
 
 ## Pasos, en orden
 
-1. **Localiza el paquete** (el primero que exista): la carpeta de la variable de entorno
-   DEV_STANDARDS_HOME, después `.dev-standards` dentro de la carpeta del usuario, después `D:/dev-standards`.
-   Si no existe ninguno, clónalo en `.dev-standards` dentro de la carpeta del usuario (ruta absoluta):
-   `git clone https://github.com/petersonsenadevs/dev-standars.git <carpeta-del-usuario>/.dev-standards`.
+1. **Localiza el paquete** (el primero que exista): la carpeta de la variable de entorno SENZU_HOME
+   (o la antigua DEV_STANDARDS_HOME), después `.senzu` dentro de la carpeta del usuario, después
+   `.dev-standards` dentro de la carpeta del usuario (instalaciones antiguas), después `D:/dev-standards`.
+   Si no existe ninguno, clónalo en `.senzu` dentro de la carpeta del usuario (ruta absoluta):
+   `git clone https://github.com/petersonsenadevs/senzu.git <carpeta-del-usuario>/.senzu`.
    Si existe, actualízalo con `git -C <paquete> pull --ff-only` (si falla por red o permisos, sigue con
    lo local y avísalo).
 2. **Detecta el stack** (salvo que el usuario lo haya dicho): `laravel/framework` en composer.json →

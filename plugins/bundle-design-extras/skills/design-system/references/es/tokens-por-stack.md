@@ -6,7 +6,7 @@
 ## 1. Estructura común (todos los stacks)
 
 ```
-design-system/
+senzu/design-system/
   <slug>/MASTER.md          decisiones de ui-ux-pro-max (fuente de verdad de diseño)
   tokens.json               DTCG: primitive / semantic / component  (fuente de verdad técnica)
 <css-dir>/tokens.css        generado por generate-tokens.cjs (no editar)
@@ -15,7 +15,7 @@ design-system/
 
 `package.json`:
 ```json
-{ "scripts": { "tokens:build": "node .claude/skills/design-system/scripts/generate-tokens.cjs --config design-system/tokens.json -o resources/css/tokens.css",
+{ "scripts": { "tokens:build": "node .claude/skills/design-system/scripts/generate-tokens.cjs --config senzu/design-system/tokens.json -o resources/css/tokens.css",
                "tokens:check": "node .claude/skills/design-system/scripts/validate-tokens.cjs --dir resources/js" } }
 ```
 
@@ -53,7 +53,7 @@ Si el generador ya emite los nombres finales (`--color-primary`), se omite el re
 
 | Qué | Dónde |
 |---|---|
-| `tokens.json` | `design-system/tokens.json` (raíz del repo) |
+| `tokens.json` | `senzu/design-system/tokens.json` (raíz del repo) |
 | CSS generado | `resources/css/tokens.css`, importado desde `resources/css/app.css` |
 | Entrada Vite | `resources/js/app.ts` importa `../css/app.css`; `@tailwindcss/vite` en `vite.config.js` |
 | Clase dark inicial | script inline en `resources/views/app.blade.php` antes de `@inertia` |
@@ -68,7 +68,7 @@ semánticos en `:root` (ver `ui-styling/references/es/vue-shadcn.md` §3).
 
 | Qué | Dónde |
 |---|---|
-| `tokens.json` | `design-system/tokens.json` |
+| `tokens.json` | `senzu/design-system/tokens.json` |
 | CSS generado | `app/tokens.css`, importado en `app/globals.css` (`@import "./tokens.css"`) |
 | Fuentes | `next/font` en `app/layout.tsx` expone `--font-sans` via `variable`; `@theme { --font-sans: var(--font-inter) }` |
 | Dark | `next-themes` `attribute="class"` + `suppressHydrationWarning` en `<html>` |
@@ -82,7 +82,7 @@ Charts/Three/Motion leen tokens de `tokens.json` (tipado), nunca de `getComputed
 
 | Qué | Dónde |
 |---|---|
-| `tokens.json` | `design-system/tokens.json` |
+| `tokens.json` | `senzu/design-system/tokens.json` |
 | CSS generado | `src/styles/tokens.css`, importado en `src/styles/global.css` (`@tailwindcss/vite`) |
 | Global | `global.css` importado una vez en `src/layouts/Base.astro`; islands React/Vue heredan las variables |
 | Dark | script inline en `<head>` de `Base.astro`; con View Transitions, reaplicar en `astro:after-swap` |
@@ -94,7 +94,7 @@ Charts/Three/Motion leen tokens de `tokens.json` (tipado), nunca de `getComputed
 
 | Qué | Dónde |
 |---|---|
-| `tokens.json` | `design-system/tokens.json` |
+| `tokens.json` | `senzu/design-system/tokens.json` |
 | CSS generado | `src/assets/tokens.css`, importado en `src/assets/main.css`, que importa `main.ts` |
 | Dark | `useColorMode()` (VueUse) + script inline en `index.html` |
 | Estado de tema en Pinia | solo si hay temas de marca (multi-tenant); el tema activo pone `data-theme="acme"` en `<html>` y `[data-theme="acme"] { --color-primary: … }` redefine semánticos |
@@ -118,7 +118,7 @@ Charts/Three/Motion leen tokens de `tokens.json` (tipado), nunca de `getComputed
 | Semántico | `--<categoría>-<rol>[-<variante>][-<estado>]` | `--color-primary`, `--color-primary-hover`, `--color-text-muted`, `--color-surface-elevated`, `--color-danger` |
 | Componente | `--<componente>-<parte>-<propiedad>[-<estado>]` | `--button-bg`, `--button-bg-hover`, `--input-border-focus`, `--card-padding` |
 
-- Roles semánticos obligatorios (dev-standards): `background`, `surface`, `surface-elevated`, `border`, `text`,
+- Roles semánticos obligatorios (Senzu): `background`, `surface`, `surface-elevated`, `border`, `text`,
   `text-muted`, `primary`, `primary-foreground`, `accent`, `success`, `warning`, `danger`, `info`, `ring`.
 - Equivalencias shadcn: `background`→`--background`, `text`→`--foreground`, `surface`→`--card`, `text-muted`→`--muted-foreground`,
   `border`→`--border`, `danger`→`--destructive`. Se mapean en `:root`, no se duplican en componentes.

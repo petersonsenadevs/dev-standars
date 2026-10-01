@@ -3,16 +3,16 @@ name: react-three-fiber
 description: "3D declarativo en React con React Three Fiber + drei: Canvas, useFrame, useGLTF, Environment, ScrollControls. ÚSALA en Next.js/React para heros 3D, configuradores, escenas. No para Vue (TresJS en threejs-webgl) ni Astro sin React."
 ---
 
-# react-three-fiber (capa dev-standards, en español)
+# react-three-fiber (capa Senzu, en español)
 
 Skill upstream (inglés): `SKILL.upstream.md` (conceptos, 7 patrones, drei, integraciones, rendimiento, pitfalls),
 `references/api_reference.md` (Canvas, hooks, eventos, drei, 928 líneas), `assets/starter_r3f/`, `assets/examples/`,
-`scripts/component_generator.py`, `scripts/scene_setup.py`. Capa dev-standards (español): `references/es/next.md`.
+`scripts/component_generator.py`, `scripts/scene_setup.py`. Capa Senzu (español): `references/es/next.md`.
 Fundamentos de Three.js, assets, shaders y rendimiento: skill `threejs-webgl` (`references/es/*`); scroll 3D con GSAP:
 `threejs-webgl/references/es/gsap-three.md`.
 
 R3F convierte Three.js en componentes: `<mesh>`, `<boxGeometry>`, `<meshStandardMaterial>` son clases de Three
-instanciadas por el reconciler. Estética y presupuesto (peso, FPS, LCP) salen del `design-system/*/MASTER.md`
+instanciadas por el reconciler. Estética y presupuesto (peso, FPS, LCP) salen del `senzu/design-system/*/MASTER.md`
 (skill `ui-ux-pro-max`) y del §2 de `threejs-webgl/SKILL.md`.
 
 ## 1. Cuándo sí / cuándo no
@@ -41,7 +41,7 @@ instanciadas por el reconciler. Estética y presupuesto (peso, FPS, LCP) salen d
 | Props de `<Canvas>` y eventos (`ThreeEvent`) | `references/api_reference.md` 17-115, 450-562 |
 | Helpers de rendimiento drei (`AdaptiveDpr`, `Preload`) | `references/api_reference.md` 875-922 |
 
-## 3. Integración con perfiles dev-standards
+## 3. Integración con perfiles Senzu
 | Perfil | Cómo | Puntos críticos |
 |---|---|---|
 | Next.js App Router | `npm i three @react-three/fiber @react-three/drei` (+ `@types/three`); escena en `components/three/*.tsx` con `"use client"`; se monta con `next/dynamic(() => import(...), { ssr: false, loading })` desde un Client Component | `Suspense` con fallback accesible; `useGLTF.preload('/models/x.glb')`; modelos en `public/models/` optimizados con `gltf-transform`; texto y CTA en HTML encima del canvas. Detalle: `references/es/next.md`. |

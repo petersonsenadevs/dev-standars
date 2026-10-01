@@ -3,7 +3,7 @@ name: backend-audit
 description: "Auditoría de backend y arquitectura con PRUEBAS: herramientas reales por stack, cada hallazgo con evidencia (salida, archivo:línea, test que falla), informe y plan de refactor seguro. Úsala para auditar, deuda técnica, legacy o antes de refactorizar."
 ---
 
-# backend-audit (dev-standards)
+# backend-audit (Senzu)
 
 Diagnostica el backend como un médico: **primero las pruebas, después el diagnóstico**. No se
 reporta nada que no se pueda demostrar. Esta skill ENCUENTRA; los arreglos viven donde ya estaban:
@@ -32,7 +32,7 @@ Cada tipo de hallazgo del catálogo apunta a su receta: diagnóstico y tratamien
    positivo de la herramienta y anota el nivel de confianza (confirmado o probable).
 4. **La versión real manda** (`code-quality/references/stack-versions.md`): lo que está bien en Laravel 13 puede no
    existir en 10. No reportes como fallo lo que la versión del proyecto no permite.
-5. **Las convenciones del proyecto no son hallazgos.** Si `conventions.md` fija algo, respetarlo no es
+5. **Las convenciones del proyecto no son hallazgos.** Si `senzu/conventions.md` fija algo, respetarlo no es
    deuda técnica, aunque no sea tu preferencia.
 6. **Solo lectura.** La auditoría no cambia código (solo crea el informe y, si hace falta, tests de
    reproducción en una rama). Los arreglos van al plan y se hacen con `/refactor` o `/siguiente`.
@@ -44,8 +44,8 @@ Cada tipo de hallazgo del catálogo apunta a su receta: diagnóstico y tratamien
 ## Salida
 - `docs/auditoria/<AAAA-MM-DD>-<area>.md`: resumen ejecutivo, mapa de riesgo, hallazgos con evidencia,
   sospechas sin confirmar, límites de la auditoría y plan propuesto.
-- Tarjetas en `plan/PLAN.md` (skill `project-planner`) para lo que el usuario apruebe arreglar.
-- Entrada en `devlog/` con el resumen y las herramientas ejecutadas.
+- Tarjetas en `senzu/plan/PLAN.md` (skill `project-planner`) para lo que el usuario apruebe arreglar.
+- Entrada en `senzu/devlog/` con el resumen y las herramientas ejecutadas.
 
 ## Relación con otras skills
 - Arreglar un hallazgo → la receta que indica el catálogo (`code-quality`, `ddd-hexagonal`, `deploy-ops`).

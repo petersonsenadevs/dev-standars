@@ -29,7 +29,7 @@ puedes abrir estas galerías y analizar ejemplos con él delante.
 2. De cada una anota en 5 líneas: **patrón de página** (orden de secciones), **1 decisión tipográfica**,
    **1 decisión de color**, **1 efecto** (y si aporta o estorba), **1 cosa a evitar**.
 3. Cruza con el brief (`brief-discovery.md`): ¿qué encaja con la marca y el objetivo del cliente?
-4. Escribe la síntesis en `design-system/<slug>/MASTER.md` §Referencias: enlace + qué se toma de cada una.
+4. Escribe la síntesis en `senzu/design-system/<slug>/MASTER.md` §Referencias: enlace + qué se toma de cada una.
 5. Diseña desde los tokens propios. Si al final se parece demasiado a UNA referencia, mezcla mal hecha: vuelve al paso 3.
 
 ## 3. Qué es "extraer patrón" (y qué es copiar)

@@ -2,7 +2,7 @@
 # Renderer: Claude Code  ->  CLAUDE.md + .claude/ (skills, hooks, config, settings) + .mcp.json
 
 function Get-HookSet {
-    # Conjunto estandar de hooks de dev-standards (archivo -> evento/matcher). Los de front solo con -HasFront.
+    # Conjunto estandar de hooks de Senzu (archivo -> evento/matcher). Los de front solo con -HasFront.
     param([bool]$HasFront)
     $set = [ordered]@{
         SessionStart     = @(@{ matcher = $null; files = @('session-start.mjs') })
@@ -49,7 +49,7 @@ function Get-RouterRules {
     return @($script:Registry.skills | Where-Object { $_.keywords } | ForEach-Object { [ordered]@{ name = $_.name; group = $_.group; entrypoint = [bool]$_.entrypoint; keywords = $_.keywords; priority = $_.priority; requires = @($_.requires) } })
 }
 
-# Fusiona settings.json existente: conserva claves del usuario; sustituye solo permissions y hooks de dev-standards.
+# Fusiona settings.json existente: conserva claves del usuario; sustituye solo permissions y hooks de Senzu.
 function Merge-Settings {
     param([string]$Path, $Permissions, $Hooks)
     $existing = $null
@@ -66,7 +66,7 @@ function Merge-Settings {
     $perm = [ordered]@{ deny = @($deny | Select-Object -Unique); ask = @($ask | Select-Object -Unique) }
     if ($allow.Count) { $perm.allow = @($allow | Select-Object -Unique) }
     $out.permissions = $perm
-    # hooks: conservar los del usuario que no sean de dev-standards (.claude/hooks/*.mjs nuestros; tambien limpia los .ps1 antiguos)
+    # hooks: conservar los del usuario que no sean de Senzu (.claude/hooks/*.mjs nuestros; tambien limpia los .ps1 antiguos)
     $merged = [ordered]@{}
     foreach ($ev in $Hooks.Keys) { $merged[$ev] = @($Hooks[$ev]) }
     if ($existing -and $existing.hooks) {
@@ -102,7 +102,7 @@ function Render-Claude {
     $hooksDst = Join-Path $ProjectPath '.claude\hooks'
     Ensure-Dir $hooksDst
     Get-ChildItem (Join-Path $root 'core\hooks') -Filter *.mjs | ForEach-Object { Copy-Item $_.FullName (Join-Path $hooksDst $_.Name) -Force }
-    # limpiar hooks .ps1 de versiones anteriores de dev-standards (sustituidos por .mjs agnosticos)
+    # limpiar hooks .ps1 de versiones anteriores de Senzu (sustituidos por .mjs agnosticos)
     Get-ChildItem $hooksDst -Filter *.ps1 -ErrorAction SilentlyContinue | Where-Object { Test-Path (Join-Path $root ('core\hooks\' + ($_.BaseName + '.mjs'))) -or $_.Name -eq '_common.ps1' } | Remove-Item -Force
     Copy-Tree (Join-Path $Stack.Dir 'hooks') $hooksDst
 

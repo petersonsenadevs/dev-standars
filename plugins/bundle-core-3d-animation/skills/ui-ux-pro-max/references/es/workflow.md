@@ -3,7 +3,7 @@
 ## 0. Antes de empezar
 - Lee `CLAUDE.md` (stack, prohibiciones), `package.json` (Tailwind 4 / 3, Vue/React, Inertia) y
   `resources/css/app.css` o equivalente (¿ya hay `@theme`?).
-- Busca `design-system/MASTER.md`. Si existe, léelo completo antes de nada.
+- Busca `senzu/design-system/MASTER.md`. Si existe, léelo completo antes de nada.
 - Identifica librería de componentes existente (shadcn-vue/Reka UI, Headless UI, PrimeVue, shadcn/ui).
   No introduzcas una segunda librería de componentes sin aprobación.
 
@@ -16,12 +16,12 @@
 | Tono | Claro, confiable, moderno, sin frivolidad |
 | Marca existente | Logo azul #1D4ED8, sin más |
 | Restricciones | Dark mode sí, i18n es/en, móvil primero |
-| Stack | (perfil de `.dev-standards.json`: Laravel+Inertia+Vue · Next.js · Astro · Vue 3) |
+| Stack | (perfil de `senzu/senzu.json`: Laravel+Inertia+Vue · Next.js · Astro · Vue 3) |
 
 ## 2. Generación
 ```powershell
 py -3 .claude/skills/ui-ux-pro-max/scripts/search.py "saas facturación autónomos landing" `
-  --design-system -p "FacturaFácil" --stack laravel-inertia-vue -f markdown --persist
+  --design-system -p "FacturaFácil" --stack laravel-inertia-vue -f markdown --persist -o senzu
 ```
 Lee la salida. Si la paleta no casa con la marca existente, **sustituye el primary por el de la
 marca** y recalcula el resto (mismo tono de saturación; comprueba contraste).

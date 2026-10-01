@@ -17,8 +17,8 @@ preguntes "¿quieres un hero con parallax y glassmorphism?"; pregúntale por sen
 | **Referencias**: 2-3 webs que le gusten (y alguna que odie) | Pídelas SIEMPRE: es la forma más rápida de entender el gusto del cliente sin tecnicismos. |
 | **Restricciones**: dark mode, idiomas, legales (RGPD), accesibilidad, presupuesto de efectos | Pregunta solo lo relevante al proyecto. |
 
-Persiste todo en `plan/brief.md` y las decisiones visuales en `design-system/<slug>/MASTER.md`.
-Si el proyecto tiene manual de marca, crea `design-system/<slug>/BRAND.md` con: colores exactos (hex),
+Persiste todo en `senzu/plan/brief.md` y las decisiones visuales en `senzu/design-system/<slug>/MASTER.md`.
+Si el proyecto tiene manual de marca, crea `senzu/design-system/<slug>/BRAND.md` con: colores exactos (hex),
 tipografías (y dónde están licenciadas), usos del logo, tono de voz y ejemplos de sí/no. Prioridad de
 fuentes de verdad: BRAND.md → MASTER.md → propuesta generada.
 
@@ -46,7 +46,7 @@ Nadie sabe describir una web; todo el mundo sabe elegir entre dos. Protocolo (ta
    - B: "Con más carácter: fondo oscuro, titulares enormes, las fotos aparecen al hacer scroll."
    Que elija (o mezcle). Si puedes, enséñale 1 web de ejemplo de cada dirección (`inspiration.md`) y pregunta qué le gusta de ella.
 4. **Confirma en sus palabras**: "Entonces: que dé confianza, con tus colores de siempre, y que el teléfono esté siempre a mano. ¿Sí?"
-   Después traduces tú a lo técnico (glosario §3) y lo escribes en `plan/brief.md` + MASTER.md.
+   Después traduces tú a lo técnico (glosario §3) y lo escribes en `senzu/plan/brief.md` + MASTER.md.
 5. Lo que el cliente no decide, lo decides tú por su sector (playbook + industry-rules) y lo dejas **documentado como decisión propia**, reversible.
 
 ## 3. Glosario cliente → técnico (traduce tú, no le corrijas)
@@ -80,4 +80,4 @@ Bloque corto que el cliente pueda validar: **Objetivo y CTA · Audiencia y dispo
 Dirección visual (estilo, paleta, tipografía con muestra) · Patrón de página por sección · Efectos
 previstos (en llano: "las tarjetas aparecen al bajar") · Qué falta (contenido/fotos) y quién lo trae**.
 Con el ok del cliente → modo propuesta (`proposal-mode.md`): blueprint aprobable y 2 maquetas A/B que se
-ven, y los vetos que salgan van naciendo en `design-system/<slug>/gustos.md`. Solo después, a construir.
+ven, y los vetos que salgan van naciendo en `senzu/design-system/<slug>/gustos.md`. Solo después, a construir.

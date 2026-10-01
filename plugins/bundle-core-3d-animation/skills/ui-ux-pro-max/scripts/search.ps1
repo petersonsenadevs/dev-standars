@@ -1,6 +1,6 @@
 #requires -Version 5.1
 # Wrapper Windows de search.py (UI UX Pro Max): localiza py / python / python3 y reenvía los argumentos.
-#   .\<skills-dir>\ui-ux-pro-max\scripts\search.ps1 "fintech dashboard" --design-system -p "Mi App" --persist -o .
+#   .\<skills-dir>\ui-ux-pro-max\scripts\search.ps1 "fintech dashboard" --design-system -p "Mi App" --persist -o senzu
 [CmdletBinding()]
 param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Args)
 

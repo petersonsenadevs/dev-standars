@@ -3,7 +3,7 @@ name: modern-web-design
 description: "Tendencias y principios de diseño web 2024-25 (bento, glassmorphism, neobrutalism) como inspiración puntual. Úsala DESPUÉS de ui-ux-pro-max y solo para explorar estilos; el design system y el patrón los decide ui-ux-pro-max. No para codificar."
 ---
 
-# modern-web-design (índice dev-standards, ES)
+# modern-web-design (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (990 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -54,5 +54,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (990 líneas). *
 - Mejora progresiva: el contenido esencial debe verse sin JS; detecta features antes de usarlas.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Esta skill es agnóstica de framework: los principios y tokens CSS valen para vanilla, Vue, Astro y React.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Esta skill es agnóstica de framework: los principios y tokens CSS valen para vanilla, Vue, Astro y React.
 - Los ejemplos con `motion`/Framer y R3F son React-only; en Vue/vanilla/Astro usa `gsap-scrolltrigger`, `animejs`, `scroll-reveal-libraries` o `barba-js` según el patrón.

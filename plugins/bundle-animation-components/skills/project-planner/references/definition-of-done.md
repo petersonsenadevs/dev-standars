@@ -1,7 +1,7 @@
 # Definición de hecho (DoD)
 
 "Hecho" significa usable en producto, verificado y documentado. No existe "hecho salvo los
-tests" ni "hecho, falta el responsive". Cada tarjeta de `plan/PLAN.md` hereda la DoD global
+tests" ni "hecho, falta el responsive". Cada tarjeta de `senzu/plan/PLAN.md` hereda la DoD global
 del brief, la DoD de su tipo (este documento) y añade su "Hecho cuando" específico.
 
 ## Índice
@@ -30,20 +30,20 @@ Se cumple siempre, sea cual sea el tipo:
 - [ ] Sin `TODO`/`FIXME` sin issue o tarjeta asociada; sin código comentado; sin `dd()`, `console.log`, `print` de depuración.
 - [ ] Sin secretos ni credenciales en el código; nuevas variables añadidas a `.env.example`.
 - [ ] Solo los archivos necesarios tocados; desviaciones anotadas en la tarjeta.
-- [ ] Entrada de devlog creada e indexada (`devlog/<YYYY-MM-DD>/NNN-<slug>.md`); commit Conventional con `Tarea: <id>` en el cuerpo.
+- [ ] Entrada de devlog creada e indexada (`senzu/devlog/<YYYY-MM-DD>/NNN-<slug>.md`); commit Conventional con `Tarea: <id>` en el cuerpo.
 - [ ] Tarjeta en `done` con tamaño real y notas.
 
 ## UI: página o componente
 
 Skill de referencia: `ui-ux-pro-max §references/es/review-rubric` y `ui-ux-pro-max §references/pro-rules` (checklist de entrega).
 
-- [ ] Usa tokens del `design-system/*/MASTER.md` (sin colores ni tamaños "a mano").
+- [ ] Usa tokens del `senzu/design-system/*/MASTER.md` (sin colores ni tamaños "a mano").
 - [ ] Responsive comprobado en 375, 768 y 1440 px; sin scroll horizontal.
 - [ ] Estados cubiertos: vacío, cargando, error, éxito; y deshabilitado si aplica.
 - [ ] Accesibilidad: navegable por teclado, foco visible, etiquetas en controles, contraste AA, `alt` en imágenes, roles ARIA solo cuando el HTML nativo no basta.
 - [ ] Textos finales en el idioma del proyecto (sin "lorem ipsum" ni claves de i18n sin traducir).
 - [ ] Formularios: validación inline, mensajes de error concretos, envío deshabilitado mientras procesa.
-- [ ] Captura guardada en `devlog/assets/` (móvil y escritorio) y enlazada.
+- [ ] Captura guardada en `senzu/devlog/assets/` (móvil y escritorio) y enlazada.
 - [ ] Sin `console` errores ni warnings de Vue/React en la página.
 - [ ] Test de componente o de feature cuando hay lógica de UI (filtros, cálculos, condiciones).
 
@@ -114,7 +114,7 @@ Skill de referencia: `code-quality §references/python "LangGraph"`, `code-quali
 Skill de referencia: `devlog §Plantilla de entrada`, `ddd-hexagonal §templates/docs/adr`.
 
 - [ ] Entrada de devlog con: qué, decisiones, verificación (salida real), desviaciones, siguiente paso.
-- [ ] `devlog/INDEX.md` actualizado; enlaces relativos válidos.
+- [ ] `senzu/devlog/INDEX.md` actualizado; enlaces relativos válidos.
 - [ ] ADR cuando hubo decisión con alternativas; enlazado desde la tarjeta.
 - [ ] README de módulo actualizado si cambió la estructura o el modo de probar.
 - [ ] Sin documentación duplicada: se enlaza, no se copia.
@@ -128,7 +128,7 @@ Skill de referencia: `gsap-scrolltrigger`, `threejs-webgl`, `react-three-fiber`,
 - [ ] Sin layout shift (CLS) ni bloqueo del hilo principal > 50 ms en carga.
 - [ ] Rendimiento medido: 60 fps en escritorio, ≥ 30 fps en móvil medio; peso de assets anotado.
 - [ ] Fallback estático si WebGL no está disponible.
-- [ ] Vídeo corto o capturas en `devlog/assets/`.
+- [ ] Vídeo corto o capturas en `senzu/devlog/assets/`.
 
 ## DoD de fase
 

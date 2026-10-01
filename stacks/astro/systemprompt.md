@@ -20,13 +20,13 @@ Trabajas en un proyecto Astro. Reglas base + estas.
 - Endpoints en `src/pages/**/*.ts` para APIs; valida entrada.
 
 ## Antes de commitear
-1. `npx astro check` 2. `npm run lint` 3. `npm run build` 4. actualizar `devlog/`.
+1. `npx astro check` 2. `npm run lint` 3. `npm run build` 4. actualizar `senzu/devlog/`.
 
 ## Front y diseño
 - Este stack tiene **perfil de front**: antes de crear o editar UI aplica la skill `ui-ux-pro-max` y el
-  `design-system/*/MASTER.md` del proyecto (ver bloque "Front y diseño" más abajo, generado por dev-standards).
+  `senzu/design-system/*/MASTER.md` del proyecto (ver bloque "Front y diseño" más abajo, generado por Senzu).
 - Animación/3D solo con sus skills instaladas (`gsap-scrolltrigger`, `threejs-webgl`, …); si no lo están, pídelo.
 
 ## Plan y tareas
-- Antes de una feature o proyecto: `plan/PLAN.md` (skill `project-planner`); una tarea `doing` a la vez.
+- Antes de una feature o proyecto: `senzu/plan/PLAN.md` (skill `project-planner`); una tarea `doing` a la vez.
 - El cuerpo del commit lleva `Tarea: <id>` y la tarjeta se marca `done` con el enlace al devlog.

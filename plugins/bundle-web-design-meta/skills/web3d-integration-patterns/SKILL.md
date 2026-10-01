@@ -3,7 +3,7 @@ name: web3d-integration-patterns
 description: "Meta-skill de arquitectura para combinar Three.js, GSAP ScrollTrigger, React Three Fiber, Motion y React Spring: capas, estado (Zustand), render bajo demanda, conflictos entre librerías. No para la API de una sola librería (usa su skill)."
 ---
 
-# web3d-integration-patterns (índice dev-standards, ES)
+# web3d-integration-patterns (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (852 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -49,4 +49,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (852 líneas). *
 - Respeta `prefers-reduced-motion`: desactiva scrubs y animaciones automáticas de cámara si el usuario lo pide.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Los patrones 2-4 requieren React (R3F, Motion 3D, React Spring); en vanilla, Vue o Astro usa el patrón 1 (Three.js + GSAP con capa UI del framework) y remite a threejs-webgl y gsap-scrolltrigger.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Los patrones 2-4 requieren React (R3F, Motion 3D, React Spring); en vanilla, Vue o Astro usa el patrón 1 (Three.js + GSAP con capa UI del framework) y remite a threejs-webgl y gsap-scrolltrigger.

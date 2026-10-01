@@ -9,4 +9,4 @@ Protocolo para añadir una regla:
 2. Solo reglas GENERALES del stack aprendidas en proyectos reales (errores repetidos, convenciones del
    equipo). Lo específico de UN proyecto va en su devlog, no aquí.
 3. Tras añadir/editar: `sync.ps1 -Path <proyecto>` en los proyectos donde quieras aplicarla, y commit
-   en dev-standards con mensaje `docs(rules): ...`.
+   en Senzu con mensaje `docs(rules): ...`.

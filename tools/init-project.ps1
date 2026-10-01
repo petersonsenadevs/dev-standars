@@ -1,7 +1,7 @@
 ﻿#requires -Version 5.1
 <#
 .SYNOPSIS
-  Inicializa (bootstrap) un proyecto con un stack de dev-standards.
+  Inicializa (bootstrap) un proyecto con un stack de Senzu.
 .DESCRIPTION
   - Crea la carpeta del proyecto si no existe.
   - Crea el esqueleto de devlog/ (INDEX.md + carpeta del día).
@@ -39,7 +39,7 @@ Ensure-Dir $Path
 $Path = (Resolve-Path $Path).Path
 $root = Get-StandardsRoot
 
-Write-Host "== dev-standards :: init =="
+Write-Host "== Senzu :: init =="
 Write-Host "Stack: $Stack"
 Write-Host "Proyecto: $Path"
 

@@ -17,7 +17,7 @@ Cada punto se marca con su evidencia (comando+salida, captura o URL). El deploy 
 ## DEPLOY
 - [ ] Por el camino reproducible (pipeline con environment aprobado, deploy hook, script de Forge) —
   no comandos sueltos inventados sobre la marcha.
-- [ ] Con `DEV_STANDARDS_ALLOW_DEPLOY=1` solo tras la aprobación de arriba, y documentándolo.
+- [ ] Con `SENZU_ALLOW_DEPLOY=1` solo tras la aprobación de arriba, y documentándolo.
 - [ ] Si es VPS/Laravel: el script completo (pull → deps → build → migrate → caches → **queue:restart**).
 
 ## POST (los 10 minutos que separan "desplegado" de "terminado")

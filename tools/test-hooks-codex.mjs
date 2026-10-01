@@ -20,7 +20,7 @@ const CLAVE = ['sk', 'live', '51Hx9aZbCdEfGhIjKlMnOpQrStUvWxYz0123456789abcd'].j
 
 const proj = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-codex-'));
 const w = (rel, txt) => { const f = path.join(proj, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, txt); return f; };
-w('CLAUDE.md', '<!-- GENERADO por dev-standards -->\n# reglas\n');
+w('CLAUDE.md', '<!-- GENERADO por Senzu -->\n# reglas\n');
 w('src/app.js', "const a = 1\nexport default a\n");
 w('database/migrations/2026_01_01_000000_create_pedidos.php', [
     '<?php', 'return new class extends Migration {', '    public function up(): void', '    {',

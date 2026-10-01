@@ -26,5 +26,5 @@ Top acciones (impacto/esfuerzo):
 2. [alto/medio] Añadir estados loading/empty a /invoices (tabla).
 3. [alto/bajo] Sustituir emojis por Phosphor icons con aria-hidden.
 4. …
-Evidencia: capturas en devlog/<fecha>/ y rutas de archivo.
+Evidencia: capturas en senzu/devlog/<fecha>/ y rutas de archivo.
 ```

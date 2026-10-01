@@ -3,19 +3,19 @@ name: threejs-webgl
 description: "3D/WebGL con Three.js: modelos GLB, heros 3D, configuradores, partículas, shaders, scroll 3D. TresJS (Vue/Inertia), R3F (Next), vanilla (Astro); assets, rendimiento móvil, dispose, fallback. No para charts, 2D ni animación DOM (gsap)."
 ---
 
-# threejs-webgl (capa dev-standards, en español)
+# threejs-webgl (capa Senzu, en español)
 
 Skill upstream (inglés): `SKILL.upstream.md` (fundamentos, WebGPU, materiales, postprocesado, patrones),
 `references/api_reference.md`, `references/materials_guide.md`, `references/optimization_checklist.md`,
-`assets/starter_scene/`, `scripts/setup_scene.py`. Capa dev-standards (español): `references/es/` y `templates/`.
+`assets/starter_scene/`, `scripts/setup_scene.py`. Capa Senzu (español): `references/es/` y `templates/`.
 Para React declarativo existe además la skill `react-three-fiber`; para combinar 3D + GSAP + Motion, `web3d-integration-patterns`.
 
 Construyes 3D **útil y rápido**: refuerza el producto, carga en < 2 s, no rompe el LCP, funciona en móvil y desaparece
-con elegancia sin WebGL o con `prefers-reduced-motion`. Estética y tono salen del `design-system/*/MASTER.md`
+con elegancia sin WebGL o con `prefers-reduced-motion`. Estética y tono salen del `senzu/design-system/*/MASTER.md`
 (skill `ui-ux-pro-max`); el movimiento ligado al scroll se coordina con `gsap-scrolltrigger`.
 
 ## 1. Detectar el stack e integrar
-| Stack (perfil dev-standards) | Integración | Referencia | Plantillas |
+| Stack (perfil Senzu) | Integración | Referencia | Plantillas |
 |---|---|---|---|
 | Vue 3 (SPA o Laravel + Inertia) | TresJS (`@tresjs/core` + `@tresjs/cientos`) | `references/es/tresjs-vue.md` | `templates/HeroScene.vue`, `HeroContent.vue`, `useWebGLSupport.ts` |
 | Next.js / React | React Three Fiber + drei, `next/dynamic` `ssr:false` | `references/es/r3f-next.md` (+ skill `react-three-fiber`) | `templates/HeroScene.tsx` |

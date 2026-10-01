@@ -3,7 +3,7 @@ name: barba-js
 description: "Transiciones de página con Barba.js (@barba/core, router, prefetch, head) en webs multipágina: wrapper/container/namespace, hooks, views, animación con GSAP. No para routers React/Vue ni Astro View Transitions ni animación DOM general."
 ---
 
-# barba-js (índice dev-standards, ES)
+# barba-js (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (871 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -54,4 +54,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (871 líneas). *
 - Respeta `prefers-reduced-motion`: si está activo, usa transiciones instantáneas o de opacidad muy corta.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Barba es vanilla JS: encaja en HTML estático, Astro (sin View Transitions), Vue/Nuxt solo en modo MPA. Para React/Next usa motion-framer; combina con locomotive-scroll (destruir/recrear la instancia en cada transición) y gsap-scrolltrigger (`ScrollTrigger.refresh()` en `afterEnter`).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Barba es vanilla JS: encaja en HTML estático, Astro (sin View Transitions), Vue/Nuxt solo en modo MPA. Para React/Next usa motion-framer; combina con locomotive-scroll (destruir/recrear la instancia en cada transición) y gsap-scrolltrigger (`ScrollTrigger.refresh()` en `afterEnter`).

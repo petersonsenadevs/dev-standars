@@ -3,7 +3,7 @@ name: brand
 description: "Identidad de marca: voz y tono, identidad visual, mensajes, paleta, tipografía, logo, validación de assets; sincroniza brand-guidelines.md a design tokens. Disparadores: marca, tono, guía de estilo, compliance. No para UI/CSS."
 ---
 
-# brand (índice dev-standards, ES)
+# brand (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (97 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -54,4 +54,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (97 líneas). **
 - Cualquier pieza creativa de otra skill (banner, slides, social) debe inyectar contexto de marca antes de diseñar.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Skill agnóstica de framework (scripts Node); los tokens CSS generados se consumen igual en React, Vue, Astro o vanilla. Requiere Node en el entorno.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Skill agnóstica de framework (scripts Node); los tokens CSS generados se consumen igual en React, Vue, Astro o vanilla. Requiere Node en el entorno.

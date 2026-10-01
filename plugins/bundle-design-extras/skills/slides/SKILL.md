@@ -3,7 +3,7 @@ name: slides
 description: "Crea presentaciones HTML estratégicas (pitch deck, ventas, demo) con Chart.js, design tokens, layouts responsive y fórmulas de copywriting. Disparadores: slides, deck, presentación, pitch. No para PPTX/Google Slides ni gráficos sueltos."
 ---
 
-# slides (índice dev-standards, ES)
+# slides (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (40 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep). Todo el contenido real está en `references/`.
 
@@ -48,4 +48,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (40 líneas). **
 - Copy con fórmula explícita (`copywriting-formulas.md`): titular corto + una idea de apoyo.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). La salida es un HTML estático independiente del framework; si el proyecto tiene `assets/design-tokens.css` (skill `brand`/`design-system`), enlázalo en lugar de redefinir variables.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). La salida es un HTML estático independiente del framework; si el proyecto tiene `assets/design-tokens.css` (skill `brand`/`design-system`), enlázalo en lugar de redefinir variables.

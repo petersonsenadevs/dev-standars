@@ -3,7 +3,7 @@ name: deploy-ops
 description: "Despliegue y operaciones para TODOS los stacks: deploy por plataforma (Netlify/Vercel/Forge/VPS), Docker, CI/CD con GitHub Actions, secretos por entorno, colas y cron en prod, backups con restore probado y monitorización. Deploy NUNCA sin aprobación."
 ---
 
-# deploy-ops (dev-standards)
+# deploy-ops (Senzu)
 
 Poner y MANTENER en producción, para cualquier stack. Construir y verificar es de las otras skills
 (`/verificar`, `/lanzar`); esta empieza donde acaba el "APTA": publicar, operar y que no se caiga —
@@ -25,7 +25,7 @@ y si se cae, volver atrás en minutos.
 
 ## Principios duros (aplican siempre)
 1. **Deploy a producción NUNCA sin aprobación explícita del usuario** en ese momento (el guard bloquea
-   `--prod` directo; el escape `DEV_STANDARDS_ALLOW_DEPLOY=1` solo tras aprobación, documentada en devlog).
+   `--prod` directo; el escape `SENZU_ALLOW_DEPLOY=1` solo tras aprobación, documentada en devlog).
 2. **Antes de tocar prod**: backup fresco VERIFICADO + plan de rollback escrito. Sin eso, no hay deploy.
 3. **Secretos jamás en el repo ni en logs**: viven en la plataforma (Netlify/Vercel/Forge/GH Environments);
    `.env.example` al día; secreto commiteado = rotarlo YA (protocolo en envs-secrets §fuga).

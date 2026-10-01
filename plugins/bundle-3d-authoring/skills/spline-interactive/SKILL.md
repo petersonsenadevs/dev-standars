@@ -3,7 +3,7 @@ name: spline-interactive
 description: "Integra escenas Spline (editor 3D visual sin código) en React/Next.js: @splinetool/react-spline, eventos onSpline*, emitEvent, findObjectByName, lazy load, SSR. No para 3D por código (threejs-webgl, react-three-fiber) ni juegos."
 ---
 
-# spline-interactive (índice dev-standards, ES)
+# spline-interactive (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (756 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -56,4 +56,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (756 líneas). *
 - Respeta `prefers-reduced-motion`: no dispares animaciones automáticas si el usuario lo pide.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). `@splinetool/react-spline` es solo React/Next.js; en Vue, Astro o vanilla usa `@splinetool/runtime` directamente (`new Application(canvas).load(url)`) o el Spline Viewer embebido, con la misma API de objetos y eventos.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). `@splinetool/react-spline` es solo React/Next.js; en Vue, Astro o vanilla usa `@splinetool/runtime` directamente (`new Application(canvas).load(url)`) o el Spline Viewer embebido, con la misma API de objetos y eventos.

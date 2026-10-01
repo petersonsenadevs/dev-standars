@@ -3,7 +3,7 @@ name: react-spring-physics
 description: "Física de muelles en React con @react-spring/web (useSpring, useTrail, useTransition, useScroll, useInView) y Popmotion (inertia). Gestos, drag con momentum, listas enter/exit. Solo React; no para vanilla/Vue ni timelines."
 ---
 
-# react-spring-physics (índice dev-standards, ES)
+# react-spring-physics (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (464 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -50,5 +50,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (464 líneas). *
 - Respeta `prefers-reduced-motion` con `Globals.assign({ skipAnimation: true })` (L356-367).
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Librería **solo React** (también Next/Remix/Astro con islas React); los hooks se ejecutan en cliente y `useScroll`/`useInView` requieren `window`, así que en SSR envuélvelos en componentes client-only.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Librería **solo React** (también Next/Remix/Astro con islas React); los hooks se ejecutan en cliente y `useScroll`/`useInView` requieren `window`, así que en SSR envuélvelos en componentes client-only.
 - Si el proyecto es Vue, Svelte o vanilla, no la instales: usa `animejs` (easing spring) o `gsap-scrolltrigger`; para 3D en React combina con `react-three-fiber` vía `@react-spring/three`.

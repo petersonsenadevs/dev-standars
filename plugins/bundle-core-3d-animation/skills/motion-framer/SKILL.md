@@ -3,15 +3,15 @@ name: motion-framer
 description: "Animación en React con Motion (ex Framer Motion): variants, gestos, layout, AnimatePresence, springs, useScroll. ÚSALA en Next.js/React y en Astro dentro de una island React. No para Vue ni scroll complejo (usa gsap)."
 ---
 
-# motion-framer (capa dev-standards, en español)
+# motion-framer (capa Senzu, en español)
 
 Skill upstream (inglés): `SKILL.upstream.md` (conceptos, patrones, hooks, integración GSAP/R3F, rendimiento, pitfalls),
 `references/api_reference.md` (API completa, 1077 líneas), `assets/starter_motion/`, `assets/examples/`,
-`scripts/animation_generator.py`, `scripts/variant_builder.py`. Capa dev-standards (español): `references/es/next.md`.
+`scripts/animation_generator.py`, `scripts/variant_builder.py`. Capa Senzu (español): `references/es/next.md`.
 
 Motion es la herramienta de **animación de estado en React**: entradas/salidas de componentes, gestos, listas que se
 reordenan, modales, tabs con indicador compartido. Duraciones, easing y "qué se anima" salen del
-`design-system/*/MASTER.md` (skill `ui-ux-pro-max`); sin él, 150/250/400 ms y `ease: [0.2, 0.8, 0.2, 1]`.
+`senzu/design-system/*/MASTER.md` (skill `ui-ux-pro-max`); sin él, 150/250/400 ms y `ease: [0.2, 0.8, 0.2, 1]`.
 
 ## 1. Cuándo sí / cuándo no
 | Situación | Skill |
@@ -38,7 +38,7 @@ reordenan, modales, tabs con indicador compartido. Duraciones, easing y "qué se
 | API detallada: `useScroll`/`useTransform`/`useSpring` | `references/api_reference.md` 619-718 |
 | `AnimatePresence` modos (`wait`, `popLayout`) y `usePresence` | `references/api_reference.md` 779-886 |
 
-## 3. Integración con perfiles dev-standards
+## 3. Integración con perfiles Senzu
 | Perfil | Cómo | Puntos críticos |
 |---|---|---|
 | Next.js App Router + React | `npm i motion` → `import { motion, AnimatePresence } from "motion/react"` (upstream aún importa `framer-motion`; equivale) | Todo componente con Motion lleva `"use client"`; el Server Component padre pasa datos como props. `useReducedMotion()` en cada patrón; `LazyMotion` + `m` + `domAnimation` para reducir bundle en páginas públicas. Detalle: `references/es/next.md`. |

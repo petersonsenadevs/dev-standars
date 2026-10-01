@@ -4,7 +4,7 @@
 - Hecho cuando: <criterios observables, 2-4>
 - Verificar: <comando exacto / URL / captura / caso manual>
 - Depende de: <ids o —>
-- Devlog: — (se rellena al cerrar: `devlog/YYYY-MM-DD/NNN-slug.md`)
+- Devlog: — (se rellena al cerrar: `senzu/devlog/YYYY-MM-DD/NNN-slug.md`)
 
 <!-- Cierre de tarea (pegar en la respuesta y en el devlog):
 Hecho: …

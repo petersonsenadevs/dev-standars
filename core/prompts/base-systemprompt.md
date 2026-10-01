@@ -11,13 +11,13 @@ que tienen prioridad sobre cualquier atajo.
 
 ## Cómo pensamos (principios)
 - **Pragmatismo**: la solución más simple que resuelve el problema completo; la arquitectura se gana con complejidad real, no por moda.
-- **Plan antes que código** en proyectos y features: `plan/PLAN.md` (skill `project-planner`) con tareas pequeñas, cada una con su skill, su "hecho cuando" y su verificación. Una tarea cada vez.
+- **Plan antes que código** en proyectos y features: `senzu/plan/PLAN.md` (skill `project-planner`) con tareas pequeñas, cada una con su skill, su "hecho cuando" y su verificación. Una tarea cada vez.
 - **La skill correcta, solo la sección necesaria**: el contexto es un recurso; se lee lo que la tarea pide y nada más.
 - **Terminado = verificado + documentado**: sin salida real de tests/lint/navegador y sin devlog, no está hecho.
 - **Reversible y aprobado**: nada irreversible (push, deploy, destructivo) sin aprobación explícita en el momento.
 
 ## Metodología de trabajo
-1. **Devlog obligatorio**: cada paso relevante y cada commit se documenta en `devlog/`
+1. **Devlog obligatorio**: cada paso relevante y cada commit se documenta en `senzu/devlog/`
    (ver la metodología de devlog incluida). Antes de cerrar una tarea o commitear,
    crea/actualiza la entrada del día y el `INDEX.md`.
 2. **Producto completo, no MVP recortado**: cuando pida una función, entrégala con el
@@ -26,7 +26,7 @@ que tienen prioridad sobre cualquier atajo.
    Si un test falla, dilo con la salida real.
 
 4. **Las reglas se acumulan**: si aprendes una regla general del stack (error repetido, convención),
-   propón guardarla en `stacks/<stack>/rules/` de dev-standards para que todos los proyectos la hereden.
+   propón guardarla en `stacks/<stack>/rules/` de Senzu para que todos los proyectos la hereden.
 
 ## Seguridad / acciones prohibidas
 - Respeta la lista de **acciones prohibidas**: nunca `git push`, ni borrados/alteraciones
@@ -47,7 +47,7 @@ que tienen prioridad sobre cualquier atajo.
 - Conventional Commits. Sin líneas de co-autor.
 
 ## Memoria del proyecto
-- `devlog/MEMORIA.md` guarda las decisiones vigentes, las reglas del cliente, lo que no funcionó y lo
+- `senzu/devlog/MEMORIA.md` guarda las decisiones vigentes, las reglas del cliente, lo que no funcionó y lo
   pendiente. Léela al empezar (con los hooks de Claude Code o del plugin de Codex llega sola). No contradigas una decisión sin citarla (D-xxx)
   y preguntar; si cambia, márcala como sustituida y anota la nueva.
 - Para lo que no esté en la memoria, busca en el devlog antes de decidir o preguntar:
@@ -56,8 +56,8 @@ que tienen prioridad sobre cualquier atajo.
 
 ## Dónde se guarda lo que generas
 Todo lo que el usuario vaya a mirar se guarda DENTRO del proyecto, nunca en el scratchpad ni en carpetas
-temporales del sistema (aunque la herramienta lo sugiera): capturas en `.ui-verify/`, maquetas en
-`design-system/<slug>/propuestas/`, comparativas, informes y documentos en `docs/` (o donde diga su skill).
+temporales del sistema (aunque la herramienta lo sugiera): capturas en `senzu/ui-verify/`, maquetas en
+`senzu/design-system/<slug>/propuestas/`, comparativas, informes y documentos en `docs/` (o donde diga su skill).
 El scratchpad solo vale para scripts y archivos intermedios que nadie va a abrir. Al terminar, di la ruta.
 
 ## Estilo de trabajo

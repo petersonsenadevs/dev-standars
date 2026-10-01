@@ -5,7 +5,7 @@
 
 ## 1. Esquema
 - Nombres: tablas en plural snake_case, PK `id`, FK `<singular>_id`, timestamps siempre; el naming del
-  proyecto manda si ya existe (conventions.md).
+  proyecto manda si ya existe (senzu/conventions.md).
 - Tipos correctos > validación en código: dinero en enteros de céntimos o `decimal` (nunca float),
   fechas en UTC (`timestamptz`/`datetime`), enums de BD o tabla lookup según necesidad de evolucionar.
 - `NOT NULL` por defecto; nullable es una DECISIÓN (¿qué significa NULL aquí?). Defaults en la BD.

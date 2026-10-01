@@ -1,6 +1,6 @@
-# Formato canónico de `plan/PLAN.md`
+# Formato canónico de `senzu/plan/PLAN.md`
 
-`plan/PLAN.md` es el único documento de planificación. Lo lee el agente al empezar cada sesión
+`senzu/plan/PLAN.md` es el único documento de planificación. Lo lee el agente al empezar cada sesión
 (y el hook `session-start`, que extrae el tablero de las tarjetas), lo actualiza al cerrar cada
 tarea y lo lee el usuario. Legible en 2 minutos, editable con un `Edit` pequeño. Plantilla vacía:
 `templates/PLAN.md`.
@@ -24,7 +24,7 @@ tarea y lo lee el usuario. Legible en 2 minutos, editable con un `Edit` pequeño
 - Cada tarea es ejecutable por un agente en una sesión con solo la tarjeta, la skill indicada y el repo.
 - La skill y la sección se fijan al planificar, no al ejecutar: evita leer skills enteras.
 - La historia no se borra: las tareas hechas se quedan con `done` y enlace a devlog.
-- El brief vive en `plan/brief.md` y se enlaza desde la cabecera; no se copia en el plan.
+- El brief vive en `senzu/plan/brief.md` y se enlaza desde la cabecera; no se copia en el plan.
 
 ## Estructura del archivo
 
@@ -46,7 +46,7 @@ Es exactamente la de `templates/PLAN.md`:
 Título `# Plan — <nombre>` y cinco viñetas: **Objetivo**, **Estado** + **Actualizado**,
 **Stack / perfil**, enlaces a **Brief** / **Design system** / **Devlog**, y **Definición de hecho
 global** (ver el ejemplo completo). La tarea en curso no se anota en la cabecera: se deduce de la
-única tarjeta `[doing]` (`grep -c '\[doing\]' plan/PLAN.md` debe dar 0 o 1). El progreso se lee
+única tarjeta `[doing]` (`grep -c '\[doing\]' senzu/plan/PLAN.md` debe dar 0 o 1). El progreso se lee
 de la tabla `## Fases`.
 
 ## Fases
@@ -58,7 +58,7 @@ Una fase es un conjunto de tareas que, terminadas, dejan algo usable por el usua
 - Cada fase tiene una fila en la tabla `## Fases` (entregable verificable + estado) y una
   sección `## F<n> — <título>` con 3-8 tarjetas en orden de ejecución previsto.
 - Las fases se numeran F1..Fn; no se reordenan una vez empezadas (se añade F2b si hace falta).
-- Si hay UI y no existe `design-system/<slug>/MASTER.md`, la primera tarjeta de la fase de UI
+- Si hay UI y no existe `senzu/design-system/<slug>/MASTER.md`, la primera tarjeta de la fase de UI
   es generarlo con `ui-ux-pro-max`.
 
 ## Tarjeta de tarea
@@ -94,7 +94,7 @@ Un `grep '^### '` sobre el plan da el tablero completo.
 | Hecho cuando | Comportamiento observable, no actividad. Incluye el caso negativo si existe |
 | Verificar | Comando con resultado esperado, URL con qué mirar, o captura. Siempre reproducible |
 | Depende de | Ids, o `—` si puede empezar ya |
-| Devlog | `—` hasta cerrar; después la ruta `devlog/<YYYY-MM-DD>/NNN-<slug>.md` |
+| Devlog | `—` hasta cerrar; después la ruta `senzu/devlog/<YYYY-MM-DD>/NNN-<slug>.md` |
 | Notas (opcional) | Desviaciones, motivo de bloqueo, por qué se dividió, enlace a ADR |
 
 ## Reglas de estado
@@ -121,7 +121,7 @@ motivo) y `## Riesgos y bloqueos` (ver `replanning-and-risks.md`). Existen aunqu
 - **Objetivo:** emitir, enviar y mostrar facturas de pedidos cerrados.
 - **Estado:** en curso · **Actualizado:** 2026-08-25
 - **Stack / perfil:** laravel · Laravel 12 + Inertia + Vue 3 + Tailwind
-- **Brief:** `plan/brief.md` · **Design system:** `design-system/app/MASTER.md` · **Devlog:** `devlog/INDEX.md`
+- **Brief:** `senzu/plan/brief.md` · **Design system:** `senzu/design-system/app/MASTER.md` · **Devlog:** `senzu/devlog/INDEX.md`
 - **Definición de hecho global:** tests y lint en verde, a11y básica, sin secretos, devlog al día, sin deploy
 
 ## Alcance
@@ -144,7 +144,7 @@ motivo) y `## Riesgos y bloqueos` (ver `replanning-and-risks.md`). Existen aunqu
 - Hecho cuando: migración aditiva crea `facturas` y `factura_lineas`; modelo con relaciones; factory.
 - Verificar: `php artisan migrate --pretend` sin drops; `php artisan test --filter=FacturaModel` verde.
 - Depende de: —
-- Devlog: devlog/2026-08-25/012-migracion-facturas.md
+- Devlog: senzu/devlog/2026-08-25/012-migracion-facturas.md
 
 ### F1-T2 · Implementar numeración correlativa por serie  [M] [doing]
 - Skill: ddd-hexagonal §references/tactical/value-objects + code-quality §references/testing "Integración con BD real"
@@ -182,9 +182,9 @@ motivo) y `## Riesgos y bloqueos` (ver `replanning-and-risks.md`). Existen aunqu
 
 ### F2-T2 · Cerrar fase: resumen de fase y ADR de numeración  [S] [todo]
 - Skill: devlog §Resumen de fase + ddd-hexagonal §templates/docs/adr
-- Archivos: devlog/<fecha>/NNN-cierre-f2.md, docs/adr/001-numeracion-por-serie.md
+- Archivos: senzu/devlog/<fecha>/NNN-cierre-f2.md, docs/adr/001-numeracion-por-serie.md
 - Hecho cuando: entrada tipo docs con lo entregado, verificación y retro; ADR enlazado.
-- Verificar: enlaces válidos desde `devlog/INDEX.md`.
+- Verificar: enlaces válidos desde `senzu/devlog/INDEX.md`.
 - Depende de: F2-T1
 - Devlog: —
 
@@ -194,7 +194,7 @@ motivo) y `## Riesgos y bloqueos` (ver `replanning-and-risks.md`). Existen aunqu
 - Archivos: app/Exports/PedidosExport.php
 - Hecho cuando: exportar un pedido sin cliente devuelve CSV con campo vacío; test de regresión.
 - Verificar: `php artisan test --filter=ExportarPedidos`. Depende de: —
-- Devlog: devlog/2026-08-25/013-fix-export-pedidos.md
+- Devlog: senzu/devlog/2026-08-25/013-fix-export-pedidos.md
 
 ## Cambios al plan
 | Fecha | Cambio | Motivo |
@@ -210,11 +210,11 @@ motivo) y `## Riesgos y bloqueos` (ver `replanning-and-risks.md`). Existen aunqu
 ## Checklist
 
 - [ ] Cabecera con objetivo, estado y fecha, stack/perfil, enlaces a brief, design system y devlog, DoD global.
-- [ ] `plan/brief.md` existe y está enlazado (no copiado).
+- [ ] `senzu/plan/brief.md` existe y está enlazado (no copiado).
 - [ ] F1 es un walking skeleton entregable; tabla `## Fases` con entregable verificable por fase.
-- [ ] Si hay UI y no existe `design-system/<slug>/MASTER.md`, la primera tarjeta de la fase de UI lo genera con `ui-ux-pro-max`.
+- [ ] Si hay UI y no existe `senzu/design-system/<slug>/MASTER.md`, la primera tarjeta de la fase de UI lo genera con `ui-ux-pro-max`.
 - [ ] Cada tarjeta: `### id · título  [S|M] [estado]`, skill+sección real, archivos, hecho cuando, verificar, depende de, devlog.
 - [ ] Ninguna tarea L sin dividir; ninguna tarea sin verificación reproducible.
-- [ ] `grep -c '\[doing\]' plan/PLAN.md` da 0 o 1.
+- [ ] `grep -c '\[doing\]' senzu/plan/PLAN.md` da 0 o 1.
 - [ ] Secciones `## Tareas ad hoc`, `## Cambios al plan` y `## Riesgos y bloqueos` presentes aunque estén vacías.
 - [ ] `grep '^### '` produce un tablero legible (formato que parsea el hook).

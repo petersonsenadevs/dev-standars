@@ -3,15 +3,15 @@ name: ui-styling
 description: "shadcn/ui y shadcn-vue + Tailwind: implementar componentes accesibles en Next, Vue/Inertia o Astro. Úsala DESPUÉS de ui-ux-pro-max (esta no elige estilo, paleta ni patrón: solo implementa componentes con los tokens ya decididos)."
 ---
 
-# ui-styling (capa dev-standards, en español)
+# ui-styling (capa Senzu, en español)
 
 Skill upstream (inglés): `SKILL.upstream.md` (stack, quick start, mapa de referencias, patrones),
 `references/shadcn-components.md`, `shadcn-theming.md`, `shadcn-accessibility.md`, `tailwind-utilities.md`,
 `tailwind-responsive.md`, `tailwind-customization.md`, `canvas-design-system.md`, `scripts/shadcn_add.py`,
-`scripts/tailwind_config_gen.py`. Capa dev-standards (español): `references/es/vue-shadcn.md`.
+`scripts/tailwind_config_gen.py`. Capa Senzu (español): `references/es/vue-shadcn.md`.
 
 Aquí se **implementa** la UI: qué componente, cómo se instala, cómo se estiliza con tokens. La decisión de estilo,
-paleta, tipografía y patrón de página la toma `ui-ux-pro-max` y vive en `design-system/<slug>/MASTER.md`; los tokens
+paleta, tipografía y patrón de página la toma `ui-ux-pro-max` y vive en `senzu/design-system/<slug>/MASTER.md`; los tokens
 se declaran según `ui-ux-pro-max/references/es/tokens-tailwind.md` (Tailwind 4 `@theme` + semánticos + `.dark`).
 
 ## 1. Cuándo sí / cuándo no
@@ -21,7 +21,7 @@ se declaran según `ui-ux-pro-max/references/es/tokens-tailwind.md` (Tailwind 4 
 | Elegir estilo visual, paleta, tipografía, patrón de página; generar el design system | `ui-ux-pro-max` |
 | Arquitectura de tokens en 3 capas, JSON de tokens, validación de hex sueltos | `design-system` |
 | Animación de componentes | `motion-framer` (React) / `gsap-scrolltrigger` |
-| Pósteres/diseño visual en canvas (`canvas-design-system.md`) | fuera del alcance dev-standards; ignorar salvo petición explícita |
+| Pósteres/diseño visual en canvas (`canvas-design-system.md`) | fuera del alcance Senzu; ignorar salvo petición explícita |
 
 ## 2. Lectura mínima por tarea
 | Tarea | Archivo y líneas |
@@ -35,7 +35,7 @@ se declaran según `ui-ux-pro-max/references/es/tokens-tailwind.md` (Tailwind 4 
 | Utilidades de layout/espaciado/tipografía | `references/tailwind-utilities.md` |
 | Formulario con validación (patrón completo) | `SKILL.upstream.md` 261-298 |
 
-## 3. Integración por perfil dev-standards
+## 3. Integración por perfil Senzu
 | Perfil | Instalación | Particularidades |
 |---|---|---|
 | Next.js App Router | `npx shadcn@latest init` → `npx shadcn@latest add button card dialog form` | Componentes en `components/ui/*` (código propio, se versiona); `next-themes` para dark mode con `attribute="class"`; formularios con `react-hook-form` + `zod` o server actions + `useActionState`; `cn()` en `lib/utils.ts`. |

@@ -3,7 +3,7 @@ name: code-quality
 description: "Buenas prácticas de código (Laravel/PHP, TypeScript, React/Next, Vue, Astro, Python): tipado, tests, errores/logs, seguridad, rendimiento, APIs, PR. Úsala al escribir o refactorizar lógica, testear, revisar PR o diseñar endpoints."
 ---
 
-# code-quality (dev-standards)
+# code-quality (Senzu)
 
 Referencias por tema en `references/`. **No las leas todas**: cada una empieza con un índice; lee solo
 la sección que necesites (Read con offset/limit o Grep). Una referencia por tarea salvo que la tarea cruce temas.
@@ -51,7 +51,7 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 | Verificar el proyecto tras TUS cambios | `scripts/verify-build.mjs` desde la raíz (lint+types+tests+build; corrige hasta 0 fallos). En monorepos verifica cada paquete con cambios en su carpeta y lenguaje (JS con su gestor, Python con uv/poetry, PHP, Go); `--plan` enseña qué ejecutaría, `--paquete apps/web`, `--todos`, `--sin-build` |
 
 ## Principios transversales (aplican siempre, sin leer nada más)
-1. **Lee antes de escribir**: imita naming, estructura y estilo del código vecino; no introduzcas patrones nuevos sin motivo. Si existe `conventions.md` (adoptado con `/adoptar`), es ley.
+1. **Lee antes de escribir**: imita naming, estructura y estilo del código vecino; no introduzcas patrones nuevos sin motivo. Si existe `senzu/conventions.md` (adoptado con `/adoptar`), es ley.
 2. **Tipado estricto** en todos los lenguajes (`declare(strict_types=1)`, `strict: true`, mypy/pyright estricto). Sin `any`/`mixed` sin justificar.
 3. **Validar en el borde, confiar dentro**: entrada externa (HTTP, colas, LLM, ficheros) se valida y se convierte a tipos; el núcleo asume datos válidos.
 4. **Funciones pequeñas, una responsabilidad, nombres que digan qué hacen**. Sin comentarios que repitan el código; sí comentarios de "por qué".
@@ -73,7 +73,7 @@ Completo: **`references/backend-catalog.md`** (tarea/síntoma → receta §secci
 
 ## Reglas aprendidas (extensible)
 Si detectas una regla GENERAL del stack o lenguaje (error repetido en proyectos, convención del equipo),
-no la dejes morir en el devlog: propón añadirla a dev-standards y, con el ok del usuario, escríbela en
+no la dejes morir en el devlog: propón añadirla a Senzu y, con el ok del usuario, escríbela en
 `stacks/<stack>/rules/<tema>.md` (se anexa al CLAUDE.md/AGENTS.md de los proyectos al correr `sync.ps1`)
 o como sección nueva de la referencia del lenguaje (`references/<lenguaje>.md`). Regla + porqué + ejemplo mínimo.
 

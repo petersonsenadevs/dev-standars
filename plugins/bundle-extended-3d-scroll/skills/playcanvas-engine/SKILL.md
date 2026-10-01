@@ -3,7 +3,7 @@ name: playcanvas-engine
 description: "Motor WebGL/WebGPU PlayCanvas: juegos 3D en navegador, ECS, scripts pc.createScript, física Ammo.js, carga glTF, export del Editor. No para 3D low-level (threejs-webgl), R3F (react-three-fiber) ni VR declarativo (aframe-webxr)."
 ---
 
-# playcanvas-engine (índice dev-standards, ES)
+# playcanvas-engine (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (1062 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -53,4 +53,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (1062 líneas). 
 - Carga Ammo.js antes de añadir `rigidbody`/`collision`; en bucles de spawn usa pooling en lugar de crear/destruir.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Librería vanilla (`import * as pc from 'playcanvas'`), válida en React (patrón L632-690), Vue o Astro con `client:only`; el canvas requiere `window`, así que inicializa solo en cliente (SSR-safe).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Librería vanilla (`import * as pc from 'playcanvas'`), válida en React (patrón L632-690), Vue o Astro con `client:only`; el canvas requiere `window`, así que inicializa solo en cliente (SSR-safe).

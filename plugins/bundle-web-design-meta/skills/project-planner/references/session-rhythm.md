@@ -19,12 +19,12 @@ entiende sin leer el hilo. Este documento fija ese ritmo.
 
 Orden fijo, 2-3 minutos, antes de tocar código:
 
-1. **Leer el estado inyectado por el hook** (si dev-standards lo inyecta al inicio: stack,
+1. **Leer el estado inyectado por el hook** (si Senzu lo inyecta al inicio: stack,
    skills, última entrada de devlog, tarea en curso). Si no hay hook, leer a mano:
-   `.dev-standards.json`, última entrada de `devlog/`, `git status` y `git log --oneline -5`.
-2. **Leer la cabecera y la tabla `## Fases` de `plan/PLAN.md`**: estado, fase en curso y su
+   `senzu/senzu.json`, última entrada de `senzu/devlog/`, `git status` y `git log --oneline -5`.
+2. **Leer la cabecera y la tabla `## Fases` de `senzu/plan/PLAN.md`**: estado, fase en curso y su
    tarjeta `[doing]`. Después, solo la sección de la fase en curso; no releer todo el plan.
-3. **Comprobar coherencia**: `grep -c '\[doing\]' plan/PLAN.md` debe ser 0 o 1. Si hay una
+3. **Comprobar coherencia**: `grep -c '\[doing\]' senzu/plan/PLAN.md` debe ser 0 o 1. Si hay una
    tarea `doing` de una sesión anterior, decidir: continuarla, dividirla o pasarla a `blocked`.
    `git status` limpio; si hay cambios sin commit, entenderlos antes de seguir.
 4. **Elegir la tarea** según `task-protocol.md` paso 8 (dependencias `done`, fase en curso,
@@ -33,7 +33,7 @@ Orden fijo, 2-3 minutos, antes de tocar código:
    code-quality §references/php-laravel 'Arquitectura: controladores, Form Requests, Actions y Services'. Empiezo." Si el usuario dio otra instrucción, ver
    "Peticiones fuera del plan".
 
-Si no existe `plan/PLAN.md` y la petición no es trivial: descubrimiento -> brief -> plan
+Si no existe `senzu/plan/PLAN.md` y la petición no es trivial: descubrimiento -> brief -> plan
 (`discovery.md`, `brief-and-scope.md`, `plan-format.md`) antes de cualquier tarea.
 
 ## Durante la sesión
@@ -57,8 +57,8 @@ Antes del último mensaje, en este orden:
 
 1. **Estado del plan**: tarjeta(s) en `[done]`/`[blocked]`; ninguna `[doing]` (o una sola, si
    queda algo a medias y bien delimitado en "Notas"); tabla `## Fases` y fecha "Actualizado".
-2. **Devlog**: entrada por tarea creada en `devlog/<YYYY-MM-DD>/NNN-<slug>.md`; si hubo trabajo
-   sin tarea (spike, exploración), una entrada de sesión. `devlog/INDEX.md` actualizado.
+2. **Devlog**: entrada por tarea creada en `senzu/devlog/<YYYY-MM-DD>/NNN-<slug>.md`; si hubo trabajo
+   sin tarea (spike, exploración), una entrada de sesión. `senzu/devlog/INDEX.md` actualizado.
 3. **Commits**: todo el trabajo verificado está commiteado, cada commit con `Tarea: <id>` en el cuerpo. Trabajo no verificado no se
    commitea como `feat`; se guarda como `wip:` en rama o se descarta con nota.
 4. **Siguiente tarea propuesta**: id, tamaño, título, skill, y si tiene dependencias
@@ -91,7 +91,7 @@ estado está el plan y qué se espera de él. Formato fijo, 10-15 líneas:
 1. Credenciales SMTP de staging (MAIL_HOST, MAIL_USERNAME, MAIL_PASSWORD) para desbloquear F2-T2. Mientras tanto sigo con F2-T3.
 2. ¿Confirmas el logo en cabecera del PDF? (Default: sí, versión monocromo.)
 
-**Devlog**: devlog/2026-08-27/015-f2-t1-pdf.md · devlog/2026-08-27/016-f2-t2-bloqueo.md
+**Devlog**: senzu/devlog/2026-08-27/015-f2-t1-pdf.md · senzu/devlog/2026-08-27/016-f2-t2-bloqueo.md
 ```
 
 Sin narración del proceso ("primero intenté..."), sin disculpas, sin listar archivos leídos.
@@ -99,7 +99,7 @@ Los detalles viven en el devlog; el resumen enlaza.
 
 ## Peticiones fuera del plan
 
-El usuario pide algo que no está en `plan/PLAN.md` ("cámbiame el color del botón",
+El usuario pide algo que no está en `senzu/plan/PLAN.md` ("cámbiame el color del botón",
 "arregla este error que me sale", "añade un export a CSV").
 
 Procedimiento:

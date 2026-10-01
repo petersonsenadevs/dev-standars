@@ -3,7 +3,7 @@ name: animated-component-libraries
 description: "Componentes React animados prefabricados: Magic UI (Tailwind + Motion + shadcn/ui) y React Bits (BlurText, CountUp, Dock, Particles, Aurora). Para landings, hero, marquee, stats, fondos. No para animación a medida, Vue/vanilla ni 3D."
 ---
 
-# animated-component-libraries (índice dev-standards, ES)
+# animated-component-libraries (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (824 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -51,5 +51,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (824 líneas). *
 - Carga componentes pesados con `React.lazy` y cliente-only (`"use client"` / `dynamic(..., { ssr: false })` en Next.js): usan `window` y WebGL.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Solo aplica a React/Next.js con Tailwind (Magic UI exige además shadcn/ui).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Solo aplica a React/Next.js con Tailwind (Magic UI exige además shadcn/ui).
 - Si el stack es Vue, Astro sin React o vanilla, no uses esta skill: recurre a `gsap-scrolltrigger`, `scroll-reveal-libraries` o `lightweight-3d-effects` para lograr efectos equivalentes.

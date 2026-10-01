@@ -3,7 +3,7 @@ name: rive-interactive
 description: "Animaciones Rive (.riv) con máquinas de estados, inputs (boolean/number/trigger), ViewModel data binding y eventos en React (rive-react): botones, toggles, loaders, UI interactiva. No para timelines simples (usa lottie-animations)."
 ---
 
-# rive-interactive (índice dev-standards, ES)
+# rive-interactive (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (586 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -50,5 +50,5 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (586 líneas). *
 - Respeta `prefers-reduced-motion`: pausa o muestra estado final estático (norma del proyecto, no del upstream).
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json).
 - El upstream es solo React (`rive-react`). Para Vue, Astro o vanilla usa `@rive-app/canvas` (mismos conceptos: `new Rive({ src, stateMachines, autoplay })`, `stateMachineInputs()`), siempre solo en cliente (SSR-safe: `useEffect` / `client:only`).

@@ -3,7 +3,7 @@ name: graphic-design
 description: "Skill paraguas de diseño: logos e iconos SVG con Gemini, CIP (mockups de papelería), slides HTML con Chart.js, banners y fotos sociales. Disparadores: logo, icono, CIP, mockup, pitch deck, banner, social photo. No para UI/CSS ni tokens."
 ---
 
-# graphic-design (índice dev-standards, ES)
+# graphic-design (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (313 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -57,4 +57,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (313 líneas). *
 - Verificar visualmente los PNG exportados y corregir antes de entregar; organizar salida por campaña.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Las salidas son assets estáticos (PNG, SVG, HTML) agnósticos de framework; en React/Vue/Astro los iconos SVG se importan como componentes o desde `public/`. Inyecta antes el contexto de `brand` si el proyecto lo tiene.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Las salidas son assets estáticos (PNG, SVG, HTML) agnósticos de framework; en React/Vue/Astro los iconos SVG se importan como componentes o desde `public/`. Inyecta antes el contexto de `brand` si el proyecto lo tiene.

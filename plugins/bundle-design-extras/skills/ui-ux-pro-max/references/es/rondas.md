@@ -15,7 +15,7 @@ siguientes, lo que rechaza no vuelve, y solo se explora lo que sigue abierto, co
 
 ## 1. Estructura de carpetas
 ```
-design-system/<slug>/
+senzu/design-system/<slug>/
 ├── gustos.md                 # Fijado · Sí · No · Dudas (memoria de las decisiones de diseño)
 └── propuestas/
     ├── index.html            # todas las rondas (lo genera ronda-check --indice)
@@ -85,7 +85,7 @@ El usuario abre las maquetas (o `propuestas/index.html`) y responde como prefier
 
 ## 6. Verificar antes de enseñar
 ```
-node <skills-dir>/ui-ux-pro-max/scripts/ronda-check.mjs design-system/<slug> --indice
+node <skills-dir>/ui-ux-pro-max/scripts/ronda-check.mjs senzu/design-system/<slug> --indice
 ```
 Falla si falta algo fijado en alguna maqueta, si aparece algo vetado, si no hay nada nuevo, si quedan
 huecos de la plantilla, si faltan etiquetas o si dos maquetas son la misma. Corrige hasta «Ronda lista
@@ -96,4 +96,4 @@ para enseñar» y entonces da las rutas (o el `index.html`) y las preguntas.
   abierto lo mismo, para y pregunta qué falta: más rondas no arreglan una duda de fondo (quizá el brief).
 - La maqueta elegida + Fijado pasan a `MASTER.md` con trazabilidad («Fijado en las rondas 1-3, maqueta
   3·B elegida el <fecha>»). Después se construye la página real con checkpoint por sección.
-- Regístralo en el devlog del día; las decisiones de diseño importantes van también a `devlog/MEMORIA.md`.
+- Regístralo en el devlog del día; las decisiones de diseño importantes van también a `senzu/devlog/MEMORIA.md`.

@@ -9,7 +9,7 @@ creces en re-trabajo evitado.
 ## Paso 1 — Blueprint: aprobar la ESTRUCTURA antes que la estética
 
 Con el brief (`brief-discovery.md`) y el playbook del negocio (`business-playbooks.md`), escribe
-`design-system/<slug>/blueprint.md` y pídele al usuario que lo apruebe ANTES de diseñar nada:
+`senzu/design-system/<slug>/blueprint.md` y pídele al usuario que lo apruebe ANTES de diseñar nada:
 
 ```markdown
 # Blueprint — <página> (PENDIENTE DE APROBACIÓN | APROBADO <fecha>)
@@ -28,7 +28,7 @@ Preguntas abiertas: ¿mostramos precios? ¿cuántas fotos de obras hay?
 ## Paso 2 — Maquetas A/B: dos direcciones que se pueden ABRIR
 
 Dos archivos HTML **autocontenidos** (doble clic y se ven, sin build ni servidor):
-`design-system/<slug>/propuestas/ronda-1/a.html` y `b.html`, copiadas de `plantilla-maqueta.html`
+`senzu/design-system/<slug>/propuestas/ronda-1/a.html` y `b.html`, copiadas de `plantilla-maqueta.html`
 (piezas etiquetadas `A·T1`, `B·B2`… y panel «Tu opinión» para votar cada pieza). Es la ronda 1 de
 `rondas.md`: las siguientes fijan lo que gustó, vetan lo que no y siempre traen algo nuevo.
 
@@ -52,9 +52,9 @@ con tu negocio? ¿qué te gusta de cada una? Se pueden mezclar (los colores de A
 
 ## Paso 3 — Registrar la elección y los gustos
 
-1. La dirección elegida (o la mezcla) → `design-system/<slug>/MASTER.md` (tokens definitivos) con una
+1. La dirección elegida (o la mezcla) → `senzu/design-system/<slug>/MASTER.md` (tokens definitivos) con una
    línea de trazabilidad: "Dirección B elegida por el usuario el <fecha> (maqueta en propuestas/)".
-2. TODO lo que el usuario opinó → `design-system/<slug>/gustos.md`:
+2. TODO lo que el usuario opinó → `senzu/design-system/<slug>/gustos.md`:
 
 ```markdown
 # Gustos del cliente (leer SIEMPRE antes de diseñar)

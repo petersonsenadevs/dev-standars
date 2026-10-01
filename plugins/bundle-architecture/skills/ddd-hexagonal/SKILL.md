@@ -3,7 +3,7 @@ name: ddd-hexagonal
 description: "Biblioteca DDD (estratégico/táctico) + hexagonal + CQRS ligero + integración (outbox, sagas, ACL) para proyectos complejos en Laravel, TypeScript (Next/Node, Vue) y Python: 74 docs por tema, plantillas y checklist de cuándo NO."
 ---
 
-# ddd-hexagonal (dev-standards)
+# ddd-hexagonal (Senzu)
 
 Biblioteca de 74 documentos cortos (≤ 250 líneas, con índice) en `references/<tema>/` + plantillas de código en
 `templates/<stack>/` + plantillas de documentación en `templates/docs/`. Catálogo completo: `INDEX.md`.

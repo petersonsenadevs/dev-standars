@@ -3,7 +3,7 @@ name: scroll-reveal-libraries
 description: "Reveals al hacer scroll con AOS (Animate On Scroll): data-aos, fade/slide/zoom/flip en landings, marketing y blogs, con React/Vue/Next. No para timelines, scrub o parallax (gsap-scrolltrigger, locomotive-scroll) ni física."
 ---
 
-# scroll-reveal-libraries (índice dev-standards, ES)
+# scroll-reveal-libraries (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (820 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -52,4 +52,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (820 líneas). *
 - `duration`/`delay` máximos de 3000 ms; para más, CSS propio (L678-695). Prefiere fades a flips por rendimiento.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Librería agnóstica: vanilla (CDN o npm), React/Next (init en `useEffect`, L352-455 y L497-529), Vue (`mounted` + `updated`, L457-495), Astro (script cliente o `client:load`). Toca `window`, así que inicializa solo en cliente (SSR-safe).
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Librería agnóstica: vanilla (CDN o npm), React/Next (init en `useEffect`, L352-455 y L497-529), Vue (`mounted` + `updated`, L457-495), Astro (script cliente o `client:load`). Toca `window`, así que inicializa solo en cliente (SSR-safe).

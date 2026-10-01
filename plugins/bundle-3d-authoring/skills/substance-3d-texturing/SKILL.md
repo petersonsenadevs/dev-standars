@@ -3,7 +3,7 @@ name: substance-3d-texturing
 description: "Texturizado PBR con Adobe Substance 3D Painter y exportación web: presets metallic/roughness, glTF, Three.js, Babylon.js, ORM packing, API Python de Painter. No para cargar/modelar en el motor (threejs-webgl, blender-web-pipeline)."
 ---
 
-# substance-3d-texturing (índice dev-standards, ES)
+# substance-3d-texturing (índice Senzu, ES)
 
 Documentación completa upstream (inglés): `SKILL.upstream.md` (506 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
@@ -56,4 +56,4 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (506 líneas). *
 - AO en Three.js requiere `uv2`; en Babylon activa `useAmbientOcclusionFromMetallicTextureRed`.
 
 ## Integración con el stack del proyecto
-- Detecta el stack como indica la skill `front-activation`/`skill-router` (.dev-standards.json → package.json). Esta skill es agnóstica del framework (produce archivos de textura); el consumo depende del motor: React → react-three-fiber (`useTexture`), vanilla/Vue/Astro → threejs-webgl o babylonjs-engine.
+- Detecta el stack como indica la skill `front-activation`/`skill-router` (senzu/senzu.json → package.json). Esta skill es agnóstica del framework (produce archivos de textura); el consumo depende del motor: React → react-three-fiber (`useTexture`), vanilla/Vue/Astro → threejs-webgl o babylonjs-engine.

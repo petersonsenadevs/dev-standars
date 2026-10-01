@@ -1,7 +1,7 @@
 # Patrones de página (31)
 
 Uso: elige el patrón por tipo de página, respeta el orden de secciones salvo razón documentada en
-`design-system/<slug>/pages/<página>.md`, y cruza con `industry-rules.md` para estilo/paleta. Un H1 por página; el CTA
+`senzu/design-system/<slug>/pages/<página>.md`, y cruza con `industry-rules.md` para estilo/paleta. Un H1 por página; el CTA
 principal aparece en el hero y se repite al final. Formato: **Secciones** (en orden) · **Jerarquía/CTA** · **Errores**.
 
 Índice: 1 landing · 2 saas-landing · 3 pricing · 4 dashboard · 5 admin-crud · 6 auth · 7 onboarding · 8 settings ·
