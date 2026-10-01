@@ -28,6 +28,7 @@ se instalan SIEMPRE; el resto solo en stacks con perfil de front.
 | `/refactor` | <objetivo, p. ej. "sacar la lógica de precios de OrderController"> | Refactor seguro — tests de caracterización primero, pasos pequeños verificados y mismo comportamiento demostrado |
 | `/repaso` | [url o página, p. ej. "http://localhost:4321" o "la home"] | Sesión de revisión conversacional — repasamos la web juntos, sección a sección |
 | `/revisar-ui` | [url o ruta de la vista, p. ej. http://localhost:5173 o Pages/Home.vue] | Audita la UI (rúbrica + verificación en navegador si hay Chrome disponible) |
+| `/ronda` | [tu opinión de la ronda anterior, o el texto que copia el panel de las maquetas] | Nueva ronda de maquetas — fija lo que te gustó, quita lo que no y propone algo nuevo |
 
 ### Flujos típicos
 - **Proyecto nuevo con web**: `/brief` (entrevista en llano) → `/propuestas` (blueprint + maquetas A/B) →

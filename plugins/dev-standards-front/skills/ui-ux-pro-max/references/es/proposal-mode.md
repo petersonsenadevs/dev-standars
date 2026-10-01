@@ -28,7 +28,9 @@ Preguntas abiertas: ¿mostramos precios? ¿cuántas fotos de obras hay?
 ## Paso 2 — Maquetas A/B: dos direcciones que se pueden ABRIR
 
 Dos archivos HTML **autocontenidos** (doble clic y se ven, sin build ni servidor):
-`design-system/<slug>/propuestas/direccion-a.html` y `direccion-b.html`.
+`design-system/<slug>/propuestas/ronda-1/a.html` y `b.html`, copiadas de `plantilla-maqueta.html`
+(piezas etiquetadas `A·T1`, `B·B2`… y panel «Tu opinión» para votar cada pieza). Es la ronda 1 de
+`rondas.md`: las siguientes fijan lo que gustó, vetan lo que no y siempre traen algo nuevo.
 
 Reglas de cada maqueta:
 1. **Un solo archivo**: CSS inline en `<style>`, tipografías por `<link>` de Google Fonts, imágenes como
@@ -45,7 +47,8 @@ Reglas de cada maqueta:
 
 Presentación: abre ambas en el navegador (o da las dos rutas) y pregunta en llano: "¿cuál te pega más
 con tu negocio? ¿qué te gusta de cada una? Se pueden mezclar (los colores de A con la tipografía de B)".
-**No defiendas una favorita**; si el usuario pide una tercera vía, mezcla y regenera UNA maqueta más (máx 3).
+**No defiendas una favorita**. Si quiere mezclar o ver más, no improvises: siguiente ronda con `/ronda`
+(`rondas.md`), que fija lo aprobado, quita lo vetado y propone algo nuevo en cada maqueta.
 
 ## Paso 3 — Registrar la elección y los gustos
 
@@ -55,6 +58,10 @@ con tu negocio? ¿qué te gusta de cada una? Se pueden mezclar (los colores de A
 
 ```markdown
 # Gustos del cliente (leer SIEMPRE antes de diseñar)
+## Fijado (se mantiene igual en todas las rondas; valor exacto entre acentos graves)
+| Categoría | Decisión | Valor | Desde |
+|---|---|---|---|
+| Tipografía titulares | Fraunces 600 | `Fraunces` | R1 · B·T1 |
 ## Sí (le gusta)
 - 2026-09-17 · "los fondos oscuros me encantan" (elección de dirección B)
 ## No (vetado — NUNCA proponer de nuevo sin preguntar)

@@ -29,7 +29,7 @@ Las filas marcadas `(es)` en las guías de stack provienen de dev-standards (`da
 ## 1b. Lectura mínima por tarea (no cargues más; `SKILL.upstream.md` y referencias por secciones)
 | Tarea | Lee solo |
 |---|---|
-| Proyecto/página nueva, rediseño o cliente dudoso | `references/es/brief-discovery.md` (entrevista, glosario) + `references/es/business-playbooks.md` (SU negocio) + `references/es/proposal-mode.md` (blueprint aprobable + maquetas A/B ANTES de construir) |
+| Proyecto/página nueva, rediseño o cliente dudoso | `references/es/brief-discovery.md` (entrevista, glosario) + `references/es/business-playbooks.md` (SU negocio) + `references/es/proposal-mode.md` (blueprint aprobable + maquetas A/B ANTES de construir) + `references/es/rondas.md` (más maquetas: fija lo que gustó, veta lo que no, algo nuevo; plantilla y ronda-check) |
 | Fuentes, iconos, herramientas o referencias | `references/es/fonts-icons.md` · `references/es/resources-toolbox.md` · `references/es/inspiration.md` |
 | Landing / marketing | §2 flujo + `references/es/page-patterns.md` + `references/es/industry-rules.md` + `references/es/copywriting.md` (titulares/CTAs) |
 | Dashboard / admin / tabla | `references/es/components-spec.md` §Table, §Empty state, §Skeleton + `--stack` guías |
@@ -87,7 +87,7 @@ resultados de `search.py` → tu criterio (documentado en MASTER.md si te desví
 ## 5. Recursos
 - `SKILL.upstream.md` — documentación completa upstream (dominios, dials, formato de salida, reglas de prioridad 1-10).
 - `references/pro-rules.md` — checklist canónico de entrega. `references/quick-reference.md` — iconos, charts, GSAP.
-- ES (todas en `references/es/`): `brief-discovery.md` · `business-playbooks.md` · `proposal-mode.md` (blueprint+maquetas+gustos) ·
+- ES (todas en `references/es/`): `brief-discovery.md` · `business-playbooks.md` · `proposal-mode.md` (blueprint+maquetas+gustos) · `rondas.md` + `plantilla-maqueta.html` (rondas con piezas votables) ·
   `fonts-icons.md` · `resources-toolbox.md` · `inspiration.md` · `modern-look.md` · `copywriting.md` · `measurement.md` · `review-session.md` · `workflow.md` · `tokens-tailwind.md` · `forms-ux.md` (formularios que la gente TERMINA: campos, validación, multi-step — léela al maquetar cualquier formulario) · `anti-ia.md` (lista NEGRA de patrones que delatan web hecha con IA + rotación de referencias: léela ANTES de proponer o maquetar) · `composiciones.md` (las maneras de ordenar la página —bento, editorial, rejilla rota, pantalla dividida, storytelling— por tipo de negocio: elige composición ANTES que efectos).
 - `references/es/components-spec.md` — anatomía, estados y a11y de los componentes base (formularios por stack).
 - `references/es/accessibility.md` — WCAG 2.2 AA práctico. `references/es/review-rubric.md` — auditar UI existente.

@@ -57,6 +57,15 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
   `node .claude/skills/devlog/scripts/buscar.mjs "palabras"` (acentos, plurales, erratas y sinónimos)
   y cita la entrada. En un proyecto con historial y sin memoria, la crea en la primera sesión y te la
   enseña para que la confirmes.
+- **Permisos por proyecto** (los decides tú, en el menú del instalador o con `--permitir`): por defecto el
+  agente no hace push ni commitea en main. En un proyecto puedes darle `push` (ramas que no son main),
+  `push-main` (también main) o `commit-main`. El push forzado, lo destructivo y los secretos siguen
+  bloqueados siempre. Puedes apagar hooks concretos con `--apagar-hooks format-on-save,front-skill-reminder`
+  (guard, secretos y archivos protegidos no se apagan). Se guarda en `.dev-standards.json`, que el agente
+  no puede tocar: ni editándolo, ni desde la terminal, ni lanzando él el instalador con esos flags o
+  respondiendo él al menú. Vale para Claude y para Codex. Es una barrera contra errores y atajos, no una
+  caja fuerte: el guard lee el texto de los comandos, así que un agente empeñado podría sortearlo con un
+  script propio. Por eso las reglas también se lo prohíben y cualquier cambio queda en git.
 - **Assets pesados**: al cerrar la tarea avisa (sin bloquear) de imágenes de más de 500 KB, SVG de más de
   150 KB, fuentes TTF/OTF sin convertir a WOFF2 y vídeos de más de 5 MB añadidos en las últimas 24 horas.
 - **Modo ahorro** (opcional, `--ahorro` al instalar): CLAUDE.md compacto (unos 7.000 caracteres menos por
@@ -76,6 +85,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 | `/verificar` | Build+lint+types+tests, y móvil si hubo UI | Antes de dar algo por terminado (o deja que el bloqueo lo pida) |
 | `/desplegar [entorno]` | Deploy con red: PRE (backup+rollback+aprobación) → deploy → smoke POST | Cada subida a producción |
 | `/adoptar [notas]` | Analiza un proyecto existente y sella sus convenciones como regla inmutable (+ hook que las hace cumplir) | Al entrar en un proyecto heredado |
+| `/ronda [tu opinión]` | Siguiente ronda de maquetas: lo que te gustó se fija, lo que no se veta, y cada maqueta trae algo nuevo | Tras ver las maquetas de `/propuestas` |
 | `/revisar-ui [url]` | Pasada de UI en navegador (375/768/1440, dark, consola, axe) | "Revisa cómo se ve" |
 | `/depurar [síntoma]` | Depuración con método: reproducir, aislar, hipótesis, arreglo y test que lo cubre | "No funciona", error 500, tests en rojo (se activa solo al fallar una prueba) |
 | `/estimar [alcance]` | Estimación en horas con rango (mínimo, previsto, máximo) y lo que suele olvidarse | Antes de dar un presupuesto |
@@ -93,6 +103,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - "se ve mal en el móvil" → ui-verify.
 - "añade login / el webhook de stripe / se duplican pedidos / va lento" → recetas backend por síntoma.
 - "no me gusta X / nunca me pongas Y" → queda vetado en gustos.md.
+- "hazme más maquetas con lo que me gustó / otra ronda" → rondas de maquetas (fija, veta y propone algo nuevo).
 - "¿por qué hicimos…? / ¿cuándo cambiamos…? / ¿en qué quedamos con…?" → busca en el devlog y cita la entrada.
 - "no funciona / da error 500 / los tests están en rojo" → depurar.
 - "¿cuántas horas es esto? / prepárame el presupuesto" → estimación.
@@ -102,8 +113,12 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 
 ## 5. Flujos típicos de principio a fin
 
-**Web nueva**: `/brief` → `/propuestas home` (apruebas blueprint, eliges maqueta A/B) → el agente construye
-→ `/verificar` (+ móvil) → devlog → commit (te lo pedirá, nunca push sin tu ok).
+**Web nueva**: `/brief` → `/propuestas home` (apruebas blueprint; ronda 1 con maquetas A y B) → abres las
+maquetas, pulsas «Tu opinión» y votas Sí / No cada pieza (letra, botones, color, layout…) → «Copiar» y lo
+pegas en el chat (o lo dices con tus palabras) → `/ronda` → nueva ronda: lo que te gustó fijo en todas, lo
+vetado fuera y algo nuevo en cada una → repites hasta que digas «esta» → el agente construye → `/verificar`
+(+ móvil) → devlog → commit (te lo pedirá, nunca push sin tu ok). Todas las rondas quedan en
+`design-system/<slug>/propuestas/index.html` y las decisiones en `gustos.md`.
 
 **Rediseño de algo existente**: "quiero renovar la página X" → brief corto + `/propuestas X` →
 construir sobre la elegida.

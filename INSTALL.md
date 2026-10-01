@@ -129,6 +129,8 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
 |---|---|
 | Proyecto nuevo con todo (Claude+Codex) | `init-project.ps1 -Stack <stack> -Path <ruta> -Tools claude,codex` |
 | Traer los últimos cambios al proyecto | `sync.ps1 -Path <ruta>` |
+| Dejar que el agente haga push (no a main) en este proyecto | `init.mjs --path <ruta> --permitir push` (o `sync.ps1 -Path <ruta> -Permitir push`); `push-main` y `commit-main` para main |
+| Apagar un hook en este proyecto | `init.mjs --path <ruta> --apagar-hooks format-on-save` (`--encender-hooks` los vuelve a encender) |
 | CLAUDE.md compacto (modo ahorro) | `init.mjs --path <ruta> --ahorro` o `sync.ps1 -Path <ruta> -Ahorro` |
 | Añadir el bundle de animación/3D después | `sync.ps1 -Path <ruta> -Bundle core-3d-animation` |
 | Solo plugin de Claude | `/plugin marketplace add D:\dev-standards` → `/plugin install dev-standards-all@dev-standards` |

@@ -32,7 +32,11 @@ param(
     [string[]]$Bundle,
     [switch]$GitHooks,
     [switch]$Ahorro,
-    [switch]$SinAhorro
+    [switch]$SinAhorro,
+    [string[]]$Permitir,
+    [switch]$SinPermisos,
+    [string[]]$ApagarHooks,
+    [switch]$EncenderHooks
 )
 
 . (Join-Path $PSScriptRoot '_lib.ps1')
@@ -63,6 +67,28 @@ $stackObj | Add-Member -NotePropertyName Selection -NotePropertyValue $selection
 # Modo ahorro: el switch manda; si no, lo guardado en el marcador
 $ahorroVal = if ($SinAhorro) { $false } elseif ($Ahorro) { $true } else { [bool]($marker -and $marker.ahorro) }
 $stackObj | Add-Member -NotePropertyName Ahorro -NotePropertyValue $ahorroVal -Force
+# Permisos y hooks apagados (los decide el usuario). Sin parametros se conservan los del marcador.
+# guard, secrets-guard y protect-files no se pueden apagar. Mismo resultado que init.mjs.
+$hooksNoApagables = @('guard', 'secrets-guard', 'protect-files')
+$permisosVal = [ordered]@{}
+if ($SinPermisos) { }
+elseif ($PSBoundParameters.ContainsKey('Permitir')) {
+    $per = @($Permitir | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim().ToLower() } | Where-Object { $_ })
+    if ($per -contains 'push') { $permisosVal.push = $true }
+    if ($per -contains 'push-main') { $permisosVal.pushMain = $true }
+    if ($per -contains 'commit-main') { $permisosVal.commitEnMain = $true }
+    $raros = @($per | Where-Object { @('push', 'push-main', 'commit-main') -notcontains $_ })
+    if ($raros.Count) { Write-Warning "Permiso desconocido: $($raros -join ', ') (validos: push, push-main, commit-main)" }
+} elseif ($marker -and $marker.permisos) {
+    foreach ($pr in $marker.permisos.PSObject.Properties) { $permisosVal[$pr.Name] = $pr.Value }
+}
+$apagadosVal = @()
+if ($EncenderHooks) { }
+elseif ($PSBoundParameters.ContainsKey('ApagarHooks')) { $apagadosVal = @($ApagarHooks | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim().ToLower() } | Where-Object { $_ }) }
+elseif ($marker -and $marker.hooksApagados) { $apagadosVal = @($marker.hooksApagados) }
+$noApag = @($apagadosVal | Where-Object { $hooksNoApagables -contains $_ })
+if ($noApag.Count) { Write-Warning "No se pueden apagar: $($noApag -join ', ') (se ignoran)." }
+$apagadosVal = @($apagadosVal | Where-Object { $hooksNoApagables -notcontains $_ } | Select-Object -Unique)
 
 $validTools = @{
     claude      = 'Render-Claude'
@@ -120,6 +146,8 @@ $markerObj = [ordered]@{
 if ($wantGit) { $markerObj.gitHooks = $true }
 if ($selection) { $markerObj.seleccion = $selection }
 if ($ahorroVal) { $markerObj.ahorro = $true }
+if ($permisosVal.Count) { $markerObj.permisos = $permisosVal }
+if ($apagadosVal.Count) { $markerObj.hooksApagados = @($apagadosVal) }
 if ($stackObj.Meta.frontProfile) {
     $markerObj.frontProfile = $stackObj.Meta.frontProfile
     if ($fpSource) { $markerObj.frontProfileSource = $fpSource }

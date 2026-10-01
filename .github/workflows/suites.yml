@@ -47,6 +47,12 @@ jobs:
       - name: test-hooks-codex (parches de Codex y formateo sin imponer estilo)
         run: node tools/test-hooks-codex.mjs
 
+      - name: test-permisos (permisos por proyecto y hooks apagados)
+        run: node tools/test-permisos.mjs
+
+      - name: test-rondas (rondas de maquetas y verificador)
+        run: node tools/test-rondas.mjs
+
       - name: test-init-parity (instalador PowerShell = instalador Node)
         shell: powershell
         run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-init-parity.ps1

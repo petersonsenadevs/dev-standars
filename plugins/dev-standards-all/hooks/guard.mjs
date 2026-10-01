@@ -10,7 +10,7 @@
 // Se usa como capa "inteligente" además de permissions.deny (capa simple) en settings.json.
 
 import { execFileSync } from 'node:child_process';
-import { readHookInput } from './lib.mjs';
+import { readHookInput, projectRoot, permisosProyecto } from './lib.mjs';
 
 const p = readHookInput();
 if (!p) process.exit(0);
@@ -19,10 +19,33 @@ if (!['Bash', 'PowerShell'].includes(p.tool_name)) process.exit(0);
 const cmd = p.tool_input && p.tool_input.command ? String(p.tool_input.command) : '';
 if (!cmd.trim()) process.exit(0);
 const c = cmd;
+const root = projectRoot();
+const permisos = permisosProyecto(root);
+const RAMAS_PROTEGIDAS = ['main', 'master', 'develop'];
+function ramaActual() {
+    try { return execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: root, stdio: ['ignore', 'pipe', 'ignore'], encoding: 'utf8' }).trim(); } catch { return ''; }
+}
+
+// ¿Este git push lo permite el proyecto? (permisos en .dev-standards.json; el forzado nunca)
+// Mira CADA "git push" de la línea: destino explícito (main, HEAD:main, origin main) o, si no hay, la rama actual.
+function pushPermitido() {
+    if (!permisos.push) return false;
+    const pushes = c.split(/&&|\|\||;|\n/).map(s => s.trim()).filter(s => /\bgit\s+push\b/i.test(s));
+    for (const s of pushes) {
+        const args = s.replace(/^.*?\bgit\s+push\b/i, '').trim().split(/\s+/).filter(Boolean);
+        if (args.some(a => /^(-f|--force|--force-with-lease|--force-if-includes|--mirror|--delete|-d)(=|$)/i.test(a))) return false;
+        const posicionales = args.filter(a => !a.startsWith('-'));
+        const refspecs = posicionales.slice(1);   // el primero es el remoto
+        if (refspecs.some(r => r.startsWith('+') || r.startsWith(':'))) return false;   // +rama = forzado; :rama = borrar en remoto
+        const destinos = refspecs.length ? refspecs.map(r => r.split(':').pop().replace(/^refs\/heads\//, '')) : [ramaActual()];
+        if (destinos.some(d => !d || RAMAS_PROTEGIDAS.includes(d)) && !permisos.pushMain) return false;
+    }
+    return pushes.length > 0;
+}
 
 // --- Patrones prohibidos: { p: patrón; m: motivo } ---
 const rules = [
-    { p: /\bgit\s+push\b/i,                                   m: 'git push está prohibido sin aprobación explícita.' },
+    { p: /\bgit\s+push\b/i,                                   m: 'git push está prohibido sin aprobación explícita. (Si el usuario quiere permitirlo en este proyecto: "permisos": { "push": true } en .dev-standards.json; a main, además "pushMain": true. Lo decide el usuario, no el agente.)' },
     { p: /\bgit\s+push\s+.*--force/i,                         m: 'git push --force está terminantemente prohibido.' },
     { p: /--force-with-lease/i,                               m: 'push forzado (--force-with-lease) prohibido.' },
     { p: /\bdrop\s+(database|table|schema)\b/i,               m: 'DROP DATABASE/TABLE/SCHEMA en BD requiere aprobación explícita.' },
@@ -54,12 +77,28 @@ function deny(lines) {
     process.exit(2);
 }
 
+// --- Los permisos y los hooks apagados los decide SOLO el usuario ---
+// El agente no puede escribir .dev-standards.json desde la terminal (redirecciones, tee, sed -i, Set-Content, cp/mv…)
+// ni lanzar el instalador con los flags que dan permisos o apagan hooks: eso lo ejecuta el usuario (menú o "!").
+if (/\.dev-standards\.json/i.test(c)) {
+    const escribe = /(>>?|\|\s*tee\b|\btee\s|\bsed\s+(-\w*\s+)*-i|\bperl\s+(-\w*\s+)*-i|\b(set|add)-content\b|\bout-file\b|\b(cp|mv|copy-item|move-item|rm|del|remove-item|ren|rename-item)\b|writeFile|\.write\(|open\([^)]*['"]w|\bgit\s+(checkout|restore)\b)/i;
+    if (escribe.test(c.replace(/2>&1|>\s*\/dev\/null|>\s*\$null|2>\s*nul/gi, ''))) {
+        deny(['[BLOQUEADO por dev-standards] .dev-standards.json guarda los permisos del proyecto y solo lo cambia el usuario (o el instalador lanzado por el usuario). Léelo si lo necesitas, pero no lo escribas.']);
+    }
+}
+// El menú del instalador es para el usuario: el agente no le pasa respuestas por tubería ni redirección
+if (/\|\s*(node|npx)\b[^|;&]*\binit\.mjs\b|\binit\.mjs\b[^|;&]*<\s*\S|\binit\.mjs\b[^|;&]*\s(-i|--interactivo)\b/i.test(c)) {
+    deny(['[BLOQUEADO por dev-standards] El menú del instalador lo responde el usuario (ahí se dan permisos y se apagan hooks). Para instalar sin menú usa los flags de selección (--seleccion, --grupos...); el menú, que lo abra él en su terminal.']);
+}
+if (/(^|\s)(--permitir|-permitir|--apagar-hooks|-apagarhooks|--sin-permisos|-sinpermisos|--encender-hooks|-encenderhooks)\b/i.test(c)) {
+    deny(['[BLOQUEADO por dev-standards] Dar permisos o apagar hooks lo decide el usuario: que lo ejecute él (en Claude Code, escribiendo "!" delante del comando) o desde el menú del instalador.']);
+}
+
 // --- Reglas de git commit: rama protegida, Conventional Commits, sin co-autores ---
 if (/\bgit\s+commit\b/i.test(c)) {
-    let branch = '';
-    try { branch = execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { stdio: ['ignore', 'pipe', 'ignore'], encoding: 'utf8' }).trim(); } catch {}
-    if (['main', 'master', 'develop'].includes(branch)) {
-        deny([`[BLOQUEADO por dev-standards] No se commitea en '${branch}'. Crea una rama (git switch -c feat/...) y commitea ahi.`]);
+    const branch = ramaActual();
+    if (RAMAS_PROTEGIDAS.includes(branch) && !permisos.commitEnMain) {
+        deny([`[BLOQUEADO por dev-standards] No se commitea en '${branch}'. Crea una rama (git switch -c feat/...) y commitea ahi. (Si el usuario lo quiere permitir en este proyecto: "permisos": { "commitEnMain": true } en .dev-standards.json.)`]);
     }
     if (/co-authored-by/i.test(c)) {
         deny(['[BLOQUEADO por dev-standards] Los commits no llevan Co-Authored-By (regla del equipo).']);
@@ -101,7 +140,9 @@ if (process.env.DEV_STANDARDS_ALLOW_LIB !== '1' && /\b(npm|pnpm|yarn|bun)\s+(ins
     }
 }
 
+const pushOk = pushPermitido();
 for (const r of rules) {
+    if (pushOk && r === rules[0]) continue;   // push normal permitido por el proyecto (las reglas de forzado siguen)
     if (r.p.test(c)) {
         deny([
             `[BLOQUEADO por dev-standards] ${r.m}`,

@@ -395,6 +395,21 @@ function hookSet(hasFront) {
 }
 // Hooks elegibles uno a uno en el instalador. Los "compañeros" van con su hook: edit-tracker solo sirve a
 // stop-guard, pre-compact prolonga session-start y session-end (limpieza) va siempre.
+// Permisos que el usuario puede dar al agente en un proyecto (se guardan en .dev-standards.json -> "permisos").
+// El push forzado, lo destructivo y los secretos siguen bloqueados siempre (guard, secrets-guard, protect-files
+// no se pueden apagar).
+const PERMISOS = [
+    ['push', 'Hacer git push a ramas que no son main, master ni develop', 'push'],
+    ['push-main', 'Hacer git push también a main, master y develop', 'pushMain'],
+    ['commit-main', 'Commitear directamente en main, master o develop', 'commitEnMain'],
+];
+const HOOKS_NO_APAGABLES = ['guard', 'secrets-guard', 'protect-files'];
+function permisosDesde(lista) {   // ['push', 'push-main'] -> { push: true, pushMain: true }
+    const o = {};
+    for (const [id, , clave] of PERMISOS) if (lista.includes(id)) o[clave] = true;
+    for (const x of lista) if (!PERMISOS.some(([id]) => id === x)) warn(`Permiso desconocido: ${x} (válidos: ${PERMISOS.map(([id]) => id).join(', ')})`);
+    return o;
+}
 const HOOKS_ELEGIBLES = [
     ['guard', 'Muro de terminal: push, borrados, deploy a producción, commits'],
     ['protect-files', 'Archivos protegidos: .env, generados, migraciones subidas'],
@@ -495,7 +510,7 @@ async function renderClaude(stack, projectPath, extra, bundles) {
         const cmdDst = path.join(projectPath, '.claude', 'commands');
         ensureDir(cmdDst);
         const names = ['instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md', 'depurar.md', 'estimar.md', 'entregar.md', 'mapa.md',
-            ...(hasFront ? ['brief.md', 'propuestas.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md'] : [])];
+            ...(hasFront ? ['brief.md', 'propuestas.md', 'ronda.md', 'design-system.md', 'efecto.md', 'revisar-ui.md', 'repaso.md', 'lanzar.md'] : [])];
         const cmdSel = stack.selection && stack.selection.comandos ? new Set(stack.selection.comandos) : null;
         for (const n of fs.readdirSync(cmdSrc).filter(f => f.endsWith('.md'))) {
             const quiero = names.includes(n) && (!cmdSel || cmdSel.has(n.replace(/\.md$/, '')));
@@ -587,7 +602,7 @@ async function seedProject(projectPath) {
 function lista(v) { return String(v || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean); }
 
 function parseArgs(argv) {
-    const a = { path: process.cwd(), tools: null, stack: null, skills: [], bundle: [], seleccion: null, grupos: null, soloSkills: null, hooks: null, comandos: null, interactivo: false, ahorro: null };
+    const a = { path: process.cwd(), tools: null, stack: null, skills: [], bundle: [], seleccion: null, grupos: null, soloSkills: null, hooks: null, comandos: null, interactivo: false, ahorro: null, permitir: null, apagarHooks: null };
     for (let i = 0; i < argv.length; i++) {
         const k = argv[i];
         const next = () => argv[++i];
@@ -604,6 +619,10 @@ function parseArgs(argv) {
         else if (k === '--interactivo' || k === '-i') a.interactivo = true;
         else if (k === '--ahorro') a.ahorro = true;
         else if (k === '--sin-ahorro') a.ahorro = false;
+        else if (k === '--permitir') a.permitir = lista(next());
+        else if (k === '--sin-permisos') a.permitir = [];
+        else if (k === '--apagar-hooks') a.apagarHooks = lista(next());
+        else if (k === '--encender-hooks') a.apagarHooks = [];
         else if (k === '--help' || k === '-h') { a.help = true; }
         else warn(`Flag desconocido: ${k}`);
     }
@@ -718,6 +737,11 @@ async function modoInteractivo(a) {
         }
         const ah = await preguntar(rl, '\n¿Modo ahorro de tokens? CLAUDE.md compacto y respuestas técnicas telegráficas (lo del cliente sigue en lenguaje normal) [s/N]: ');
         a.ahorro = /^s/i.test(ah);
+        const per = await elegirVarios(rl, '¿Permisos especiales para el agente en ESTE proyecto? (por defecto no hace push ni commitea en main; el push forzado y lo destructivo siguen bloqueados siempre)', PERMISOS.map(([id, t]) => [id, t]), 'ninguno');
+        a.permitir = per;
+        const apagables = HOOKS_ELEGIBLES.filter(([id]) => !HOOKS_NO_APAGABLES.includes(id));
+        const off = await elegirVarios(rl, '¿Apagar algún hook en este proyecto? (guard, secretos y archivos protegidos no se pueden apagar)', apagables, 'ninguno');
+        a.apagarHooks = off;
         const ok = await preguntar(rl, '\n¿Instalar con esta selección? [S/n]: ');
         if (/^n/i.test(ok)) { log('Cancelado. No se ha tocado nada.'); process.exit(0); }
     } finally { rl.close(); }
@@ -730,6 +754,7 @@ async function main() {
         log('     node tools/init.mjs --stack <nombre> --path <ruta> [--tools claude,codex]');
         log('       [--seleccion todo|categorias|a-medida] [--grupos front,motion,3d,quality,architecture,growth,ops,design]');
         log('       [--solo-skills a,b] [--hooks guard,stop-guard,...] [--comandos plan,verificar,...] [--skills a,b] [--bundle x] [--ahorro|--sin-ahorro]');
+        log('       [--permitir push,push-main,commit-main | --sin-permisos] [--apagar-hooks format-on-save,... | --encender-hooks]');
         log('Stacks: ' + fs.readdirSync(path.join(ROOT, 'stacks')).join(', '));
         return;
     }
@@ -800,6 +825,14 @@ async function main() {
     }
     if (seleccion) markerObj.seleccion = seleccion;
     if (stack.ahorro) markerObj.ahorro = true;
+    // Permisos y hooks apagados: los decide el usuario; si no se pasan, se conservan los del marcador
+    const permisos = a.permitir !== null ? permisosDesde(a.permitir) : ((marker && marker.permisos) || {});
+    if (Object.keys(permisos).length) markerObj.permisos = permisos;
+    let apagados = a.apagarHooks !== null ? a.apagarHooks : [].concat((marker && marker.hooksApagados) || []);
+    const noApagables = apagados.filter(h => HOOKS_NO_APAGABLES.includes(h));
+    if (noApagables.length) warn(`No se pueden apagar: ${noApagables.join(', ')} (se ignoran).`);
+    apagados = [...new Set(apagados.filter(h => !HOOKS_NO_APAGABLES.includes(h)))];
+    if (apagados.length) markerObj.hooksApagados = apagados;
     writeUtf8(markerPath, JSON.stringify(markerObj, null, 2));
     log('Listo. Config regenerada. Abre una sesión NUEVA del agente para que cargue todo.');
 }

@@ -9,9 +9,11 @@ Aplica `ui-ux-pro-max §references/es/proposal-mode.md` completo para lo que el 
 1. Si no hay brief → primero `/brief` (no propongas a ciegas).
 2. **Blueprint**: escribe `design-system/<slug>/blueprint.md` (secciones + contenido esbozado REAL +
    quién trae qué) y pide aprobación explícita. Itera en texto hasta el APROBADO.
-3. **Maquetas**: genera `design-system/<slug>/propuestas/direccion-a.html` y `direccion-b.html`
+3. **Maquetas (ronda 1)**: genera `design-system/<slug>/propuestas/ronda-1/a.html` y `b.html` desde la
+   plantilla `references/es/plantilla-maqueta.html` (piezas etiquetadas y panel «Tu opinión»)
    (autocontenidas, mismas secciones, direcciones visuales opuestas dentro de la marca, banner de
-   PROPUESTA). Abre ambas (o da las rutas) y pregunta en llano cuál y qué mezclar. Máximo 3 maquetas.
+   PROPUESTA). Verifica con `ronda-check.mjs` y abre ambas (o da las rutas): el usuario vota las piezas en el panel o
+   lo dice en llano. Para seguir afinando, `/ronda` (lo que gusta se fija, lo que no se veta, siempre algo nuevo).
    Referencias con rotación por industria (§referencias de proposal-mode): nada de "como Stripe" por
    inercia. CERO patrones de la lista negra `references/es/anti-ia.md` (badges de disponibilidad,
    numeración de secciones, trusted-by, métricas inventadas...).

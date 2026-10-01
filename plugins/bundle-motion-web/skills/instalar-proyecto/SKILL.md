@@ -39,5 +39,8 @@ actualiza respetando la selección guardada. No toques nada más del proyecto en
    Añade `,codex` en `--tools` si usa Codex. Para cambiar una selección guardada, pasa la nueva.
    Cursor y Windsurf solo con la versión PowerShell en Windows (`tools/sync.ps1`). No inventes otros
    caminos ni scripts.
+   **Permisos y hooks apagados** (`--permitir`, `--apagar-hooks`): los decide el usuario y el muro
+   bloquea que los pases tú. Dale el comando para que lo ejecute él (en Claude Code, con `!` delante),
+   p. ej. `! node "<paquete>/tools/init.mjs" --path . --permitir push`, o que use el menú.
 6. **Cierra**: resume qué se instaló (skills, muros, comandos, guía respaldada si la había) y pide
    **abrir una sesión nueva** para que cargue la configuración del proyecto.

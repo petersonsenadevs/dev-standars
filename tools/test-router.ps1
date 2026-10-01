@@ -117,6 +117,10 @@ $cases = @(
     @{ n = 'auditoria seo no back'; prompt = 'haz una auditoría seo de la web';                            skills = @('backend-audit','marketing-seo','skill-router'); expect = 'marketing-seo'; forbid = 'backend-audit' }
     @{ n = 'depurar fallo';         prompt = 'la función de calcular envío no funciona y da un error 500';  skills = @('depurar','code-quality','skill-router'); expect = 'depurar'; expectFirst = 'depurar' }
     @{ n = 'tests en rojo';         prompt = 'los tests están fallando desde el último cambio';            skills = @('depurar','code-quality','skill-router'); expect = 'depurar' }
+    # Rondas de maquetas
+    @{ n = 'mas maquetas';          prompt = 'hazme más maquetas con lo que me gustó de la B';             expect = 'ui-ux-pro-max'; expectFirst = 'ui-ux-pro-max' }
+    @{ n = 'otra ronda';            prompt = 'otra ronda, me gustan los botones pero no el verde';         expect = 'ui-ux-pro-max'; expectFirst = 'ui-ux-pro-max' }
+    @{ n = 'ronda de boxeo';        prompt = 'añade la ronda de preguntas frecuentes al backend';          forbid = 'ui-ux-pro-max' }
     # Memoria: preguntas sobre el pasado -> devlog primero, aunque nombren tecnología (stripe, webhook)
     @{ n = 'por que hicimos';       prompt = '¿por qué hicimos el webhook de stripe así?';                 expect = 'devlog'; expectFirst = 'devlog' }
     @{ n = 'cuando cambiamos';      prompt = 'cuándo cambiamos de elements a checkout';                    expect = 'devlog'; expectFirst = 'devlog' }

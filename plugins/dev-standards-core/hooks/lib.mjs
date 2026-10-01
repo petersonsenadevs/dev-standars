@@ -83,11 +83,32 @@ function ejecutarPorArchivo(entradas) {
     process.exit(0);
 }
 
+// ---------------------------------------------------------------- permisos y hooks apagados por proyecto
+// En .dev-standards.json (protegido: el agente no puede editarlo, lo decide el usuario):
+//   "permisos": { "push": true, "pushMain": true, "commitEnMain": true }
+//   "hooksApagados": ["format-on-save", "front-skill-reminder"]
+// Solo cuenta el valor booleano true. guard, secrets-guard y protect-files NO se pueden apagar: el push forzado,
+// lo destructivo, los secretos y los archivos protegidos siguen bloqueados siempre.
+export const HOOKS_NO_APAGABLES = ['guard', 'secrets-guard', 'protect-files'];
+export function permisosProyecto(root) {
+    const m = getMarkerSeguro(root);
+    const p = (m && m.permisos && typeof m.permisos === 'object') ? m.permisos : {};
+    return { push: p.push === true || p.pushMain === true, pushMain: p.pushMain === true, commitEnMain: p.commitEnMain === true };
+}
+export function hookApagado(root, nombre) {
+    if (HOOKS_NO_APAGABLES.includes(nombre)) return false;
+    const m = getMarkerSeguro(root);
+    return !!(m && Array.isArray(m.hooksApagados) && m.hooksApagados.map(String).includes(nombre));
+}
+function getMarkerSeguro(root) { try { return readJson(path.join(root, '.dev-standards.json')); } catch { return null; } }
+
 export function readHookInput() {
     const p = leerEntradaCruda();
     if (!p) return p;
     // Codex no exporta CLAUDE_PROJECT_DIR: la raíz del proyecto llega como "cwd" en la entrada
     if (!process.env.CLAUDE_PROJECT_DIR && p.cwd) process.env.CLAUDE_PROJECT_DIR = String(p.cwd);
+    // Hook apagado por el usuario en este proyecto: sale sin hacer nada (salida vacía vale en Claude y Codex)
+    if (hookApagado(projectRoot(), path.basename(process.argv[1] || '', '.mjs'))) process.exit(0);
     const esParche = p.tool_name === 'apply_patch'
         || (!/^(Bash|PowerShell)$/.test(String(p.tool_name || '')) && p.tool_input && typeof p.tool_input.command === 'string' && /^\*\*\* Begin Patch/m.test(p.tool_input.command));
     if (!esParche) return p;
