@@ -7,7 +7,9 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { readHookInput, projectRoot, findFirstFile, testIntroduced } from './lib.mjs';
+import {
+    readHookInput, projectRoot, findFirstFile, testIntroduced, ruta,
+} from './lib.mjs';
 
 const p = readHookInput();
 if (!p || !['Edit', 'Write', 'MultiEdit'].includes(p.tool_name)) process.exit(0);
@@ -89,7 +91,7 @@ for (const pair of pairs) {
 
 // --- 2. Vetos de gustos.md (términos entre acentos graves bajo "## No") ---
 const root = projectRoot();
-const gustos = findFirstFile(path.join(root, 'design-system'), 'gustos.md');
+const gustos = findFirstFile(ruta(root, 'design-system'), 'gustos.md');
 if (gustos) {
     let txt = '';
     try { txt = fs.readFileSync(gustos, 'utf8'); } catch {}

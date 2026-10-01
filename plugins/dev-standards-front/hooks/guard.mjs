@@ -26,7 +26,7 @@ function ramaActual() {
     try { return execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: root, stdio: ['ignore', 'pipe', 'ignore'], encoding: 'utf8' }).trim(); } catch { return ''; }
 }
 
-// ¿Este git push lo permite el proyecto? (permisos en .dev-standards.json; el forzado nunca)
+// ¿Este git push lo permite el proyecto? (permisos en senzu/senzu.json; el forzado nunca)
 // Mira CADA "git push" de la línea: destino explícito (main, HEAD:main, origin main) o, si no hay, la rama actual.
 function pushPermitido() {
     if (!permisos.push) return false;
@@ -45,7 +45,7 @@ function pushPermitido() {
 
 // --- Patrones prohibidos: { p: patrón; m: motivo } ---
 const rules = [
-    { p: /\bgit\s+push\b/i,                                   m: 'git push está prohibido sin aprobación explícita. (Si el usuario quiere permitirlo en este proyecto: "permisos": { "push": true } en .dev-standards.json; a main, además "pushMain": true. Lo decide el usuario, no el agente.)' },
+    { p: /\bgit\s+push\b/i,                                   m: 'git push está prohibido sin aprobación explícita. (Si el usuario quiere permitirlo en este proyecto: "permisos": { "push": true } en senzu/senzu.json; a main, además "pushMain": true. Lo decide el usuario, no el agente.)' },
     { p: /\bgit\s+push\s+.*--force/i,                         m: 'git push --force está terminantemente prohibido.' },
     { p: /--force-with-lease/i,                               m: 'push forzado (--force-with-lease) prohibido.' },
     { p: /\bdrop\s+(database|table|schema)\b/i,               m: 'DROP DATABASE/TABLE/SCHEMA en BD requiere aprobación explícita.' },
@@ -78,12 +78,12 @@ function deny(lines) {
 }
 
 // --- Los permisos y los hooks apagados los decide SOLO el usuario ---
-// El agente no puede escribir .dev-standards.json desde la terminal (redirecciones, tee, sed -i, Set-Content, cp/mv…)
+// El agente no puede escribir el marcador (senzu/senzu.json o el antiguo .dev-standards.json) desde la terminal (redirecciones, tee, sed -i, Set-Content, cp/mv…)
 // ni lanzar el instalador con los flags que dan permisos o apagan hooks: eso lo ejecuta el usuario (menú o "!").
-if (/\.dev-standards\.json/i.test(c)) {
+if (/\.dev-standards\.json|\bsenzu\.json\b/i.test(c)) {
     const escribe = /(>>?|\|\s*tee\b|\btee\s|\bsed\s+(-\w*\s+)*-i|\bperl\s+(-\w*\s+)*-i|\b(set|add)-content\b|\bout-file\b|\b(cp|mv|copy-item|move-item|rm|del|remove-item|ren|rename-item)\b|writeFile|\.write\(|open\([^)]*['"]w|\bgit\s+(checkout|restore)\b)/i;
     if (escribe.test(c.replace(/2>&1|>\s*\/dev\/null|>\s*\$null|2>\s*nul/gi, ''))) {
-        deny(['[BLOQUEADO por dev-standards] .dev-standards.json guarda los permisos del proyecto y solo lo cambia el usuario (o el instalador lanzado por el usuario). Léelo si lo necesitas, pero no lo escribas.']);
+        deny(['[BLOQUEADO por dev-standards] El marcador del proyecto (senzu/senzu.json) guarda los permisos del proyecto y solo lo cambia el usuario (o el instalador lanzado por el usuario). Léelo si lo necesitas, pero no lo escribas.']);
     }
 }
 // El menú del instalador es para el usuario: el agente no le pasa respuestas por tubería ni redirección
@@ -98,7 +98,7 @@ if (/(^|\s)(--permitir|-permitir|--apagar-hooks|-apagarhooks|--sin-permisos|-sin
 if (/\bgit\s+commit\b/i.test(c)) {
     const branch = ramaActual();
     if (RAMAS_PROTEGIDAS.includes(branch) && !permisos.commitEnMain) {
-        deny([`[BLOQUEADO por dev-standards] No se commitea en '${branch}'. Crea una rama (git switch -c feat/...) y commitea ahi. (Si el usuario lo quiere permitir en este proyecto: "permisos": { "commitEnMain": true } en .dev-standards.json.)`]);
+        deny([`[BLOQUEADO por dev-standards] No se commitea en '${branch}'. Crea una rama (git switch -c feat/...) y commitea ahi. (Si el usuario lo quiere permitir en este proyecto: "permisos": { "commitEnMain": true } en senzu/senzu.json.)`]);
     }
     if (/co-authored-by/i.test(c)) {
         deny(['[BLOQUEADO por dev-standards] Los commits no llevan Co-Authored-By (regla del equipo).']);

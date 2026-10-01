@@ -158,7 +158,7 @@ else {
         objetivo = subpaquetes.filter(d => cam.some(f => f.startsWith(d + path.sep)));
         // Carpetas de agentes (las reescribe el instalador de dev-standards), documentación y diario no son
         // código del proyecto: un .mjs en .claude/hooks no debe disparar la verificación de todo el monorepo
-        const NO_CODIGO = /^(\.claude|\.agents|\.codex|\.cursor|\.windsurf|\.github|\.githooks|\.ui-verify|devlog|docs?|plan|design-system)([\\/]|$)/i;
+        const NO_CODIGO = /^(\.claude|\.agents|\.codex|\.cursor|\.windsurf|\.github|\.githooks|\.ui-verify|senzu|devlog|docs?|plan|design-system)([\\/]|$)/i;
         const sueltos = cam.filter(f => !subpaquetes.some(d => f.startsWith(d + path.sep)) && !NO_CODIGO.test(path.relative(root, f)));
         const codigoSuelto = sueltos.filter(f => /\.(m?[jt]sx?|cjs|vue|svelte|astro|php|py|go|rs|css|scss)$/i.test(f) || /^(package|tsconfig[\w.-]*|turbo|composer|pyproject|biome|\.?eslint[\w.-]*|\.prettierrc[\w.-]*|prettier\.config[\w.-]*)\.(json|jsonc|toml|js|cjs|mjs|ya?ml)$|^(pnpm-workspace\.yaml|\.eslintrc|\.prettierrc)$/i.test(path.basename(f)));
         if (codigoSuelto.length) objetivo = raizEsPaquete ? [root, ...objetivo] : candidatos;   // config compartida: afecta a todos

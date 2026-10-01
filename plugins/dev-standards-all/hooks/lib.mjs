@@ -83,6 +83,27 @@ function ejecutarPorArchivo(entradas) {
     process.exit(0);
 }
 
+// ---------------------------------------------------------------- carpeta del proyecto: senzu/
+// Todo lo de Senzu que no exige una ubicación fija vive en <proyecto>/senzu/: devlog, plan, design-system,
+// conventions.md/json, ui-verify y el marcador senzu.json. Proyectos antiguos sin migrar (devlog/ y
+// .dev-standards.json en la raíz) siguen funcionando: cada ruta se busca primero donde corresponde al
+// proyecto y después en la otra ubicación. /instalar migra con git mv.
+export const CARPETA = 'senzu';
+export function esLegado(root) {
+    return !fs.existsSync(path.join(root, CARPETA)) && (fs.existsSync(path.join(root, '.dev-standards.json')) || fs.existsSync(path.join(root, 'devlog')));
+}
+const VIEJA = { 'ui-verify': '.ui-verify', 'senzu.json': '.dev-standards.json' };
+export function ruta(root, nombre) {   // 'devlog' | 'plan' | 'design-system' | 'conventions.md' | 'conventions.json' | 'ui-verify' | 'senzu.json'
+    const nueva = path.join(root, CARPETA, nombre);
+    const vieja = path.join(root, VIEJA[nombre] || nombre);
+    const [primera, segunda] = esLegado(root) ? [vieja, nueva] : [nueva, vieja];
+    if (fs.existsSync(primera)) return primera;
+    if (fs.existsSync(segunda)) return segunda;
+    return primera;
+}
+export const rutaRel = (root, nombre) => path.relative(root, ruta(root, nombre)).replace(/\\/g, '/');
+export const rutaMarcador = root => ruta(root, 'senzu.json');
+
 // ---------------------------------------------------------------- permisos y hooks apagados por proyecto
 // En .dev-standards.json (protegido: el agente no puede editarlo, lo decide el usuario):
 //   "permisos": { "push": true, "pushMain": true, "commitEnMain": true }
@@ -100,7 +121,7 @@ export function hookApagado(root, nombre) {
     const m = getMarkerSeguro(root);
     return !!(m && Array.isArray(m.hooksApagados) && m.hooksApagados.map(String).includes(nombre));
 }
-function getMarkerSeguro(root) { try { return readJson(path.join(root, '.dev-standards.json')); } catch { return null; } }
+function getMarkerSeguro(root) { try { return readJson(rutaMarcador(root)); } catch { return null; } }
 
 export function readHookInput() {
     const p = leerEntradaCruda();
@@ -177,7 +198,7 @@ export function hookConfig(root) {
 
 export function getMarker(root) {
     // .dev-standards.json del proyecto; si no existe (modo plugin), se reconstruye desde config.json
-    const m = path.join(root, '.dev-standards.json');
+    const m = rutaMarcador(root);
     if (fs.existsSync(m)) { const j = readJson(m); if (j) return j; }
     const cfg = hookConfig(root);
     if (cfg && cfg.stack) return { stack: cfg.stack, frontProfile: cfg.frontProfile, extraSkills: [], bundles: [], fromConfig: true };
@@ -250,7 +271,7 @@ function findFirstFile(dir, fileName) {
 export { findFirstFile };
 
 export function designSystemMaster(root) {
-    const f = findFirstFile(path.join(root, 'design-system'), 'MASTER.md');
+    const f = findFirstFile(ruta(root, 'design-system'), 'MASTER.md');
     return f ? path.relative(root, f).replace(/\\/g, '/') : null;
 }
 
@@ -260,12 +281,12 @@ export function todayStr() {
 }
 
 export function todayDevlog(root) {
-    const d = path.join(root, 'devlog', todayStr());
+    const d = path.join(ruta(root, 'devlog'), todayStr());
     return fileNames(d).filter(n => n.endsWith('.md') && n !== 'DECISIONES.md');
 }
 
 export function devlogNextNumber(root) {   // mayor NNN global + 1 (numeración correlativa de toda la vida del proyecto)
-    const base = path.join(root, 'devlog');
+    const base = ruta(root, 'devlog');
     if (!fs.existsSync(base)) return 1;
     let max = 0;
     const stack = [base];
@@ -284,7 +305,7 @@ export function devlogNextNumber(root) {   // mayor NNN global + 1 (numeración 
 // Decisiones vigentes, reglas, lo que no funcionó y pendientes. session-start y pre-compact la inyectan;
 // stop-guard exige actualizarla cuando el devlog de hoy trae decisiones.
 export function memoriaProyecto(root) {
-    const f = path.join(root, 'devlog', 'MEMORIA.md');
+    const f = path.join(ruta(root, 'devlog'), 'MEMORIA.md');
     const txt = readText(f);
     if (txt == null) return { existe: false, items: 0, lineas: [], mtime: 0, ruta: f };
     const lineas = txt.replace(/\r/g, '').replace(/<!--[\s\S]*?-->/g, '').split('\n').filter(l => l.trim());
@@ -294,7 +315,7 @@ export function memoriaProyecto(root) {
 }
 
 export function devlogEntradas(root) {   // [{ num, fecha, archivo }] de todo el devlog, ordenadas por número
-    const base = path.join(root, 'devlog');
+    const base = ruta(root, 'devlog');
     const out = [];
     for (const d of dirNames(base)) {
         if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) continue;
@@ -364,7 +385,7 @@ export function proximosPasos(root) {   // "NNN título: próximos pasos" de la 
 }
 
 export function devlogIndexed(root, name) {   // ¿aparece el NNN de la entrada en devlog/INDEX.md?
-    const idx = path.join(root, 'devlog', 'INDEX.md');
+    const idx = path.join(ruta(root, 'devlog'), 'INDEX.md');
     const m = /^(\d{3})-/.exec(name);
     if (!fs.existsSync(idx) || !m) return true;
     const txt = readText(idx) || '';
@@ -377,7 +398,7 @@ export function outHookJson(event, extra) {
 
 export function planStatus(root) {
     // Devuelve { exists, doing: [], next: [], done, total } leyendo plan/PLAN.md (tarjetas "### ID · Titulo [S] [estado]")
-    const f = path.join(root, 'plan', 'PLAN.md');
+    const f = path.join(ruta(root, 'plan'), 'PLAN.md');
     const r = { exists: false, doing: [], next: [], done: 0, total: 0 };
     const txt = readText(f);
     if (txt === null) return r;
@@ -409,7 +430,7 @@ export function projectMaturity(root) {
         commits,
         ownDiary: ownDiary ? ownDiary.replace(/\\/g, '/') : null,
         ownGuide: fs.existsSync(path.join(root, 'CLAUDE.project.md')),
-        hasConventions: fs.existsSync(path.join(root, 'conventions.md')),
+        hasConventions: fs.existsSync(ruta(root, 'conventions.md')),
     };
 }
 

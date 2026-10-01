@@ -8,8 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, hookConfig, availableSkills, designSystemMaster,
-    testOnce, outHookJson, psRegex,
+    readHookInput, projectRoot, hookConfig, availableSkills, designSystemMaster, testOnce, outHookJson, psRegex, ruta,
 } from './lib.mjs';
 
 const p = readHookInput();
@@ -45,7 +44,7 @@ if (frontHit && available.includes('ui-ux-pro-max') && !designSystemMaster(root)
         if (entry.length) matched = [entry[0], ...matched];
     }
     dsNote = ' No hay design-system/*/MASTER.md: primero ui-ux-pro-max (design system y patron), despues el efecto o el componente.';
-    if (!fs.existsSync(path.join(root, 'plan', 'brief.md'))) {
+    if (!fs.existsSync(path.join(ruta(root, 'plan'), 'brief.md'))) {
         dsNote += ' Tampoco hay plan/brief.md: pregunta al usuario primero (marca, referencias, objetivo; entrevista /brief o brief-discovery.md) en vez de inventar la direccion visual.';
     }
 }

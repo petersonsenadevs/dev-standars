@@ -4,9 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, getMarker, gitBranch, gitDirty, designSystemMaster,
-    planStatus, todayDevlog, devlogNextNumber, hookConfig, outHookJson, todayStr, pad3,
-    detectVersions, eolWarnings, projectMaturity, bloqueMemoria, proximosPasos,
+    readHookInput, projectRoot, getMarker, gitBranch, gitDirty, designSystemMaster, planStatus, todayDevlog, devlogNextNumber, hookConfig, outHookJson, todayStr, pad3, detectVersions, eolWarnings, projectMaturity, bloqueMemoria, proximosPasos, ruta, rutaRel,
 } from './lib.mjs';
 
 readHookInput();
@@ -36,8 +34,8 @@ if (versions.length) {
     L.push(`- Versiones detectadas: ${versions.map(v => `${v.name} ${v.spec}`).join(', ')}. Aplica las practicas de ESAS versiones (code-quality references/stack-versions.md dice que cambia entre majors): no propongas API de una version que el proyecto no tiene.`);
     for (const w of eolWarnings(versions)) L.push(`- AVISO de soporte: ${w}.`);
 }
-if (fs.existsSync(path.join(root, 'conventions.md'))) {
-    L.push('- Convenciones ADOPTADAS del proyecto: conventions.md (INMUTABLES, ganan a tus preferencias; conventions.json las hace cumplir el hook conventions-guard). Leelas antes de escribir codigo.');
+if (fs.existsSync(ruta(root, 'conventions.md'))) {
+    L.push(`- Convenciones ADOPTADAS del proyecto: ${rutaRel(root, 'conventions.md')} (INMUTABLES, ganan a tus preferencias; conventions.json las hace cumplir el hook conventions-guard). Leelas antes de escribir codigo.`);
 }
 const branch = gitBranch(root);
 if (branch) {

@@ -497,3 +497,44 @@ function Get-CombinedRules {
         (Get-SessionSection -Stack $Stack) +
         $(if ($ahorro) { $script:AhorroEstilo } else { Get-SkillsSection -Stack $Stack -Extra $ExtraSkills -Bundles $Bundles -RelPath $SkillsRelPath })
 }
+
+# ---------------------------------------------------------------- carpeta senzu/ y migración
+# Mismo comportamiento que init.mjs (migrarProyecto): lo que no exige ubicación fija va a <proyecto>\senzu\.
+# Proyectos antiguos: git mv si está en git (conserva el historial), si no, Move-Item.
+$script:SenzuCarpeta = 'senzu'
+$script:SenzuMigrables = @(
+    @('devlog', 'devlog'), @('plan', 'plan'), @('design-system', 'design-system'), @('conventions.md', 'conventions.md'),
+    @('conventions.json', 'conventions.json'), @('.ui-verify', 'ui-verify'), @('.dev-standards.json', 'senzu.json'))
+
+function Get-SenzuMarkerPath {
+    param([Parameter(Mandatory)][string]$ProjectPath)
+    $nueva = Join-Path $ProjectPath "$script:SenzuCarpeta\senzu.json"
+    if (Test-Path $nueva) { return $nueva }
+    return (Join-Path $ProjectPath '.dev-standards.json')
+}
+
+function Move-SenzuProject {
+    param([Parameter(Mandatory)][string]$ProjectPath)
+    $base = Join-Path $ProjectPath $script:SenzuCarpeta
+    $pendientes = @($script:SenzuMigrables | Where-Object { Test-Path (Join-Path $ProjectPath $_[0]) })
+    foreach ($m in $pendientes) {
+        if (Test-Path (Join-Path $base $m[1])) { Write-Warning "No se mueve $($m[0]): ya existe $script:SenzuCarpeta/$($m[1]). Revisa a mano cual conservar." }
+    }
+    $mover = @($pendientes | Where-Object { -not (Test-Path (Join-Path $base $_[1])) })
+    if (-not $mover.Count) { return }
+    Write-Host "Migrando a $script:SenzuCarpeta/ (raiz mas limpia; el historial de git se conserva):"
+    Ensure-Dir $base
+    foreach ($m in $mover) {
+        $destino = "$script:SenzuCarpeta/$($m[1])"
+        $hecho = $false
+        $enGit = $false
+        try { $enGit = [bool]((git -C $ProjectPath ls-files -- $m[0] 2>$null) | Select-Object -First 1) } catch { }
+        if ($enGit) {
+            git -C $ProjectPath mv -- $m[0] $destino 2>$null | Out-Null
+            if ($LASTEXITCODE -eq 0) { $hecho = $true }
+        }
+        if (-not $hecho) { Move-Item -LiteralPath (Join-Path $ProjectPath $m[0]) -Destination (Join-Path $base $m[1]) }
+        Write-Host "  $($m[0]) -> $destino$(if ($hecho) { ' (git mv)' })"
+    }
+    Write-Host '  Si tu propia documentacion (README, CLAUDE.project.md...) cita esas rutas, actualizalas.'
+}

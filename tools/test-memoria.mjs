@@ -279,6 +279,18 @@ const hook = (nombre, input, cwd = proj, env = {}) => spawnSync(process.execPath
     fs.rmSync(p3, { recursive: true, force: true });
 }
 
+{   // ubicación nueva: senzu/devlog (proyectos instalados o migrados con Senzu)
+    const p6 = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-senzu-'));
+    fs.mkdirSync(path.join(p6, 'senzu'), { recursive: true });
+    fs.cpSync(dl, path.join(p6, 'senzu', 'devlog'), { recursive: true });
+    const r = run(['webhook stripe'], p6);
+    ok(r.j && r.j.resultados[0] && r.j.resultados[0].num === '005' && r.j.fuentes.includes('senzu/devlog'), 'buscador: lee senzu/devlog', r.out.slice(0, 200));
+    ok(/senzu\/devlog\/2026-08-20\/005-/.test(r.j && r.j.resultados[0].archivo), 'la ruta del resultado apunta a senzu/devlog', r.j && r.j.resultados[0].archivo);
+    const s = hook('session-start.mjs', { session_id: 'mem-senzu' }, p6);
+    ok(/D-020/.test(s.stdout) && /Revisar la caducidad en staging/.test(s.stdout), 'session-start: memoria y próximos pasos desde senzu/devlog', s.stdout.slice(0, 200));
+    fs.rmSync(p6, { recursive: true, force: true });
+}
+
 fs.rmSync(proj, { recursive: true, force: true });
 console.log(`Casos: ${casos}  Fallos: ${fallos}`);
 process.exit(fallos ? 1 : 0);

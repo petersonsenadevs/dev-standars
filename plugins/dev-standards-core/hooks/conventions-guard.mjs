@@ -10,7 +10,9 @@
 // Sin conventions.json el hook no hace nada.
 
 import path from 'node:path';
-import { readHookInput, projectRoot, psRegex, testIntroduced, readText } from './lib.mjs';
+import {
+    readHookInput, projectRoot, psRegex, testIntroduced, readText, ruta,
+} from './lib.mjs';
 
 const p = readHookInput();
 if (!p || !['Edit', 'Write', 'MultiEdit'].includes(p.tool_name)) process.exit(0);
@@ -19,7 +21,7 @@ if (!file) process.exit(0);
 
 const root = projectRoot();
 let conv = null;
-try { conv = JSON.parse(readText(path.join(root, 'conventions.json'))); } catch { process.exit(0); }
+try { conv = JSON.parse(readText(ruta(root, 'conventions.json'))); } catch { process.exit(0); }
 const rules = [].concat((conv && conv.rules) || []).filter(r => r && r.forbid);
 if (!rules.length) process.exit(0);
 

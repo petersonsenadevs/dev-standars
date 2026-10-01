@@ -45,12 +45,13 @@ Write-Host "Proyecto: $Path"
 
 # 1) Esqueleto de devlog/ — si el proyecto ya lleva su propio diario, preguntar antes de montar el nuestro
 $today   = Get-Date -Format 'yyyy-MM-dd'
-$devlog  = Join-Path $Path 'devlog'
+Move-SenzuProject -ProjectPath $Path
+$devlog  = Join-Path $Path 'senzu\devlog'
 $ownDiary = @('CHANGELOG.md', 'HISTORY.md', 'docs\decisions', 'docs\adr') | Where-Object { Test-Path (Join-Path $Path $_) } | Select-Object -First 1
 $makeDevlog = $true
 if ($ownDiary -and -not (Test-Path $devlog)) {
-    $makeDevlog = Ask-YesNo "El proyecto ya lleva su propio diario ($ownDiary). ¿Crear tambien devlog/ de dev-standards? (los hooks lo piden al cerrar tareas)" $true
-    if (-not $makeDevlog) { Write-Host "  devlog/ omitido: se respeta el diario propio ($ownDiary). El agente preguntara como documentar." }
+    $makeDevlog = Ask-YesNo "El proyecto ya lleva su propio diario ($ownDiary). ¿Crear tambien senzu/devlog/ de Senzu? (los hooks lo piden al cerrar tareas)" $true
+    if (-not $makeDevlog) { Write-Host "  senzu/devlog/ omitido: se respeta el diario propio ($ownDiary). El agente preguntara como documentar." }
 }
 if ($makeDevlog) {
 $dayDir  = Join-Path $devlog $today
@@ -74,16 +75,16 @@ if (-not (Test-Path $firstEntry)) {
 $decis = Join-Path $dayDir 'DECISIONES.md'
 if (-not (Test-Path $decis)) { Write-Utf8 $decis "# Decisiones - $today`n`n" }
 
-Write-Host "  devlog/ inicializado ($today)"
+Write-Host "  senzu/devlog/ inicializado ($today)"
 }
 
 # 1b) Semilla del plan (skill project-planner) — nunca se pisa un plan existente
-$planDir = Join-Path $Path 'plan'
+$planDir = Join-Path $Path 'senzu\plan'
 Ensure-Dir $planDir
 $planTpl = Join-Path $root 'core\skills\project-planner\templates'
 if (-not (Test-Path (Join-Path $planDir 'PLAN.md')))  { Copy-Item (Join-Path $planTpl 'PLAN.md')  (Join-Path $planDir 'PLAN.md') }
 if (-not (Test-Path (Join-Path $planDir 'brief.md'))) { Copy-Item (Join-Path $planTpl 'brief.md') (Join-Path $planDir 'brief.md') }
-Write-Host "  plan/ inicializado (PLAN.md y brief.md son plantillas: rellenalos con la skill project-planner)"
+Write-Host "  senzu/plan/ inicializado (PLAN.md y brief.md son plantillas: rellénalos con la skill project-planner)"
 
 # 2) Delegar el render a sync.ps1
 & (Join-Path $PSScriptRoot 'sync.ps1') -Path $Path -Stack $Stack -Tools $Tools -Skills $Skills -Bundle $Bundle

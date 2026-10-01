@@ -33,22 +33,22 @@ function deny(why) {
     process.exit(2);
 }
 
-// 1) Generados por dev-standards
+// 1) Generados por Senzu (antes dev-standards: se reconocen las dos marcas)
 if (/^(CLAUDE\.md|AGENTS\.md)$/i.test(rel) && exists) {
     const head = (readText(file) || '').split(/\r?\n/).slice(0, 2).join(' ');
-    if (/GENERADO por dev-standards/i.test(head)) deny('Archivo generado por dev-standards. Edita stacks\\<stack>\\ o core\\ en D:\\dev-standards y corre sync.ps1.');
+    if (/GENERADO por (Senzu|dev-standards)/i.test(head)) deny('Archivo generado por Senzu. Edita stacks/<stack>/ o core/ en el paquete Senzu y actualiza el proyecto con /instalar.');
 }
 if (/^(\.claude\/skills|\.agents\/skills|\.cursor\/skills|\.windsurf\/skills|\.cursor\/rules|\.windsurf\/rules|\.claude\/hooks)\//i.test(rel)
-    || /^(\.claude\/settings\.json|\.mcp\.json|\.dev-standards\.json)$/i.test(rel)) {
-    deny('Archivo generado por dev-standards (skills, reglas, hooks, settings, mcp, marcador). Edita el origen en dev-standards y corre sync.ps1; para permisos locales usa .claude/settings.local.json.');
+    || /^(\.claude\/settings\.json|\.mcp\.json|\.dev-standards\.json|senzu\/senzu\.json)$/i.test(rel)) {
+    deny('Archivo generado por Senzu (skills, reglas, hooks, settings, mcp, marcador con permisos). Edita el origen en el paquete Senzu y actualiza con /instalar; para permisos locales usa .claude/settings.local.json.');
 }
 if (/^(plugins|core\/skills-vendor)\//i.test(rel) && fs.existsSync(path.join(root, 'tools', 'vendor.ps1'))) {
-    deny('Carpeta generada de dev-standards (plugins/ o core/skills-vendor/). Edita core/skills-overlay o core/skills y regenera con build-plugins.ps1 / vendor.ps1.');
+    deny('Carpeta generada de Senzu (plugins/ o core/skills-vendor/). Edita core/skills-overlay o core/skills y regenera con build-plugins.ps1 / vendor.ps1.');
 }
 
 // 1b) Convenciones adoptadas (/adoptar) selladas como inmutables
-if (/^conventions\.(md|json)$/i.test(rel) && exists && (readText(file) || '').includes('dev-standards:inmutable')) {
-    deny('Convenciones del proyecto SELLADAS como inmutables (/adoptar): no se editan sin decision explicita del usuario. Con su aprobacion: borra el archivo (rm conventions.json conventions.md) y re-ejecuta /adoptar, o que lo edite el mismo.');
+if (/^(senzu\/)?conventions\.(md|json)$/i.test(rel) && exists && /(senzu|dev-standards):inmutable/.test(readText(file) || '')) {
+    deny('Convenciones del proyecto SELLADAS como inmutables (/adoptar): no se editan sin decision explicita del usuario. Con su aprobacion: borra los archivos conventions.json y conventions.md y re-ejecuta /adoptar, o que los edite el mismo.');
 }
 
 // 2) Secretos

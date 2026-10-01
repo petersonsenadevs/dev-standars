@@ -4,8 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, getMarker, designSystemMaster, todayDevlog,
-    gitBranch, planStatus, devlogNextNumber, outHookJson, pad3, detectVersions, bloqueMemoria,
+    readHookInput, projectRoot, getMarker, designSystemMaster, todayDevlog, gitBranch, planStatus, devlogNextNumber, outHookJson, pad3, detectVersions, bloqueMemoria, ruta, rutaRel,
 } from './lib.mjs';
 
 readHookInput();
@@ -15,7 +14,7 @@ const L = ['[dev-standards] Conserva tras la compactacion:'];
 if (marker) L.push(`- Stack ${marker.stack}` + (marker.frontProfile ? ` | perfil de front: ${marker.frontProfile.label}` : ''));
 const versions = detectVersions(root);
 if (versions.length) L.push(`- Versiones: ${versions.map(v => `${v.name} ${v.spec}`).join(', ')} (practicas de ESAS versiones)`);
-if (fs.existsSync(path.join(root, 'conventions.md'))) L.push('- Convenciones adoptadas: conventions.md (inmutables, ganan a tus preferencias)');
+if (fs.existsSync(ruta(root, 'conventions.md'))) L.push(`- Convenciones adoptadas: ${rutaRel(root, 'conventions.md')} (inmutables, ganan a tus preferencias)`);
 const ds = designSystemMaster(root); if (ds) L.push(`- Design system: ${ds}`);
 const today = todayDevlog(root); if (today.length) L.push(`- Devlog de hoy: ${today.join(', ')} (sigue numerando desde ahi)`);
 const b = gitBranch(root); if (b) L.push(`- Rama git: ${b}`);

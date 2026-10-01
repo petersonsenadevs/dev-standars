@@ -3,7 +3,7 @@
 .SYNOPSIS
   Re-renderiza la config de dev-standards a un proyecto ya inicializado.
 .DESCRIPTION
-  Lee el marcador .dev-standards.json del proyecto (stack, herramientas, skills y bundles opcionales) y
+  Lee el marcador senzu/senzu.json del proyecto (stack, herramientas, skills y bundles opcionales) y
   regenera los archivos de cada herramienta a partir de core\ y stacks\<stack>\.
   Úsalo tras editar un systemprompt del stack, una skill o tras actualizar el vendor.
 .PARAMETER Path
@@ -36,13 +36,17 @@ param(
     [string[]]$Permitir,
     [switch]$SinPermisos,
     [string[]]$ApagarHooks,
-    [switch]$EncenderHooks
+    [switch]$EncenderHooks,
+    [switch]$SinMigrar
 )
 
 . (Join-Path $PSScriptRoot '_lib.ps1')
 
 $Path = (Resolve-Path $Path).Path
-$markerPath = Join-Path $Path '.dev-standards.json'
+# Proyectos antiguos: se migran a senzu\ salvo -SinMigrar (entonces todo sigue en la raiz)
+$legadoSinMigrar = $SinMigrar -and (Test-Path (Join-Path $Path '.dev-standards.json')) -and -not (Test-Path (Join-Path $Path 'senzu'))
+if (-not $legadoSinMigrar) { Move-SenzuProject -ProjectPath $Path }
+$markerPath = if ($legadoSinMigrar) { Join-Path $Path '.dev-standards.json' } else { Join-Path $Path 'senzu\senzu.json' }
 $marker = $null
 if (Test-Path $markerPath) { $marker = Get-Content $markerPath -Raw | ConvertFrom-Json }
 
@@ -51,7 +55,7 @@ if (-not $Stack -or -not $Tools) {
         if (-not $Stack) { $Stack = $marker.stack }
         if (-not $Tools) { $Tools = @($marker.tools) }
     } else {
-        throw "No hay .dev-standards.json en $Path. Usa init-project.ps1 primero, o pasa -Stack y -Tools."
+        throw "No hay senzu/senzu.json en $Path. Usa init-project.ps1 primero, o pasa -Stack y -Tools."
     }
 }
 # Skills/bundles opcionales: si no se pasan, se conservan los del marcador.
@@ -105,7 +109,7 @@ if ($stackObj.Meta.frontProfile) {
     $eff = Get-EffectiveFrontProfile -Stack $stackObj -ProjectPath $Path -Marker $marker
     $stackObj.Meta.frontProfile = $eff.profile
     $fpSource = $eff.source
-    $srcTxt = switch ($eff.source) { 'manual' { ' (fijado a mano en .dev-standards.json)' } 'auto' { ' (detectado de package.json)' } default { '' } }
+    $srcTxt = switch ($eff.source) { 'manual' { ' (fijado a mano en senzu/senzu.json)' } 'auto' { ' (detectado de package.json)' } default { '' } }
     Write-Host "Perfil de front: $($stackObj.Meta.frontProfile.label)$srcTxt"
 }
 if ($Skills.Count) { Write-Host "Skills opcionales: $($Skills -join ', ')" }

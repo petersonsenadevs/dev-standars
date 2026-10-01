@@ -395,7 +395,7 @@ function hookSet(hasFront) {
 }
 // Hooks elegibles uno a uno en el instalador. Los "compañeros" van con su hook: edit-tracker solo sirve a
 // stop-guard, pre-compact prolonga session-start y session-end (limpieza) va siempre.
-// Permisos que el usuario puede dar al agente en un proyecto (se guardan en .dev-standards.json -> "permisos").
+// Permisos que el usuario puede dar al agente en un proyecto (se guardan en senzu/senzu.json -> "permisos").
 // El push forzado, lo destructivo y los secretos siguen bloqueados siempre (guard, secrets-guard, protect-files
 // no se pueden apagar).
 const PERMISOS = [
@@ -564,15 +564,51 @@ async function renderCodex(stack, projectPath, extra, bundles, label = 'codex') 
 function pad(n, w) { return String(n).padStart(w, '0'); }
 function todayStr() { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1, 2)}-${pad(d.getDate(), 2)}`; }
 
+// ---------------------------------------------------------------- carpeta senzu/ y migración
+// Lo que no exige una ubicación fija va a <proyecto>/senzu/. Los proyectos antiguos (devlog/, plan/… en la
+// raíz) se migran al actualizar: git mv si está en git (conserva el historial), si no, mover sin más.
+// Mismo comportamiento que _lib.ps1 (Move-SenzuProject).
+const CARPETA = 'senzu';
+const MIGRABLES = [['devlog', 'devlog'], ['plan', 'plan'], ['design-system', 'design-system'], ['conventions.md', 'conventions.md'],
+    ['conventions.json', 'conventions.json'], ['.ui-verify', 'ui-verify'], ['.dev-standards.json', 'senzu.json']];
+function rutaMarcador(projectPath) {
+    const nueva = path.join(projectPath, CARPETA, 'senzu.json');
+    return exists(nueva) ? nueva : path.join(projectPath, '.dev-standards.json');
+}
+function enGit(projectPath, rel) {
+    try { return execFileSync('git', ['ls-files', '--', rel], { cwd: projectPath, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim().length > 0; }
+    catch { return false; }
+}
+function migrarProyecto(projectPath) {
+    const base = path.join(projectPath, CARPETA);
+    const pendientes = MIGRABLES.filter(([v]) => exists(path.join(projectPath, v)));
+    const choques = pendientes.filter(([, n]) => exists(path.join(base, n)));
+    for (const [v, n] of choques) warn(`No se mueve ${v}: ya existe ${CARPETA}/${n}. Revisa a mano cuál conservar.`);
+    const mover = pendientes.filter(([, n]) => !exists(path.join(base, n)));
+    if (!mover.length) return;
+    log(`Migrando a ${CARPETA}/ (raíz más limpia; el historial de git se conserva):`);
+    ensureDir(base);
+    for (const [v, n] of mover) {
+        const destino = `${CARPETA}/${n}`;
+        let hecho = false;
+        if (enGit(projectPath, v)) {
+            try { execFileSync('git', ['mv', '--', v, destino], { cwd: projectPath, stdio: ['ignore', 'pipe', 'pipe'] }); hecho = true; } catch {}
+        }
+        if (!hecho) fs.renameSync(path.join(projectPath, v), path.join(base, n));
+        log(`  ${v} -> ${destino}${hecho ? ' (git mv)' : ''}`);
+    }
+    log('  Si tu propia documentación (README, CLAUDE.project.md…) cita esas rutas, actualízalas.');
+}
+
 async function seedProject(projectPath) {
     const today = todayStr();
-    const devlog = path.join(projectPath, 'devlog');
+    const devlog = path.join(projectPath, CARPETA, 'devlog');
     const ownDiary = ['CHANGELOG.md', 'HISTORY.md', path.join('docs', 'decisions'), path.join('docs', 'adr')]
         .find(f => exists(path.join(projectPath, f)));
     let makeDevlog = true;
     if (ownDiary && !exists(devlog)) {
-        makeDevlog = await askYesNo(`El proyecto ya lleva su propio diario (${ownDiary}). ¿Crear tambien devlog/ de dev-standards? (los hooks lo piden al cerrar tareas)`, true);
-        if (!makeDevlog) log(`  devlog/ omitido: se respeta el diario propio (${ownDiary}). El agente preguntara como documentar.`);
+        makeDevlog = await askYesNo(`El proyecto ya lleva su propio diario (${ownDiary}). ¿Crear tambien ${CARPETA}/devlog/ de Senzu? (los hooks lo piden al cerrar tareas)`, true);
+        if (!makeDevlog) log(`  ${CARPETA}/devlog/ omitido: se respeta el diario propio (${ownDiary}). El agente preguntara como documentar.`);
     }
     if (makeDevlog) {
         const dayDir = path.join(devlog, today);
@@ -589,20 +625,20 @@ async function seedProject(projectPath) {
             writeUtf8(firstEntry, tpl);
         }
         if (!exists(path.join(dayDir, 'DECISIONES.md'))) writeUtf8(path.join(dayDir, 'DECISIONES.md'), `# Decisiones - ${today}\n\n`);
-        log(`  devlog/ inicializado (${today})`);
+        log(`  ${CARPETA}/devlog/ inicializado (${today})`);
     }
-    const planDir = path.join(projectPath, 'plan');
+    const planDir = path.join(projectPath, CARPETA, 'plan');
     ensureDir(planDir);
     const planTpl = path.join(ROOT, 'core', 'skills', 'project-planner', 'templates');
     if (!exists(path.join(planDir, 'PLAN.md'))) fs.copyFileSync(path.join(planTpl, 'PLAN.md'), path.join(planDir, 'PLAN.md'));
     if (!exists(path.join(planDir, 'brief.md'))) fs.copyFileSync(path.join(planTpl, 'brief.md'), path.join(planDir, 'brief.md'));
-    log('  plan/ inicializado (PLAN.md y brief.md son plantillas: rellenalos con la skill project-planner)');
+    log(`  ${CARPETA}/plan/ inicializado (PLAN.md y brief.md son plantillas: rellénalos con la skill project-planner)`);
 }
 
 function lista(v) { return String(v || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean); }
 
 function parseArgs(argv) {
-    const a = { path: process.cwd(), tools: null, stack: null, skills: [], bundle: [], seleccion: null, grupos: null, soloSkills: null, hooks: null, comandos: null, interactivo: false, ahorro: null, permitir: null, apagarHooks: null };
+    const a = { path: process.cwd(), tools: null, stack: null, skills: [], bundle: [], seleccion: null, grupos: null, soloSkills: null, hooks: null, comandos: null, interactivo: false, ahorro: null, permitir: null, apagarHooks: null, sinMigrar: false };
     for (let i = 0; i < argv.length; i++) {
         const k = argv[i];
         const next = () => argv[++i];
@@ -623,6 +659,7 @@ function parseArgs(argv) {
         else if (k === '--sin-permisos') a.permitir = [];
         else if (k === '--apagar-hooks') a.apagarHooks = lista(next());
         else if (k === '--encender-hooks') a.apagarHooks = [];
+        else if (k === '--sin-migrar') a.sinMigrar = true;
         else if (k === '--help' || k === '-h') { a.help = true; }
         else warn(`Flag desconocido: ${k}`);
     }
@@ -709,7 +746,7 @@ async function modoInteractivo(a) {
         const ruta = await preguntar(rl, `\nCarpeta del proyecto [${a.path}]: `);
         if (ruta) a.path = ruta;
         const projectPath = path.resolve(a.path);
-        const marker = readJson(path.join(projectPath, '.dev-standards.json'));
+        const marker = readJson(rutaMarcador(projectPath));
         const stacks = fs.readdirSync(path.join(ROOT, 'stacks')).filter(s => exists(path.join(ROOT, 'stacks', s, 'stack.json')));
         const detectado = (marker && marker.stack) || detectarStack(projectPath);
         const iStack = await elegirUno(rl, `Stack${detectado ? ` (detectado: ${detectado})` : ''}:`, stacks, detectado ? stacks.indexOf(detectado) + 1 : 1);
@@ -754,7 +791,7 @@ async function main() {
         log('     node tools/init.mjs --stack <nombre> --path <ruta> [--tools claude,codex]');
         log('       [--seleccion todo|categorias|a-medida] [--grupos front,motion,3d,quality,architecture,growth,ops,design]');
         log('       [--solo-skills a,b] [--hooks guard,stop-guard,...] [--comandos plan,verificar,...] [--skills a,b] [--bundle x] [--ahorro|--sin-ahorro]');
-        log('       [--permitir push,push-main,commit-main | --sin-permisos] [--apagar-hooks format-on-save,... | --encender-hooks]');
+        log('       [--permitir push,push-main,commit-main | --sin-permisos] [--apagar-hooks format-on-save,... | --encender-hooks] [--sin-migrar]');
         log('Stacks: ' + fs.readdirSync(path.join(ROOT, 'stacks')).join(', '));
         return;
     }
@@ -763,10 +800,13 @@ async function main() {
 
     const projectPath = path.resolve(a.path);
     ensureDir(projectPath);
-    const markerPath = path.join(projectPath, '.dev-standards.json');
+    // Proyectos antiguos: se migran a senzu/ salvo --sin-migrar (entonces todo sigue en la raíz)
+    const legadoSinMigrar = a.sinMigrar && exists(path.join(projectPath, '.dev-standards.json')) && !exists(path.join(projectPath, CARPETA));
+    if (!legadoSinMigrar) migrarProyecto(projectPath);
+    const markerPath = legadoSinMigrar ? path.join(projectPath, '.dev-standards.json') : path.join(projectPath, CARPETA, 'senzu.json');
     const marker = readJson(markerPath);
     const stackName = a.stack || (marker && marker.stack);
-    if (!stackName) throw new Error(`Falta --stack (o un .dev-standards.json previo). Stacks: ${fs.readdirSync(path.join(ROOT, 'stacks')).join(', ')}`);
+    if (!stackName) throw new Error(`Falta --stack (o un senzu/senzu.json previo). Stacks: ${fs.readdirSync(path.join(ROOT, 'stacks')).join(', ')}`);
     const stackDir = path.join(ROOT, 'stacks', stackName);
     if (!exists(stackDir)) throw new Error(`Stack '${stackName}' no existe. Stacks: ${fs.readdirSync(path.join(ROOT, 'stacks')).join(', ')}`);
     const stack = { name: stackName, dir: stackDir, meta: readJson(path.join(stackDir, 'stack.json')) };
@@ -806,7 +846,7 @@ async function main() {
         const eff = effectiveFrontProfile(stack, projectPath, marker);
         stack.meta.frontProfile = eff.profile;
         fpSource = eff.source;
-        const srcTxt = eff.source === 'manual' ? ' (fijado a mano en .dev-standards.json)' : eff.source === 'auto' ? ' (detectado de package.json)' : '';
+        const srcTxt = eff.source === 'manual' ? ' (fijado a mano en senzu/senzu.json)' : eff.source === 'auto' ? ' (detectado de package.json)' : '';
         log(`Perfil de front: ${stack.meta.frontProfile.label}${srcTxt}`);
     }
     for (const t of tools) {

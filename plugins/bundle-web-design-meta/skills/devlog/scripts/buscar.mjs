@@ -36,7 +36,8 @@ function ayuda() {
 }
 const consulta = libres.join(' ').trim();
 if (!consulta) { ayuda(); process.exit(2); }
-const devlogDir = path.resolve(opts.devlog || path.join(process.cwd(), 'devlog'));
+// senzu/devlog (proyectos actuales) o devlog/ (proyectos antiguos sin migrar)
+const devlogDir = path.resolve(opts.devlog || [path.join(process.cwd(), 'senzu', 'devlog'), path.join(process.cwd(), 'devlog')].find(d => fs.existsSync(d)) || path.join(process.cwd(), 'senzu', 'devlog'));
 
 // ---------------------------------------------------------------- normalización
 const quitarAcentos = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -184,7 +185,7 @@ function recorrer(dir, prof, fechaCarpeta, esAdr) {
 recorrer(devlogDir, 0, null, false);
 // Además, el diario y las decisiones PROPIOS del proyecto si los tiene (p. ej. un docs/devlog histórico o ADRs):
 // sin esto, un proyecto con dos devlogs solo encontraría la mitad de su historia. --solo-devlog lo desactiva.
-if (fs.existsSync(devlogDir)) fuentes.push(path.relative(process.cwd(), devlogDir) || 'devlog');
+if (fs.existsSync(devlogDir)) fuentes.push((path.relative(process.cwd(), devlogDir) || 'devlog').replace(/\\/g, '/'));
 if (!opts.soloDevlog) {
     for (const [rel, esAdr] of [['docs/devlog', false], ['docs/adr', true], ['docs/adrs', true], ['docs/decisions', true],
         ['docs/architecture/decisions', true], ['doc/adr', true], ['adr', true]]) {

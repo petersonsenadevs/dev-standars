@@ -6,9 +6,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, planStatus, sessionFlag, projectFlag, testOnce,
-    todayDevlog, devlogIndexed, hookConfig, gitBranch, gitDirty, todayStr,
-    memoriaProyecto, seccionMd, tieneContenido, readText,
+    readHookInput, projectRoot, planStatus, sessionFlag, projectFlag, testOnce, todayDevlog, devlogIndexed, hookConfig, gitBranch, gitDirty, todayStr, memoriaProyecto, seccionMd, tieneContenido, readText, ruta,
 } from './lib.mjs';
 
 const p = readHookInput();
@@ -70,9 +68,10 @@ planMsg += revisarAssets(root);
 // Así no salta cuando el agente apunta primero la memoria y escribe después la entrada.
 let memMsg = '', memLarga = '';
 {
-    const dirHoy = path.join(root, 'devlog', todayStr());
+    const dirDevlog = ruta(root, 'devlog');
+    const dirHoy = path.join(dirDevlog, todayStr());
     const mem = memoriaProyecto(root);
-    const textoMem = (readText(path.join(root, 'devlog', 'MEMORIA.md')) || '') + '\n' + (readText(path.join(root, 'devlog', 'MEMORIA-historico.md')) || '');
+    const textoMem = (readText(path.join(dirDevlog, 'MEMORIA.md')) || '') + '\n' + (readText(path.join(dirDevlog, 'MEMORIA-historico.md')) || '');
     const citadas = new Set();
     for (const m of textoMem.matchAll(/(?:\bver\b|\bentradas?\b|\bdevlog\b|\bdev-|#)\s*((?:\d{3,4}(?:\s*(?:,|y|e|\/)\s*)?)+)/gi)) {
         for (const n of m[1].match(/\d{3,4}/g) || []) citadas.add(String(parseInt(n, 10)));

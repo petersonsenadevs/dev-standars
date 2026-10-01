@@ -9,8 +9,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, sessionFlag, testOnce, designSystemMaster,
-    findFirstFile, outHookJson,
+    readHookInput, projectRoot, sessionFlag, testOnce, designSystemMaster, findFirstFile, outHookJson, ruta,
 } from './lib.mjs';
 
 const p = readHookInput();
@@ -29,8 +28,8 @@ const skillsDir = (pluginRoot && fs.existsSync(path.join(pluginRoot, 'skills', '
     : fs.existsSync(path.join(root, '.claude', 'skills', 'ui-ux-pro-max')) ? '.claude/skills'
     : '<skills-dir>';
 const master = designSystemMaster(root);
-const hasBrief = fs.existsSync(path.join(root, 'plan', 'brief.md'))
-    || (fs.existsSync(path.join(root, 'design-system')) && !!findFirstFile(path.join(root, 'design-system'), 'BRAND.md'));
+const hasBrief = fs.existsSync(path.join(ruta(root, 'plan'), 'brief.md'))
+    || (fs.existsSync(ruta(root, 'design-system')) && !!findFirstFile(ruta(root, 'design-system'), 'BRAND.md'));
 // MURO (una vez por sesión): primera edición de UI sin design system NI brief -> bloquear y obligar a decidir.
 if (!master && !hasBrief && testOnce(sid, 'front-block')) {
     try { fs.rmSync(sessionFlag(sid, 'front'), { force: true }); } catch {}   // el reintento recibirá el aviso contextual

@@ -2,7 +2,7 @@
 /**
  * dev-standards · ui-verify: verificación automática de una URL en 375/768/1440.
  *
- * Uso:  node verify-ui.mjs <url> [--viewports 375,768,1440] [--out .ui-verify] [--no-screenshots]
+ * Uso:  node verify-ui.mjs <url> [--viewports 375,768,1440] [--out senzu/ui-verify] [--no-screenshots]
  * Requiere Playwright en el proyecto:  npm i -D playwright && npx playwright install chromium
  *
  * Comprueba por viewport: scroll horizontal (y qué elementos lo causan), errores de consola,
@@ -13,7 +13,7 @@
 const args = process.argv.slice(2);
 const url = args.find((a) => !a.startsWith('--'));
 if (!url) {
-  console.error('Uso: node verify-ui.mjs <url> [--viewports 375,768,1440] [--out .ui-verify]');
+  console.error('Uso: node verify-ui.mjs <url> [--viewports 375,768,1440] [--out senzu/ui-verify]');
   process.exit(2);
 }
 const opt = (name, def) => {
@@ -21,7 +21,9 @@ const opt = (name, def) => {
   return i !== -1 && args[i + 1] ? args[i + 1] : def;
 };
 const viewports = opt('viewports', '375,768,1440').split(',').map((v) => parseInt(v, 10));
-const outDir = opt('out', '.ui-verify');
+const { existsSync: existeRuta } = await import('node:fs');
+// senzu/ui-verify; .ui-verify en proyectos antiguos sin migrar
+const outDir = opt('out', existeRuta('senzu') && !existeRuta('.ui-verify') ? 'senzu/ui-verify' : '.ui-verify');
 const screenshots = !args.includes('--no-screenshots');
 
 let chromium;

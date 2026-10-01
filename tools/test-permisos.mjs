@@ -129,6 +129,24 @@ bloquea('git push origin feat/x', 'guard NO se puede apagar');
     ok(r.status === 0 && !r.stdout.trim(), 'hook apagado también en Codex (raíz por cwd): salida vacía', r.stdout.slice(0, 100));
 }
 
+// ---------------------------------------------------------------- marcador en la ubicación nueva: senzu/senzu.json
+{
+    fs.rmSync(path.join(proj, '.dev-standards.json'), { force: true });
+    fs.mkdirSync(path.join(proj, 'senzu'), { recursive: true });
+    const nuevo = path.join(proj, 'senzu', 'senzu.json');
+    fs.writeFileSync(nuevo, JSON.stringify({ stack: 'astro', permisos: { push: true } }));
+    deja('git push origin feat/x', 'senzu/senzu.json: el permiso push se lee de la ubicación nueva');
+    bloquea('git push origin main', 'senzu/senzu.json: main sigue protegida sin pushMain');
+    fs.writeFileSync(nuevo, JSON.stringify({ stack: 'astro', hooksApagados: ['code-hygiene'] }));
+    ok(editarConsole().status === 0, 'senzu/senzu.json: hook apagado desde la ubicación nueva');
+    const r1 = hook('protect-files.mjs', { tool_name: 'Edit', tool_input: { file_path: nuevo, old_string: '{', new_string: '{ "permisos": { "pushMain": true },' } });
+    ok(r1.status === 2, 'el agente no puede editar senzu/senzu.json', `exit ${r1.status}`);
+    for (const cmd of [`echo '{}' > senzu/senzu.json`, `sed -i 's/a/b/' senzu/senzu.json`, `Set-Content senzu\\senzu.json '{}'`]) {
+        ok(bash(cmd).status === 2, `ni desde la terminal: ${cmd}`);
+    }
+    ok(bash('cat senzu/senzu.json').status === 0, 'leer senzu/senzu.json sí');
+}
+
 fs.rmSync(proj, { recursive: true, force: true });
 console.log(`Casos: ${casos}  Fallos: ${fallos}`);
 process.exit(fallos ? 1 : 0);

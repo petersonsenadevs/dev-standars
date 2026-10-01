@@ -4,7 +4,9 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { readHookInput, projectRoot, hookConfig, testOnce, outHookJson } from './lib.mjs';
+import {
+    readHookInput, projectRoot, hookConfig, testOnce, outHookJson, ruta, rutaRel,
+} from './lib.mjs';
 
 const p = readHookInput();
 if (!p || !['Edit', 'Write', 'MultiEdit'].includes(p.tool_name)) process.exit(0);
@@ -21,13 +23,13 @@ const receta = {
     laravel: 'php-laravel.md', wordpress: 'wordpress.md', 'node-api': 'node-api.md', next: 'react-next.md',
     nuxt: 'nuxt.md', sveltekit: 'sveltekit.md', astro: 'astro.md', 'vue-ts': 'typescript.md', 'python-langgraph': 'python.md',
 }[cfg.stack] || null;
-const convenciones = fs.existsSync(path.join(root, 'conventions.md'));
+const convenciones = fs.existsSync(ruta(root, 'conventions.md'));
 
 outHookJson('PreToolUse', {
     additionalContext: `[dev-standards] Vas a editar backend (${path.basename(file)}). Aplica la skill code-quality`
         + (receta ? ` (receta del stack: references/${receta})` : '')
         + '; para un tema concreto, su catálogo references/backend-catalog.md. '
-        + (convenciones ? 'Hay convenciones selladas en conventions.md: mandan sobre tu preferencia. ' : 'Imita el estilo del código vecino. ')
+        + (convenciones ? `Hay convenciones selladas en ${rutaRel(root, 'conventions.md')}: mandan sobre tu preferencia. ` : 'Imita el estilo del código vecino. ')
         + 'Usa las prácticas de la versión REAL del framework (la indicó session-start). Valida la entrada en el borde, '
         + 'autorización en cada acción sensible, sin N+1, y el cambio va con su test. Si algo falla, skill depurar.',
 });
