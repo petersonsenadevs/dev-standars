@@ -563,6 +563,8 @@ async function seedProject(projectPath) {
         const dayDir = path.join(devlog, today);
         ensureDir(dayDir);
         if (!exists(path.join(devlog, 'INDEX.md'))) fs.copyFileSync(path.join(ROOT, 'templates', 'devlog-index.md'), path.join(devlog, 'INDEX.md'));
+        // Memoria del proyecto: nunca se sobrescribe; si el devlog ya tenía historial, session-start pide rellenarla
+        if (!exists(path.join(devlog, 'MEMORIA.md'))) fs.copyFileSync(path.join(ROOT, 'templates', 'devlog-memoria.md'), path.join(devlog, 'MEMORIA.md'));
         const firstEntry = path.join(dayDir, '001-setup-inicial.md');
         if (!exists(firstEntry)) {
             const d = new Date();

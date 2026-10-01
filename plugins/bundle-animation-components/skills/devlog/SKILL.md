@@ -1,6 +1,6 @@
 ---
 name: devlog
-description: Crea o actualiza la entrada de devlog del día y el INDEX.md antes de cerrar una tarea o hacer un commit. Úsalo siempre que termines un paso relevante, corrijas algo o vayas a commitear.
+description: Devlog del proyecto como diario y memoria: entrada del día e INDEX antes de cerrar o commitear, decisiones vigentes en MEMORIA.md y búsqueda en el pasado (buscar.mjs). Úsalo al terminar un paso, al decidir algo o ante «¿por qué hicimos…?».
 ---
 
 # Skill: devlog
@@ -25,10 +25,22 @@ anota la decisión en la primera entrada (o en su diario) y respétala el resto 
 4. Crea `devlog/<fecha>/NNN-<slug>.md` con la plantilla de entrada.
 5. Si esta entrada mejora/corrige otra, rellena `Mejora a: NNN`.
 6. Registra los commits del paso (hash corto + mensaje).
-7. Si hubo decisiones, añádelas a `devlog/<fecha>/DECISIONES.md`.
+7. Si hubo decisiones, añádelas a `devlog/<fecha>/DECISIONES.md` **y a `devlog/MEMORIA.md`** como vigentes
+   (`D-xxx · decisión y porqué · ver NNN`); si sustituyen a otra, márcala como sustituida (references/memoria.md).
 8. Actualiza `devlog/INDEX.md` (tabla: nº, fecha, título, tipo, mejora-a, tarea).
 9. Si la entrada cierra una tarjeta de `plan/PLAN.md`, rellena `Tarea: <id>` y pon la ruta de la
    entrada en el campo `Devlog:` de la tarjeta al marcarla `done`.
+
+## Memoria y búsqueda en el pasado
+| Necesito… | Haz |
+|---|---|
+| Saber qué está decidido | `devlog/MEMORIA.md` (te llega al iniciar la sesión). No la contradigas sin citarla y preguntar. |
+| Algo que no está en la memoria («¿por qué…?», «¿cuándo cambiamos…?») | `node <skills-dir>/devlog/scripts/buscar.mjs "palabras"` → abre SOLO la entrada indicada, por la sección |
+| Crear la memoria en un proyecto con historial | references/memoria.md § Crear la memoria desde un devlog existente |
+| Memoria de más de 60 líneas | Pasa lo sustituido o cerrado a `devlog/MEMORIA-historico.md` |
+
+Al responder sobre el pasado, cita la entrada (`según la 034…`). Si el buscador no encuentra nada tras
+probar sinónimos, dilo: «no hay nada registrado sobre esto». Nunca lo supongas.
 
 ## Plantilla de entrada
 Ver `templates/devlog-day.md` de esta skill. Campos mínimos:

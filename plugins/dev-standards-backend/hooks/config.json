@@ -90,8 +90,8 @@
                        "name":  "devlog",
                        "group":  "docs",
                        "entrypoint":  false,
-                       "keywords":  "(?i)\\b(commit|commitea|cierra la tarea|documenta|devlog)\\b",
-                       "priority":  5,
+                       "keywords":  "(?i)\\b(commit|commitea|cierra la tarea|documenta|devlog|memoria del proyecto|historial del proyecto|por qu[eé] (lo )?(hicimos|decidimos|elegimos|cambiamos|usamos|quitamos|pusimos)|por qu[eé] se (hizo|decidi[oó]|eligi[oó]|cambi[oó])|cu[aá]ndo (lo )?(cambiamos|decidimos|hicimos|quitamos|pusimos|se cambi[oó])|qu[eé] (decidimos|se decidi[oó]|pas[oó] con)|qu[eé] hab[ií]amos (decidido|hablado|quedado)|en qu[eé] quedamos|decisi[oó]n(es)? (tomadas?|anteriore?s?|vigentes?)|la [uú]ltima vez que)\\b",
+                       "priority":  8,
                        "requires":  [
 
                                     ]

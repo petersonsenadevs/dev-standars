@@ -8,6 +8,7 @@ import path from 'node:path';
 import {
     readHookInput, projectRoot, planStatus, sessionFlag, projectFlag, testOnce,
     todayDevlog, devlogIndexed, hookConfig, gitBranch, gitDirty, todayStr,
+    memoriaProyecto, seccionMd, tieneContenido, readText,
 } from './lib.mjs';
 
 const p = readHookInput();
@@ -60,6 +61,34 @@ function revisarAssets(base) {
 }
 planMsg += revisarAssets(root);
 
+// Memoria del proyecto: si el devlog de hoy trae decisiones y devlog/MEMORIA.md no se ha tocado después, se
+// exige actualizarla (bloquea una vez por sesión). Si pasa de 60 líneas, se recuerda pasar lo viejo al histórico.
+let memMsg = '', memLarga = '';
+{
+    const dirHoy = path.join(root, 'devlog', todayStr());
+    const conDecision = [];
+    let tDec = 0;
+    for (const n of todayDevlog(root)) {
+        const f = path.join(dirHoy, n);
+        if (tieneContenido(seccionMd(readText(f), 'Decisiones'))) {
+            conDecision.push(n.slice(0, 3));
+            try { tDec = Math.max(tDec, fs.statSync(f).mtimeMs); } catch {}
+        }
+    }
+    const fDec = path.join(dirHoy, 'DECISIONES.md');
+    if (fs.existsSync(fDec) && tieneContenido((readText(fDec) || '').replace(/^#\s.*$/gm, ''))) {
+        conDecision.push('DECISIONES.md');
+        try { tDec = Math.max(tDec, fs.statSync(fDec).mtimeMs); } catch {}
+    }
+    const mem = memoriaProyecto(root);
+    if (conDecision.length && (!mem.existe || mem.mtime < tDec)) {
+        memMsg = ` Hay decisiones nuevas en el devlog de hoy (${conDecision.join(', ')}) y devlog/MEMORIA.md sin actualizar: añádelas como vigentes con su D-xxx y su entrada (o marca como sustituida la que cambian), con la skill devlog (references/memoria.md).`;
+    }
+    if (mem.existe && mem.lineas.length > 60) {
+        memLarga = ` devlog/MEMORIA.md tiene ${mem.lineas.length} líneas (máximo 60): pasa lo sustituido o cerrado a devlog/MEMORIA-historico.md.`;
+    }
+}
+
 const today = todayDevlog(root);
 if (today.length) {
     const notIdx = today.filter(n => !devlogIndexed(root, n));
@@ -69,11 +98,14 @@ if (today.length) {
     if (cfg && cfg.commands && gitBranch(root) && gitDirty(root) > 0) {
         extra += ' Hay cambios sin commitear: ejecuta los comandos del stack (lint/test/types de config.json) y pega la salida antes de cerrar.';
     }
-    if ((frontMsg || buildMsg) && !alreadyActive && testOnce(sid, 'stop-ui')) {
-        process.stdout.write(JSON.stringify({ decision: 'block', reason: '[dev-standards]' + buildMsg + frontMsg + planMsg + extra }) + '\n');
+    extra += memLarga;
+    const bloqueaUi = (frontMsg || buildMsg) && !alreadyActive && testOnce(sid, 'stop-ui');
+    const bloqueaMem = memMsg && !alreadyActive && testOnce(sid, 'stop-memoria');
+    if (bloqueaUi || bloqueaMem) {
+        process.stdout.write(JSON.stringify({ decision: 'block', reason: '[dev-standards]' + buildMsg + frontMsg + memMsg + planMsg + extra }) + '\n');
         process.exit(0);
     }
-    if (planMsg || extra || frontMsg || buildMsg) process.stdout.write('recordatorio:' + buildMsg + frontMsg + planMsg + extra + '\n');
+    if (planMsg || extra || frontMsg || buildMsg || memMsg) process.stdout.write('recordatorio:' + buildMsg + frontMsg + memMsg + planMsg + extra + '\n');
     process.exit(0);
 }
 

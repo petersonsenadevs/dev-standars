@@ -6,7 +6,7 @@ import path from 'node:path';
 import {
     readHookInput, projectRoot, getMarker, gitBranch, gitDirty, designSystemMaster,
     planStatus, todayDevlog, devlogNextNumber, hookConfig, outHookJson, todayStr, pad3,
-    detectVersions, eolWarnings, projectMaturity,
+    detectVersions, eolWarnings, projectMaturity, bloqueMemoria, proximosPasos,
 } from './lib.mjs';
 
 readHookInput();
@@ -62,6 +62,9 @@ const next = devlogNextNumber(root);
 L.push(today.length
     ? `- Devlog de hoy: ${today.join(', ')} (siguiente numero global: ${pad3(next)})`
     : `- Devlog de hoy: ninguno todavia; la siguiente entrada es devlog/${todayStr()}/${pad3(next)}-<slug>.md (crea la entrada antes de cerrar la tarea o commitear).`);
+const pasos = proximosPasos(root);
+if (pasos) L.push(`- Donde se quedo la ultima entrada: ${pasos}`);
+L.push(...bloqueMemoria(root));
 const cfg = hookConfig(root);
 if (cfg && cfg.commands) {
     const cm = Object.entries(cfg.commands).map(([k, v]) => `${k}: ${v}`);

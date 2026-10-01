@@ -60,6 +60,11 @@ $indexDst = Join-Path $devlog 'INDEX.md'
 if (-not (Test-Path $indexDst)) {
     Copy-Item (Join-Path $root 'templates\devlog-index.md') $indexDst -Force
 }
+# Memoria del proyecto: nunca se sobrescribe; si el devlog ya tenia historial, session-start pide rellenarla
+$memoriaDst = Join-Path $devlog 'MEMORIA.md'
+if (-not (Test-Path $memoriaDst)) {
+    Copy-Item (Join-Path $root 'templates\devlog-memoria.md') $memoriaDst -Force
+}
 $firstEntry = Join-Path $dayDir '001-setup-inicial.md'
 if (-not (Test-Path $firstEntry)) {
     $tpl = Read-Utf8 (Join-Path $root 'templates\devlog-day.md')

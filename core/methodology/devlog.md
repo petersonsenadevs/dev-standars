@@ -7,6 +7,8 @@ Cada paso relevante y **cada commit** se documenta en la carpeta `devlog/` en la
 ```
 devlog/
 ├── INDEX.md                     # Índice global, numeración correlativa de TODOS los devlogs
+├── MEMORIA.md                   # Lo VIGENTE: decisiones, reglas del cliente, lo que no funcionó, pendientes (≤ 60 líneas)
+├── MEMORIA-historico.md         # Lo sustituido o cerrado que sale de la memoria (se crea cuando hace falta)
 ├── 2026-07-18/                  # Una carpeta por día (fecha ISO YYYY-MM-DD)
 │   ├── 001-setup-inicial.md     # Un .md por entrada; numeración correlativa global
 │   ├── 002-modelo-usuario.md    # Si un día es muy largo -> varios .md
@@ -25,7 +27,9 @@ devlog/
 2. **Un `.md` por día** como mínimo. Si el día produce mucho, se parte en varios `.md`
    (cada uno con su número correlativo).
 3. **`DECISIONES.md` por día**: registra decisiones (por qué se eligió X sobre Y),
-   con el número de devlog al que pertenece cada decisión.
+   con el número de devlog al que pertenece cada decisión. Cada decisión vigente va además, en una
+   línea, a `MEMORIA.md` (`D-xxx · decisión · ver NNN`); si sustituye a otra, la antigua se marca como
+   sustituida. Para consultar el pasado: `buscar.mjs` de la skill devlog, citando la entrada.
 4. **Cada commit** debe quedar referenciado en un devlog (hash + mensaje).
 5. **"Número de devlog que mejora"**: si una entrada corrige/mejora una anterior, se
    indica en el campo `Mejora a:` con el número de la entrada previa. Así queda la

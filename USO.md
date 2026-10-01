@@ -49,6 +49,14 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - **Depuración con método**: cuando un test, build o lint falla, el agente recibe el método de `/depurar`
   (reproducir → aislar → hipótesis → un cambio cada vez) en lugar de probar a ciegas. Tras tres intentos
   fallidos se para y te lo cuenta.
+- **Memoria del proyecto** (`devlog/MEMORIA.md`): decisiones vigentes, reglas del cliente, lo que no
+  funcionó y lo pendiente, en una línea cada cosa con su entrada del devlog. Llega sola al empezar cada
+  sesión; si el día trae una decisión nueva y no se apuntó en la memoria, no deja cerrar. Antes de llevarte
+  la contraria con algo ya decidido, el agente tiene que citarlo y preguntarte. El devlog se sigue
+  escribiendo igual: para lo que no está en la memoria busca hacia atrás con
+  `node .claude/skills/devlog/scripts/buscar.mjs "palabras"` (acentos, plurales, erratas y sinónimos)
+  y cita la entrada. En un proyecto con historial y sin memoria, la crea en la primera sesión y te la
+  enseña para que la confirmes.
 - **Assets pesados**: al cerrar la tarea avisa (sin bloquear) de imágenes de más de 500 KB, SVG de más de
   150 KB, fuentes TTF/OTF sin convertir a WOFF2 y vídeos de más de 5 MB añadidos en las últimas 24 horas.
 - **Modo ahorro** (opcional, `--ahorro` al instalar): CLAUDE.md compacto (unos 7.000 caracteres menos por
@@ -85,6 +93,7 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - "se ve mal en el móvil" → ui-verify.
 - "añade login / el webhook de stripe / se duplican pedidos / va lento" → recetas backend por síntoma.
 - "no me gusta X / nunca me pongas Y" → queda vetado en gustos.md.
+- "¿por qué hicimos…? / ¿cuándo cambiamos…? / ¿en qué quedamos con…?" → busca en el devlog y cita la entrada.
 - "no funciona / da error 500 / los tests están en rojo" → depurar.
 - "¿cuántas horas es esto? / prepárame el presupuesto" → estimación.
 - "prepara la entrega al cliente / el manual de uso" → paquete de entrega.

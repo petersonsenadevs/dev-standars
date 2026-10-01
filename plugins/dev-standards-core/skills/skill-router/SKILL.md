@@ -75,7 +75,7 @@ description: "ÚSAME PRIMERO en cualquier tarea no trivial: árbol de decisión 
 | Maquetar o arreglar emails HTML (transaccionales y newsletters): react-email/MJML/plantillas del framework, compatibilidad Gmail/Outlook, dark mode, texto plano y pruebas antes de enviar | `email-html` | Marketing y SEO |
 | Posicionar y medir la web: SEO on-page y local, keywords, Search Console, GA4, Google Tag Manager (contenedor, dataLayer, Consent Mode) y MCPs de analítica para operar con agentes | `marketing-seo` | Marketing y SEO |
 | Desplegar y operar en producción cualquier stack: Netlify/Vercel/Forge/VPS, Docker, CI/CD con GitHub Actions, secretos por entorno, colas y cron en prod, backups con restore probado, monitorización e incidentes | `deploy-ops` | Operaciones y despliegue |
-| Terminar un paso relevante o commitear (siempre) | `devlog` | Documentación |
+| Terminar un paso relevante o commitear (siempre); preguntas sobre el pasado del proyecto (memoria y buscador) | `devlog` | Documentación |
 <!-- END GENERATED -->
 ## 3. Reglas que aplican sin leer nada más
 Contraste 4.5:1 y estados completos en UI · `prefers-reduced-motion` · tipado estricto · validar en el borde · tests del

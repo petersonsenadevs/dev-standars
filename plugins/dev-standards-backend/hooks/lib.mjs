@@ -170,6 +170,89 @@ export function devlogNextNumber(root) {   // mayor NNN global + 1 (numeración 
     return max + 1;
 }
 
+// ---------------------------------------------------------------- memoria del proyecto (devlog/MEMORIA.md)
+// Decisiones vigentes, reglas, lo que no funcionó y pendientes. session-start y pre-compact la inyectan;
+// stop-guard exige actualizarla cuando el devlog de hoy trae decisiones.
+export function memoriaProyecto(root) {
+    const f = path.join(root, 'devlog', 'MEMORIA.md');
+    const txt = readText(f);
+    if (txt == null) return { existe: false, items: 0, lineas: [], mtime: 0, ruta: f };
+    const lineas = txt.replace(/\r/g, '').replace(/<!--[\s\S]*?-->/g, '').split('\n').filter(l => l.trim());
+    const items = lineas.filter(l => /^\s*[-*]\s+\S/.test(l) && !/^\s*[-*]\s+(…|\.\.\.|—|-)\s*$/.test(l)).length;
+    let mtime = 0; try { mtime = fs.statSync(f).mtimeMs; } catch {}
+    return { existe: true, items, lineas, mtime, ruta: f };
+}
+
+export function devlogEntradas(root) {   // [{ num, fecha, archivo }] de todo el devlog, ordenadas por número
+    const base = path.join(root, 'devlog');
+    const out = [];
+    for (const d of dirNames(base)) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) continue;
+        for (const f of fileNames(path.join(base, d))) {
+            const m = /^(\d{3,})-.*\.md$/.exec(f);
+            if (m) out.push({ num: m[1], fecha: d, archivo: path.join(base, d, f) });
+        }
+    }
+    return out.sort((a, b) => parseInt(a.num, 10) - parseInt(b.num, 10));
+}
+
+export function seccionMd(txt, patron) {   // cuerpo de la primera sección "## <patron>" de un markdown
+    const t = String(txt || '').replace(/\r/g, '');
+    const m = new RegExp('^##\\s+' + patron + '[^\\n]*\\n([\\s\\S]*?)(?=^##\\s|(?![\\s\\S]))', 'im').exec(t);
+    return m ? m[1].trim() : '';
+}
+
+export function tieneContenido(seccion) {   // ¿hay algo más que "…", "—" o "ninguna"?
+    return String(seccion || '').split('\n').some(l => {
+        const s = l.replace(/^\s*[-*]\s*/, '').trim();
+        return s && !/^(…|\.\.\.|—|-|ninguna\.?|n\/a)$/i.test(s);
+    });
+}
+
+export function rutaBuscador(root) {   // ruta del buscador del devlog, la instalada en el proyecto o la del plugin
+    const rel = ['.claude/skills', '.agents/skills'].map(d => `${d}/devlog/scripts/buscar.mjs`).find(r => fs.existsSync(path.join(root, r)));
+    if (rel) return rel;
+    if (process.env.CLAUDE_PLUGIN_ROOT) {
+        const p = path.join(process.env.CLAUDE_PLUGIN_ROOT, 'skills', 'devlog', 'scripts', 'buscar.mjs');
+        if (fs.existsSync(p)) return p.replace(/\\/g, '/');
+    }
+    return '<skills-dir>/devlog/scripts/buscar.mjs';
+}
+
+// Líneas de contexto con la memoria del proyecto (session-start y pre-compact)
+export function bloqueMemoria(root, maxLineas = 70) {
+    const L = [];
+    const mem = memoriaProyecto(root);
+    const entradas = devlogEntradas(root);
+    const buscador = rutaBuscador(root);
+    if (mem.items) {
+        L.push('- MEMORIA del proyecto (devlog/MEMORIA.md): decisiones VIGENTES, reglas y lo que no funcionó. No contradigas una decisión sin citarla (D-xxx) y preguntar; si cambia, márcala como sustituida y anota la nueva:');
+        const cuerpo = mem.lineas.filter(l => !/^#\s/.test(l));
+        let chars = 0;
+        for (const l of cuerpo.slice(0, maxLineas)) { if ((chars += l.length) > 6000) break; L.push('    ' + l.trim()); }
+        if (cuerpo.length > maxLineas) L.push(`    (… ${cuerpo.length - maxLineas} líneas más en devlog/MEMORIA.md)`);
+    } else if (entradas.length >= 3) {
+        L.push(`- No hay devlog/MEMORIA.md (o está vacía) y el proyecto ya tiene ${entradas.length} entradas de devlog: créala AHORA con la skill devlog (references/memoria.md, "Crear la memoria desde un devlog existente") antes de seguir con la tarea.`);
+    } else {
+        L.push('- Las decisiones vigentes del proyecto van a devlog/MEMORIA.md (skill devlog): créala con la primera decisión.');
+    }
+    if (entradas.length) {
+        L.push(`- Para lo que NO esté en la memoria, busca en el devlog antes de decidir o preguntar: node ${buscador} "palabras clave" (raíces, erratas y sinónimos; --desde, --tipo). Cita la entrada (NNN) al responder; si no aparece nada, dilo: no lo supongas.`);
+    }
+    return L;
+}
+
+export function proximosPasos(root) {   // "NNN título: próximos pasos" de la última entrada del devlog
+    const e = devlogEntradas(root).pop();
+    if (!e) return '';
+    const t = readText(e.archivo) || '';
+    const titulo = ((/^#\s+(.+)/m.exec(t) || [])[1] || e.num).trim();
+    const pasos = seccionMd(t, 'Pr[oó]ximos pasos');
+    if (!tieneContenido(pasos)) return '';
+    const plano = pasos.split('\n').map(l => l.replace(/^\s*[-*]\s*/, '').trim()).filter(Boolean).join(' · ');
+    return `${titulo} → ${plano.length > 400 ? plano.slice(0, 397) + '…' : plano}`;
+}
+
 export function devlogIndexed(root, name) {   // ¿aparece el NNN de la entrada en devlog/INDEX.md?
     const idx = path.join(root, 'devlog', 'INDEX.md');
     const m = /^(\d{3})-/.exec(name);

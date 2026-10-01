@@ -49,7 +49,7 @@ Total: **44 skills**. Fuente única: `core/skills-registry.json` (grupo, cuándo
 
 | Skill | Prio | Cuándo usarla | Señales que la activan (muestra) |
 |---|---|---|---|
-| `devlog` | 5 | Terminar un paso relevante o commitear (siempre) | commit, commitea, cierra la tarea, documenta, devlog |
+| `devlog` | 8 | Terminar un paso relevante o commitear (siempre); preguntas sobre el pasado del proyecto (memoria y buscador) | commit, commitea, cierra la tarea, documenta, devlog, memoria del proyecto, historial del proyecto, por que lo hicimos… |
 
 ### Front y diseño (grupo `front`, 7 skills)
 

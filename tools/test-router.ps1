@@ -117,6 +117,14 @@ $cases = @(
     @{ n = 'auditoria seo no back'; prompt = 'haz una auditoría seo de la web';                            skills = @('backend-audit','marketing-seo','skill-router'); expect = 'marketing-seo'; forbid = 'backend-audit' }
     @{ n = 'depurar fallo';         prompt = 'la función de calcular envío no funciona y da un error 500';  skills = @('depurar','code-quality','skill-router'); expect = 'depurar'; expectFirst = 'depurar' }
     @{ n = 'tests en rojo';         prompt = 'los tests están fallando desde el último cambio';            skills = @('depurar','code-quality','skill-router'); expect = 'depurar' }
+    # Memoria: preguntas sobre el pasado -> devlog primero, aunque nombren tecnología (stripe, webhook)
+    @{ n = 'por que hicimos';       prompt = '¿por qué hicimos el webhook de stripe así?';                 expect = 'devlog'; expectFirst = 'devlog' }
+    @{ n = 'cuando cambiamos';      prompt = 'cuándo cambiamos de elements a checkout';                    expect = 'devlog'; expectFirst = 'devlog' }
+    @{ n = 'en que quedamos';       prompt = 'en qué quedamos con el cliente sobre los textos legales';    expect = 'devlog' }
+    @{ n = 'que habiamos decidido'; prompt = 'que habiamos decidido con las colas de correo';              expect = 'devlog'; expectFirst = 'devlog' }
+    # ...y lo que NO es pasado no debe ir al devlog
+    @{ n = 'por que falla';         prompt = 'por qué falla el login con google';                          skills = @('depurar','code-quality','devlog','skill-router'); forbid = 'devlog' }
+    @{ n = 'memoria ram';           prompt = 'el servidor se queda sin memoria al procesar las colas';     forbid = 'devlog' }
     @{ n = 'estimar presupuesto';   prompt = 'hazme el presupuesto de la web del restaurante';            skills = @('project-planner','code-quality','skill-router'); expect = 'project-planner' }
     @{ n = 'entregar cliente';      prompt = 'prepara la entrega al cliente con el manual de uso';         skills = @('deploy-ops','ui-verify','skill-router'); expect = 'deploy-ops' }
     @{ n = 'mapa proyecto';         prompt = 'explícame este proyecto, dónde está el código de pagos';     skills = @('code-quality','skill-router'); expect = 'code-quality' }

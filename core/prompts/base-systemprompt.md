@@ -46,6 +46,14 @@ que tienen prioridad sobre cualquier atajo.
 - No commitear en `main`/`master`/`develop`: crea rama primero.
 - Conventional Commits. Sin líneas de co-autor.
 
+## Memoria del proyecto
+- `devlog/MEMORIA.md` guarda las decisiones vigentes, las reglas del cliente, lo que no funcionó y lo
+  pendiente. Léela al empezar (en Claude Code llega sola). No contradigas una decisión sin citarla (D-xxx)
+  y preguntar; si cambia, márcala como sustituida y anota la nueva.
+- Para lo que no esté en la memoria, busca en el devlog antes de decidir o preguntar:
+  `node <skills-dir>/devlog/scripts/buscar.mjs "palabras"`. Cita la entrada (NNN) al responder; si no
+  aparece nada, di que no hay registro. Detalle en la skill `devlog` (references/memoria.md).
+
 ## Dónde se guarda lo que generas
 Todo lo que el usuario vaya a mirar se guarda DENTRO del proyecto, nunca en el scratchpad ni en carpetas
 temporales del sistema (aunque la herramienta lo sugiera): capturas en `.ui-verify/`, maquetas en
