@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-10-01
 
+- **fix** — verify-build encuentra Pint en Windows (./vendor/bin) y el instalador fusiona .mcp.json en vez de vaciarlo · v1.3.2 (entrada 062)
 - **fix** — Capturas, maquetas e informes en el proyecto (no en temp) + .ui-verify ignorado por git · v1.3.1 (entrada 061)
 
 ## 2026-09-30

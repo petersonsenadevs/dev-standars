@@ -525,7 +525,14 @@ async function renderClaude(stack, projectPath, extra, bundles) {
         newHooksJson(useFrontHook, '$CLAUDE_PROJECT_DIR/.claude/hooks/', 30, hooksPermitidos(stack.selection)));
 
     const mcp = readJson(path.join(stack.dir, stack.meta.mcp));
-    if (mcp) writeUtf8(path.join(projectPath, '.mcp.json'), JSON.stringify({ mcpServers: mcp.mcpServers || {} }, null, 2));
+    if (mcp) {
+        // Fusiona con el .mcp.json del proyecto: conserva sus servidores (p. ej. laravel-boost) y añade o
+        // actualiza los del stack. Nunca deja vacío lo que el proyecto ya tenía.
+        const mcpDst = path.join(projectPath, '.mcp.json');
+        const previo = readJson(mcpDst) || {};
+        const servidores = Object.assign({}, previo.mcpServers || {}, mcp.mcpServers || {});
+        writeUtf8(mcpDst, JSON.stringify(Object.assign({}, previo, { mcpServers: servidores }), null, 2));
+    }
 
     log(`  [claude]     ${path.basename(guide.target)} + .claude/{skills,hooks,settings.json} + .mcp.json  (skills: ${installed.join(', ')})`);
 }

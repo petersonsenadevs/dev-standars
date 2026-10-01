@@ -158,9 +158,19 @@ function Render-Claude {
     # 5) .mcp.json (servidores MCP del stack)
     $mcpPath = Join-Path $Stack.Dir $Stack.Meta.mcp
     if (Test-Path $mcpPath) {
+        # Fusiona con el .mcp.json del proyecto: conserva sus servidores (p. ej. laravel-boost) y añade o
+        # actualiza los del stack. Nunca deja vacío lo que el proyecto ya tenía. Mismo resultado que init.mjs.
         $mcp = Get-Content $mcpPath -Raw | ConvertFrom-Json
-        $servers = if ($mcp.mcpServers) { $mcp.mcpServers } else { [pscustomobject]@{} }
-        Write-Utf8 (Join-Path $ProjectPath '.mcp.json') (([ordered]@{ mcpServers = $servers }) | ConvertTo-Json -Depth 10)
+        $mcpDst = Join-Path $ProjectPath '.mcp.json'
+        $previo = $null
+        if (Test-Path $mcpDst) { try { $previo = (Read-Utf8 $mcpDst) | ConvertFrom-Json } catch { $previo = $null } }
+        $salida = [ordered]@{}
+        if ($previo) { foreach ($p in $previo.PSObject.Properties) { $salida[$p.Name] = $p.Value } }
+        $servers = [ordered]@{}
+        if ($previo -and $previo.mcpServers) { foreach ($p in $previo.mcpServers.PSObject.Properties) { $servers[$p.Name] = $p.Value } }
+        if ($mcp.mcpServers) { foreach ($p in $mcp.mcpServers.PSObject.Properties) { $servers[$p.Name] = $p.Value } }
+        $salida['mcpServers'] = if ($servers.Count) { [pscustomobject]$servers } else { [pscustomobject]@{} }
+        Write-Utf8 $mcpDst ([pscustomobject]$salida | ConvertTo-Json -Depth 10)
     }
 
     Write-Host "  [claude]     CLAUDE.md + .claude/{skills,hooks,settings.json} + .mcp.json  (skills: $($installed -join ', '))"

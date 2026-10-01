@@ -16,11 +16,26 @@ import { execSync } from 'node:child_process';
 const root = process.cwd();
 const cmds = new Map();
 
+// Los comandos del stack vienen en formato POSIX ("./vendor/bin/pint --test"). En Windows cmd.exe no entiende
+// "./" y responde "no se reconoce...", que antes se tomaba por "no configurado". Se resuelve el binario
+// local a su ruta real (pint.bat, eslint.cmd...) y, si no existe, el comando queda tal cual.
+function resolverComando(c) {
+    const m = /^(?:\.\/)?((?:vendor\/bin|node_modules\/\.bin)\/[\w.-]+)(.*)$/.exec(c.trim());
+    if (!m) return c;
+    const base = path.join(root, ...m[1].split('/'));
+    const candidatos = process.platform === 'win32' ? [base + '.bat', base + '.cmd', base] : [base];
+    const real = candidatos.find(f => fs.existsSync(f));
+    if (!real) return c;
+    // En Windows un vendor/bin sin .bat es un script PHP: hay que pasarlo por php
+    const prefijo = process.platform === 'win32' && real === base && m[1].startsWith('vendor/') ? 'php ' : '';
+    return `${prefijo}"${real}"${m[2]}`;
+}
+
 function readJson(f) { try { let s = fs.readFileSync(f, 'utf8'); if (s.charCodeAt(0) === 0xFEFF) s = s.slice(1); return JSON.parse(s); } catch { return null; } }
 
 const cfg = readJson(path.join(root, '.claude', 'hooks', 'config.json'));
 if (cfg && cfg.commands) {
-    for (const k of ['lint', 'types', 'test', 'build']) if (cfg.commands[k]) cmds.set(k, String(cfg.commands[k]));
+    for (const k of ['lint', 'types', 'test', 'build']) if (cfg.commands[k]) cmds.set(k, resolverComando(String(cfg.commands[k])));
 }
 if (!cmds.size) {
     const pkg = readJson(path.join(root, 'package.json'));
@@ -64,7 +79,8 @@ for (const [k, c] of cmds) {
         out = (e.stdout || '') + (e.stderr || '');
     }
     if (code !== 0 && /Missing script|no test specified|command not found|no se reconoce/i.test(out)) {
-        results.push(`SKIP  ${k}  (no configurado en este proyecto)`);
+        const motivo = out.split(/\r?\n/).find(l => l.trim()) || '';
+        results.push(`SKIP  ${k}  (no configurado en este proyecto: ${motivo.trim().slice(0, 120)})`);
         continue;
     }
     if (code !== 0) {

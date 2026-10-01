@@ -83,6 +83,8 @@ foreach ($p in $a, $b) {
     $m | Add-Member -NotePropertyName seleccion -NotePropertyValue $sel -Force
     $m | Add-Member -NotePropertyName ahorro -NotePropertyValue $true -Force
     Write-Utf8 (Join-Path $p '.dev-standards.json') ($m | ConvertTo-Json -Depth 6)
+    # Un MCP propio del proyecto (como laravel-boost) debe sobrevivir a la reinstalacion
+    Write-Utf8 (Join-Path $p '.mcp.json') '{ "mcpServers": { "laravel-boost": { "command": "php", "args": ["artisan", "boost:mcp"] } } }'
 }
 $env:DEV_STANDARDS_ASSUME_YES = '1'
 & (Join-Path $PSScriptRoot 'sync.ps1') -Path $a *>$null
@@ -96,6 +98,10 @@ if (Test-Path (Join-Path $b '.claude\skills\ui-ux-pro-max')) { Fail '[seleccion]
 if (-not (Test-Path (Join-Path $b '.claude\skills\gsap-scrolltrigger'))) { Fail '[seleccion] falta gsap-scrolltrigger (grupo motion)' }
 $hk = Read-Utf8 (Join-Path $b '.claude\settings.json')
 if ($hk -match 'code-hygiene' -or $hk -notmatch 'guard\.mjs' -or $hk -notmatch 'edit-tracker') { Fail '[seleccion] hooks registrados no coinciden con guard + stop-guard (+ edit-tracker y session-end)' }
+foreach ($p in $a, $b) {
+    $mj = (Read-Utf8 (Join-Path $p '.mcp.json')) | ConvertFrom-Json
+    if (-not $mj.mcpServers.'laravel-boost') { Fail "[mcp] la reinstalacion borro el servidor MCP propio del proyecto ($p)" }
+}
 # Modo ahorro: CLAUDE.md compacto (sin lista de skills, con la sección de estilo); AGENTS.md completo (Codex no tiene hooks)
 $cm = Read-Utf8 (Join-Path $b 'CLAUDE.md'); $ag = Read-Utf8 (Join-Path $b 'AGENTS.md')
 if ($cm -notmatch '# Modo ahorro' -or $cm -match '# Skills disponibles') { Fail '[ahorro] CLAUDE.md no esta en modo compacto' }
