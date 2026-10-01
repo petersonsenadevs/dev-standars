@@ -14,9 +14,10 @@ import path from 'node:path';
 
 // ---------------------------------------------------------------- argumentos
 const argv = process.argv.slice(2);
-const opts = { max: 5, desde: null, hasta: null, tipo: null, devlog: null, json: false };
+const opts = { max: 5, desde: null, hasta: null, tipo: null, devlog: null, json: false, soloDevlog: false };
 const libres = [];
 let nEntradas = 0;
+let fuentes = [];
 for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const sig = () => argv[++i];
@@ -26,18 +27,16 @@ for (let i = 0; i < argv.length; i++) {
     else if (a === '--tipo') opts.tipo = sig();
     else if (a === '--devlog') opts.devlog = sig();
     else if (a === '--json') opts.json = true;
+    else if (a === '--solo-devlog') opts.soloDevlog = true;
     else if (a === '--help' || a === '-h') { ayuda(); process.exit(0); }
     else libres.push(a);
 }
 function ayuda() {
-    console.log('Uso: node buscar.mjs "<palabras>" [--max 5] [--desde AAAA-MM[-DD]] [--hasta AAAA-MM[-DD]] [--tipo fix|feature|decisión|memoria] [--devlog <carpeta>] [--json]');
+    console.log('Uso: node buscar.mjs "<palabras>" [--max 5] [--desde AAAA-MM[-DD]] [--hasta AAAA-MM[-DD]] [--tipo fix|feature|decisión|memoria] [--devlog <carpeta>] [--solo-devlog] [--json]');
 }
 const consulta = libres.join(' ').trim();
 if (!consulta) { ayuda(); process.exit(2); }
 const devlogDir = path.resolve(opts.devlog || path.join(process.cwd(), 'devlog'));
-if (!fs.existsSync(devlogDir)) {
-    salir([], `No hay carpeta devlog en ${devlogDir}: no hay historial que buscar.`, 2);
-}
 
 // ---------------------------------------------------------------- normalización
 const quitarAcentos = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -131,20 +130,22 @@ function trocearMemoria(archivo, clase) {
             archivo: path.relative(process.cwd(), archivo), sustituida: /sustitui|reemplazad|obsolet|ya no aplica/i.test(texto) });
     }
 }
-function trocearEntrada(archivo, fecha) {
+function trocearEntrada(archivo, fecha, esAdr = false) {
     const t = leer(archivo); if (t == null) return;
-    const num = (/^(\d{3,})-/.exec(path.basename(archivo)) || [])[1];
+    const num = (/^(\d{3,})[-_]/.exec(path.basename(archivo)) || [])[1];
     const tit = (/^#\s+(.+)/m.exec(t) || [])[1] || path.basename(archivo, '.md');
-    const titulo = tit.replace(/^\d{3,}\s*[—–-]\s*/, '').trim();
-    const tipo = normalizar((/\*\*Tipo:\*\*\s*([^\n·|]+)/i.exec(t) || [])[1] || '').trim().split(/\s+/)[0] || '';
-    const fechaMeta = (/\*\*Fecha(?:\/hora)?:\*\*\s*(\d{4}-\d{2}-\d{2})/i.exec(t) || [])[1] || fecha;
+    const titulo = tit.replace(/^(adr[-\s]*)?\d{3,}\s*[—–\-:.]\s*/i, '').trim();
+    const tipo = esAdr ? 'decision' : (normalizar((/\*\*Tipo:\*\*\s*([^\n·|]+)/i.exec(t) || [])[1] || '').trim().split(/\s+/)[0] || '');
+    // Fecha: campo **Fecha:**, la carpeta del día o la primera fecha de las primeras líneas (devlogs propios y ADRs)
+    const fechaMeta = (/\*\*Fecha(?:\/hora)?:\*\*\s*(\d{4}-\d{2}-\d{2})/i.exec(t) || [])[1] || fecha
+        || (/\b(\d{4}-\d{2}-\d{2})\b/.exec(t.split('\n').slice(0, 8).join('\n')) || [])[1] || null;
     const partes = t.split(/^(?=##\s)/m);
     for (const p of partes) {
         const h = /^##\s+(.*)/.exec(p);
         const seccion = h ? h[1].trim() : '';
         const cuerpo = (h ? p.slice(h[0].length) : p.replace(/^#\s+.*\n?/, '')).trim();
         if (!cuerpo && !h) continue;
-        docs.push({ clase: /decisi/i.test(seccion) ? 'decision' : 'entrada', deEntrada: true, seccion, texto: cuerpo, titulo,
+        docs.push({ clase: esAdr || /decisi/i.test(seccion) ? 'decision' : 'entrada', deEntrada: true, seccion, texto: cuerpo, titulo,
             num, fecha: fechaMeta, tipo, archivo: path.relative(process.cwd(), archivo), sustituida: false });
     }
 }
@@ -168,14 +169,33 @@ function trocearDecisiones(archivo, fecha) {
 
 trocearMemoria(path.join(devlogDir, 'MEMORIA.md'), 'memoria');
 trocearMemoria(path.join(devlogDir, 'MEMORIA-historico.md'), 'historico');
-for (const d of safeDir(devlogDir)) {
-    const ruta = path.join(devlogDir, d);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || !esDir(ruta)) continue;
-    for (const f of safeDir(ruta)) {
-        if (/^\d{3,}-.*\.md$/i.test(f)) { trocearEntrada(path.join(ruta, f), d); nEntradas++; }
-        else if (/^decisiones\.md$/i.test(f)) trocearDecisiones(path.join(ruta, f), d);
+// Entradas: en carpetas por día (devlog/2026-10-01/063-x.md) o sueltas (docs/devlog/0137-x.md), hasta 3 niveles
+function recorrer(dir, prof, fechaCarpeta, esAdr) {
+    for (const n of safeDir(dir)) {
+        const ruta = path.join(dir, n);
+        if (esDir(ruta)) {
+            if (prof < 3 && !/^(node_modules|\.git|vendor|dist|build)$/i.test(n)) recorrer(ruta, prof + 1, /^\d{4}-\d{2}-\d{2}$/.test(n) ? n : fechaCarpeta, esAdr);
+            continue;
+        }
+        if (/^\d{3,}[-_].*\.md$/i.test(n)) { trocearEntrada(ruta, fechaCarpeta, esAdr); nEntradas++; }
+        else if (/^decisiones\.md$/i.test(n)) trocearDecisiones(ruta, fechaCarpeta);
     }
 }
+recorrer(devlogDir, 0, null, false);
+// Además, el diario y las decisiones PROPIOS del proyecto si los tiene (p. ej. un docs/devlog histórico o ADRs):
+// sin esto, un proyecto con dos devlogs solo encontraría la mitad de su historia. --solo-devlog lo desactiva.
+if (fs.existsSync(devlogDir)) fuentes.push(path.relative(process.cwd(), devlogDir) || 'devlog');
+if (!opts.soloDevlog) {
+    for (const [rel, esAdr] of [['docs/devlog', false], ['docs/adr', true], ['docs/adrs', true], ['docs/decisions', true],
+        ['docs/architecture/decisions', true], ['doc/adr', true], ['adr', true]]) {
+        const d = path.resolve(process.cwd(), rel);
+        if (d === devlogDir || !esDir(d)) continue;
+        const antes = nEntradas;
+        recorrer(d, 0, null, esAdr);
+        if (nEntradas > antes) fuentes.push(rel);
+    }
+}
+if (!fuentes.length) salir([], `No hay carpeta devlog en ${devlogDir} (ni docs/devlog ni ADRs): no hay historial que buscar.`, 2);
 function safeDir(d) { try { return fs.readdirSync(d); } catch { return []; } }
 function esDir(d) { try { return fs.statSync(d).isDirectory(); } catch { return false; } }
 
@@ -305,9 +325,9 @@ const vacio = !resultados.length
 salir(resultados, vacio, 0);
 
 function salir(res, aviso, code) {
-    if (opts.json) { console.log(JSON.stringify({ consulta, entradas: nEntradas, aviso, resultados: res }, null, 1)); process.exit(code); }
+    if (opts.json) { console.log(JSON.stringify({ consulta, entradas: nEntradas, fuentes, aviso, resultados: res }, null, 1)); process.exit(code); }
     if (aviso) { console.log(aviso); process.exit(code); }
-    console.log(`${res.length} resultado(s) para "${consulta}" (${nEntradas} entradas):\n`);
+    console.log(`${res.length} resultado(s) para "${consulta}" (${nEntradas} entradas en ${fuentes.join(' + ')}):\n`);
     res.forEach((r, i) => {
         const etiqueta = r.clase === 'memoria' ? 'MEMORIA' : r.clase === 'historico' ? 'MEMORIA (histórico)' : r.clase === 'decision' ? 'decisión' : (r.tipo || 'entrada');
         const cab = [r.num, r.fecha, r.titulo].filter(Boolean).join(' · ');

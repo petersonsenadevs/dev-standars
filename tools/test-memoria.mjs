@@ -144,6 +144,26 @@ primero('barato', r => r.clase === 'memoria', 'regla del cliente desde MEMORIA')
     ok(r.code === 0 && r.j && r.j.resultados.length, 'sinonimos.json roto no rompe la búsqueda');
     fs.rmSync(path.join(dl, 'sinonimos.json'));
 }
+{   // devlog propio del proyecto (archivos sueltos con 4 cifras, sin carpeta por día) y ADRs: como en un monorepo
+    const docsDl = path.join(proj, 'docs', 'devlog'); fs.mkdirSync(docsDl, { recursive: true });
+    fs.writeFileSync(path.join(docsDl, '0137-tiers-editables.md'), '# 0137 — Tiers aplicados: límites editables en runtime\n\n2026-06-22 · done\n\n## Qué\n- Límites por tier en la tabla plan_limits, editables sin redeploy.\n');
+    const adr = path.join(proj, 'docs', 'adr'); fs.mkdirSync(adr, { recursive: true });
+    fs.writeFileSync(path.join(adr, '0003-proxy-de-captura.md'), '# ADR 0003: Sandbox con salida a internet vía proxy de captura\n\nFecha: 2026-09-22\n\n## Decisión\nEl sandbox sale a internet por un proxy que lo registra todo.\n');
+    const r = run(['plan_limits tier editables']);
+    ok(r.j && r.j.resultados[0] && r.j.resultados[0].num === '0137' && r.j.resultados[0].fecha === '2026-06-22', 'encuentra el devlog propio (docs/devlog, 4 cifras, fecha en el texto)', JSON.stringify(r.j && r.j.resultados[0]));
+    ok(r.j && r.j.fuentes.includes('docs/devlog') && r.j.fuentes.includes('docs/adr'), 'informa de todas las fuentes leídas', r.j && r.j.fuentes.join(','));
+    const r2 = run(['proxy captura sandbox']);
+    ok(r2.j && r2.j.resultados[0] && r2.j.resultados[0].clase === 'decision' && /proxy de captura/i.test(r2.j.resultados[0].titulo) && !/ADR 0003/.test(r2.j.resultados[0].titulo), 'los ADR cuentan como decisión y el título sale limpio', JSON.stringify(r2.j && r2.j.resultados[0]));
+    const r3 = run(['plan_limits tier editables', '--solo-devlog']);
+    ok(r3.j && !r3.j.resultados.some(x => x.num === '0137'), '--solo-devlog no mira docs/devlog');
+    // proyecto sin devlog/ pero con docs/devlog: busca igual
+    const p5 = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-solo-docs-'));
+    fs.cpSync(path.join(proj, 'docs'), path.join(p5, 'docs'), { recursive: true });
+    const r4 = run(['tiers editables'], p5);
+    ok(r4.code === 0 && r4.j && r4.j.resultados[0] && r4.j.resultados[0].num === '0137', 'sin devlog/ pero con docs/devlog: busca en lo que hay', r4.out.slice(0, 160));
+    fs.rmSync(p5, { recursive: true, force: true });
+    fs.rmSync(path.join(proj, 'docs'), { recursive: true, force: true });
+}
 {   // salida de texto (la que lee el agente): compacta y con ruta
     const r = spawnSync(process.execPath, [BUSCAR, 'webhook stripe'], { cwd: proj, encoding: 'utf8' });
     ok(/devlog\/2026-08-20\/005-/.test(r.stdout) && r.stdout.length < 1600, 'salida de texto compacta con la ruta de la entrada', `${r.stdout.length} caracteres`);

@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-10-01
 
+- **fix** — El buscador lee también docs/devlog y los ADR del proyecto (un monorepo: de 14 a 200 entradas) · v1.6.1 (entrada 067)
 - **feature** — Rondas de maquetas con piezas votables, /ronda y verificador (fijado, vetado, algo nuevo) · v1.6.0 (entrada 066)
 - **feature** — Permisos por proyecto (subir, subir a main, commit en main) y hooks apagados, solo por el usuario · v1.6.0 (entrada 065)
 - **fix** — Muros reales en Codex (traducción de apply_patch, Stop en JSON) y formateo que no impone estilo · v1.5.0 (entrada 064)

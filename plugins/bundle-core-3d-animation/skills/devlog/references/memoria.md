@@ -67,6 +67,9 @@ node <skills-dir>/devlog/scripts/buscar.mjs "cola correos" --desde 2026-09 --max
 node <skills-dir>/devlog/scripts/buscar.mjs "login" --tipo decision
 ```
 - Sin dependencias, en Claude y en Codex. `<skills-dir>` es `.claude/skills` o `.agents/skills`.
+- Lee `devlog/` y, si existen, el diario y las decisiones propios del proyecto: `docs/devlog`, `docs/adr`,
+  `docs/decisions`… (entradas sueltas `0137-x.md` o en carpetas por día; los ADR cuentan como decisión).
+  La cabecera dice qué fuentes leyó. `--solo-devlog` mira solo `devlog/`.
 - Tolera acentos y mayúsculas, plurales y conjugaciones («pagar» → pagos), erratas de una letra
   («stirpe»), palabras cortadas («migr») y sinónimos técnicos (login = auth = Sanctum…).
 - Sinónimos propios del proyecto en `devlog/sinonimos.json`: `[["datafono", "tpv", "cobro"]]`. Si un
