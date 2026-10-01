@@ -102,7 +102,7 @@ foreach ($p in $a, $b) {
     $mj = (Read-Utf8 (Join-Path $p '.mcp.json')) | ConvertFrom-Json
     if (-not $mj.mcpServers.'laravel-boost') { Fail "[mcp] la reinstalacion borro el servidor MCP propio del proyecto ($p)" }
 }
-# Modo ahorro: CLAUDE.md compacto (sin lista de skills, con la sección de estilo); AGENTS.md completo (Codex no tiene hooks)
+# Modo ahorro: CLAUDE.md compacto (sin lista de skills, con la sección de estilo); AGENTS.md completo (el ahorro solo afecta a CLAUDE.md)
 $cm = Read-Utf8 (Join-Path $b 'CLAUDE.md'); $ag = Read-Utf8 (Join-Path $b 'AGENTS.md')
 if ($cm -notmatch '# Modo ahorro' -or $cm -match '# Skills disponibles') { Fail '[ahorro] CLAUDE.md no esta en modo compacto' }
 if ($ag -notmatch '# Skills disponibles' -or $ag -match '# Modo ahorro') { Fail '[ahorro] AGENTS.md deberia seguir completo' }

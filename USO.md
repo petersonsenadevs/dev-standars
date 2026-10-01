@@ -128,7 +128,7 @@ descarga los plugins `dev-standards-*`):
 |---|---|
 | Skills | **Sí**, todas las del plugin. Se descubren solas por su descripción o con `$nombre-de-skill`. |
 | Comandos | **Sí, desde la versión 1.1.0.** Codex no tiene comandos slash propios: convierte cada comando de Claude en una skill llamada `source-command-<nombre>` (por ejemplo `source-command-brief`). Se usan pidiéndolo en llano ("haz el brief", "ejecuta el comando plan") o mencionando esa skill. |
-| Hooks (muros) | **No garantizados.** Codex lee nuestro `hooks.json`, pero sus herramientas no se llaman como las de Claude (Bash, Edit…), así que los bloqueos pueden no saltar. En Codex la protección viene de las reglas de `AGENTS.md` y de los hooks de git (`sync.ps1 -GitHooks`). |
+| Hooks (muros) | **Sí, desde la 1.5.0, con el plugin.** Codex ejecuta el `hooks.json` del plugin. Sus ediciones llegan como parches (`apply_patch`) y los hooks los traducen, así que los muros de archivos, secretos, higiene, convenciones y backend funcionan igual que en Claude, también con parches de varios archivos. Tras actualizar el plugin, Codex pide **volver a aprobar los hooks** (guarda una huella de cada uno): apruébalos o no se ejecutarán. Con la instalación por proyecto sin plugin (solo `AGENTS.md` y `.agents/skills`) Codex no recibe hooks. |
 
 **Por qué antes solo aparecía `/verificar`**: Codex solo convierte los comandos que **no usan
 argumentos**. Hasta la 1.0.x, 14 de los 15 comandos llevaban `$ARGUMENTS` o `argument-hint` y Codex los
@@ -145,7 +145,7 @@ el plugin desde la app.
 comandos ni hooks. Desde la 1.1.0 instala por defecto también `backend-audit`, `deploy-ops`,
 `marketing-seo`, `email-html` y `devlog`, que antes faltaban (`DEV_STANDARDS_ALL=1` instala todas).
 
-En ambos casos, para lo que en Claude hacen los hooks, sé un punto más explícito en Codex: "usa la skill
+Con las skills globales (sin plugin) no hay hooks: ahí sé un punto más explícito en Codex: "usa la skill
 image-gen", `$ui-ux-pro-max`, o "verifica el build" (`node .agents/skills/code-quality/scripts/verify-build.mjs`).
 
 ## 7. Mapa de dónde vive cada cosa (por si quieres mirar)

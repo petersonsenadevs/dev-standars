@@ -12,6 +12,9 @@ import {
 } from './lib.mjs';
 
 const p = readHookInput();
+// Recordatorio sin bloquear. Codex exige JSON en la salida del Stop (el texto plano es invalido); Claude
+// muestra systemMessage al usuario. Mismo formato para los dos.
+const recordar = msg => process.stdout.write(JSON.stringify({ systemMessage: msg }) + '\n');
 const root = projectRoot();
 const sid = p && p.session_id ? String(p.session_id) : 'default';
 const plan = planStatus(root);
@@ -105,7 +108,7 @@ if (today.length) {
         process.stdout.write(JSON.stringify({ decision: 'block', reason: '[dev-standards]' + buildMsg + frontMsg + memMsg + planMsg + extra }) + '\n');
         process.exit(0);
     }
-    if (planMsg || extra || frontMsg || buildMsg || memMsg) process.stdout.write('recordatorio:' + buildMsg + frontMsg + memMsg + planMsg + extra + '\n');
+    if (planMsg || extra || frontMsg || buildMsg || memMsg) recordar('recordatorio:' + buildMsg + frontMsg + memMsg + planMsg + extra);
     process.exit(0);
 }
 
@@ -118,5 +121,5 @@ if (dirty > 0 && !alreadyActive && testOnce(sid, 'stop-devlog')) {
     process.stdout.write(JSON.stringify({ decision: 'block', reason }) + '\n');
     process.exit(0);
 }
-process.stdout.write(`recordatorio: aun no hay entrada de devlog para hoy (${date}). Documenta el avance en devlog/${date}/ antes de cerrar.` + buildMsg + frontMsg + planMsg + '\n');
+recordar(`recordatorio: aun no hay entrada de devlog para hoy (${date}). Documenta el avance en devlog/${date}/ antes de cerrar.` + buildMsg + frontMsg + planMsg);
 process.exit(0);

@@ -6,9 +6,98 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import crypto from 'node:crypto';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
+
+// ---------------------------------------------------------------- compatibilidad con Codex
+// Codex usa el mismo formato de hooks que Claude Code, pero sus ediciones llegan como tool_name "apply_patch"
+// con el parche entero en tool_input.command (formato "*** Begin Patch" o diff unificado), no con
+// file_path/content/old_string. Se traduce a la forma de Claude (Write / Edit / MultiEdit por archivo) para
+// que todos los hooks funcionen igual en los dos agentes. Un parche con varios archivos ejecuta el hook una
+// vez por archivo (ver readHookInput).
+export function parsearParche(texto) {
+    const t = String(texto || '').replace(/\r\n?/g, '\n');
+    const archivos = [];
+    let actual = null, hunk = null;
+    const cerrarHunk = () => { if (actual && hunk && (hunk.viejo.length || hunk.nuevo.length)) actual.hunks.push(hunk); hunk = null; };
+    const nuevo = (ruta, tipo) => { cerrarHunk(); actual = { ruta: ruta.trim(), tipo, hunks: [], contenido: [] }; archivos.push(actual); };
+    const lineas = t.split('\n');
+    for (let i = 0; i < lineas.length; i++) {
+        const l = lineas[i];
+        let m;
+        if ((m = /^\*\*\* (Add|Update|Delete) File:\s*(.+)$/.exec(l))) { nuevo(m[2], m[1].toLowerCase()); continue; }
+        if ((m = /^\*\*\* Move to:\s*(.+)$/.exec(l)) && actual) { actual.destino = m[1].trim(); continue; }
+        if (/^\*\*\* (Begin|End) Patch/.test(l) || /^\*\*\* End of File/.test(l)) continue;
+        // Diff unificado: la cabecera son DOS líneas seguidas "--- a/x" + "+++ b/x". Una línea borrada que empiece
+        // por "--" (comentario SQL o Lua) no va seguida de "+++", así que no se confunde con una cabecera.
+        const sig = lineas[i + 1] || '';
+        if (l.startsWith('--- ') && sig.startsWith('+++ ')) {
+            const viejo = l.slice(4).trim().replace(/^a\//, '').replace(/\t.*$/, '');
+            const nuevoR = sig.slice(4).trim().replace(/^b\//, '').replace(/\t.*$/, '');
+            if (nuevoR === '/dev/null') nuevo(viejo, 'delete');
+            else nuevo(nuevoR, viejo === '/dev/null' ? 'add' : 'update');
+            i++;
+            continue;
+        }
+        if (!actual) continue;
+        if (actual.tipo === 'add') { if (l.startsWith('+')) actual.contenido.push(l.slice(1)); continue; }
+        if (l.startsWith('@@')) { cerrarHunk(); hunk = { viejo: [], nuevo: [] }; continue; }
+        if (!hunk) hunk = { viejo: [], nuevo: [] };
+        if (l.startsWith('-')) hunk.viejo.push(l.slice(1));
+        else if (l.startsWith('+')) hunk.nuevo.push(l.slice(1));
+        else if (l.startsWith(' ')) { hunk.viejo.push(l.slice(1)); hunk.nuevo.push(l.slice(1)); }
+    }
+    cerrarHunk();
+    return archivos.filter(a => a.ruta);
+}
+
+export function entradasDesdeParche(p) {   // una entrada estilo Claude por archivo del parche
+    const base = p.cwd || process.env.CLAUDE_PROJECT_DIR || process.cwd();
+    return parsearParche(p.tool_input && (p.tool_input.command || p.tool_input.patch || p.tool_input.input)).map(a => {
+        const ruta = path.resolve(base, a.destino || a.ruta);
+        let tool_name, tool_input;
+        if (a.tipo === 'add') { tool_name = 'Write'; tool_input = { file_path: ruta, content: a.contenido.join('\n') + (a.contenido.length ? '\n' : '') }; }
+        else if (a.tipo === 'delete') { tool_name = 'Edit'; tool_input = { file_path: path.resolve(base, a.ruta), old_string: '', new_string: '' }; }
+        else if (a.hunks.length === 1) { tool_name = 'Edit'; tool_input = { file_path: ruta, old_string: a.hunks[0].viejo.join('\n'), new_string: a.hunks[0].nuevo.join('\n') }; }
+        else { tool_name = 'MultiEdit'; tool_input = { file_path: ruta, edits: a.hunks.map(h => ({ old_string: h.viejo.join('\n'), new_string: h.nuevo.join('\n') })) }; }
+        return { ...p, tool_name, tool_input, codex_tool_name: p.tool_name };
+    });
+}
+
+function ejecutarPorArchivo(entradas) {
+    // Re-ejecuta este mismo hook con cada archivo del parche y combina: el primer bloqueo gana (exit 2 + stderr);
+    // si nadie bloquea, se unen los additionalContext.
+    const contextos = []; let evento = null, otro = '';
+    for (const e of entradas) {
+        const r = spawnSync(process.execPath, [process.argv[1]], { input: JSON.stringify(e), encoding: 'utf8', env: process.env, timeout: 25000 });
+        if (r.status === 2) { process.stderr.write(r.stderr || ''); process.exit(2); }
+        const out = (r.stdout || '').trim();
+        if (!out) continue;
+        try {
+            const j = JSON.parse(out);
+            if (j.hookSpecificOutput && j.hookSpecificOutput.additionalContext) { evento = j.hookSpecificOutput.hookEventName; contextos.push(j.hookSpecificOutput.additionalContext); }
+            else if (!otro) otro = out;
+        } catch { if (!otro) otro = out; }
+    }
+    if (contextos.length) process.stdout.write(JSON.stringify({ hookSpecificOutput: { hookEventName: evento, additionalContext: contextos.join('\n') } }) + '\n');
+    else if (otro) process.stdout.write(otro + '\n');
+    process.exit(0);
+}
 
 export function readHookInput() {
+    const p = leerEntradaCruda();
+    if (!p) return p;
+    // Codex no exporta CLAUDE_PROJECT_DIR: la raíz del proyecto llega como "cwd" en la entrada
+    if (!process.env.CLAUDE_PROJECT_DIR && p.cwd) process.env.CLAUDE_PROJECT_DIR = String(p.cwd);
+    const esParche = p.tool_name === 'apply_patch'
+        || (!/^(Bash|PowerShell)$/.test(String(p.tool_name || '')) && p.tool_input && typeof p.tool_input.command === 'string' && /^\*\*\* Begin Patch/m.test(p.tool_input.command));
+    if (!esParche) return p;
+    const entradas = entradasDesdeParche(p);
+    if (!entradas.length) return null;
+    if (entradas.length === 1) return entradas[0];
+    ejecutarPorArchivo(entradas);   // no vuelve
+}
+
+function leerEntradaCruda() {
     // Lectura de stdin robusta en Windows: readFileSync(0) falla con pipes de algunas shells
     // (EOF/EAGAIN a mitad); se lee por bloques tolerando esos errores.
     const chunks = [];

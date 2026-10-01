@@ -44,6 +44,9 @@ jobs:
       - name: test-memoria (buscador del devlog y hooks de memoria)
         run: node tools/test-memoria.mjs
 
+      - name: test-hooks-codex (parches de Codex y formateo sin imponer estilo)
+        run: node tools/test-hooks-codex.mjs
+
       - name: test-init-parity (instalador PowerShell = instalador Node)
         shell: powershell
         run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-init-parity.ps1

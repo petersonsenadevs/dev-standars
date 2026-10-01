@@ -36,8 +36,8 @@ Sin menú, con los mismos resultados: `--seleccion categorias --grupos front,mot
 **Modo ahorro de tokens** (opcional; el menú lo pregunta al final): `--ahorro`. El CLAUDE.md queda
 compacto (sin la lista de skills, que Claude ya carga por su cuenta, y con el devlog y el flujo de git
 resumidos en una línea, porque los hooks los hacen cumplir) y las respuestas técnicas pasan a estilo
-telegráfico. Ahorra en torno a un 30 % del CLAUDE.md. AGENTS.md (Codex) sigue completo, porque Codex no
-tiene hooks. Se guarda en el marcador; `--sin-ahorro` (o `sync.ps1 -SinAhorro`) lo quita.
+telegráfico. Ahorra en torno a un 30 % del CLAUDE.md. AGENTS.md (Codex) no cambia: el modo ahorro
+solo afecta a CLAUDE.md. Se guarda en el marcador; `--sin-ahorro` (o `sync.ps1 -SinAhorro`) lo quita.
 
 ## 1. Proyecto nuevo o existente — la vía recomendada (Claude Y Codex a la vez)
 

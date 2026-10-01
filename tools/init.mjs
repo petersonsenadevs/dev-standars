@@ -279,7 +279,7 @@ function skillsSection(stack, extra, bundles, relPath) {
 }
 // Modo ahorro (opcional, solo en CLAUDE.md): quita lo que en Claude Code ya cubren las skills y los hooks
 // (lista de skills, metodología completa de devlog y git) y pide respuestas técnicas telegráficas, salvo lo
-// dirigido al cliente. AGENTS.md (Codex, sin hooks) queda completo. Mismo texto exacto que _lib.ps1.
+// dirigido al cliente. AGENTS.md (Codex) queda completo. Mismo texto exacto que _lib.ps1.
 const AHORRO_DEVLOG = 'Documenta cada paso relevante en `devlog/<fecha>/NNN-slug.md` con la skill `devlog` (numeración global e INDEX.md al día). El hook stop-guard lo exige al cerrar la tarea.\n';
 const AHORRO_GIT = 'Una rama por tarea (nunca commits en main, master ni develop), Conventional Commits de 72 caracteres como máximo y sin co-autores, y nunca `git push` sin aprobación explícita. El hook guard lo hace cumplir.\n';
 const AHORRO_ESTILO = '\n---\n\n# Modo ahorro\n\nRespuestas técnicas en estilo telegráfico: sin preámbulos ni resúmenes repetidos, frases cortas, primero el resultado y el código. Excepciones, en lenguaje normal y completo: `/brief`, `/propuestas`, `/repaso`, `/estimar` y `/entregar`, cualquier texto para el cliente y cualquier explicación que pida el usuario. Las skills cargan sus descripciones solas: abre solo la sección que necesites.\n';
@@ -385,9 +385,9 @@ function hookSet(hasFront) {
         UserPromptSubmit: [{ matcher: null, files: ['prompt-router.mjs'] }],
         PreToolUse: [
             { matcher: 'Bash|PowerShell', files: ['guard.mjs'] },
-            { matcher: 'Edit|Write|MultiEdit|NotebookEdit', files: ['protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs', 'conventions-guard.mjs', 'backend-guard.mjs', 'back-skill-reminder.mjs', ...(hasFront ? ['front-skill-reminder.mjs'] : [])] },
+            { matcher: 'Edit|Write|MultiEdit|NotebookEdit|apply_patch', files: ['protect-files.mjs', 'secrets-guard.mjs', 'code-hygiene.mjs', 'conventions-guard.mjs', 'backend-guard.mjs', 'back-skill-reminder.mjs', ...(hasFront ? ['front-skill-reminder.mjs'] : [])] },
         ],
-        PostToolUse: [{ matcher: 'Edit|Write|MultiEdit', files: ['format-on-save.mjs', 'edit-tracker.mjs'] }, { matcher: 'Bash|PowerShell', files: ['depurar-coach.mjs'] }],
+        PostToolUse: [{ matcher: 'Edit|Write|MultiEdit|apply_patch', files: ['format-on-save.mjs', 'edit-tracker.mjs'] }, { matcher: 'Bash|PowerShell', files: ['depurar-coach.mjs'] }],
         Stop: [{ matcher: null, files: ['stop-guard.mjs'] }],
         PreCompact: [{ matcher: null, files: ['pre-compact.mjs'] }],
         SessionEnd: [{ matcher: null, files: ['session-end.mjs'] }],

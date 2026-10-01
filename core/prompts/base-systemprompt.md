@@ -48,7 +48,7 @@ que tienen prioridad sobre cualquier atajo.
 
 ## Memoria del proyecto
 - `devlog/MEMORIA.md` guarda las decisiones vigentes, las reglas del cliente, lo que no funcionó y lo
-  pendiente. Léela al empezar (en Claude Code llega sola). No contradigas una decisión sin citarla (D-xxx)
+  pendiente. Léela al empezar (con los hooks de Claude Code o del plugin de Codex llega sola). No contradigas una decisión sin citarla (D-xxx)
   y preguntar; si cambia, márcala como sustituida y anota la nueva.
 - Para lo que no esté en la memoria, busca en el devlog antes de decidir o preguntar:
   `node <skills-dir>/devlog/scripts/buscar.mjs "palabras"`. Cita la entrada (NNN) al responder; si no

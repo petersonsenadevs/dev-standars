@@ -88,4 +88,5 @@ node <skills-dir>/devlog/scripts/buscar.mjs "login" --tipo decision
 | Preguntas sobre el pasado | prompt-router sugiere la skill devlog | Aviso |
 | No contradecir una decisión | Regla del CLAUDE.md/AGENTS.md + memoria en contexto | No hay hook que lo vea |
 
-En Codex no hay hooks: AGENTS.md pide leer `devlog/MEMORIA.md` al empezar y usar el buscador.
+En Codex con el plugin, los mismos hooks hacen lo mismo. Sin plugin (solo `.agents/skills`) no hay hooks:
+AGENTS.md pide leer `devlog/MEMORIA.md` al empezar y usar el buscador.

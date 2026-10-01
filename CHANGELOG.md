@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-10-01
 
+- **fix** — Muros reales en Codex (traducción de apply_patch, Stop en JSON) y formateo que no impone estilo · v1.5.0 (entrada 064)
 - **feature** — Memoria del proyecto (devlog/MEMORIA.md) + buscador del devlog con raíces, erratas y sinónimos · v1.4.0 (entrada 063)
 - **fix** — verify-build encuentra Pint en Windows (./vendor/bin) y el instalador fusiona .mcp.json en vez de vaciarlo · v1.3.2 (entrada 062)
 - **fix** — Capturas, maquetas e informes en el proyecto (no en temp) + .ui-verify ignorado por git · v1.3.1 (entrada 061)

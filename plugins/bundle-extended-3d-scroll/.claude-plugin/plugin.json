@@ -1,7 +1,7 @@
 {
     "name":  "bundle-extended-3d-scroll",
     "description":  "Bundle dev-standards \u0027extended-3d-scroll\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): aframe-webxr, lightweight-3d-effects, playcanvas-engine, pixijs-2d, locomotive-scroll, barba-js.",
-    "version":  "1.4.0",
+    "version":  "1.5.0",
     "author":  {
                    "name":  "dev-standards"
                },
