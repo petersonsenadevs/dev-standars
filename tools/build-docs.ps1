@@ -262,3 +262,6 @@ if (Test-Path $idxPath) {
     Write-Utf8 (Join-Path $root 'CHANGELOG.md') ($C -join "`n")
     Write-Host "  [docs] CHANGELOG.md ($($rows.Count) entradas)"
 }
+
+# Créditos de terceros (CREDITOS.md) desde los manifiestos de vendor y efectos
+& node (Join-Path $root 'tools\build-creditos.mjs')

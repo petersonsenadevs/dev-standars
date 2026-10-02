@@ -1,11 +1,11 @@
 {
     "name":  "bundle-motion-web",
     "description":  "Bundle Senzu \u0027motion-web\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): gsap-scrolltrigger, motion-framer, scroll-reveal-libraries.",
-    "version":  "2.0.5",
+    "version":  "2.1.0",
     "author":  {
                    "name":  "Senzu"
                },
     "homepage":  "https://github.com/petersonsenadevs/senzu",
     "repository":  "https://github.com/petersonsenadevs/senzu",
-    "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
+    "license":  "MIT"
 }

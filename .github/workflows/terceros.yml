@@ -1,0 +1,73 @@
+name: terceros
+
+# Cada lunes descarga la última versión de los repositorios de skills de terceros (tools/vendor.ps1),
+# comprueba que sus licencias siguen permitidas, regenera plugins y docs, pasa las suites y, si algo
+# cambió, abre un pull request para revisarlo. Nunca se mezcla solo: un cambio de un tercero puede
+# romper algo o mover las líneas que citan los mapas de la capa en castellano (core/skills-overlay).
+on:
+  schedule:
+    - cron: '0 6 * * 1'     # lunes 06:00 UTC
+  workflow_dispatch:         # y a mano desde la pestaña Actions
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  actualizar:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Descargar la última versión de los terceros
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\vendor.ps1
+
+      - name: 'Licencias (si un autor cambió la suya, se para aquí)'
+        run: node tools/build-creditos.mjs --comprobar
+
+      - name: 'Regenerar plugins y docs (misma versión, no es una release)'
+        shell: powershell
+        run: |
+          $env:SENZU_RELEASE = (Get-Content plugins\senzu-core\.claude-plugin\plugin.json -Raw | ConvertFrom-Json).version
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-routers.ps1 | Out-Null
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-plugins.ps1 | Out-Null
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-docs.ps1 | Out-Null
+
+      - name: Suites
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          foreach ($s in 'check-skills', 'test-router', 'test-hooks', 'test-init-parity') {
+            powershell -NoProfile -ExecutionPolicy Bypass -File "tools\$s.ps1"
+            if ($LASTEXITCODE -ne 0) { throw "$s falla con la versión nueva de los terceros" }
+          }
+          foreach ($t in 'memoria', 'hooks-codex', 'permisos', 'rondas', 'verify-build') {
+            node "tools/test-$t.mjs"
+            if ($LASTEXITCODE -ne 0) { throw "test-$t falla con la versión nueva de los terceros" }
+          }
+
+      - name: Abrir pull request si hay cambios
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: actualizacion/terceros
+          delete-branch: true
+          commit-message: 'chore: actualizar skills de terceros'
+          title: 'chore: actualizar skills de terceros'
+          body: |
+            Actualización semanal automática de las skills de terceros (`tools/vendor.ps1`).
+
+            - Licencias comprobadas: todas permitidas y con su archivo.
+            - Suites en verde con la versión nueva.
+
+            **Antes de mezclar, revisa:**
+            1. Qué cambió en cada skill (`core/skills-vendor/**`) y si cambia su sentido.
+            2. Los mapas de líneas de la capa en castellano (`core/skills-overlay/*/SKILL.md` citan líneas de `SKILL.upstream.md`): si el original se movió, ajústalos.
+            3. Si llegó una skill nueva, decide si se registra en `core/skills-registry.json`.
+          labels: terceros

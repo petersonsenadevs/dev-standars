@@ -1,11 +1,11 @@
 {
     "name":  "senzu-all",
     "description":  "Todas las skills de Senzu (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.",
-    "version":  "2.0.5",
+    "version":  "2.1.0",
     "author":  {
                    "name":  "Senzu"
                },
     "homepage":  "https://github.com/petersonsenadevs/senzu",
     "repository":  "https://github.com/petersonsenadevs/senzu",
-    "license":  "MIT (skills de terceros: ver LICENSE.upstream en cada skill)"
+    "license":  "MIT"
 }

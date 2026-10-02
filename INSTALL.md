@@ -69,7 +69,7 @@ D:\dev-standards\tools\init-project.ps1 -Stack astro -Path "C:\ruta\del\proyecto
 - `-Stack`: `laravel` · `next` · `astro` · `vue-ts` · `nuxt` · `sveltekit` · `wordpress` · `node-api` · `python-langgraph`.
 - `-Tools`: `claude`, `codex`, `cursor`, `windsurf`, `antigravity` (los que uses, separados por coma).
 - Opcional `-Bundle core-3d-animation` (añade threejs, gsap, r3f, motion) u otros de `core/bundles.json`;
-  opcional `-Skills skill de marca de la agencia` para skills sueltas.
+  opcional `-Skills gsap-scrolltrigger` para skills sueltas.
 
 Qué deja en el proyecto:
 

@@ -81,7 +81,7 @@ Las filas marcadas `(es)` en las guías de stack provienen de Senzu (`data/stack
 12. Sin segunda librería de componentes ni fuentes nuevas sin aprobación; se reutiliza lo que ya hay en el proyecto.
 
 ## 4. Prioridad de fuentes de verdad
-`senzu/design-system/<slug>/BRAND.md` (manual de marca) → `gustos.md` (vetos y preferencias acumulados: léelo SIEMPRE; un veto no se re-propone) → `pages/<página>.md` → `MASTER.md` → en proyectos de la agencia, `skill de marca de la agencia/references/brand.md` → tokens existentes en el proyecto →
+`senzu/design-system/<slug>/BRAND.md` (manual de marca) → `gustos.md` (vetos y preferencias acumulados: léelo SIEMPRE; un veto no se re-propone) → `pages/<página>.md` → `MASTER.md` → la skill de marca del cliente o de la agencia, si el proyecto la tiene → tokens existentes en el proyecto →
 resultados de `search.py` → tu criterio (documentado en MASTER.md si te desvías).
 
 ## 5. Recursos

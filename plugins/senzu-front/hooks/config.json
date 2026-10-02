@@ -423,16 +423,6 @@
                                     ]
                    },
                    {
-                       "name":  "skill de marca de la agencia",
-                       "group":  "front",
-                       "entrypoint":  false,
-                       "keywords":  "(?i)\\b(la agencia|nuestra marca|marca de la agencia|proyecto (propio|de la agencia)|white-?label|aviso legal|pol[ií]tica de (privacidad|cookies)|rgpd|banner de cookies|cr[eé]dito de agencia)\\b",
-                       "priority":  8,
-                       "requires":  [
-                                        "ui-ux-pro-max"
-                                    ]
-                   },
-                   {
                        "name":  "ui-verify",
                        "group":  "front",
                        "entrypoint":  false,

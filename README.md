@@ -8,7 +8,7 @@ skills que se activan solas, muros que bloquean de verdad y verificación obliga
 nada por hecho.
 
 <!-- GEN:resumen -->
-![Version](https://img.shields.io/badge/version-v2.0.5-black) ![Skills](https://img.shields.io/badge/skills-44-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
+![Version](https://img.shields.io/badge/version-v2.1.0-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
 
 | Grupo | Skills | Entra por |
 |---|---|---|
@@ -17,7 +17,7 @@ nada por hecho.
 | **Calidad de código** (3) | backend-audit, code-quality, depurar | router |
 | **Arquitectura** (1) | ddd-hexagonal | router |
 | **Documentación** (1) | devlog | router |
-| **Front y diseño** (7) | design-system, image-gen, modern-web-design, skill de marca de la agencia… | `ui-ux-pro-max` |
+| **Front y diseño** (6) | design-system, image-gen, modern-web-design, ui-styling… | `ui-ux-pro-max` |
 | **Animación** (9) | animated-component-libraries, animejs, barba-js, gsap-scrolltrigger… | router |
 | **3D / WebGL** (12) | aframe-webxr, babylonjs-engine, blender-web-pipeline, lightweight-3d-effects… | router |
 | **Diseño gráfico y marca** (4) | banner-design, brand, graphic-design, slides | router |
@@ -118,12 +118,13 @@ prohibida por defecto y vigilada por hook + crítica visual.
 | **[docs/guia-de-prueba.md](docs/guia-de-prueba.md)** | **Empieza aquí**: instalar y probarlo todo en una tarde, prueba a prueba |
 | **[INSTALL.md](INSTALL.md)** | Instalar paso a paso: por proyecto, como plugin o skills globales; actualizar |
 | **[USO.md](USO.md)** | El día a día: qué es automático, qué frases activan cada cosa, muros y escapes |
-| **[docs/skills.md](docs/skills.md)** | Las 41 skills por grupo: cuándo salta cada una y con qué señales |
-| **[docs/comandos.md](docs/comandos.md)** | Los 12 comandos slash explicados + flujos típicos |
-| **[docs/hooks.md](docs/hooks.md)** | Los 13 hooks/muros: qué bloquea cada uno y sus escapes |
+| **[docs/skills.md](docs/skills.md)** | Las skills por grupo: cuándo salta cada una y con qué señales |
+| **[docs/comandos.md](docs/comandos.md)** | Los comandos slash explicados + flujos típicos |
+| **[docs/hooks.md](docs/hooks.md)** | Los hooks/muros: qué bloquea cada uno y sus escapes |
 | **[docs/stacks.md](docs/stacks.md)** | Los 9 stacks (+ Go/Java/C#) y los bundles opcionales |
 | **[docs/arquitectura.md](docs/arquitectura.md)** | Cómo funciona por dentro: registro único, vendor/overlay, disciplina de contexto |
 | **[REFERENCIA.md](REFERENCIA.md)** | Todo el catálogo en UNA página |
+| **[CREDITOS.md](CREDITOS.md)** | Los repositorios de terceros que usamos, con su autor y su licencia |
 | **[CHANGELOG.md](CHANGELOG.md)** | Qué cambió en cada versión (generado del devlog) |
 | **[ROADMAP.md](ROADMAP.md)** | Qué está hecho y qué viene |
 
@@ -143,3 +144,12 @@ Tres suites corren en cada commit (el pre-commit no deja pasar nada roto):
 El agente no "intenta acordarse" de las normas: **las normas viven en archivos versionados, se cargan
 solas cuando tocan, y lo importante se bloquea por hook**. Cada error real de un proyecto vuelve aquí
 como regla, muro o caso de test — el paquete aprende del uso.
+
+## Créditos y licencia
+
+Senzu es MIT ([LICENSE](LICENSE)) © 2026 Peterson Sena. Se apoya en el trabajo de otras personas, sobre
+todo [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) y
+[claudedesignskills](https://github.com/freshtechbro/claudedesignskills), además de 132 repositorios de
+efectos: la lista completa, con autor y licencia, está en [CREDITOS.md](CREDITOS.md). Cada semana se
+comprueba si hay versión nueva de esos repositorios (y que su licencia no haya cambiado) y se propone
+la actualización en un pull request.
