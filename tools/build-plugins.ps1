@@ -48,7 +48,7 @@ function New-Plugin {
     $dir = Join-Path $pluginsDir $Name
     if (Test-Path $dir) { Remove-Item $dir -Recurse -Force }
     Ensure-Dir (Join-Path $dir '.claude-plugin')
-    $manifest = [ordered]@{ name = $Name; description = $Description; version = $Version; author = $author; homepage = 'https://senzu-ten.vercel.app'; repository = 'https://github.com/petersonsenadevs/senzu'; license = 'MIT' }
+    $manifest = [ordered]@{ name = $Name; description = $Description; version = $Version; author = $author; homepage = 'https://getsenzu.vercel.app'; repository = 'https://github.com/petersonsenadevs/senzu'; license = 'MIT' }
     Write-Utf8 (Join-Path $dir '.claude-plugin\plugin.json') ($manifest | ConvertTo-Json -Depth 4)
     $skillsDst = Join-Path $dir 'skills'
     Ensure-Dir $skillsDst
