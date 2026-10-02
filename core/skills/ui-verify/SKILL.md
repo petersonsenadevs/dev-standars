@@ -20,10 +20,17 @@ nº de h1, imágenes sin `alt`/dimensiones, tap targets < 44px (móvil), texto <
 **GEOMETRÍA en píxeles** (`scripts/geometria.mjs`): centrado real de lo que el contenedor centra, loaders y su
 grupo centrados en su capa, loader y barra en el mismo eje, spinners que se desplazan al girar, dibujos de SVG
 descentrados en su caja y hermanos «casi» alineados (1-8 px: un margin o un top sobrante), con la causa
-probable. Guarda capturas full-page en `senzu/ui-verify/`. Sale con código 1 si hay problemas: **corrígelos
-y vuelve a ejecutarlo hasta 0**. Un desplazamiento INTENCIONADO (ajuste óptico): `data-geometria="ignorar"` en
-el elemento y el porqué en el devlog. `--tolerancia <px>` (por defecto 1).
-Después ABRE las capturas (Read) y revisa lo que el script no ve: jerarquía, espaciados, solapes, dark mode.
+probable. En **MÓVIL** (`scripts/movil.mjs`): contenido que solo sale con hover, campos < 16 px (zoom en
+iPhone), fijos que tapan, fondos fijos, cursor propio, h1 que se come la pantalla, navegación que no cabe
+o desaparece, y **el menú usado de verdad**: lo pulsa, mide el panel abierto (enlaces ≥ 44 px, dentro de
+pantalla, no tapados), lo captura y prueba Escape; imprime los tamaños reales (h1, párrafo, cabecera, CTA).
+Capturas en `senzu/ui-verify/`: `<ancho>.png`, `<ancho>-anotada.png` (cada aviso `[g1]`/`[m2]` recuadrado
+sobre su elemento) y `375-menu.png`. Sale con código 1 si hay problemas: **corrígelos y vuelve a
+ejecutarlo hasta 0**. Un desplazamiento INTENCIONADO (ajuste óptico): `data-geometria="ignorar"` en el
+elemento y el porqué en el devlog. `--tolerancia <px>` (por defecto 1).
+Después ABRE las capturas (Read), la ANOTADA primero: cada aviso se confirma o se descarta MIRÁNDOLO, y lo
+que a ojo parezca torcido se mide antes de tocarlo. Revisa lo que el script no ve: jerarquía, espaciados,
+dark mode. Cómo pensar la versión móvil: `ui-ux-pro-max/references/es/movil.md`.
 
 ## Vía 2: navegador Chrome MCP (referencia paso a paso: `references/browser-checks.md`)
 1. Abre la URL en pestaña nueva y redimensiona a **375 primero**, luego 768 y 1440; captura full-page en cada uno.

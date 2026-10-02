@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 // Verifica una ronda de maquetas ANTES de enseñarla (references/es/rondas.md):
-//   node <skills-dir>/ui-ux-pro-max/scripts/ronda-check.mjs design-system/<slug> [--ronda N] [--sin-nuevo] [--indice]
+//   node <skills-dir>/ui-ux-pro-max/scripts/ronda-check.mjs design-system/<slug> [--ronda N] [--sin-nuevo] [--sin-movil] [--indice]
 // Comprueba en cada maqueta de propuestas/ronda-N/*.html:
 //   - lo FIJADO en gustos.md (valores entre acentos graves de "## Fijado") aparece en TODAS las maquetas;
 //   - nada de lo VETADO (acentos graves de "## No") aparece;
 //   - banner de PROPUESTA con su ronda, piezas etiquetadas (data-pieza con data-cat y data-desc, ids únicos con
 //     la letra de la maqueta), panel de opinión intacto y ningún {{hueco}} de la plantilla sin rellenar;
+//   - al menos una pieza de VERSIÓN MÓVIL (categoría V: menú, orden, efecto o tamaño decidido para táctil,
+//     references/es/movil.md), salvo --sin-movil;
 //   - desde la ronda 2: al menos una pieza NUEVA (data-nuevo) y lo fijado marcado con data-fijado;
 //   - las maquetas de una ronda no son copias.
 // --indice escribe propuestas/index.html con todas las rondas para abrirlas de un vistazo.
@@ -17,7 +19,7 @@ import path from 'node:path';
 const args = process.argv.slice(2);
 const opt = n => { const i = args.indexOf(n); return i >= 0 ? args[i + 1] : null; };
 const dir = args.find(a => !a.startsWith('--') && a !== opt('--ronda'));
-if (!dir) { console.log('Uso: node ronda-check.mjs design-system/<slug> [--ronda N] [--sin-nuevo] [--indice]'); process.exit(2); }
+if (!dir) { console.log('Uso: node ronda-check.mjs design-system/<slug> [--ronda N] [--sin-nuevo] [--sin-movil] [--indice]'); process.exit(2); }
 const base = path.resolve(dir);
 const propuestas = path.join(base, 'propuestas');
 const leer = f => { try { return fs.readFileSync(f, 'utf8').replace(/^﻿/, '').replace(/\r\n?/g, '\n'); } catch { return null; } };
@@ -84,6 +86,8 @@ for (const f of maquetas) {
     const sinDatos = piezas.filter(m => !/\bdata-cat=/.test(m[0]) || !/\bdata-desc=/.test(m[0])).map(m => m[1]);
     if (sinDatos.length) mal.push(`piezas sin data-cat o data-desc (el usuario no sabría qué vota): ${sinDatos.slice(0, 4).join(', ')}`);
     if (piezas.some(m => /^<(img|input)\b/i.test(m[0]))) mal.push('data-pieza puesto en <img> o <input>: no se ve la etiqueta; ponlo en un contenedor');
+    // el móvil se decide y se enseña, no se deja para después: al menos una pieza V (versión móvil)
+    if (!args.includes('--sin-movil') && !ids.some(id => /[·.]V\d/i.test(id))) mal.push('ninguna pieza de VERSIÓN MÓVIL (data-pieza "<LETRA>·V1"): decide y etiqueta cómo cambia en móvil (menú, orden, efecto o tamaño; references/es/movil.md)');
     // fijado y vetos
     for (const fx of fijado) {
         const faltan = fx.valores.filter(v => !n.includes(norm(v)));

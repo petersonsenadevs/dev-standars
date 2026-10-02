@@ -31,7 +31,10 @@ Parte SIEMPRE de `references/es/plantilla-maqueta.html` (cópiala y rellena solo
 - **Piezas etiquetadas**: cada decisión visual opinable lleva `data-pieza="B·T1"`, `data-cat` y `data-desc`
   (`B·T1` = maqueta B, tipografía, opción 1). Letras de categoría: **T** tipografía · **C** color ·
   **B** botones · **F** formas y radios · **L** layout · **I** imágenes · **N** iconos · **M** movimiento ·
-  **X** textos y tono. Con «Ver piezas» se ven las etiquetas encima del diseño.
+  **X** textos y tono · **V** versión móvil. Con «Ver piezas» se ven las etiquetas encima del diseño.
+- **Móvil decidido y votable**: al menos una pieza **V** por maqueta (burger o barra inferior, el orden de
+  las secciones, el efecto que se quita o cambia, el tamaño del titular), según `movil.md`. Enséñala
+  también a 375 px y pásale `ui-verify` antes.
 - **Panel «Tu opinión»**: Sí / No por pieza, un comentario libre y «Copiar para pegarlo en el chat».
   Se guarda en el navegador: el usuario puede ir y volver.
 - `data-fijado` en lo que viene decidido (sale como FIJADO y no se vota) y `data-nuevo` en lo nuevo.

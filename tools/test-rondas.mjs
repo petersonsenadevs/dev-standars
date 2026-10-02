@@ -41,6 +41,7 @@ function maqueta(L, N, o = {}) {
         `<a class="boton" data-pieza="${L}·B1" data-cat="Botones" data-desc="Píldora sólida"${fijado}>Pide presupuesto</a>`,
         `<section data-pieza="${L}·L1" data-cat="Layout" data-desc="${o.layout || 'Hero partido'}"${o.nuevo === false ? '' : ' data-nuevo'}><p>Contenido</p></section>`,
         `<div data-pieza="${L}·C1" data-cat="Color" data-desc="Fondo ${o.fondo || 'crema'}"><p>Bloque</p></div>`,
+        ...(o.sinMovil ? [] : [`<button data-pieza="${L}·V1" data-cat="Versión móvil" data-desc="En móvil: menú burger a pantalla completa" aria-label="Menú">Menú</button>`]),
     ];
     let t = PLANTILLA.split('{{Proyecto}}').join('Acme').split('{{N}}').join(String(N)).split('{{LETRA}}').join(L);
     t = t.replace(/\{\{<link de Google Fonts[^}]*\}\}/, `<link href="https://fonts.googleapis.com/css2?family=${o.fuente || 'Fraunces'}:wght@600&display=swap" rel="stylesheet">`);
@@ -90,6 +91,9 @@ debeFallar('veto de color en minúsculas (#7c9a7e)', /VETADO[\s\S]*7C9A7E/i);
 ronda(2, { ...buenas, 'a.html': maqueta('A', 2, { nuevo: false, layout: 'Mosaico' }) });
 debeFallar('ronda 2 sin nada nuevo', /ninguna pieza NUEVA/);
 debePasar('... salvo con --sin-nuevo', '--sin-nuevo');
+ronda(2, { ...buenas, 'b.html': maqueta('B', 2, { sinMovil: true, layout: 'Hero a sangre' }) });
+debeFallar('maqueta sin ninguna decisión de móvil (pieza V)', /VERSIÓN MÓVIL/);
+debePasar('... salvo con --sin-movil', '--sin-movil');
 ronda(2, { ...buenas, 'c.html': maqueta('C', 2, { sinFijadoMarcado: true, layout: 'Pantalla dividida' }) });
 debeFallar('lo fijado sin marcar con data-fijado', /data-fijado/);
 ronda(2, { 'a.html': maqueta('A', 2, { layout: 'Igual' }), 'b.html': maqueta('B', 2, { layout: 'Igual' }) });

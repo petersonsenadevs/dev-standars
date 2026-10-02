@@ -9,7 +9,10 @@
  * meta viewport, nº de h1, imágenes sin alt/dimensiones, tap targets < 44px (solo móvil),
  * texto < 12px, inputs sin label, y GEOMETRÍA en píxeles (geometria.mjs): centrado real de lo que el
  * contenedor centra, loaders centrados y alineados entre sí, spinners que se desplazan al girar, dibujos de
- * SVG descentrados en su caja y hermanos «casi» alineados. Guarda capturas en <out>/<ancho>.png.
+ * SVG descentrados en su caja y hermanos «casi» alineados. En MÓVIL (movil.mjs): contenido solo con hover, campos
+ * < 16 px, fijos que tapan, fondos fijos, cursor propio, título que se come la pantalla, sin movimiento reducido,
+ * navegación que no cabe, y el menú burger usado de verdad: lo pulsa, mide el menú abierto, lo captura y prueba
+ * Escape. Capturas: <out>/<ancho>.png, <ancho>-anotada.png (cada aviso numerado sobre su elemento) y <ancho>-menu.png.
  * --tolerancia <px> (por defecto 1).
  * Sale con código 1 si hay problemas (para CI y para que el agente no pueda ignorarlo).
  */
@@ -30,6 +33,7 @@ const outDir = opt('out', existeRuta('senzu') && !existeRuta('.ui-verify') ? 'se
 const screenshots = !args.includes('--no-screenshots');
 const tolerancia = parseFloat(opt('tolerancia', '1')) || 1;
 const { auditarGeometria } = await import('./geometria.mjs');
+const { auditarMovil, resumenMovil, buscarMenu, estadoMenu, marcarAvisos } = await import('./movil.mjs');
 
 let chromium;
 try {
@@ -146,7 +150,35 @@ try {
     const problems = await page.evaluate(audit, mobile);
     // Geometría medida en píxeles (no a ojo): centrado, loaders, spinners, SVG y alineación entre hermanos
     const geo = await page.evaluate(auditarGeometria, { tolerancia });
-    problems.push(...geo.map((g) => `GEOMETRÍA (${g.tipo}, ${g.px} px): ${g.mensaje}`));
+    problems.push(...geo.map((g) => `${g.marca ? `[${g.marca}] ` : ''}GEOMETRÍA (${g.tipo}, ${g.px} px): ${g.mensaje}`));
+    let resumen = [], menuCaptura = null;
+    if (mobile) {
+      // Móvil pensado como móvil: táctil, sin hover, tamaños reales y el menú usado de verdad
+      const mov = await page.evaluate(auditarMovil);
+      problems.push(...mov.map((m) => `${m.marca ? `[${m.marca}] ` : ''}MÓVIL (${m.tipo}): ${m.mensaje}`));
+      resumen = await page.evaluate(resumenMovil);
+      const menu = await page.evaluate(buscarMenu);
+      problems.push(...menu.problemas.map((p) => `[menú] MENÚ: ${p}`));
+      if (menu.encontrado) {
+        try {
+          await page.click('[data-senzu-menu]', { timeout: 3000 });
+          await page.waitForTimeout(500); // transición de apertura
+          const abierto = await page.evaluate(estadoMenu, true);
+          problems.push(...abierto.problemas.map((p) => `MENÚ: ${p}`));
+          if (abierto.enlaces) resumen.push(`menú abierto: ${abierto.enlaces} enlaces visibles`);
+          if (screenshots) { menuCaptura = `${outDir}/${width}-menu.png`; await page.screenshot({ path: menuCaptura }); }
+          await page.keyboard.press('Escape');
+          await page.waitForTimeout(400);
+          const cerrado = await page.evaluate(estadoMenu, false);
+          problems.push(...cerrado.problemas.map((p) => `MENÚ: ${p}`));
+          // si Escape no lo cerró, se cierra con el botón para que la captura final sea la de la página
+          if (cerrado.problemas.length) { await page.click('[data-senzu-menu]', { timeout: 2000 }).catch(() => {}); await page.waitForTimeout(400); }
+        } catch (e) {
+          problems.push(`MENÚ: no se pudo pulsar el botón del menú (${String(e).split('\n')[0].slice(0, 100)}): ¿lo tapa otro elemento?`);
+        }
+      }
+    }
+    const marcados = screenshots ? await page.evaluate(marcarAvisos) : 0;
     const uniqueConsole = [...new Set(consoleErrors)].slice(0, 6);
     if (uniqueConsole.length) problems.push(...uniqueConsole.map((e) => `Consola: ${e}`));
 
@@ -157,10 +189,19 @@ try {
     } else {
       console.log('  ✓ sin problemas detectados');
     }
+    if (resumen.length) console.log(`  tamaños: ${resumen.join(' · ')}`);
     if (screenshots) {
       const path = `${outDir}/${width}.png`;
+      // primero la limpia, luego la anotada (recuadro y número de cada aviso sobre su elemento)
+      await page.evaluate(() => { const c = document.getElementById('senzu-anotaciones'); if (c) c.style.display = 'none'; });
       await page.screenshot({ path, fullPage: true });
       console.log(`  captura: ${path}`);
+      if (marcados) {
+        await page.evaluate(() => { document.getElementById('senzu-anotaciones').style.display = ''; });
+        await page.screenshot({ path: `${outDir}/${width}-anotada.png`, fullPage: true });
+        console.log(`  anotada: ${outDir}/${width}-anotada.png (${marcados} elemento(s) con el número de su aviso)`);
+      }
+      if (menuCaptura) console.log(`  menú abierto: ${menuCaptura}`);
     }
     await page.close();
   }
@@ -170,7 +211,8 @@ try {
 
 console.log(`\n[ui-verify] Problemas: ${totalProblems}`);
 if (totalProblems) {
-  console.log('Esto NO sustituye mirar las capturas: ábrelas y revisa jerarquía, espaciados y dark mode.');
+  console.log('Esto NO sustituye mirar las capturas: abre las ANOTADAS (cada [número] es un aviso de la lista) y la del');
+  console.log('menú abierto, y revisa jerarquía, espaciados, tamaños y dark mode. Cifra + imagen: cada aviso se confirma mirándolo.');
   process.exit(1);
 }
 process.exit(0);

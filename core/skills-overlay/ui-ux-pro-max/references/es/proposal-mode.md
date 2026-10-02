@@ -13,11 +13,11 @@ Con el brief (`brief-discovery.md`) y el playbook del negocio (`business-playboo
 
 ```markdown
 # Blueprint — <página> (PENDIENTE DE APROBACIÓN | APROBADO <fecha>)
-| # | Sección | Contenido (esbozado con texto REAL) | Lo trae |
-|---|---|---|---|
-| 1 | Hero | "Tu obra limpia, sin esperas" + tel + CTA presupuesto | copy: yo · foto: cliente |
-| 2 | Servicios | 4 cards: contenedores, sacas, retirada, fin de obra | copy: yo |
-| … | | | |
+| # | Sección | Contenido (esbozado con texto REAL) | En móvil (`movil.md`) | Lo trae |
+|---|---|---|---|---|
+| 1 | Hero | "Tu obra limpia, sin esperas" + tel + CTA presupuesto | tel arriba; foto debajo del titular; CTA ancho completo | copy: yo · foto: cliente |
+| 2 | Servicios | 4 cards: contenedores, sacas, retirada, fin de obra | carrusel con scroll-snap; sin tilt | copy: yo |
+| … | | | | |
 Preguntas abiertas: ¿mostramos precios? ¿cuántas fotos de obras hay?
 ```
 
@@ -43,7 +43,8 @@ Reglas de cada maqueta:
    geométrica/tech), ambas dentro de la marca (BRAND.md manda en las dos). Dos grises casi iguales no
    son una elección.
 5. Banner fijo arriba: `PROPUESTA <A|B> — baja fidelidad, para elegir dirección` (que nadie la confunda
-   con la web final). Responsive básico correcto (375 px sin romper).
+   con la web final). Versión móvil PENSADA, no encogida: aplica la columna «En móvil» del blueprint
+  (`movil.md`: efectos, menú, tamaños, hover) y pásale `verify-ui` a 375 antes de enseñarla.
 
 Presentación: abre ambas en el navegador (o da las dos rutas) y pregunta en llano: "¿cuál te pega más
 con tu negocio? ¿qué te gusta de cada una? Se pueden mezclar (los colores de A con la tipografía de B)".

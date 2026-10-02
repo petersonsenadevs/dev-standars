@@ -64,12 +64,12 @@ Las filas marcadas `(es)` en las guías de stack provienen de Senzu (`data/stack
 6. **Implementa** siguiendo el patrón de página, `references/es/components-spec.md` (anatomía/estados por stack) y las
    guías del stack. Animación/3D → skills `gsap-scrolltrigger` / `threejs-webgl` si están instaladas, respetando estos tokens.
 7. **Antes de entregar (bloqueante)**: checklist de `references/pro-rules.md` + `references/es/accessibility.md`.
-   Comprueba 375 / 768 / 1440 px y dark mode si tienes navegador; documenta en devlog lo verificado y lo pendiente.
+   Comprueba 375 (con `ui-verify`: mide y anota la captura) / 768 / 1440 px y dark mode; documenta en devlog lo verificado y lo pendiente.
 
 ## 3. Reglas duras (upstream + Senzu)
 1. Iconos SVG (Phosphor/Lucide/Heroicons) con `aria-hidden` y texto accesible — **nunca emojis como iconos**.
 2. Contraste 4.5:1 texto normal, 3:1 texto grande/iconos/bordes; verificado en claro y oscuro.
-3. Responsive 375–1440 px sin scroll horizontal; `clamp()`/container queries cuando aporten; zoom no bloqueado.
+3. Responsive 375–1440 px sin scroll horizontal; zoom no bloqueado. **Móvil PENSADO, no encogido**: cada sección y efecto se decide para táctil (`references/es/movil.md`: efectos, burger/barra inferior, tamaños, hover).
 4. Todos los estados: hover, focus-visible (anillo 2 px), active, disabled, loading, empty, error, success.
 5. `prefers-reduced-motion` respetado; micro-interacciones 150–300 ms; nada bloquea la interacción.
 6. Tokens semánticos (`background/surface/border/text/text-muted/primary/accent/success/warning/danger`) en claro y oscuro.
@@ -87,7 +87,7 @@ resultados de `search.py` → tu criterio (documentado en MASTER.md si te desví
 ## 5. Recursos
 - `SKILL.upstream.md` — documentación completa upstream (dominios, dials, formato de salida, reglas de prioridad 1-10).
 - `references/pro-rules.md` — checklist canónico de entrega. `references/quick-reference.md` — iconos, charts, GSAP.
-- ES (todas en `references/es/`): `brief-discovery.md` · `business-playbooks.md` · `proposal-mode.md` (blueprint+maquetas+gustos) · `rondas.md` + `plantilla-maqueta.html` (rondas con piezas votables) ·
+- ES (todas en `references/es/`): `brief-discovery.md` · `business-playbooks.md` · `proposal-mode.md` (blueprint+maquetas+gustos) · `rondas.md` + `plantilla-maqueta.html` (rondas con piezas votables) · `movil.md` (versión móvil pensada: plan por sección, efectos en táctil, menú, tamaños, hover) ·
   `fonts-icons.md` · `resources-toolbox.md` · `inspiration.md` · `modern-look.md` · `copywriting.md` · `measurement.md` · `review-session.md` · `workflow.md` · `tokens-tailwind.md` · `forms-ux.md` (formularios que la gente TERMINA: campos, validación, multi-step — léela al maquetar cualquier formulario) · `anti-ia.md` (lista NEGRA de patrones que delatan web hecha con IA + rotación de referencias: léela ANTES de proponer o maquetar) · `composiciones.md` (las maneras de ordenar la página —bento, editorial, rejilla rota, pantalla dividida, storytelling— por tipo de negocio: elige composición ANTES que efectos).
 - `references/es/components-spec.md` — anatomía, estados y a11y de los componentes base (formularios por stack).
 - `references/es/accessibility.md` — WCAG 2.2 AA práctico. `references/es/review-rubric.md` — auditar UI existente.

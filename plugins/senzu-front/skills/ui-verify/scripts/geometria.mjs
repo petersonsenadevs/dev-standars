@@ -55,7 +55,10 @@ export function auditarGeometria(opciones) {
     const culpables = new Set();
     const anotar = (clave, tipo, px, mensaje, els = []) => {
         if (vistos.has(clave) || out.length >= max || els.some(e => culpables.has(e))) return;
-        vistos.add(clave); els.forEach(e => culpables.add(e)); out.push({ tipo, px: r1(px), mensaje });
+        vistos.add(clave); els.forEach(e => culpables.add(e));
+        // marca para la captura anotada (marcarAvisos en movil.mjs): el número del aviso sobre el elemento
+        const marca = els[0] && els[0].setAttribute ? (els[0].getAttribute('data-senzu-aviso') || (els[0].setAttribute('data-senzu-aviso', 'g' + (out.length + 1)), 'g' + (out.length + 1))) : null;
+        out.push({ tipo, px: r1(px), mensaje, marca });
     };
     const esLoader = el => {
         const id = `${el.id} ${typeof el.className === 'string' ? el.className : (el.className && el.className.baseVal) || ''}`;
@@ -175,7 +178,7 @@ export function auditarGeometria(opciones) {
         const dx = Math.max(...pts.map(p => p.cx)) - Math.min(...pts.map(p => p.cx));
         const dy = Math.max(...pts.map(p => p.cy)) - Math.min(...pts.map(p => p.cy));
         const d = Math.max(dx, dy);
-        if (d > tol + 0.5) anotar('baila' + nombre(el), 'spinner-baila', d, `${nombre(el)} se desplaza ${r1(d)} px mientras se anima (su centro no es fijo): revisa transform-origin (debe ser center) o que la caja sea cuadrada.`);
+        if (d > tol + 0.5) anotar('baila' + nombre(el), 'spinner-baila', d, `${nombre(el)} se desplaza ${r1(d)} px mientras se anima (su centro no es fijo): revisa transform-origin (debe ser center) o que la caja sea cuadrada.`, [el]);
     }
 
     // ---------------------------------------------------------------- 4: dibujo del SVG descentrado
@@ -188,7 +191,7 @@ export function auditarGeometria(opciones) {
             const dx = (bb.x + bb.width / 2) - (vb.x + vb.width / 2), dy = (bb.y + bb.height / 2) - (vb.y + vb.height / 2);
             const r = svg.getBoundingClientRect(), escala = Math.min(r.width / vb.width, r.height / vb.height);
             const px = Math.max(Math.abs(dx), Math.abs(dy)) * escala;
-            if (px > tol + 0.5 && (esLoader(svg) || esLoader(svg.parentElement || svg) || animacionInfinita(svg) || r.width <= 64)) anotar('svg' + nombre(svg) + Math.round(r.left), 'svg-descentrado', px, `El dibujo de ${nombre(svg)} está ${r1(px)} px descentrado dentro de su caja (viewBox ${vb.x} ${vb.y} ${vb.width} ${vb.height}, dibujo en x=${r1(bb.x)} y=${r1(bb.y)} ${r1(bb.width)}×${r1(bb.height)}): ajusta el viewBox al dibujo.`);
+            if (px > tol + 0.5 && (esLoader(svg) || esLoader(svg.parentElement || svg) || animacionInfinita(svg) || r.width <= 64)) anotar('svg' + nombre(svg) + Math.round(r.left), 'svg-descentrado', px, `El dibujo de ${nombre(svg)} está ${r1(px)} px descentrado dentro de su caja (viewBox ${vb.x} ${vb.y} ${vb.width} ${vb.height}, dibujo en x=${r1(bb.x)} y=${r1(bb.y)} ${r1(bb.width)}×${r1(bb.height)}): ajusta el viewBox al dibujo.`, [svg]);
         } catch {}
     }
 
@@ -240,5 +243,5 @@ export function auditarGeometria(opciones) {
         const clave = x.tipo + '|' + x.mensaje.replace(/[xy]=\d+(\.\d+)?/g, '');
         if (grupos.has(clave)) grupos.get(clave).veces++; else grupos.set(clave, { ...x, veces: 1 });
     }
-    return [...grupos.values()].map(g => ({ tipo: g.tipo, px: g.px, mensaje: g.veces > 1 ? `${g.mensaje} (×${g.veces})` : g.mensaje })).sort((a, b) => b.px - a.px);
+    return [...grupos.values()].map(g => ({ tipo: g.tipo, px: g.px, marca: g.marca, mensaje: g.veces > 1 ? `${g.mensaje} (×${g.veces})` : g.mensaje })).sort((a, b) => b.px - a.px);
 }

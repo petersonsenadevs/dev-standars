@@ -6,7 +6,8 @@ llaves (ronda-check falla si queda alguno).
 Reglas:
   - Cada decisión visual opinable lleva data-pieza="<LETRA>·<CAT><n>" (A·T1, B·B2…), data-cat y data-desc.
     Categorías y letra: T tipografía · C color · B botones · F formas y radios · L layout · I imágenes ·
-    N iconos · M movimiento · X textos y tono. Ponlo en elementos contenedores (h1, section, a, button, div),
+    N iconos · M movimiento · X textos y tono · V versión móvil (references/es/movil.md: el menú, el orden,
+    el efecto o el tamaño que cambian en táctil; al menos una V por maqueta). Ponlo en elementos contenedores (h1, section, a, button, div),
     nunca en img ni input.
   - Lo que viene FIJADO de rondas anteriores lleva además data-fijado (se ve con candado y no se vota).
   - Lo NUEVO que el usuario aún no ha visto lleva data-nuevo (se ve con la etiqueta NUEVO).
@@ -58,7 +59,8 @@ body.ds-ver [data-fijado]::before { content: attr(data-pieza) " · FIJADO"; back
 {{CONTENIDO DE LA MAQUETA: secciones del blueprint aprobado, con data-pieza en cada decisión opinable. Ejemplo:
 <h1 data-pieza="{{LETRA}}·T1" data-cat="Tipografía" data-desc="Titulares en Fraunces 600">…</h1>
 <a class="boton" data-pieza="{{LETRA}}·B1" data-cat="Botones" data-desc="Botón principal en píldora sólida">Pide presupuesto</a>
-<section data-pieza="{{LETRA}}·L1" data-cat="Layout" data-desc="Hero partido: texto a la izquierda, foto a la derecha" data-nuevo>…</section>}}
+<section data-pieza="{{LETRA}}·L1" data-cat="Layout" data-desc="Hero partido: texto a la izquierda, foto a la derecha" data-nuevo>…</section>
+<button class="burger" data-pieza="{{LETRA}}·V1" data-cat="Versión móvil" data-desc="En móvil: menú burger a pantalla completa; el teléfono, fuera del menú" aria-label="Menú" aria-expanded="false">Menú</button>}}
 
 <button type="button" class="ds-op-boton" id="ds-op-boton">Tu opinión</button>
 <div class="ds-op" id="opinion" role="dialog" aria-label="Tu opinión sobre esta maqueta">
