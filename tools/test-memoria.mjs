@@ -144,7 +144,7 @@ primero('barato', r => r.clase === 'memoria', 'regla del cliente desde MEMORIA')
     ok(r.code === 0 && r.j && r.j.resultados.length, 'sinonimos.json roto no rompe la búsqueda');
     fs.rmSync(path.join(dl, 'sinonimos.json'));
 }
-{   // devlog propio del proyecto (archivos sueltos con 4 cifras, sin carpeta por día) y ADRs: como en un monorepo
+{   // devlog propio del proyecto (archivos sueltos con 4 cifras, sin carpeta por día) y ADRs: como en un monorepo real
     const docsDl = path.join(proj, 'docs', 'devlog'); fs.mkdirSync(docsDl, { recursive: true });
     fs.writeFileSync(path.join(docsDl, '0137-tiers-editables.md'), '# 0137 — Tiers aplicados: límites editables en runtime\n\n2026-06-22 · done\n\n## Qué\n- Límites por tier en la tabla plan_limits, editables sin redeploy.\n');
     const adr = path.join(proj, 'docs', 'adr'); fs.mkdirSync(adr, { recursive: true });
@@ -243,7 +243,7 @@ const hook = (nombre, input, cwd = proj, env = {}) => spawnSync(process.execPath
     fs.utimesSync(path.join(p3, 'devlog', 'MEMORIA.md'), new Date(), new Date());
     const r3a = hook('stop-guard.mjs', { session_id: sid + '-a2' }, p3);
     ok(/MEMORIA\.md sin actualizar/.test(r3a.stdout), 'memoria más reciente pero sin la decisión -> sigue pidiéndola', r3a.stdout.slice(0, 200));
-    // memoria que cita la entrada -> no bloquea, aunque sea MÁS ANTIGUA que la entrada (el caso de un monorepo)
+    // memoria que cita la entrada -> no bloquea, aunque sea MÁS ANTIGUA que la entrada (caso real visto en un monorepo)
     fs.writeFileSync(path.join(p3, 'devlog', 'MEMORIA.md'), '# Memoria del proyecto\n\n## Decisiones vigentes\n- D-001 · Algo · ver 001\n- D-002 · Resend en vez de SMTP · ver 002\n');
     fs.utimesSync(path.join(p3, 'devlog', 'MEMORIA.md'), viejo, viejo);
     const r3 = hook('stop-guard.mjs', { session_id: sid + '-b' }, p3);

@@ -20,7 +20,7 @@ const run = (cwd, ...a) => { const r = spawnSync(process.execPath, [VB, ...a], {
 const git = (cwd, ...a) => execFileSync('git', a, { cwd, stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' });
 const OK = 'node -e "process.exit(0)"', MAL = 'node -e "console.error(\'error de tipos en x.ts\');process.exit(2)"';
 
-// ---------------------------------------------------------------- monorepo políglota (como un monorepo)
+// ---------------------------------------------------------------- monorepo políglota (Next + Python con uv + Go)
 const m = nuevo();
 w(m, 'pnpm-workspace.yaml', 'packages:\r\n  - "apps/web"\r\n  - "packages/*" # comentario\r\n');
 w(m, 'pnpm-lock.yaml', '');
@@ -67,13 +67,13 @@ git(m, 'init', '-q'); git(m, 'config', 'user.email', 't@t'); git(m, 'config', 'u
 {
     w(m, 'docs/notas.md', '# notas cambiadas\n'); w(m, 'devlog/2026-10-01/015-x.md', '# 015\n');
     const r = run(m);
-    ok(r.code === 0 && /no tocan ningún paquete ni código/.test(r.out), 'solo docs y devlog cambiados: nada que verificar, en verde (el caso de un monorepo)', r.out.slice(0, 200));
+    ok(r.code === 0 && /no tocan ningún paquete ni código/.test(r.out), 'solo docs y devlog cambiados: nada que verificar, en verde (caso real en un monorepo)', r.out.slice(0, 200));
     git(m, 'checkout', '-q', '--', 'docs/notas.md'); fs.rmSync(path.join(m, 'devlog'), { recursive: true });
 }
 {   // lo que reescribe el instalador (.claude/hooks/*.mjs, .agents/skills/...) no es código del proyecto
     w(m, '.claude/hooks/stop-guard.mjs', 'export {}\n'); w(m, '.agents/skills/code-quality/scripts/verify-build.mjs', 'export {}\n');
     const r = run(m);
-    ok(r.code === 0 && /no tocan ningún paquete ni código/.test(r.out), 'cambios solo en .claude/ y .agents/: no lanza todo el monorepo (el caso de un monorepo)', r.out.slice(0, 200));
+    ok(r.code === 0 && /no tocan ningún paquete ni código/.test(r.out), 'cambios solo en .claude/ y .agents/: no lanza todo el monorepo (caso real en un monorepo)', r.out.slice(0, 200));
     fs.rmSync(path.join(m, '.claude'), { recursive: true }); fs.rmSync(path.join(m, '.agents'), { recursive: true });
 }
 {

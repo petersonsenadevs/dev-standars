@@ -14,3 +14,7 @@ core/effects-vendor/*/
 !core/effects-vendor/INDEX.md
 !core/effects-vendor/README.md
 !core/effects-vendor/manifest.json
+
+# Diario del proyecto (devlog/ con MEMORIA.md): es PRIVADO. Vive en el disco y en su propio repositorio
+# privado (devlog/.git); aquí solo se publica el CHANGELOG generado (sin nombres: devlog/privado.txt).
+devlog/

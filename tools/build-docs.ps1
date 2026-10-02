@@ -248,10 +248,20 @@ if (Test-Path $idxPath) {
             $rows += [pscustomobject]@{ N = $Matches[1]; Fecha = $Matches[2]; Titulo = $Matches[3]; Tipo = $Matches[4] }
         }
     }
+    # El devlog es privado (no se versiona) y el CHANGELOG es público: devlog/privado.txt (también privado)
+    # lista sustituciones "nombre ==> genérico" que se aplican a los títulos, para que ningún nombre de
+    # cliente o proyecto llegue al CHANGELOG.
+    $privado = Join-Path $root 'devlog\privado.txt'
+    if (Test-Path $privado) {
+        $subs = @((Read-Utf8 $privado) -split "`r?`n" | Where-Object { $_ -match '\S\s*==>\s*' -and $_ -notmatch '^\s*#' })
+        foreach ($r in $rows) {
+            foreach ($s in $subs) { $par = $s -split '\s*==>\s*', 2; $r.Titulo = [regex]::Replace($r.Titulo, [regex]::Escape($par[0].Trim()), $par[1].Trim(), 'IgnoreCase') }
+        }
+    }
     $C = New-Object System.Collections.Generic.List[string]
-    $C.Add('<!-- GENERADO por tools/build-docs.ps1 desde devlog/INDEX.md. El detalle de cada entrada vive en devlog/<fecha>/NNN-*.md -->')
+    $C.Add('<!-- GENERADO por tools/build-docs.ps1 desde el devlog interno del proyecto. -->')
     $C.Add(''); $C.Add('# Changelog'); $C.Add('')
-    $C.Add('Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `devlog/`.')
+    $C.Add('Resumen por fecha (lo nuevo arriba). El detalle de cada entrada vive en el diario interno del proyecto.')
     $C.Add('')
     foreach ($fecha in ($rows | Group-Object Fecha | Sort-Object Name -Descending)) {
         $C.Add("## $($fecha.Name)")

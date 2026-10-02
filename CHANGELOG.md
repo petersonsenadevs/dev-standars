@@ -1,11 +1,12 @@
-<!-- GENERADO por tools/build-docs.ps1 desde devlog/INDEX.md. El detalle de cada entrada vive en devlog/<fecha>/NNN-*.md -->
+<!-- GENERADO por tools/build-docs.ps1 desde el devlog interno del proyecto. -->
 
 # Changelog
 
-Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `devlog/`.
+Resumen por fecha (lo nuevo arriba). El detalle de cada entrada vive en el diario interno del proyecto.
 
 ## 2026-10-02
 
+- **infra** — Devlog privado y preparación de la limpieza del historial · v2.2.1 (entrada 075)
 - **fix** — Marketplace de 13 a 4 plugins (62 → 25 MB) y guía generada por la versión anterior reconocida · v2.2.0 (entrada 074)
 - **fix** — CI: falso FAIL de check-skills por finales de línea CRLF en Windows · v2.1.1 (entrada 073)
 - **feature** — Licencia MIT, CREDITOS.md generado, licencias en CI y actualización semanal de terceros por PR · v2.1.0 (entrada 072)
