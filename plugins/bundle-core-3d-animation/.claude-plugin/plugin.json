@@ -1,7 +1,7 @@
 {
     "name":  "bundle-core-3d-animation",
     "description":  "Bundle Senzu \u0027core-3d-animation\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): threejs-webgl, gsap-scrolltrigger, react-three-fiber, motion-framer, babylonjs-engine.",
-    "version":  "2.1.0",
+    "version":  "2.1.1",
     "author":  {
                    "name":  "Senzu"
                },

@@ -1,7 +1,7 @@
 {
     "name":  "bundle-architecture",
     "description":  "Bundle Senzu \u0027architecture\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): ddd-hexagonal, code-quality.",
-    "version":  "2.1.0",
+    "version":  "2.1.1",
     "author":  {
                    "name":  "Senzu"
                },

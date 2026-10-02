@@ -139,9 +139,11 @@ $tmpRouter = Join-Path $env:TEMP 'ds-router-check'
 Ensure-Dir $tmpRouter
 foreach ($n in 'skill-router', 'front-activation') {
     $src = Join-Path $root "core\skills-plugin\$n\SKILL.md"
-    $before = Read-Utf8 $src
+    # Se comparan sin los finales de línea: en Windows git deja CRLF y build-routers escribe LF, y eso no es
+    # una tabla desactualizada (era el falso FAIL del CI en windows-latest)
+    $before = (Read-Utf8 $src) -replace "`r`n", "`n"
     & (Join-Path $PSScriptRoot 'build-routers.ps1') | Out-Null
-    $after = Read-Utf8 $src
+    $after = (Read-Utf8 $src) -replace "`r`n", "`n"
     if ($before -ne $after) { Fail $n 'tabla GENERATED desactualizada (build-routers.ps1 la ha regenerado; revisa y vuelve a ejecutar check)' }
 }
 
