@@ -139,7 +139,15 @@ usar y cómo se verifica. Después, `/siguiente` ejecuta la siguiente tarea.
 Tras cualquier cambio de código o de interfaz, intenta que dé la tarea por terminada.
 **Debería**: negarse a cerrar hasta pasar build, lint y tests (`/verificar`) y, si tocó la interfaz,
 revisarla **en móvil primero** con capturas (375 px, 768 px y 1440 px).
-**Mira**: el informe de verificación con veredicto APTA o NO APTA.
+**Mira**: el informe de verificación con veredicto APTA o NO APTA, y en `senzu/ui-verify/` la captura
+**anotada** (cada aviso numerado sobre su elemento) y la del menú abierto en móvil.
+
+### Prueba 8b — Mide, no mira a ojo
+Desplaza a propósito un loader (`margin-left: 8px` en una capa centrada) o pon un menú con enlaces de 30 px
+y sin cierre con Escape, y pide «verifica la interfaz».
+**Debería**: decir cuántos píxeles está descentrado y por qué (`margin-left: 8px`), abrir el menú solo,
+avisar de los enlaces pequeños y de Escape, y enseñarlo recuadrado en la captura anotada.
+**Mira**: que no dé por buena la vista mientras el verificador siga en rojo.
 
 ### Prueba 9 — Emails y SEO (bonus)
 - "maqueta el email de bienvenida" → email compatible con Gmail, Outlook e iPhone, con versión en

@@ -131,6 +131,8 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
   `OPENAI_API_KEY`).
 - Verificación de UI: `npm i -D playwright && npx playwright install chromium` en el proyecto y
   `node .claude/skills/ui-verify/scripts/verify-ui.mjs http://localhost:PUERTO` (o `.agents/skills/...`).
+  Deja en `senzu/ui-verify/` las capturas por ancho, la anotada con los avisos numerados y, en móvil, la del
+  menú abierto (carpeta fuera de git).
 
 ## 6. Instalación remota (desde GitHub, sin tener nada local)
 

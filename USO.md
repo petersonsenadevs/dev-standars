@@ -100,7 +100,9 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - "ponle [efecto]: parallax, marquee, antes/después, cursor, texto que se deshace…" → catálogo → receta.
 - "genera una imagen del producto flotando para el hero" → image-gen (nativo o script).
 - "¿qué framework uso para …?" → árbol A0 de elección de stack.
-- "se ve mal en el móvil" → ui-verify.
+- "se ve mal en el móvil / el menú no va en el móvil" → ui-verify (mide, abre el menú y anota la captura).
+- "¿cómo quedará esto en el móvil? / ¿este efecto funciona en táctil?" → plan móvil por sección (`movil.md`).
+- "el loader no está centrado / esto está torcido" → ui-verify mide la geometría en píxeles y dice la causa.
 - "añade login / el webhook de stripe / se duplican pedidos / va lento" → recetas backend por síntoma.
 - "no me gusta X / nunca me pongas Y" → queda vetado en gustos.md.
 - "hazme más maquetas con lo que me gustó / otra ronda" → rondas de maquetas (fija, veta y propone algo nuevo).
@@ -119,6 +121,13 @@ pegas en el chat (o lo dices con tus palabras) → `/ronda` → nueva ronda: lo 
 vetado fuera y algo nuevo en cada una → repites hasta que digas «esta» → el agente construye → `/verificar`
 (+ móvil) → devlog → commit (te lo pedirá, nunca push sin tu ok). Todas las rondas quedan en
 `senzu/design-system/<slug>/propuestas/index.html` y las decisiones en `gustos.md`.
+El móvil va desde el principio: el blueprint tiene columna «En móvil» y cada maqueta trae al menos una pieza
+**V** (versión móvil: el menú, el orden, el efecto que cambia en táctil) que también votas.
+
+**Qué deja la verificación de UI** (`/verificar`, `/revisar-ui`): en `senzu/ui-verify/` la captura de cada
+ancho, la **anotada** (cada aviso `[g1]`, `[m2]`, `[menú]` recuadrado sobre su elemento) y la del **menú
+abierto** en móvil; en la consola, los avisos con su medida y causa y los tamaños reales (titular, texto,
+cabecera, botón principal). Un ajuste óptico intencionado se marca con `data-geometria="ignorar"`.
 
 **Rediseño de algo existente**: "quiero renovar la página X" → brief corto + `/propuestas X` →
 construir sobre la elegida.

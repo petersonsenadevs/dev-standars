@@ -89,7 +89,7 @@ sección necesaria (disciplina de contexto: nada se lee entero).
 | "monta el webhook de Stripe" | `code-quality` → integraciones (verificación de firma, reintentos, idempotencia) |
 | "dockeriza el proyecto y súbelo" | `deploy-ops` → Docker multi-stage + checklist de deploy (y el muro de producción) |
 | "añade un chatbot que responda con nuestros docs" | `code-quality` → llm-apps (RAG, streaming, costes, evals) |
-| "se ve roto en el móvil" | `ui-verify` → verificación 375px-primero con Playwright + crítica visual |
+| "se ve roto en el móvil" | `ui-verify` → verificación 375px-primero con Playwright: geometría en px, menú usado de verdad, captura anotada + crítica visual |
 
 **→ Todas las skills por grupo, con las señales que activan cada una: [docs/skills.md](docs/skills.md)**
 
@@ -105,6 +105,11 @@ sección necesaria (disciplina de contexto: nada se lee entero).
 
 Entrevista sin tecnicismos (`/brief`) → blueprint aprobable → **2 maquetas A/B** que se ven →
 construcción con checkpoint por sección → verificación móvil-primero → checklist de lanzamiento.
+La **versión móvil se piensa, no se encoge**: cada sección decide en el blueprint su orden, sus efectos en
+táctil, su menú (burger, barra inferior; nunca kebab para navegar) y sus tamaños, y se vota como una pieza más.
+La verificación **mide en píxeles** (centrado, loaders, iconos, alineación) y en móvil **usa el menú de
+verdad** (lo abre, mide los enlaces, prueba Escape); cada aviso sale numerado sobre una **captura anotada**,
+para confirmarlo mirándolo.
 Tus opiniones van a una memoria de gustos con **vetos ejecutables**, y una **lista negra anti-IA**
 (badges de disponibilidad, numeración de secciones, "trusted by" gris, métricas inventadas…) está
 prohibida por defecto y vigilada por hook + crítica visual.
