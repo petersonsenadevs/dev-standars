@@ -21,8 +21,8 @@
   ],
   "settingsPartial": "settings.partial.json",
   "docs": {
-    "langchainOffline": "<copia local de la documentación de LangChain>/docs/oss/python",
-    "note": "Consultar SIEMPRE la docu offline antes de escribir código LangChain/LangGraph."
+    "langchain": "https://docs.langchain.com",
+    "note": "Consultar SIEMPRE la documentación (oficial o la copia offline del proyecto) antes de escribir código LangChain/LangGraph."
   },
   "commands": {
     "lint": "ruff check .",

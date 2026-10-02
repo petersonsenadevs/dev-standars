@@ -257,5 +257,17 @@ foreach ($rel in $docsAMano) {
     }
 }
 
+# --- 14: ningún nombre privado (clientes, proyectos, la agencia) en lo que se publica. La lista vive en
+#         devlog/privado.txt (privado, no se versiona): solo se comprueba donde existe, nunca en el CI. ---
+$privado = Join-Path $root 'devlog\privado.txt'
+if (Test-Path $privado) {
+    $nombres = @((Read-Utf8 $privado) -split "`r?`n" | Where-Object { $_ -match '\S\s*==>' -and $_ -notmatch '^\s*#' } | ForEach-Object { ($_ -split '\s*==>')[0].Trim() } | Where-Object { $_ } | Select-Object -Unique)
+    $publicos = @(git -C $root ls-files 2>$null)
+    foreach ($nombre in $nombres) {
+        $hits = @(git -C $root grep -l -i -F -- $nombre 2>$null | Where-Object { $publicos -contains $_ })
+        foreach ($h in ($hits | Select-Object -First 3)) { Fail $h "contiene un nombre de la lista privada (devlog/privado.txt): no puede publicarse" }
+    }
+}
+
 Write-Host "Revisadas: $checked skills  Errores: $errors"
 if ($errors) { exit 1 } else { exit 0 }

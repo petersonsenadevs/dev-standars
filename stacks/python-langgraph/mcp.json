@@ -3,7 +3,7 @@
   "_example": {
     "langchain-docs": {
       "command": "node",
-      "args": ["<copia local de la documentación de LangChain>/mcp-server.mjs"],
+      "args": ["<ruta>/mcp-server.mjs"],
       "env": {}
     }
   },

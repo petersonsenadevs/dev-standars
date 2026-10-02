@@ -4,13 +4,12 @@
 
 Trabajas en un proyecto Python con LangGraph/LangChain. Reglas base + estas.
 
-## REGLA CRÍTICA: consulta la documentación offline ANTES de escribir código
-- Documentación LangChain/LangGraph offline (Python):
-  **`<copia local de la documentación de LangChain>/docs/oss/python`**
-  (equivalente JS en `.../docs/oss/javascript`).
-  Subcarpetas: `langgraph/`, `langchain/`, `integrations/`, `deepagents/`, `concepts/`, `reference/`, `migrate/`.
-- **Siempre** consulta esta docu antes de usar una API de LangChain/LangGraph. No inventes
-  firmas ni imports: las APIs cambian entre versiones. Verifica en la docu local.
+## REGLA CRÍTICA: consulta la documentación ANTES de escribir código
+- Documentación de LangChain/LangGraph (Python): la oficial, https://docs.langchain.com, o una copia
+  offline del proyecto si existe (su ruta va en `CLAUDE.project.md` / `AGENTS.project.md`). En la copia
+  offline: subcarpetas `langgraph/`, `langchain/`, `integrations/`, `deepagents/`, `concepts/`, `reference/`, `migrate/`.
+- **Siempre** consulta la docu antes de usar una API de LangChain/LangGraph. No inventes
+  firmas ni imports: las APIs cambian entre versiones.
 - Si hay un MCP de documentación configurado (ver `mcp.json`), úsalo para buscar antes de codificar.
 
 ## Convenciones Python

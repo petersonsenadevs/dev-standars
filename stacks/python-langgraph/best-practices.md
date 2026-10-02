@@ -1,7 +1,6 @@
 # Mejores prácticas — Python + LangGraph / LangChain
 
-> Antes de aplicar cualquiera de estas, valida la API concreta en la docu offline:
-> `<copia local de la documentación de LangChain>/docs/oss/python`.
+> Antes de aplicar cualquiera de estas, valida la API concreta en la documentación oficial (https://docs.langchain.com) o tu copia offline si la tienes.
 
 ## Python base
 - Type hints en todo lo público; `mypy` estricto. `ruff` para lint+formato.

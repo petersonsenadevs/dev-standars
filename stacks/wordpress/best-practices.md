@@ -2,7 +2,7 @@
 
 ## Arquitectura
 - Lógica de negocio en un **plugin propio** (sobrevive a cambios de theme); presentación en el child theme.
-- Un prefijo único (`miweb_`) en funciones, options, transients, handles de assets y tablas propias.
+- Un prefijo único (p. ej. `miweb_`) en funciones, options, transients, handles de assets y tablas propias.
 - Custom Post Types y taxonomías por código (plugin), no con builders; campos con ACF o `register_meta`.
 - Plantillas: jerarquía de WP (`single-{cpt}.php`, `archive-…`) y `get_template_part()` para trocear.
 

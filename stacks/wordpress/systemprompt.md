@@ -8,7 +8,7 @@ Trabajas en un proyecto WordPress (theme/plugin a medida, quizá WooCommerce). S
 - **Nunca toques el core** (`wp-admin/`, `wp-includes/`) ni themes/plugins de terceros: todo va en el
   **child theme** o en un plugin propio, vía hooks (`add_action`/`add_filter`).
 - WordPress Coding Standards (WPCS): tabs, snake_case en funciones, prefijo propio en todo lo global
-  (`miweb_`), `wp_enqueue_script/style` para assets (nunca `<script src>` a mano en templates).
+  (p. ej. `miweb_`), `wp_enqueue_script/style` para assets (nunca `<script src>` a mano en templates).
 - Texto siempre traducible: `__( 'Texto', 'textdomain' )` / `esc_html__()`. Español por defecto.
 - PHP moderno dentro de lo que permita el hosting (mínimo el `Requires PHP` del theme).
 
