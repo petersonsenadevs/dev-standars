@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). El detalle de cada entrada vive en el diari
 
 ## 2026-10-02
 
+- **fix** — CI: test-verify-build ya no depende de tener pnpm instalado · v2.2.2 (entrada 076)
 - **infra** — Devlog privado y preparación de la limpieza del historial · v2.2.1 (entrada 075)
 - **fix** — Marketplace de 13 a 4 plugins (62 → 25 MB) y guía generada por la versión anterior reconocida · v2.2.0 (entrada 074)
 - **fix** — CI: falso FAIL de check-skills por finales de línea CRLF en Windows · v2.1.1 (entrada 073)

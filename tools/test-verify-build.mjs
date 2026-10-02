@@ -50,7 +50,10 @@ w(m, 'docs/notas.md', '# notas\n');
 }
 {
     const r = run(m, '--paquete', 'apps/web');
-    ok(r.code === 0 && /PASS  apps\/web · lint/.test(r.out) && /PASS  apps\/web · types/.test(r.out) && !/apps\/api/.test(r.out.split('Resumen')[1] || ''), '--paquete ejecuta solo ese paquete', r.out.slice(-400));
+    // Lo que se prueba es la SELECCIÓN: la web usa pnpm, que puede no estar instalado (el runner de GitHub no
+    // lo tiene): entonces sale SKIP «no configurado», que también es correcto. PASS/FAIL reales: caso con npm.
+    const resumen = r.out.split('Resumen')[1] || '';
+    ok(r.code === 0 && /(PASS|SKIP)  apps\/web · lint/.test(resumen) && /(PASS|SKIP)  apps\/web · types/.test(resumen) && !/apps\/(api|cli|rules)|packages\/ui/.test(resumen), '--paquete ejecuta solo ese paquete', r.out.slice(-400));
 }
 {
     const r = run(m, '--paquete', 'apps/noexiste');
