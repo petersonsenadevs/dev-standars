@@ -43,6 +43,15 @@ Uso: Glob/Grep dentro de la carpeta y ADAPTAR a los tokens del proyecto (nunca p
 | `codrops-theodore/` | Theodore (demo Codrops) | 38 |
 | `codrops-webglblobs/` | Blobs WebGL organicos | 29 |
 
+## fisica
+| Carpeta | Que hay | Archivos |
+|---|---|---|
+| `canvas-confetti/` | Confeti y lluvia de formas con gravedad (celebrar una conversion) | 27 |
+| `d3-delaunay/` | Voronoi rapido: los trozos irregulares del cristal roto | 22 |
+| `matter-dropdown/` | Fisica sobre elementos reales de la pagina: la pagina se desmorona y se arrastra | 9 |
+| `matter-js/` | Motor de fisica 2D: objetos que caen, rebotan, se arrastran y se lanzan (ejemplos en examples/) | 123 |
+| `react-three-rapier/` | Fisica 3D en React Three Fiber (Rapier): un modelo GLB que cae y choca | 122 |
+
 ## fondos
 | Carpeta | Que hay | Archivos |
 |---|---|---|

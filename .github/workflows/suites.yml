@@ -76,6 +76,9 @@ jobs:
       - name: test-movil (móvil pensado - hover, menú burger usado de verdad, tamaños)
         run: node tools/test-movil.mjs
 
+      - name: test-fisica (intros y loaders que se rompen, objeto que cae, página que se desmorona)
+        run: node tools/test-fisica.mjs
+
       - name: test-init-parity (instalador PowerShell = instalador Node)
         shell: powershell
         run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-init-parity.ps1

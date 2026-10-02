@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Objeto que cae sobre la página · demo Senzu</title>
+<!--
+  DEMO de la receta «Objeto que cae encima de todo» (recipes/fisica-impacto.md).
+  Un objeto elegido (producto, logo, mascota) cae por encima de la web, choca con los bloques REALES de
+  la página (data-fisica="suelo"), golpea el bloque destino (que se hunde un poco) y se queda apoyado.
+  Se puede arrastrar y lanzar. Motor: matter-js (MIT, ~80 KB), cargado solo cuando hace falta.
+  Reglas: el objeto no tapa CTAs ni texto (se apoya en el bloque data-fisica-destino), el motor se para al
+  quedar en reposo (cero CPU), «reducir movimiento» = aparece ya apoyado, sin caída.
+-->
+<style>
+  :root { --verde: #1F6B4F; --brote: #3DDC84; --tinta: #0E1110; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 17px/1.6 system-ui, sans-serif; color: var(--tinta); background: #F6F4EE; overflow-x: hidden; }
+  header { display: flex; justify-content: space-between; align-items: center; height: 64px; padding: 0 20px; }
+  header strong { color: var(--verde); font-size: 20px; }
+  main { max-width: 960px; margin: 0 auto; padding: 40px 20px 120px; }
+  h1 { font-size: clamp(2rem, 7vw, 4rem); line-height: 1.05; margin: 0 0 16px; }
+  .cta { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--verde); color: #fff; text-decoration: none; font-weight: 600; }
+  .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 140px; }
+  .tarjeta { background: #fff; border-radius: 16px; padding: 20px; min-height: 160px; }
+
+  /* el objeto: por encima de todo, decorativo, se puede coger */
+  .fisica-objeto { position: absolute; left: 0; top: 0; z-index: 50; width: 88px; height: 88px; touch-action: none; cursor: grab;
+    will-change: transform; user-select: none; -webkit-user-drag: none; }
+  .fisica-objeto:active { cursor: grabbing; }
+  .fisica-objeto svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 10px 12px rgba(0,0,0,.18)); }
+</style>
+</head>
+<body>
+<header><strong>senzu</strong><a href="#" class="cta">Empezar</a></header>
+<main>
+  <h1>Una semilla y el proyecto se recupera</h1>
+  <p>La semilla cae encima de la página, choca con lo que hay y se queda apoyada. Cógela y lánzala.</p>
+  <a href="#" class="cta">Instalar Senzu</a>
+  <div class="rejilla">
+    <div class="tarjeta" data-fisica="suelo" data-fisica-destino-movil>Skills</div>
+    <div class="tarjeta" data-fisica="suelo" data-fisica-destino>Muros</div>
+    <div class="tarjeta" data-fisica="suelo">Verificación</div>
+  </div>
+</main>
+
+<div class="fisica-objeto" data-fisica="objeto" aria-hidden="true">
+  <svg viewBox="0 0 100 100"><path fill="#3DDC84" d="M50 6C30 22 18 42 18 62a32 32 0 0 0 64 0C82 42 70 22 50 6Z"/><path fill="#1F6B4F" d="M50 30c-8 12-12 22-12 32a12 12 0 0 0 24 0c0-10-4-20-12-32Z"/></svg>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var objeto = document.querySelector('[data-fisica="objeto"]');
+  // Destino decidido también para móvil (las tarjetas se apilan: el de escritorio puede quedar debajo de otra)
+  var movil = matchMedia('(max-width: 640px)').matches;
+  var destino = (movil && document.querySelector('[data-fisica-destino-movil]')) || document.querySelector('[data-fisica-destino]') || document.querySelector('[data-fisica="suelo"]');
+  var estado = window.senzuFisica = { fase: 'inicio', reposo: false };
+  var pagina = function (el) { var r = el.getBoundingClientRect(); return { x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height }; };
+  var lado = function () { return objeto.offsetWidth; };
+  var colocar = function (x, y, a) { objeto.style.transform = 'translate(' + (x - lado() / 2) + 'px,' + (y - lado() / 2) + 'px) rotate(' + (a || 0) + 'rad)'; };
+  // Donde acaba: centrado sobre el bloque destino, apoyado en su borde de arriba
+  // FORMA = lo que se ve del dibujo dentro de su caja (la semilla ocupa 64 % × 88 %): el cuerpo físico se ajusta a ella
+  var FORMA = { ancho: 0.64, alto: 0.88 };
+  var reposo = function () { var d = pagina(destino); return { x: d.x + d.w / 2, y: d.y - lado() * FORMA.alto / 2 }; };
+
+  // «Reducir movimiento»: aparece ya apoyado, sin caída ni física
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var p0 = reposo(); colocar(p0.x, p0.y, 0); estado.fase = 'reposo'; estado.reposo = true; return;
+  }
+  objeto.style.visibility = 'hidden';
+
+  // El motor se carga SOLO cuando el destino va a verse (no pesa en la carga inicial)
+  var cargar = function () {
+    return new Promise(function (ok, mal) {
+      if (window.Matter) return ok();
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js';
+      s.onload = ok; s.onerror = mal; document.head.append(s);
+    });
+  };
+  var vigia = new IntersectionObserver(function (es) {
+    if (!es.some(function (e) { return e.isIntersecting; })) return;
+    vigia.disconnect();
+    cargar().then(arrancar, function () { var p = reposo(); colocar(p.x, p.y, 0); objeto.style.visibility = ''; estado.fase = 'sin-motor'; });
+  }, { rootMargin: '200px' });
+  vigia.observe(destino);
+
+  function arrancar() {
+    var M = window.Matter, E = M.Engine, B = M.Bodies, C = M.Composite, Bo = M.Body, Ev = M.Events, Ru = M.Runner;
+    var motor = E.create({ enableSleeping: true, gravity: { y: 1.4 } });
+    var corredor = Ru.create(), enMarcha = false;
+    var marcha = function () { if (!enMarcha) { enMarcha = true; Ru.run(corredor, motor); } };
+    var suelos = [];
+    function montarSuelos() {
+      suelos.forEach(function (s) { C.remove(motor.world, s); });
+      var docW = document.documentElement.scrollWidth, docH = document.documentElement.scrollHeight;
+      suelos = Array.prototype.map.call(document.querySelectorAll('[data-fisica="suelo"]'), function (el) {
+        var r = pagina(el); var s = B.rectangle(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h, { isStatic: true, chamfer: { radius: 12 }, friction: 0.9 });
+        s.elemento = el; return s;
+      });
+      suelos.push(B.rectangle(docW / 2, docH + 25, docW * 2, 50, { isStatic: true }));     // suelo de la página
+      suelos.push(B.rectangle(-25, docH / 2, 50, docH * 2, { isStatic: true }));          // paredes
+      suelos.push(B.rectangle(docW + 25, docH / 2, 50, docH * 2, { isStatic: true }));
+      C.add(motor.world, suelos);
+    }
+    montarSuelos();
+
+    var meta = reposo();
+    var cuerpo = B.rectangle(meta.x + (Math.random() * 24 - 12), scrollY - lado(), lado() * FORMA.ancho, lado() * FORMA.alto,
+      { chamfer: { radius: lado() * 0.25 }, restitution: 0.32, friction: 0.8, frictionAir: 0.012, density: 0.004 });
+    Bo.setInertia(cuerpo, cuerpo.inertia * 25);   // cuesta tumbarla: aterriza de pie (si la lanzas, gira igual)
+    Bo.setAngle(cuerpo, (Math.random() - 0.5) * 0.3);
+    Bo.setAngularVelocity(cuerpo, (Math.random() - 0.5) * 0.03);
+    C.add(motor.world, cuerpo);
+    objeto.style.visibility = '';
+    estado.fase = 'cayendo';
+
+    // El golpe: el bloque que recibe el impacto se hunde un poco (solo el primer choque fuerte)
+    var golpeado = false;
+    Ev.on(motor, 'collisionStart', function (ev) {
+      ev.pairs.forEach(function (par) {
+        var otro = par.bodyA === cuerpo ? par.bodyB : par.bodyB === cuerpo ? par.bodyA : null;
+        if (!otro || !otro.elemento || golpeado || cuerpo.speed < 6) return;
+        golpeado = true;
+        otro.elemento.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(6px)' }, { transform: 'translateY(0)' }], { duration: 260, easing: 'cubic-bezier(.3,1.6,.5,1)' });
+      });
+    });
+    Ev.on(motor, 'afterUpdate', function () { colocar(cuerpo.position.x, cuerpo.position.y, cuerpo.angle); });
+    // Quieto = se para el motor (cero CPU) hasta que alguien lo coja
+    // Al quedarse quieto: si quedó torcido se endereza como un tentetieso (la pose final siempre es limpia),
+    // y después se para el motor (cero CPU) hasta que alguien lo coja.
+    Ev.on(cuerpo, 'sleepStart', function () {
+      Ru.stop(corredor); enMarcha = false;
+      var a0 = Math.atan2(Math.sin(cuerpo.angle), Math.cos(cuerpo.angle));
+      var fijar = function () { estado.fase = 'reposo'; estado.reposo = true; };
+      if (Math.abs(a0) < 0.05) return fijar();
+      // se apoya sobre lo que tenga debajo: el bloque más alto bajo su centro
+      var x = cuerpo.position.x, apoyo = Infinity;
+      suelos.forEach(function (sb) { if (sb.bounds.min.x <= x && sb.bounds.max.x >= x && sb.bounds.min.y >= cuerpo.position.y - lado()) apoyo = Math.min(apoyo, sb.bounds.min.y); });
+      var y1 = apoyo === Infinity ? cuerpo.position.y : apoyo - lado() * FORMA.alto / 2, y0 = cuerpo.position.y, t0 = performance.now();
+      estado.fase = 'enderezando';
+      (function paso(ahora) {
+        var t = Math.min(1, (ahora - t0) / 520), e = 1 - Math.pow(1 - t, 3);
+        var balanceo = Math.sin(t * Math.PI * 3) * (1 - t) * 0.12;   // pequeño vaivén al final
+        Bo.setAngle(cuerpo, a0 * (1 - e) + balanceo); Bo.setPosition(cuerpo, { x: x, y: y0 + (y1 - y0) * e });
+        colocar(cuerpo.position.x, cuerpo.position.y, cuerpo.angle);
+        if (t < 1) requestAnimationFrame(paso); else { Bo.setAngle(cuerpo, 0); colocar(x, y1, 0); fijar(); }
+      })(t0);
+    });
+    marcha();
+
+    // Cogerlo y lanzarlo (ratón y dedo)
+    var arrastre = null;
+    objeto.addEventListener('pointerdown', function (e) {
+      objeto.setPointerCapture(e.pointerId);
+      M.Sleeping.set(cuerpo, false); estado.reposo = false; estado.fase = 'arrastre';
+      arrastre = { dx: e.pageX - cuerpo.position.x, dy: e.pageY - cuerpo.position.y, x: e.pageX, y: e.pageY, t: performance.now(), vx: 0, vy: 0 };
+      Bo.setStatic(cuerpo, true);
+      marcha();
+    });
+    objeto.addEventListener('pointermove', function (e) {
+      if (!arrastre) return;
+      var ahora = performance.now(), dt = Math.max(1, ahora - arrastre.t);
+      arrastre.vx = (e.pageX - arrastre.x) / dt * 16; arrastre.vy = (e.pageY - arrastre.y) / dt * 16;
+      arrastre.x = e.pageX; arrastre.y = e.pageY; arrastre.t = ahora;
+      Bo.setPosition(cuerpo, { x: e.pageX - arrastre.dx, y: e.pageY - arrastre.dy });
+    });
+    var soltar = function () {
+      if (!arrastre) return;
+      Bo.setStatic(cuerpo, false);
+      Bo.setVelocity(cuerpo, { x: Math.max(-40, Math.min(40, arrastre.vx)), y: Math.max(-40, Math.min(40, arrastre.vy)) });
+      arrastre = null; estado.fase = 'cayendo';
+    };
+    objeto.addEventListener('pointerup', soltar); objeto.addEventListener('pointercancel', soltar);
+
+    // Si cambia el ancho, los bloques se mueven: se rehacen los suelos y el objeto vuelve a caer
+    var espera;
+    addEventListener('resize', function () {
+      clearTimeout(espera);
+      espera = setTimeout(function () { montarSuelos(); M.Sleeping.set(cuerpo, false); estado.reposo = false; marcha(); }, 200);
+    });
+  }
+})();
+</script>
+</body>
+</html>

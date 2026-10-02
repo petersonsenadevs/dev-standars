@@ -15,7 +15,7 @@ skills que se activan solas, muros que bloquean de verdad y verificación obliga
 nada por hecho.
 
 <!-- GEN:resumen -->
-![Version](https://img.shields.io/badge/version-v2.5.0-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-4-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
+![Version](https://img.shields.io/badge/version-v2.6.0-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-4-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
 
 | Grupo | Skills | Entra por |
 |---|---|---|
@@ -120,6 +120,10 @@ para confirmarlo mirándolo.
 Tus opiniones van a una memoria de gustos con **vetos ejecutables**, y una **lista negra anti-IA**
 (badges de disponibilidad, numeración de secciones, "trusted by" gris, métricas inventadas…) está
 prohibida por defecto y vigilada por hook + crítica visual.
+Y cuando la marca pide impacto, un **catálogo de efectos** con recetas por stack, incluida **física**: una
+intro o un loader en el que cae tu logo y la pantalla se rompe en trozos de cristal, un objeto que cae
+encima de la web y se queda apoyado, o una página que se desmorona; con demos que funcionan, saltables,
+sin intro para quien pide menos movimiento y probados en móvil.
 
 **→ Todos los comandos y los flujos completos: [docs/comandos.md](docs/comandos.md)**
 

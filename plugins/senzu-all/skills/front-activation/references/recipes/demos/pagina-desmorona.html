@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La página se desmorona · demo Senzu</title>
+<!--
+  DEMO de la receta «La página se desmorona» (recipes/fisica-impacto.md). Técnica de matter-dropdown
+  (MIT): cada elemento marcado con data-fisica="cae" pasa a ser un cuerpo físico y en cada fotograma se le
+  aplica transform (el maquetado no se toca: al recomponer, vuelve a su sitio).
+  Se activa A PROPÓSITO (botón; ideal como huevo de pascua o en una 404), nunca solo. Escape o
+  «Recomponer» lo devuelve todo. Con «reducir movimiento» el botón no aparece.
+-->
+<style>
+  :root { --verde: #1F6B4F; --brote: #3DDC84; --tinta: #0E1110; }
+  * { box-sizing: border-box; }
+  html.fisica-activa { overflow: hidden; }
+  body { margin: 0; font: 17px/1.6 system-ui, sans-serif; color: var(--tinta); background: #F6F4EE; }
+  header { display: flex; justify-content: space-between; align-items: center; height: 64px; padding: 0 20px; }
+  header strong { color: var(--verde); font-size: 20px; }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 20px 80px; text-align: center; }
+  h1 { font-size: clamp(3rem, 14vw, 9rem); line-height: 1; margin: 0; display: inline-block; }
+  .cta { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--verde); color: #fff; text-decoration: none; font-weight: 600; }
+  .fichas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 32px 0; }
+  .ficha { display: inline-block; padding: 12px 18px; border-radius: 12px; background: #fff; box-shadow: 0 2px 0 rgba(0,0,0,.06); }
+  [data-fisica="cae"] { touch-action: none; }
+  html.fisica-activa [data-fisica="cae"] { cursor: grab; user-select: none; position: relative; z-index: 2; will-change: transform; }
+  .gravedad { min-height: 48px; padding: 0 20px; border-radius: 999px; border: 2px solid var(--tinta); background: transparent; font: 600 15px system-ui, sans-serif; cursor: pointer; }
+  .gravedad:focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; }
+  .gravedad[hidden] { display: none; }
+</style>
+</head>
+<body>
+<header><strong>senzu</strong><button type="button" class="gravedad" aria-pressed="false">Activar gravedad</button></header>
+<main>
+  <h1 data-fisica="cae">404</h1>
+  <p data-fisica="cae">Esta página no existe. Pero ya que estás aquí…</p>
+  <div class="fichas">
+    <span class="ficha" data-fisica="cae">Skills</span><span class="ficha" data-fisica="cae">Muros</span>
+    <span class="ficha" data-fisica="cae">Rondas</span><span class="ficha" data-fisica="cae">Memoria</span>
+    <span class="ficha" data-fisica="cae">Verificación</span>
+  </div>
+  <a href="#" class="cta" data-fisica="cae">Volver al inicio</a>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var boton = document.querySelector('.gravedad');
+  var d = document.documentElement;
+  var estado = window.senzuDesmorona = { activa: false, cuerpos: 0 };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { boton.hidden = true; return; }
+
+  var cargar = function () {
+    return new Promise(function (ok, mal) {
+      if (window.Matter) return ok();
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js';
+      s.onload = ok; s.onerror = mal; document.head.append(s);
+    });
+  };
+
+  var motor, corredor, piezas = [], quitarEventos = [];
+  function activar() {
+    var M = window.Matter, B = M.Bodies, C = M.Composite, Bo = M.Body, Ev = M.Events;
+    motor = M.Engine.create({ gravity: { y: 1.2 } }); corredor = M.Runner.create();
+    var W = innerWidth, H = innerHeight;
+    // Paredes = la pantalla (en coordenadas de la pantalla: el scroll se bloquea mientras dura)
+    C.add(motor.world, [
+      B.rectangle(W / 2, H + 30, W * 3, 60, { isStatic: true }),
+      B.rectangle(-30, H / 2, 60, H * 3, { isStatic: true }),
+      B.rectangle(W + 30, H / 2, 60, H * 3, { isStatic: true })
+    ]);
+    piezas = Array.prototype.map.call(document.querySelectorAll('[data-fisica="cae"]'), function (el) {
+      el.style.transition = ''; el.style.transform = '';
+      var r = el.getBoundingClientRect();
+      var cuerpo = B.rectangle(r.left + r.width / 2, r.top + r.height / 2, r.width, r.height,
+        { chamfer: { radius: Math.min(12, r.height / 3) }, restitution: 0.3, friction: 0.5, frictionAir: 0.01 });
+      Bo.setAngularVelocity(cuerpo, (Math.random() - 0.5) * 0.04);
+      return { el: el, cuerpo: cuerpo, x0: cuerpo.position.x, y0: cuerpo.position.y };
+    });
+    C.add(motor.world, piezas.map(function (p) { return p.cuerpo; }));
+    Ev.on(motor, 'afterUpdate', function () {
+      piezas.forEach(function (p) {
+        p.el.style.transform = 'translate(' + (p.cuerpo.position.x - p.x0) + 'px,' + (p.cuerpo.position.y - p.y0) + 'px) rotate(' + p.cuerpo.angle + 'rad)';
+      });
+    });
+    // Coger y lanzar cualquier pieza
+    piezas.forEach(function (p) {
+      var arr = null;
+      var abajo = function (e) { e.preventDefault(); p.el.setPointerCapture(e.pointerId); arr = { x: e.clientX, y: e.clientY, t: performance.now(), vx: 0, vy: 0, dx: e.clientX - p.cuerpo.position.x, dy: e.clientY - p.cuerpo.position.y }; Bo.setStatic(p.cuerpo, true); };
+      var mueve = function (e) { if (!arr) return; var t = performance.now(), dt = Math.max(1, t - arr.t); arr.vx = (e.clientX - arr.x) / dt * 16; arr.vy = (e.clientY - arr.y) / dt * 16; arr.x = e.clientX; arr.y = e.clientY; arr.t = t; Bo.setPosition(p.cuerpo, { x: e.clientX - arr.dx, y: e.clientY - arr.dy }); };
+      var arriba = function () { if (!arr) return; Bo.setStatic(p.cuerpo, false); Bo.setVelocity(p.cuerpo, { x: Math.max(-35, Math.min(35, arr.vx)), y: Math.max(-35, Math.min(35, arr.vy)) }); arr = null; };
+      var clic = function (e) { e.preventDefault(); };   // mientras hay gravedad, un enlace no navega al soltarlo
+      p.el.addEventListener('pointerdown', abajo); p.el.addEventListener('pointermove', mueve);
+      p.el.addEventListener('pointerup', arriba); p.el.addEventListener('pointercancel', arriba); p.el.addEventListener('click', clic);
+      quitarEventos.push(function () { p.el.removeEventListener('pointerdown', abajo); p.el.removeEventListener('pointermove', mueve); p.el.removeEventListener('pointerup', arriba); p.el.removeEventListener('pointercancel', arriba); p.el.removeEventListener('click', clic); });
+    });
+    d.classList.add('fisica-activa');
+    M.Runner.run(corredor, motor);
+    estado.activa = true; estado.cuerpos = piezas.length;
+    boton.textContent = 'Recomponer'; boton.setAttribute('aria-pressed', 'true');
+  }
+
+  function recomponer() {
+    if (!estado.activa) return;
+    window.Matter.Runner.stop(corredor); window.Matter.Engine.clear(motor);
+    quitarEventos.forEach(function (f) { f(); }); quitarEventos = [];
+    piezas.forEach(function (p, i) {   // vuelven a su sitio, una detrás de otra
+      p.el.style.transition = 'transform 600ms cubic-bezier(.2,.9,.3,1.2) ' + (i * 40) + 'ms';
+      p.el.style.transform = '';
+    });
+    setTimeout(function () { piezas.forEach(function (p) { p.el.style.transition = ''; }); d.classList.remove('fisica-activa'); }, 600 + piezas.length * 40);
+    estado.activa = false;
+    boton.textContent = 'Activar gravedad'; boton.setAttribute('aria-pressed', 'false');
+  }
+
+  boton.addEventListener('click', function () {
+    if (estado.activa) return recomponer();
+    boton.disabled = true;
+    cargar().then(function () { boton.disabled = false; activar(); }, function () { boton.disabled = false; boton.hidden = true; });
+  });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') recomponer(); });
+})();
+</script>
+</body>
+</html>

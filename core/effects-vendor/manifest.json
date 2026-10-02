@@ -1190,6 +1190,51 @@
       "for": "Patrones y formas generativas con CSS (fondos y texturas de marca)",
       "commit": true,
       "stripMedia": true
+    },
+    {
+      "name": "matter-js",
+      "repo": "liabru/matter-js",
+      "license": "MIT",
+      "category": "fisica",
+      "for": "Motor de fisica 2D: objetos que caen, rebotan, se arrastran y se lanzan (ejemplos en examples/)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "matter-dropdown",
+      "repo": "combatwombat/matter-dropdown",
+      "license": "MIT",
+      "category": "fisica",
+      "for": "Fisica sobre elementos reales de la pagina: la pagina se desmorona y se arrastra",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "d3-delaunay",
+      "repo": "d3/d3-delaunay",
+      "license": "ISC",
+      "category": "fisica",
+      "for": "Voronoi rapido: los trozos irregulares del cristal roto",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "canvas-confetti",
+      "repo": "catdad/canvas-confetti",
+      "license": "ISC",
+      "category": "fisica",
+      "for": "Confeti y lluvia de formas con gravedad (celebrar una conversion)",
+      "commit": true,
+      "stripMedia": true
+    },
+    {
+      "name": "react-three-rapier",
+      "repo": "pmndrs/react-three-rapier",
+      "license": "MIT",
+      "category": "fisica",
+      "for": "Fisica 3D en React Three Fiber (Rapier): un modelo GLB que cae y choca",
+      "commit": true,
+      "stripMedia": true
     }
   ]
 }

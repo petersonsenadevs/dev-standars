@@ -98,6 +98,8 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 - "enséñame dos propuestas antes" → modo propuesta (maquetas A/B).
 - "que se vea moderna / tipo bento / con un fondo aurora" → recetario del look moderno.
 - "ponle [efecto]: parallax, marquee, antes/después, cursor, texto que se deshace…" → catálogo → receta.
+- "una intro donde caiga el logo y se rompa la pantalla / un loader que se agriete / que caiga el producto
+  encima de la web / que la página se desmorone" → física e impacto (recetas con demos que funcionan).
 - "genera una imagen del producto flotando para el hero" → image-gen (nativo o script).
 - "¿qué framework uso para …?" → árbol A0 de elección de stack.
 - "se ve mal en el móvil / el menú no va en el móvil" → ui-verify (mide, abre el menú y anota la captura).

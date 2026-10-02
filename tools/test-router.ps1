@@ -63,6 +63,9 @@ $cases = @(
     @{ n = 'parallax sin DS';       prompt = 'añade un parallax al hero y un marquee de logos';            expect = 'gsap-scrolltrigger'; expectFirst = 'ui-ux-pro-max' }
     @{ n = 'skew con DS';           prompt = 'aplica un efecto de skew según la velocidad del scroll';     designSystem = $true; expect = 'gsap-scrolltrigger'; forbid = 'ui-ux-pro-max' }
     @{ n = 'cursor personalizado';  prompt = 'quiero un cursor personalizado con estados al pasar por los enlaces'; expect = 'gsap-scrolltrigger' }
+    @{ n = 'intro pantalla rota';   prompt = 'quiero una intro donde caiga el logo y se rompa la pantalla'; expect = 'front-activation' }
+    @{ n = 'objeto que cae';        prompt = 'que caiga encima de la web nuestro producto y rebote';        expect = 'front-activation' }
+    @{ n = 'loader que se agrieta'; prompt = 'haz un loader que se agrieta mientras carga';                 expect = 'front-activation' }
     @{ n = 'before/after';          prompt = 'pon un comparador before after en la galería de reformas';   expect = 'gsap-scrolltrigger' }
     @{ n = 'motion EN sin framer';  prompt = 'add motion to the hero section please';                      skills = @('ui-ux-pro-max','gsap-scrolltrigger'); expect = 'ui-ux-pro-max'; forbid = 'motion-framer' }
     @{ n = 'framer explicito';      prompt = 'anima el modal con framer motion y AnimatePresence';         expect = 'motion-framer' }

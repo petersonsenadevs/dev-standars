@@ -15,7 +15,7 @@ Copiadas tal cual y con una capa en castellano encima (`core/skills-overlay/`); 
 | [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | Next Level Builder | MIT | 7: banner-design, brand, design-system, graphic-design, slides, ui-styling, ui-ux-pro-max |
 | [claudedesignskills](https://github.com/freshtechbro/claudedesignskills) | Claude Skills Project | MIT | 22: aframe-webxr, animated-component-libraries, animejs, babylonjs-engine, barba-js, blender-web-pipeline, gsap-scrolltrigger, lightweight-3d-effects, locomotive-scroll, lottie-animations, modern-web-design, motion-framer, pixijs-2d, playcanvas-engine, react-spring-physics, react-three-fiber, rive-interactive, scroll-reveal-libraries, spline-interactive, substance-3d-texturing, threejs-webgl, web3d-integration-patterns |
 
-## Colección de efectos (132 repositorios)
+## Colección de efectos (137 repositorios)
 
 Fuente de las recetas del catálogo de efectos de `front-activation`. No va en el repositorio: se descarga
 con `tools/vendor-effects.ps1`.
@@ -63,6 +63,16 @@ con `tools/vendor-effects.ps1`.
 | [codrops/MotionTrailAnimations](https://github.com/codrops/MotionTrailAnimations) | MIT | Estelas de movimiento (motion trail) |
 | [codrops/Theodore](https://github.com/codrops/Theodore) | MIT | Theodore (demo Codrops) |
 | [codrops/WebGLBlobs](https://github.com/codrops/WebGLBlobs) | MIT | Blobs WebGL organicos |
+
+### fisica
+
+| Repositorio | Licencia | Para qué |
+|---|---|---|
+| [catdad/canvas-confetti](https://github.com/catdad/canvas-confetti) | ISC | Confeti y lluvia de formas con gravedad (celebrar una conversion) |
+| [combatwombat/matter-dropdown](https://github.com/combatwombat/matter-dropdown) | MIT | Fisica sobre elementos reales de la pagina: la pagina se desmorona y se arrastra |
+| [d3/d3-delaunay](https://github.com/d3/d3-delaunay) | ISC | Voronoi rapido: los trozos irregulares del cristal roto |
+| [liabru/matter-js](https://github.com/liabru/matter-js) | MIT | Motor de fisica 2D: objetos que caen, rebotan, se arrastran y se lanzan (ejemplos en examples/) |
+| [pmndrs/react-three-rapier](https://github.com/pmndrs/react-three-rapier) | MIT | Fisica 3D en React Three Fiber (Rapier): un modelo GLB que cae y choca |
 
 ### fondos
 

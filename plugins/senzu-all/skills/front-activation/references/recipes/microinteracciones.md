@@ -102,4 +102,5 @@ En webs normales NO hay preloader: retrasa el contenido y empeora el LCP (web-pe
 
 Una animación de logo o frase al entrar, **una vez por sesión** (`sessionStorage`), saltable con
 clic/tecla, de 1,5 s como máximo, y nunca delante de contenido que el usuario vino a buscar (tiendas,
-reservas). Reduced-motion: sin intro.
+reservas). Reduced-motion: sin intro. Con caída de un objeto y la pantalla que se rompe (hasta 2,6 s, o
+como loader que se agrieta mientras carga): `fisica-impacto.md` §Intro o loader y `demos/intro-rotura.html`.
