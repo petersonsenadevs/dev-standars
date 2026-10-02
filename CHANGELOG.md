@@ -6,7 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-10-02
 
-- **docs** — Brief, marca, briefs de logos (símbolo, logotipo, combinado, mascota) y plan de la web (entrada 071)
+- **docs** — Brief, marca, briefs de logos y plan de la web (movidos al repo aparte D:senzu-web) (entrada 071)
 - **docs** — Docs: clonado con la carpeta senzu/ y plugins senzu-* · v2.0.1 (entrada 070)
 
 ## 2026-10-01
