@@ -9,7 +9,7 @@ No hace falta leer nada más antes: cada prueba dice qué escribir y qué deber�
 
 Senzu convierte nuestra forma de trabajar en algo que el agente de IA **cumple solo**:
 
-- **Sabe qué hacer sin que se lo digas**: pides en llano y el agente carga la skill adecuada (41 skills:
+- **Sabe qué hacer sin que se lo digas**: pides en llano y el agente carga la skill adecuada (skills:
   diseño, efectos, backend, deploy, SEO, emails…), leyendo solo la parte necesaria.
 - **No puede saltarse las normas**: lo peligroso se bloquea antes de que ocurra (push, deploy a
   producción, secretos, `console.log`, tests desactivados, clichés de "web hecha con IA"…).
@@ -189,5 +189,5 @@ muro o un caso de test del paquete, y a partir de ahí no vuelve a pasar en ning
 | Añadir animación y 3D | `<repo>\tools\sync.ps1 -Path <proyecto> -Bundle core-3d-animation` |
 | Hooks de git en el proyecto | `<repo>\tools\sync.ps1 -Path <proyecto> -GitHooks` |
 
-Más detalle: [USO.md](../USO.md) (día a día) · [docs/skills.md](skills.md) (las 41 skills) ·
+Más detalle: [USO.md](../USO.md) (día a día) · [docs/skills.md](skills.md) (todas las skills) ·
 [docs/hooks.md](hooks.md) (todos los muros) · [REFERENCIA.md](../REFERENCIA.md) (todo en una página).

@@ -8,7 +8,7 @@ skills que se activan solas, muros que bloquean de verdad y verificación obliga
 nada por hecho.
 
 <!-- GEN:resumen -->
-![Version](https://img.shields.io/badge/version-v2.2.2-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-4-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
+![Version](https://img.shields.io/badge/version-v2.2.3-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-4-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
 
 | Grupo | Skills | Entra por |
 |---|---|---|
@@ -75,11 +75,11 @@ Lista negra: anti-ia.md (qué usar en su lugar).
 
 También: secretos en código, `console.log` nuevos, migraciones ya desplegadas, archivos generados,
 `rm -rf`, `chmod 777`, `curl|bash`, marcadores de conflicto, vetos del cliente en `gustos.md`…
-**→ Los 13 muros, uno a uno, con sus escapes: [docs/hooks.md](docs/hooks.md)**
+**→ Todos los muros, uno a uno, con sus escapes: [docs/hooks.md](docs/hooks.md)**
 
 ## Pides en llano, el agente sabe qué leer
 
-Sin invocar skills a mano: un enrutador con 41 skills registradas detecta la tarea y carga SOLO la
+Sin invocar skills a mano: un enrutador con todas las skills registradas detecta la tarea y carga SOLO la
 sección necesaria (disciplina de contexto: nada se lee entero).
 
 | Tú dices… | El agente usa… |
@@ -91,7 +91,7 @@ sección necesaria (disciplina de contexto: nada se lee entero).
 | "añade un chatbot que responda con nuestros docs" | `code-quality` → llm-apps (RAG, streaming, costes, evals) |
 | "se ve roto en el móvil" | `ui-verify` → verificación 375px-primero con Playwright + crítica visual |
 
-**→ Las 41 skills por grupo, con las señales que activan cada una: [docs/skills.md](docs/skills.md)**
+**→ Todas las skills por grupo, con las señales que activan cada una: [docs/skills.md](docs/skills.md)**
 
 ## Sabe en qué proyecto está
 
@@ -109,7 +109,7 @@ Tus opiniones van a una memoria de gustos con **vetos ejecutables**, y una **lis
 (badges de disponibilidad, numeración de secciones, "trusted by" gris, métricas inventadas…) está
 prohibida por defecto y vigilada por hook + crítica visual.
 
-**→ Los 12 comandos y los flujos completos: [docs/comandos.md](docs/comandos.md)**
+**→ Todos los comandos y los flujos completos: [docs/comandos.md](docs/comandos.md)**
 
 ## Documentación
 
@@ -121,7 +121,7 @@ prohibida por defecto y vigilada por hook + crítica visual.
 | **[docs/skills.md](docs/skills.md)** | Las skills por grupo: cuándo salta cada una y con qué señales |
 | **[docs/comandos.md](docs/comandos.md)** | Los comandos slash explicados + flujos típicos |
 | **[docs/hooks.md](docs/hooks.md)** | Los hooks/muros: qué bloquea cada uno y sus escapes |
-| **[docs/stacks.md](docs/stacks.md)** | Los 9 stacks (+ Go/Java/C#) y los bundles opcionales |
+| **[docs/stacks.md](docs/stacks.md)** | Los stacks (+ Go/Java/C#) y los bundles opcionales |
 | **[docs/arquitectura.md](docs/arquitectura.md)** | Cómo funciona por dentro: registro único, vendor/overlay, disciplina de contexto |
 | **[REFERENCIA.md](REFERENCIA.md)** | Todo el catálogo en UNA página |
 | **[CREDITOS.md](CREDITOS.md)** | Los repositorios de terceros que usamos, con su autor y su licencia |

@@ -13,7 +13,7 @@ senzu/
 ├── core/                     # Reglas COMUNES a todos los lenguajes
 │   ├── methodology/          # devlog, git-flow, acciones prohibidas
 │   ├── prompts/              # systemprompt base (se hereda en cada stack)
-│   ├── hooks/                # 14 hooks Node (.mjs, agnósticos de OS) — ver docs/hooks.md
+│   ├── hooks/                # hooks Node (.mjs, agnósticos de OS) — ver docs/hooks.md
 │   ├── skills/               # skills propias (devlog, project-planner, code-quality, deploy-ops, email-html…)
 │   ├── skills-vendor/        # skills de terceros COPIADAS por tools/vendor.ps1 (inglés, NO editar)
 │   ├── skills-overlay/       # NUESTRA capa en español que se copia ENCIMA del vendor al renderizar
@@ -61,7 +61,7 @@ senzu/
 
 ## El plan manda: `project-planner`
 
-Con 41 skills y 13 hooks hace falta quién decide **qué se hace, en qué orden y con qué skill**:
+Con decenas de skills y de muros hace falta quién decide **qué se hace, en qué orden y con qué skill**:
 
 - `senzu/plan/PLAN.md` con **fases entregables** (walking skeleton primero) y **tareas pequeñas**
   (`F1-T2 · título [S] [todo]`), cada una con skill+sección a leer, "hecho cuando" y verificación.

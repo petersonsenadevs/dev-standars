@@ -75,7 +75,7 @@ Qué deja en el proyecto:
 
 | Herramienta | Archivos |
 |---|---|
-| Claude Code | `CLAUDE.md` + `.claude/skills/` + `.claude/hooks/` (11 hooks: router, guard, verificación móvil…) + `.claude/commands/` (`/plan`, `/brief`, `/design-system`, `/efecto`, `/revisar-ui`) + `settings.json` |
+| Claude Code | `CLAUDE.md` + `.claude/skills/` + `.claude/hooks/` (los muros: router, guard, verificación móvil…) + `.claude/commands/` (`/plan`, `/brief`, `/design-system`, `/efecto`, `/revisar-ui`) + `settings.json` |
 | Codex | `AGENTS.md` (mismas reglas) + `.agents/skills/` (estándar Agent Skills; Codex las autodescubre) |
 | Comunes | `senzu/plan/` (PLAN.md), `senzu/devlog/`, `senzu/senzu.json` (marcador para sync) |
 

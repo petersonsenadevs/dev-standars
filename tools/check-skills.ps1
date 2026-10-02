@@ -242,5 +242,20 @@ foreach ($ps in (Get-ChildItem (Join-Path $root 'tools'), (Join-Path $root 'tool
     if ($b.Length -lt 3 -or $b[0] -ne 0xEF -or $b[1] -ne 0xBB -or $b[2] -ne 0xBF) { Fail $ps.Name 'sin BOM UTF-8 (PS 5.1 leera el archivo como ANSI)' }
 }
 
+# --- 13: sin cifras escritas a mano en la documentación (se quedan viejas: las cifras salen generadas en las
+#         insignias del README y en REFERENCIA.md). Se permiten datos históricos («Hasta la 1.0.x…»); el ROADMAP
+#         no entra: sus cifras son de tareas cerradas con fecha. ---
+$docsAMano = @('README.md', 'INSTALL.md', 'USO.md', 'docs\arquitectura.md', 'docs\guia-de-prueba.md')
+foreach ($rel in $docsAMano) {
+    $f = Join-Path $root $rel
+    if (-not (Test-Path $f)) { continue }
+    $n = 0
+    foreach ($linea in ((Read-Utf8 $f) -split "`r?`n")) {
+        $n++
+        if ($linea -match '<!-- GEN|badge/|Hasta la \d') { continue }
+        if ($linea -match '\b(\d+)\s+(skills|hooks|muros|comandos|stacks)\b') { Fail $rel "linea ${n}: cifra escrita a mano ('$($Matches[0])'): se queda vieja; quitala o usa las generadas" }
+    }
+}
+
 Write-Host "Revisadas: $checked skills  Errores: $errors"
 if ($errors) { exit 1 } else { exit 0 }
