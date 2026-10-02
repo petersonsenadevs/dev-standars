@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/senzu-horizontal-color-oscuro.svg">
+    <img alt="Senzu" src="assets/logo/senzu-horizontal-color-claro.svg" width="360">
+  </picture>
+</p>
+
 # Senzu
 
 *Una semilla y el proyecto se recupera.* (Antes **dev-standards**.)

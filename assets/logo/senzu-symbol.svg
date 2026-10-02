@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Símbolo de Senzu</title>
+  <desc id="desc">Semilla ovalada abierta por un espacio negativo con forma de S.</desc>
+  <g fill="#1F6B4F" transform="matrix(1.35 0 0 1.35 -331.75 -129.25)">
+    <path d="M622 205C548 244 482 304 445 375C407 448 409 529 443 602C476 672 534 725 590 728C617 729 642 711 655 684C677 640 680 593 663 558C646 522 618 496 589 469C554 437 528 407 532 366C537 313 571 253 622 205Z"/>
+    <path d="M651 243C701 258 752 299 784 351C825 419 834 499 817 568C799 641 747 702 638 744C671 690 700 642 697 593C694 543 667 510 634 479C603 450 582 415 585 373C589 318 616 267 651 243Z"/>
+  </g>
+</svg>
