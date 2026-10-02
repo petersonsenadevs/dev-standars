@@ -1,7 +1,7 @@
 {
     "name":  "bundle-animation-components",
     "description":  "Bundle Senzu \u0027animation-components\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): react-spring-physics, animated-component-libraries, scroll-reveal-libraries, animejs, lottie-animations.",
-    "version":  "2.0.4",
+    "version":  "2.0.5",
     "author":  {
                    "name":  "Senzu"
                },

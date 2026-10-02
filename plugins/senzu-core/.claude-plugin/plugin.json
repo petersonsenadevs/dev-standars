@@ -1,7 +1,7 @@
 {
     "name":  "senzu-core",
     "description":  "Metodología Senzu: skill devlog + skill-router + hooks (guard de git/BD, archivos protegidos, secretos, formateo al guardar, estado de sesión, router de prompts, cierre con devlog, pre-compact).",
-    "version":  "2.0.4",
+    "version":  "2.0.5",
     "author":  {
                    "name":  "Senzu"
                },
