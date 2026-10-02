@@ -137,7 +137,7 @@ la paleta sale sola del design system. En la app de ChatGPT/Codex la genera nati
 Codex puede usar Senzu de dos formas, y conviene saber qué llega con cada una.
 
 **a) Con el marketplace de plugins de Codex** (el mismo repo: Codex lo añade como marketplace git y
-descarga los plugins `dev-standards-*`):
+descarga los plugins `senzu-*`):
 
 | Pieza | ¿Funciona en Codex? |
 |---|---|

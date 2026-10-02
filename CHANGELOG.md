@@ -4,6 +4,10 @@
 
 Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `devlog/`.
 
+## 2026-10-02
+
+- **docs** — Docs: clonado con la carpeta senzu/ y plugins senzu-* · v2.0.1 (entrada 070)
+
 ## 2026-10-01
 
 - **feature** — dev-standards pasa a llamarse Senzu y todo lo del proyecto va a senzu/ (migración automática) · v2.0.0 (entrada 069)

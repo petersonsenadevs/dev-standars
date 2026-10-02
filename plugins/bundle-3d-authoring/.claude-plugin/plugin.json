@@ -1,7 +1,7 @@
 {
     "name":  "bundle-3d-authoring",
     "description":  "Bundle Senzu \u00273d-authoring\u0027 (+ nucleo devlog/project-planner/code-quality/skill-router): blender-web-pipeline, spline-interactive, rive-interactive, substance-3d-texturing.",
-    "version":  "2.0.0",
+    "version":  "2.0.1",
     "author":  {
                    "name":  "Senzu"
                },

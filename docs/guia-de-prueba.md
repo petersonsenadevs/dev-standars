@@ -66,7 +66,7 @@ comandos se cargan al arrancar.
 > ejemplo "haz el brief"). Los muros no están garantizados en Codex. Detalle en [USO.md](../USO.md) §6.
 
 > Alternativa sin plugin: `git clone https://github.com/petersonsenadevs/senzu.git` y después
-> `node dev-standars/tools/init.mjs --stack laravel --path <tu-proyecto> --tools claude`.
+> `node senzu/tools/init.mjs --stack laravel --path <tu-proyecto> --tools claude`.
 
 ## 2. Comprobar que funciona (2 minutos)
 

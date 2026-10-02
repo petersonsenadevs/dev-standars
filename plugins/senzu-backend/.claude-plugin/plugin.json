@@ -1,7 +1,7 @@
 {
     "name":  "senzu-backend",
     "description":  "Calidad de código y arquitectura: code-quality (buenas prácticas por stack, tests, seguridad, rendimiento, APIs, PR) + ddd-hexagonal (DDD y puertos/adaptadores para proyectos complejos) + devlog + hooks de guard.",
-    "version":  "2.0.0",
+    "version":  "2.0.1",
     "author":  {
                    "name":  "Senzu"
                },
