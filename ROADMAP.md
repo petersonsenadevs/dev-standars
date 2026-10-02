@@ -1,6 +1,50 @@
 # Roadmap de Senzu (para que nada se olvide)
 
-Actualizado: 2026-09-18. Las tandas completadas viven en `senzu/devlog/INDEX.md` (029 entradas).
+Actualizado: 2026-10-02. Las tandas completadas viven en el devlog (`INDEX.md`).
+
+## 0. Siguiente tanda (2026-10-03): cuarta pared, doble pantalla y combinaciones
+Idea: un efecto suelto lo copia cualquiera; **combinar varios con una idea detrás** es lo que hace que una web
+parezca de estudio. Se construye igual que «Física e impacto» (082-083): categoría en el catálogo, receta por
+stack, demos HTML que funcionan con su ficha (`senzu-demo`), suite en Chromium real a 375 y 1440, publicadas
+en `docs/efectos.*` para la web. Código de terceros solo con licencia verificada (vendor-effects).
+
+**Orden propuesto** (a confirmar con el usuario al empezar: cuarta pared primero, o ir directos a «La semilla»
+para senzu-web y sacar de ahí las piezas):
+- [ ] **Categoría «Cuarta pared»** (la web sabe que la miras), tres demos estrella:
+  - [ ] **Se sale del marco**: foto, producto o personaje que sobresale de su tarjeta o sección y se apoya en la
+        siguiente (capas, `overflow: visible`, sticky); en móvil, sin solapar texto.
+  - [ ] **La web te mira**: ojos, logo o personaje que siguen al cursor (en móvil, la inclinación con permiso
+        de `DeviceOrientation`, o nada); parpadea, se asusta si vas rápido.
+  - [ ] **La interfaz se rompe a propósito**: botón que se cae tras muchos hovers, texto que se despega y se
+        recoloca, scroll que «pesa» (reutiliza el motor de 082).
+  - [ ] Más ideas para la receta: reacciona a irte o volver (`visibilitychange`), a quedarte quieto, cursor que
+        empuja las letras del titular.
+- [ ] **Categoría «Doble pantalla»**: dividida animada que cuenta dos historias (antes/después, B/N y color,
+      mitades que van en sentidos contrarios con el scroll); doble capa con linterna o rasgado que revela la
+      web de debajo; ventanas arrastrables dentro de la web (portfolios). La composición estática ya existe
+      (`composiciones.md` → pantalla dividida): aquí va la versión animada.
+- [ ] **Recetario de combinaciones (coreografías)**, cada una con UNA idea y UN clímax:
+  - [ ] *La semilla*: intro que cae y rompe la pantalla → brota en el hero (trazo SVG que crece) → sale de su
+        tarjeta al hacer scroll → acaba apoyada junto al CTA.
+  - [ ] *Antes y después*: pantalla dividida → la mitad del antes se agrieta y cae → aparece el después.
+  - [ ] *La web viva*: personaje que te mira → se asoma por el borde de las secciones → en la 404 la página se
+        desmorona y él la recoge.
+  - [ ] Reglas de combinación: una idea que lo une, **un solo efecto de coste alto por página**, un clímax,
+        móvil decidido, todo saltable y con «reducir movimiento»; se votan en las rondas como una pieza **M**.
+  - [ ] Que el agente, ante «algo que impacte», proponga una COMBINACIÓN con su idea en vez de amontonar efectos
+        (front-activation y ui-ux-pro-max; caso nuevo en test-router).
+- [ ] Más adelante (ofrecido, sin confirmar): componentes listos por stack (`<IntroRotura />` en Astro, React y
+      Vue con props) y un comando `/intro` que pregunte objeto, colores y modo y lo monte verificado.
+
+**Abierto de hoy** (no olvidar):
+- [ ] `verify-ui` decide la carpeta de capturas por el directorio actual: si se ejecuta desde otra carpeta, las
+      deja fuera de `senzu/ui-verify/`. Que busque la raíz del proyecto.
+- [ ] El muro de UI (`front-skill-reminder`) salta en el propio repo de Senzu al escribir demos de recetas
+      (`core/`): que no cuente como UI de un proyecto.
+- [ ] Comprobación de enlaces rotos como herramienta fija (no un script de usar y tirar en temp): en la
+      checklist de lanzamiento de ui-verify.
+- [ ] La web (senzu-web) consume `docs/efectos.md` y `docs/efectos.json` (v2.6.1): bloque de instrucciones ya
+      entregado a su agente.
 
 ## 1. Pendientes que dependen del usuario
 - [ ] **Estreno real del ciclo completo**: un proyecto de verdad con `/brief` → `/propuestas` (maquetas A/B)
