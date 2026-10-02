@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). El detalle de cada entrada vive en el diari
 
 ## 2026-10-02
 
+- **docs** — Catálogo de efectos y demos publicados para la web (docs/efectos.md + efectos.json) · v2.6.1 (entrada 083)
 - **feature** — Física e impacto: intro y loader con pantalla rota, objeto que cae, página que se desmorona · v2.6.0 (entrada 082)
 - **feature** — Versión móvil pensada (plan por sección, pieza V) y verificada usando el menú y con captura anotada · v2.5.0 (entrada 081)
 - **feature** — ui-verify mide la geometría en píxeles (centrado, loaders, spinners, SVG, casi-alineados) · v2.4.0 (entrada 080)

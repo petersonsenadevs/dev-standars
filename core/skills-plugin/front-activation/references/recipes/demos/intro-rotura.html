@@ -50,6 +50,29 @@
   .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 48px; }
   .rejilla div { background: #fff; border-radius: 16px; padding: 20px; min-height: 140px; }
 </style>
+<!-- Ficha de la demo: la leen tools/build-efectos.mjs (docs/efectos.json) y la web de Senzu. -->
+<script type="application/json" id="senzu-demo">
+{
+  "titulo": "Intro con caída y pantalla rota",
+  "descripcion": "Un objeto cae, golpea la pantalla, se agrieta y el cristal se rompe en trozos que caen dejando ver la web. También como loader que se agrieta mientras carga.",
+  "categoria": "Física e impacto",
+  "receta": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#intro-o-loader-con-caída-y-pantalla-rota",
+  "dependencias": [],
+  "parametros": [
+    {
+      "valor": "?intro=1",
+      "que": "la fuerza aunque ya se viera en la sesión"
+    },
+    {
+      "valor": "?intro=1&modo=loader",
+      "que": "modo loader: las grietas avanzan con la carga y se rompe al terminar"
+    }
+  ],
+  "reducirMovimiento": "Sin intro",
+  "movil": "Menos trozos y objeto más pequeño",
+  "interaccion": "Botón «Saltar intro» y Escape"
+}
+</script>
 </head>
 <body>
 <header><strong>senzu</strong><a href="#" class="cta">Empezar</a></header>

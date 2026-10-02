@@ -275,3 +275,7 @@ if (Test-Path $idxPath) {
 
 # Créditos de terceros (CREDITOS.md) desde los manifiestos de vendor y efectos
 & node (Join-Path $root 'tools\build-creditos.mjs')
+
+# Catálogo de efectos público (docs/efectos.md + docs/efectos.json, el contrato que consume la web)
+& node (Join-Path $root 'tools\build-efectos.mjs')
+if ($LASTEXITCODE -ne 0) { throw 'build-efectos: una demo sin ficha o una receta que no existe (ver arriba)' }

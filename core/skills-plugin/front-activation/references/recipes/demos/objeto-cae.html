@@ -30,6 +30,27 @@
   .fisica-objeto:active { cursor: grabbing; }
   .fisica-objeto svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 10px 12px rgba(0,0,0,.18)); }
 </style>
+<!-- Ficha de la demo: la leen tools/build-efectos.mjs (docs/efectos.json) y la web de Senzu. -->
+<script type="application/json" id="senzu-demo">
+{
+  "titulo": "Objeto que cae encima de todo",
+  "descripcion": "Un objeto elegido cae por encima de la web, choca con los bloques reales, se apoya en el destino y se puede coger y lanzar.",
+  "categoria": "Física e impacto",
+  "receta": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#objeto-que-cae-encima-de-todo",
+  "dependencias": [
+    {
+      "nombre": "matter-js",
+      "version": "0.20.0",
+      "licencia": "MIT",
+      "carga": "CDN jsdelivr, al ver el destino"
+    }
+  ],
+  "parametros": [],
+  "reducirMovimiento": "Aparece ya apoyado, sin cargar el motor",
+  "movil": "Destino propio (data-fisica-destino-movil): los bloques se apilan",
+  "interaccion": "Arrastrar y lanzar el objeto"
+}
+</script>
 </head>
 <body>
 <header><strong>senzu</strong><a href="#" class="cta">Empezar</a></header>

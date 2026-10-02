@@ -15,7 +15,7 @@ skills que se activan solas, muros que bloquean de verdad y verificación obliga
 nada por hecho.
 
 <!-- GEN:resumen -->
-![Version](https://img.shields.io/badge/version-v2.6.0-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-4-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
+![Version](https://img.shields.io/badge/version-v2.6.1-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-4-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
 
 | Grupo | Skills | Entra por |
 |---|---|---|
@@ -137,6 +137,7 @@ sin intro para quien pide menos movimiento y probados en móvil.
 | **[docs/skills.md](docs/skills.md)** | Las skills por grupo: cuándo salta cada una y con qué señales |
 | **[docs/comandos.md](docs/comandos.md)** | Los comandos slash explicados + flujos típicos |
 | **[docs/hooks.md](docs/hooks.md)** | Los hooks/muros: qué bloquea cada uno y sus escapes |
+| **[docs/efectos.md](docs/efectos.md)** | El catálogo de efectos por categoría y las demos que funcionan (también en `docs/efectos.json`) |
 | **[docs/stacks.md](docs/stacks.md)** | Los stacks (+ Go/Java/C#) y los bundles opcionales |
 | **[docs/arquitectura.md](docs/arquitectura.md)** | Cómo funciona por dentro: registro único, vendor/overlay, disciplina de contexto |
 | **[REFERENCIA.md](REFERENCIA.md)** | Todo el catálogo en UNA página |

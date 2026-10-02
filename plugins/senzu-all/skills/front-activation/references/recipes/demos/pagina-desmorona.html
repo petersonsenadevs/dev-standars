@@ -29,6 +29,27 @@
   .gravedad:focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; }
   .gravedad[hidden] { display: none; }
 </style>
+<!-- Ficha de la demo: la leen tools/build-efectos.mjs (docs/efectos.json) y la web de Senzu. -->
+<script type="application/json" id="senzu-demo">
+{
+  "titulo": "La página se desmorona",
+  "descripcion": "Con un botón, los elementos de la página caen con gravedad y se apilan; se arrastran y se lanzan, y Escape los devuelve a su sitio.",
+  "categoria": "Física e impacto",
+  "receta": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#la-página-se-desmorona",
+  "dependencias": [
+    {
+      "nombre": "matter-js",
+      "version": "0.20.0",
+      "licencia": "MIT",
+      "carga": "CDN jsdelivr, al pulsar el botón"
+    }
+  ],
+  "parametros": [],
+  "reducirMovimiento": "Sin botón de gravedad",
+  "movil": "Igual, con las paredes de la pantalla",
+  "interaccion": "Botón «Activar gravedad», arrastrar, Escape o «Recomponer»"
+}
+</script>
 </head>
 <body>
 <header><strong>senzu</strong><button type="button" class="gravedad" aria-pressed="false">Activar gravedad</button></header>

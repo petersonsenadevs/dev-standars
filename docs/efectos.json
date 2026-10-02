@@ -1,0 +1,1367 @@
+{
+  "_generado": "tools/build-efectos.mjs (no editar)",
+  "fuente": {
+    "catalogo": "core/skills-plugin/front-activation/references/effects-catalog.md",
+    "demos": "core/skills-plugin/front-activation/references/recipes/demos"
+  },
+  "categorias": [
+    {
+      "nombre": "Scroll",
+      "slug": "scroll",
+      "descripcion": "",
+      "efectos": [
+        {
+          "es": "Parallax multicapa",
+          "en": "multi-layer parallax",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "5 Parallax por capas",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §5 Parallax por capas (EN: `references/common_patterns.md` §4.2 Multi-Layer Parallax)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Desactivar (capas estáticas)",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Parallax de imagen en contenedor",
+          "en": "image parallax in container",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Parallax de imagen en contenedor",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Parallax de imagen en contenedor"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Imagen fija",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Zoom parallax (scrub)",
+          "en": "parallax zoom",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "11 Imagen con zoom",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §11 Imagen con zoom (EN: `references/common_patterns.md` §8.3 Image Parallax Zoom)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Imagen a escala 1",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Sección fija con pin",
+          "en": "sticky pinned section",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "3 Pin + scrub timeline",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §3 Pin + scrub timeline"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin pin, contenido en flujo",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Stacking cards",
+          "en": "stacked cards",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Stacking cards completo",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Stacking cards completo (EN: `references/common_patterns.md` §2.4 Multiple Pinned Sections)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Cards apiladas sin pin",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Scroll horizontal",
+          "en": "horizontal scroll",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "4 Horizontal scroll section",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §4 Horizontal scroll section + `templates/HorizontalScroll.vue`"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Scroll vertical normal",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Scroll-velocity",
+          "en": "skew on scroll",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Scroll velocity skew",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Scroll velocity skew"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Desactivar skew",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Header que se oculta",
+          "en": "header hide-show",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "8 Sticky header que se oculta al bajar",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §8 Sticky header que se oculta al bajar"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (sin animación de entrada)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Progress de lectura (barra)",
+          "en": "reading progress bar",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "6 Progress bar de lectura",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §6 Progress bar de lectura"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (informativo)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Progress de lectura (circular)",
+          "en": "circular progress",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-vendor/gsap-scrolltrigger/references/common_patterns.md",
+            "seccion": "11.2 Circular Progress Indicator",
+            "texto": "gsap-scrolltrigger → `references/common_patterns.md` §11.2 Circular Progress Indicator"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (informativo)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Smooth scroll (Lenis)",
+          "en": "smooth scrolling",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/templates/useLenis.ts",
+            "seccion": "7 Lenis con React)",
+            "texto": "gsap-scrolltrigger → `templates/useLenis.ts` (React: `references/es/next.md` §7 Lenis con React)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Desactivar Lenis (scroll nativo)",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Cambio de tema por sección",
+          "en": "section theme switch",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "14 Cambio de tema/color de fondo por sección",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §14 Cambio de tema/color de fondo por sección"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Cambio instantáneo sin tween",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Scrollspy",
+          "en": "active nav on scroll",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "15 Navegación activa",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §15 Navegación activa (scrollspy)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (informativo)",
+          "costeMovil": "Bajo"
+        }
+      ]
+    },
+    {
+      "nombre": "Texto",
+      "slug": "texto",
+      "descripcion": "",
+      "efectos": [
+        {
+          "es": "Reveal por líneas",
+          "en": "text reveal by lines",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "10 Texto por líneas con SplitText",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §10 Texto por líneas con SplitText (EN: `references/common_patterns.md` §7.1 Text Reveal)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Texto visible sin animar",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Reveal por caracteres",
+          "en": "text stagger by chars",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-vendor/gsap-scrolltrigger/references/common_patterns.md",
+            "seccion": "5.4 Text Stagger",
+            "texto": "gsap-scrolltrigger → `references/common_patterns.md` §5.4 Text Stagger (Words/Characters)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Texto visible sin animar",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Scramble",
+          "en": "scrambled text",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-vendor/gsap-scrolltrigger/references/common_patterns.md",
+            "seccion": "7.2 Scrambled Text Effect",
+            "texto": "gsap-scrolltrigger → `references/common_patterns.md` §7.2 Scrambled Text Effect"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mostrar texto final directo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Typewriter",
+          "en": "máquina de escribir",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-vendor/gsap-scrolltrigger/references/common_patterns.md",
+            "seccion": "7.3 Typewriter Effect",
+            "texto": "gsap-scrolltrigger → `references/common_patterns.md` §7.3 Typewriter Effect"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mostrar texto final directo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Texto degradado con brillo",
+          "en": "gradient text",
+          "receta": {
+            "skill": "ui-ux-pro-max",
+            "archivo": "core/skills-overlay/ui-ux-pro-max/references/es/modern-look.md",
+            "seccion": "7",
+            "texto": "ui-ux-pro-max → `references/es/modern-look.md` §7 (bg-clip-text con tokens; solo el titular protagonista)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (es estático)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Contador numérico",
+          "en": "number counter",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "7 Contador numérico",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §7 Contador numérico"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mostrar valor final directo",
+          "costeMovil": "Bajo"
+        }
+      ]
+    },
+    {
+      "nombre": "Imagen y media",
+      "slug": "imagen-y-media",
+      "descripcion": "",
+      "efectos": [
+        {
+          "es": "Image reveal cortina",
+          "en": "curtain reveal",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-vendor/gsap-scrolltrigger/references/common_patterns.md",
+            "seccion": "8.1 Image Curtain Reveal",
+            "texto": "gsap-scrolltrigger → `references/common_patterns.md` §8.1 Image Curtain Reveal"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Imagen visible sin animar",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Image reveal clip-path",
+          "en": "scale reveal",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-vendor/gsap-scrolltrigger/references/common_patterns.md",
+            "seccion": "8.2 Image Scale Reveal",
+            "texto": "gsap-scrolltrigger → `references/common_patterns.md` §8.2 Image Scale Reveal (clip-path)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Imagen visible sin animar",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Before/after slider",
+          "en": "comparación de imágenes",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Before after slider",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Before after slider"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (control manual)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Video scrubbing por frames (canvas)",
+          "en": "canvas image sequence",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/scrolltrigger-patterns.md",
+            "seccion": "13 Hero con video scrubbing por frames",
+            "texto": "gsap-scrolltrigger → `references/es/scrolltrigger-patterns.md` §13 Hero con video scrubbing por frames (EN: `references/common_patterns.md` §12.1 Canvas Image Sequence)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Poster estático",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Video scrubbing con currentTime",
+          "en": "video.currentTime scrub",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Video scrubbing con currentTime",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Video scrubbing con currentTime"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Poster estático o play normal",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Galería con filtros animados",
+          "en": "Flip gallery filters",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Filtros de galería con Flip",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Filtros de galería con Flip"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Filtrar sin animación",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Marquee infinito",
+          "en": "infinite marquee",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Marquee infinito",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Marquee infinito (helper `horizontalLoop`); React/Tailwind: animated-component-libraries → `references/magic_ui_components.md` §Marquee (solo React)"
+          },
+          "stacks": "Todos / solo React",
+          "reducirMovimiento": "Pausar o desacelerar mucho",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Galería infinita",
+          "en": "infinite gallery",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Galería infinita",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Galería infinita"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Galería estática con scroll nativo",
+          "costeMovil": "Alto"
+        }
+      ]
+    },
+    {
+      "nombre": "Interacción y hover",
+      "slug": "interaccion-y-hover",
+      "descripcion": "",
+      "efectos": [
+        {
+          "es": "Cursor personalizado",
+          "en": "custom cursor",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/effects-pro.md",
+            "seccion": "Cursor personalizado",
+            "texto": "gsap-scrolltrigger → `references/es/effects-pro.md` §Cursor personalizado; base UX: modern-web-design → `SKILL.md` §5 Cursor UX"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Cursor nativo (sin follower)",
+          "costeMovil": "Bajo (desactivar en táctil)"
+        },
+        {
+          "es": "Botón magnético",
+          "en": "magnetic button",
+          "receta": {
+            "skill": "modern-web-design",
+            "archivo": "core/skills-vendor/modern-web-design/references/interaction_patterns.md",
+            "seccion": "1.3 Magnetic Button",
+            "texto": "modern-web-design → `references/interaction_patterns.md` §1.3 Magnetic Button"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Hover simple sin atracción",
+          "costeMovil": "Bajo (desactivar en táctil)"
+        },
+        {
+          "es": "Zoom de imagen en hover",
+          "en": "image zoom on hover",
+          "receta": {
+            "skill": "modern-web-design",
+            "archivo": "core/skills-vendor/modern-web-design/references/interaction_patterns.md",
+            "seccion": "5.1 Image Zoom on Hover",
+            "texto": "modern-web-design → `references/interaction_patterns.md` §5.1 Image Zoom on Hover"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin zoom",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Spotlight card (borde sigue al ratón)",
+          "en": "mouse-tracking spotlight",
+          "receta": {
+            "skill": "ui-ux-pro-max",
+            "archivo": "core/skills-overlay/ui-ux-pro-max/references/es/modern-look.md",
+            "seccion": "6 Spotlight card",
+            "texto": "ui-ux-pro-max → `references/es/modern-look.md` §6 Spotlight card (un listener por grid)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin spotlight (borde estático)",
+          "costeMovil": "Bajo (desactivar en táctil)"
+        },
+        {
+          "es": "Botón shine-glow",
+          "en": "shiny button",
+          "receta": {
+            "skill": "ui-ux-pro-max",
+            "archivo": "core/skills-overlay/ui-ux-pro-max/references/es/modern-look.md",
+            "seccion": "7 Botones y texto con brillo",
+            "texto": "ui-ux-pro-max → `references/es/modern-look.md` §7 Botones y texto con brillo"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Hover simple sin barrido",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Tilt 3D en cards",
+          "en": "3D tilt with glare",
+          "receta": {
+            "skill": "lightweight-3d-effects",
+            "archivo": "core/skills-vendor/lightweight-3d-effects/references/tilt_patterns.md",
+            "seccion": "Glare Effect",
+            "texto": "lightweight-3d-effects → `references/tilt_patterns.md` (opciones §Glare Effect; wrappers §Framework Integration React/Vue)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Card plana sin tilt",
+          "costeMovil": "Bajo (desactivar en táctil)"
+        }
+      ]
+    },
+    {
+      "nombre": "Fondos",
+      "slug": "fondos",
+      "descripcion": "",
+      "efectos": [
+        {
+          "es": "Aurora",
+          "en": "mesh en CSS puro",
+          "receta": {
+            "skill": "ui-ux-pro-max",
+            "archivo": "core/skills-overlay/ui-ux-pro-max/references/es/modern-look.md",
+            "seccion": "4 Aurora",
+            "texto": "ui-ux-pro-max → `references/es/modern-look.md` §4 Aurora (radial-gradients + blur + drift; PRIMERO esta versión, WebGL solo si debe reaccionar)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Gradiente estático (sin drift)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Grano-noise overlay",
+          "en": "film grain",
+          "receta": {
+            "skill": "ui-ux-pro-max",
+            "archivo": "core/skills-overlay/ui-ux-pro-max/references/es/modern-look.md",
+            "seccion": "4",
+            "texto": "ui-ux-pro-max → `references/es/modern-look.md` §4 (SVG feTurbulence en data-URI)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (es estático)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Fondo animado Vanta",
+          "en": "Vanta.js background",
+          "receta": {
+            "skill": "lightweight-3d-effects",
+            "archivo": "core/skills-vendor/lightweight-3d-effects/references/vantajs_effects.md",
+            "seccion": null,
+            "texto": "lightweight-3d-effects → `references/vantajs_effects.md` (14 efectos: WAVES, FOG, NET, GLOBE…)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Fondo estático (gradiente CSS)",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Aurora de librería",
+          "en": "library aurora background",
+          "receta": {
+            "skill": "animated-component-libraries",
+            "archivo": "core/skills-vendor/animated-component-libraries/references/react_bits_components.md",
+            "seccion": "Aurora",
+            "texto": "animated-component-libraries → `references/react_bits_components.md` §Aurora (solo React)"
+          },
+          "stacks": "solo React",
+          "reducirMovimiento": "Gradiente estático",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Mesh gradient en shader propio",
+          "en": "custom mesh gradient shader",
+          "receta": {
+            "skill": "threejs-webgl",
+            "archivo": "core/skills-overlay/threejs-webgl/references/es/shaders-basics.md",
+            "seccion": "Mesh gradient / aurora en shader propio",
+            "texto": "threejs-webgl → `references/es/shaders-basics.md` §Mesh gradient / aurora en shader propio (base: §6.1 Gradiente animado de fondo)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Gradiente estático",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Partículas ligeras",
+          "en": "lightweight particles",
+          "receta": {
+            "skill": "threejs-webgl",
+            "archivo": "core/skills-overlay/threejs-webgl/references/es/shaders-basics.md",
+            "seccion": "6.4 Partículas",
+            "texto": "threejs-webgl → `references/es/shaders-basics.md` §6.4 Partículas: `Points`; React: animated-component-libraries → `references/react_bits_components.md` §Particles"
+          },
+          "stacks": "Todos / solo React",
+          "reducirMovimiento": "Sin partículas o estáticas",
+          "costeMovil": "Medio"
+        }
+      ]
+    },
+    {
+      "nombre": "Transiciones y navegación",
+      "slug": "transiciones-y-navegacion",
+      "descripcion": "",
+      "efectos": [
+        {
+          "es": "Transiciones de página SPA (Vue)",
+          "en": "SPA page transitions",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/vue.md",
+            "seccion": "5 Transiciones de página",
+            "texto": "gsap-scrolltrigger → `references/es/vue.md` §5 Transiciones de página"
+          },
+          "stacks": "Vue/Nuxt",
+          "reducirMovimiento": "Fade corto o corte directo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Transiciones de página SPA (Next)",
+          "en": "SPA page transitions",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/next.md",
+            "seccion": "6 ScrollTrigger y rutas de Next",
+            "texto": "gsap-scrolltrigger → `references/es/next.md` §6 ScrollTrigger y rutas de Next (View Transitions, `template.tsx`, overlay)"
+          },
+          "stacks": "Next/React",
+          "reducirMovimiento": "Fade corto o corte directo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Transiciones de página SPA (Astro)",
+          "en": "SPA page transitions",
+          "receta": {
+            "skill": "gsap-scrolltrigger",
+            "archivo": "core/skills-overlay/gsap-scrolltrigger/references/es/astro.md",
+            "seccion": "5 Transiciones de página con GSAP",
+            "texto": "gsap-scrolltrigger → `references/es/astro.md` §5 Transiciones de página con GSAP (y §4 View Transitions)"
+          },
+          "stacks": "Astro",
+          "reducirMovimiento": "Fade corto o corte directo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Transiciones de página MPA",
+          "en": "Barba.js page transitions",
+          "receta": {
+            "skill": "barba-js",
+            "archivo": "core/skills-vendor/barba-js/references/transition_patterns.md",
+            "seccion": null,
+            "texto": "barba-js → `references/transition_patterns.md` (fade, slide, curtain, wipe…) + `references/gsap_integration.md` (timelines)"
+          },
+          "stacks": "MPA/estático",
+          "reducirMovimiento": "Corte directo sin transición",
+          "costeMovil": "Medio"
+        }
+      ]
+    },
+    {
+      "nombre": "3D",
+      "slug": "3d",
+      "descripcion": "",
+      "efectos": [
+        {
+          "es": "Hover distortion WebGL",
+          "en": "WebGL image distortion",
+          "receta": {
+            "skill": "threejs-webgl",
+            "archivo": "core/skills-overlay/threejs-webgl/references/es/shaders-basics.md",
+            "seccion": "6.3 Hover distortion sobre una imagen",
+            "texto": "threejs-webgl → `references/es/shaders-basics.md` §6.3 Hover distortion sobre una imagen (ratón con inercia: §6.5)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Imagen plana `<img>`",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Displacement 2D",
+          "en": "PixiJS displacement filter",
+          "receta": {
+            "skill": "pixijs-2d",
+            "archivo": "core/skills-vendor/pixijs-2d/references/filters_effects.md",
+            "seccion": "DisplacementFilter",
+            "texto": "pixijs-2d → `references/filters_effects.md` §DisplacementFilter (en Built-in Filters)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Imagen plana sin filtro",
+          "costeMovil": "Alto"
+        }
+      ]
+    },
+    {
+      "nombre": "CSS nativo moderno",
+      "slug": "css-nativo-moderno",
+      "descripcion": "Lo más ligero: sin JS, en el hilo de composición. Empieza aquí antes de meter una librería; siempre dentro de `@supports`.",
+      "efectos": [
+        {
+          "es": "Animación ligada al scroll",
+          "en": "scroll-driven animation",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/css-moderno.md",
+            "seccion": "Animación ligada al scroll",
+            "texto": "front-activation → `references/recipes/css-moderno.md` §Animación ligada al scroll"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Estado final estático",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Reveal al entrar en pantalla (CSS)",
+          "en": "view() reveal",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/css-moderno.md",
+            "seccion": "Reveal al entrar en pantalla",
+            "texto": "front-activation → `references/recipes/css-moderno.md` §Reveal al entrar en pantalla"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin animación (visible)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "View Transitions entre páginas",
+          "en": "cross-document view transitions",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/css-moderno.md",
+            "seccion": "View Transitions entre páginas",
+            "texto": "front-activation → `references/recipes/css-moderno.md` §View Transitions entre páginas"
+          },
+          "stacks": "MPA: Astro, Blade, WordPress",
+          "reducirMovimiento": "Sin transición",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Entradas con @starting-style",
+          "en": "entry transitions",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/css-moderno.md",
+            "seccion": "Entradas con starting-style",
+            "texto": "front-activation → `references/recipes/css-moderno.md` §Entradas con starting-style"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Aparición instantánea",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Tooltips y menús anclados",
+          "en": "anchor positioning",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/css-moderno.md",
+            "seccion": "Anchor positioning",
+            "texto": "front-activation → `references/recipes/css-moderno.md` §Anchor positioning"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (sin animación)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Galería con scroll-snap",
+          "en": "scroll snap gallery",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/css-moderno.md",
+            "seccion": "Scroll-snap con estado",
+            "texto": "front-activation → `references/recipes/css-moderno.md` §Scroll-snap con estado"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener",
+          "costeMovil": "Bajo"
+        }
+      ]
+    },
+    {
+      "nombre": "Formas y SVG",
+      "slug": "formas-y-svg",
+      "descripcion": "Siluetas, cortes y máscaras: lo que más aleja de la web de cajas. Una familia de formas por proyecto, fijada en el MASTER.",
+      "efectos": [
+        {
+          "es": "Blob orgánico",
+          "en": "organic blob",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/formas-svg.md",
+            "seccion": "Blob orgánico",
+            "texto": "front-activation → `references/recipes/formas-svg.md` §Blob orgánico"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Forma estática",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Separadores de onda, curva o diagonal",
+          "en": "section dividers",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/formas-svg.md",
+            "seccion": "Separadores entre secciones",
+            "texto": "front-activation → `references/recipes/formas-svg.md` §Separadores entre secciones"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (estático)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Morph de clip-path",
+          "en": "clip-path reveal",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/formas-svg.md",
+            "seccion": "Morph de clip-path",
+            "texto": "front-activation → `references/recipes/formas-svg.md` §Morph de clip-path"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Recorte final directo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Máscara de imagen con forma",
+          "en": "shaped image mask",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/formas-svg.md",
+            "seccion": "Máscaras de imagen con forma",
+            "texto": "front-activation → `references/recipes/formas-svg.md` §Máscaras de imagen con forma"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Mantener (estático)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Dibujado de trazo",
+          "en": "SVG line drawing",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/formas-svg.md",
+            "seccion": "Dibujado de trazo",
+            "texto": "front-activation → `references/recipes/formas-svg.md` §Dibujado de trazo"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Trazo completo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Morph entre formas o iconos",
+          "en": "shape morph",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/formas-svg.md",
+            "seccion": "Morph entre formas",
+            "texto": "front-activation → `references/recipes/formas-svg.md` §Morph entre formas"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Cambio instantáneo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Texto sobre una curva",
+          "en": "text on path",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/formas-svg.md",
+            "seccion": "Texto sobre una curva",
+            "texto": "front-activation → `references/recipes/formas-svg.md` §Texto sobre una curva"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin rotación",
+          "costeMovil": "Bajo"
+        }
+      ]
+    },
+    {
+      "nombre": "Tipografía cinética",
+      "slug": "tipografia-cinetica",
+      "descripcion": "Cuando la tipografía ES el diseño. Una pieza protagonista por página; nunca animar párrafos de lectura.",
+      "efectos": [
+        {
+          "es": "Fuente variable animada",
+          "en": "variable font animation",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Fuente variable animada",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Fuente variable animada"
+          },
+          "stacks": "Todos (fuente con ejes)",
+          "reducirMovimiento": "Peso fijo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Vídeo dentro del texto",
+          "en": "video text mask",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Vídeo dentro del texto",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Vídeo dentro del texto"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Poster fijo (vídeo pausado)",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Texto que se resalta al leerlo",
+          "en": "highlight on scroll",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Texto que se resalta al leerlo",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Texto que se resalta al leerlo"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Resaltado ya aplicado",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Split-flap (panel de aeropuerto)",
+          "en": "split-flap text",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Split-flap",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Split-flap"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Palabra final directa",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Titular gigante con scroll",
+          "en": "oversized scrolling headline",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Titular gigante con scroll",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Titular gigante con scroll"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Titular estático",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Texto que rodea una forma en movimiento (Pretext)",
+          "en": "text wrap around moving shape",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Texto que rodea una forma en movimiento",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Texto que rodea una forma en movimiento"
+          },
+          "stacks": "Todos (navegador)",
+          "reducirMovimiento": "Forma quieta, una sola maquetación",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Titular que se reajusta al cambiar el ancho (Pretext)",
+          "en": "reflowing headline",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Titular que se reajusta mientras cambia el ancho",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Titular que se reajusta mientras cambia el ancho"
+          },
+          "stacks": "Todos (navegador)",
+          "reducirMovimiento": "Sin animación de ancho",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Altura exacta para listas y masonry (Pretext)",
+          "en": "exact text height",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Altura exacta para listas y masonry",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Altura exacta para listas y masonry"
+          },
+          "stacks": "Todos (navegador)",
+          "reducirMovimiento": "Mantener",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Texto multilínea en canvas o WebGL (Pretext)",
+          "en": "canvas text wrapping",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/tipografia-cinetica.md",
+            "seccion": "Texto en canvas o WebGL con saltos de línea",
+            "texto": "front-activation → `references/recipes/tipografia-cinetica.md` §Texto en canvas o WebGL con saltos de línea"
+          },
+          "stacks": "Todos (canvas, Three, Pixi)",
+          "reducirMovimiento": "Mantener",
+          "costeMovil": "Medio"
+        }
+      ]
+    },
+    {
+      "nombre": "Microinteracciones, menús y entrada",
+      "slug": "microinteracciones-menus-y-entrada",
+      "descripcion": "Respuestas de 150-300 ms que informan de algo. Si no informa, es decoración.",
+      "efectos": [
+        {
+          "es": "Estados de botón (cargando → hecho)",
+          "en": "button states",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Estados de botón",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Estados de botón"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Cambio de estado sin transición",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Toggle y checkbox animados",
+          "en": "animated toggle",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Toggle y checkbox animados",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Toggle y checkbox animados"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin transición",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Skeleton con brillo",
+          "en": "shimmer skeleton",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Skeleton con brillo",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Skeleton con brillo"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Skeleton estático",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Like con explosión",
+          "en": "like burst",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Like con explosión",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Like con explosión"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Cambio de icono sin partículas",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Toasts apilables",
+          "en": "stacked toasts",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Toasts apilables",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Toasts apilables"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Aparición instantánea",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Loader con marca",
+          "en": "branded loader",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Loader con marca",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Loader con marca"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Loader estático o texto",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Menú a pantalla completa",
+          "en": "fullscreen menu",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Menú a pantalla completa",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Menú a pantalla completa"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Apertura instantánea",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Hamburguesa que se transforma",
+          "en": "morphing burger",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Hamburguesa que se transforma",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Hamburguesa que se transforma"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Cambio de icono directo",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Preloader con porcentaje real",
+          "en": "real-progress preloader",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Preloader con porcentaje",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Preloader con porcentaje"
+          },
+          "stacks": "Solo con assets pesados (3D, vídeo)",
+          "reducirMovimiento": "Barra sin animación",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Intro de marca",
+          "en": "brand intro",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/microinteracciones.md",
+            "seccion": "Intro de marca",
+            "texto": "front-activation → `references/recipes/microinteracciones.md` §Intro de marca (con caída y cristal roto: `references/recipes/fisica-impacto.md` §Intro o loader)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin intro",
+          "costeMovil": "Medio"
+        }
+      ]
+    },
+    {
+      "nombre": "Física e impacto",
+      "slug": "fisica-e-impacto",
+      "descripcion": "Objetos con gravedad, choques y cristal que se rompe. Demos que funcionan en `references/recipes/demos/`. Uno por página, con intención (al entrar una vez, al pulsar o al llegar), saltable, y el motor cargado solo cuando se usa.",
+      "efectos": [
+        {
+          "es": "Intro con caída y pantalla rota",
+          "en": "falling object + shattered screen intro",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "Intro o loader",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §Intro o loader (demo `demos/intro-rotura.html`, sin dependencias)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin intro",
+          "costeMovil": "Medio (menos trozos)"
+        },
+        {
+          "es": "Loader que se agrieta con la carga y se rompe al terminar",
+          "en": "cracking loader",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "Intro o loader",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §Intro o loader (modo loader)"
+          },
+          "stacks": "Solo con carga pesada real",
+          "reducirMovimiento": "Barra o texto de carga",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Pantalla o sección que se rompe",
+          "en": "screen shatter",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "Pantalla que se rompe",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §Pantalla que se rompe (radial o Voronoi con d3-delaunay)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin rotura (estado final)",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Objeto que cae encima de todo y se apoya",
+          "en": "object drop onto page",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "Objeto que cae",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §Objeto que cae (demo `demos/objeto-cae.html`, matter-js)"
+          },
+          "stacks": "Todos (3D: react-three-rapier)",
+          "reducirMovimiento": "Aparece ya apoyado",
+          "costeMovil": "Medio (2D) · Alto (3D)"
+        },
+        {
+          "es": "La página se desmorona",
+          "en": "page gravity collapse",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "La página se desmorona",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §La página se desmorona (demo `demos/pagina-desmorona.html`)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin botón",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Arrastrar y lanzar con inercia",
+          "en": "drag and throw",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "Arrastrar y lanzar",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §Arrastrar y lanzar"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Arrastre sin inercia",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "Confeti con física",
+          "en": "physics confetti",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "Confeti",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §Confeti (canvas-confetti)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Sin confeti (`disableForReducedMotion`)",
+          "costeMovil": "Bajo"
+        },
+        {
+          "es": "El producto explota en partículas",
+          "en": "particle explode",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "El producto explota + skill threejs-webgl",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §El producto explota + skill threejs-webgl"
+          },
+          "stacks": "Todos (canvas)",
+          "reducirMovimiento": "Imagen fija",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Tela, cuerda, gelatina",
+          "en": "verlet cloth & rope",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "Tela, cuerda y gelatina",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §Tela, cuerda y gelatina"
+          },
+          "stacks": "Todos (canvas)",
+          "reducirMovimiento": "Estático",
+          "costeMovil": "Bajo"
+        }
+      ]
+    },
+    {
+      "nombre": "WebGL avanzado",
+      "slug": "webgl-avanzado",
+      "descripcion": "Coste ALTO: máximo uno por página, lazy, con fallback estático en móvil. Solo si aporta al mensaje.",
+      "efectos": [
+        {
+          "es": "Fluido que sigue al ratón",
+          "en": "fluid simulation",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/webgl-avanzado.md",
+            "seccion": "Fluido que sigue al ratón",
+            "texto": "front-activation → `references/recipes/webgl-avanzado.md` §Fluido que sigue al ratón"
+          },
+          "stacks": "Todos (canvas)",
+          "reducirMovimiento": "Fondo estático",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Metaballs",
+          "en": "metaballs shader",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/webgl-avanzado.md",
+            "seccion": "Metaballs",
+            "texto": "front-activation → `references/recipes/webgl-avanzado.md` §Metaballs"
+          },
+          "stacks": "Todos (canvas)",
+          "reducirMovimiento": "Imagen estática",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Dithering, ASCII y píxel",
+          "en": "dither-ascii-pixel post",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/webgl-avanzado.md",
+            "seccion": "Dithering, ASCII y píxel",
+            "texto": "front-activation → `references/recipes/webgl-avanzado.md` §Dithering, ASCII y píxel"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Imagen procesada estática",
+          "costeMovil": "Alto"
+        },
+        {
+          "es": "Globo 3D ligero",
+          "en": "3D globe (cobe)",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/webgl-avanzado.md",
+            "seccion": "Globo 3D",
+            "texto": "front-activation → `references/recipes/webgl-avanzado.md` §Globo 3D"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Globo sin rotación",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Liquid glass",
+          "en": "refractive glass",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/webgl-avanzado.md",
+            "seccion": "Liquid glass",
+            "texto": "front-activation → `references/recipes/webgl-avanzado.md` §Liquid glass"
+          },
+          "stacks": "Todos (refracción solo Chromium)",
+          "reducirMovimiento": "Cristal sin distorsión",
+          "costeMovil": "Medio"
+        },
+        {
+          "es": "Ruido animado en shader",
+          "en": "animated shader noise",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/webgl-avanzado.md",
+            "seccion": "Ruido animado en shader",
+            "texto": "front-activation → `references/recipes/webgl-avanzado.md` §Ruido animado en shader"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Grano estático",
+          "costeMovil": "Medio"
+        }
+      ]
+    }
+  ],
+  "demos": [
+    {
+      "slug": "intro-rotura",
+      "archivo": "core/skills-plugin/front-activation/references/recipes/demos/intro-rotura.html",
+      "titulo": "Intro con caída y pantalla rota",
+      "descripcion": "Un objeto cae, golpea la pantalla, se agrieta y el cristal se rompe en trozos que caen dejando ver la web. También como loader que se agrieta mientras carga.",
+      "categoria": "Física e impacto",
+      "receta": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#intro-o-loader-con-caída-y-pantalla-rota",
+      "dependencias": [],
+      "parametros": [
+        {
+          "valor": "?intro=1",
+          "que": "la fuerza aunque ya se viera en la sesión"
+        },
+        {
+          "valor": "?intro=1&modo=loader",
+          "que": "modo loader: las grietas avanzan con la carga y se rompe al terminar"
+        }
+      ],
+      "reducirMovimiento": "Sin intro",
+      "movil": "Menos trozos y objeto más pequeño",
+      "interaccion": "Botón «Saltar intro» y Escape"
+    },
+    {
+      "slug": "objeto-cae",
+      "archivo": "core/skills-plugin/front-activation/references/recipes/demos/objeto-cae.html",
+      "titulo": "Objeto que cae encima de todo",
+      "descripcion": "Un objeto elegido cae por encima de la web, choca con los bloques reales, se apoya en el destino y se puede coger y lanzar.",
+      "categoria": "Física e impacto",
+      "receta": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#objeto-que-cae-encima-de-todo",
+      "dependencias": [
+        {
+          "nombre": "matter-js",
+          "version": "0.20.0",
+          "licencia": "MIT",
+          "carga": "CDN jsdelivr, al ver el destino"
+        }
+      ],
+      "parametros": [],
+      "reducirMovimiento": "Aparece ya apoyado, sin cargar el motor",
+      "movil": "Destino propio (data-fisica-destino-movil): los bloques se apilan",
+      "interaccion": "Arrastrar y lanzar el objeto"
+    },
+    {
+      "slug": "pagina-desmorona",
+      "archivo": "core/skills-plugin/front-activation/references/recipes/demos/pagina-desmorona.html",
+      "titulo": "La página se desmorona",
+      "descripcion": "Con un botón, los elementos de la página caen con gravedad y se apilan; se arrastran y se lanzan, y Escape los devuelve a su sitio.",
+      "categoria": "Física e impacto",
+      "receta": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#la-página-se-desmorona",
+      "dependencias": [
+        {
+          "nombre": "matter-js",
+          "version": "0.20.0",
+          "licencia": "MIT",
+          "carga": "CDN jsdelivr, al pulsar el botón"
+        }
+      ],
+      "parametros": [],
+      "reducirMovimiento": "Sin botón de gravedad",
+      "movil": "Igual, con las paredes de la pantalla",
+      "interaccion": "Botón «Activar gravedad», arrastrar, Escape o «Recomponer»"
+    }
+  ],
+  "reglas": [
+    "`prefers-reduced-motion` es obligatorio: implementa el fallback de la columna Reduced-motion con `gsap.matchMedia()` (ver `gsap-scrolltrigger → references/es/performance-a11y.md` §6) o media query CSS.",
+    "Anima solo `transform` y `opacity`; nada de `top/left/width/height/filter` en scroll (provocan layout/paint por frame).",
+    "Nada de scroll-jacking ni pin en páginas o secciones con formularios, checkout o contenido largo de lectura.",
+    "Presupuesto móvil: máximo un efecto de coste Alto por página; en móvil degrada o desactiva (`ScrollTrigger.matchMedia` / detección de puntero táctil) los efectos de coste Alto.",
+    "Limpieza al desmontar: `gsap.context()` + `revert()`, `ScrollTrigger.kill()`, `lenis.destroy()`, `effect.destroy()` (Vanta/Pixi/Three) en el unmount del componente."
+  ]
+}
