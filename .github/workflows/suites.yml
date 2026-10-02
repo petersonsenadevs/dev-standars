@@ -65,6 +65,14 @@ jobs:
       - name: test-brand (guía de marca en senzu/ y tokens junto a ella)
         run: node tools/test-brand.mjs
 
+      - name: 'Playwright y Chromium (para la geometría de ui-verify)'
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install chromium
+
+      - name: test-geometria (alineación medida en píxeles, navegador real)
+        run: node tools/test-geometria.mjs
+
       - name: test-init-parity (instalador PowerShell = instalador Node)
         shell: powershell
         run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-init-parity.ps1

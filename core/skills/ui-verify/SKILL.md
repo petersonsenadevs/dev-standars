@@ -16,8 +16,13 @@ node <skills-dir>/ui-verify/scripts/verify-ui.mjs http://localhost:PUERTO/ruta
 # requiere una vez por proyecto:  npm i -D playwright && npx playwright install chromium
 ```
 Comprueba por viewport: **scroll horizontal (con los elementos culpables)**, errores de consola, meta viewport,
-nº de h1, imágenes sin `alt`/dimensiones, tap targets < 44px (móvil), texto < 12px, campos sin label; guarda
-capturas full-page en `senzu/ui-verify/`. Sale con código 1 si hay problemas: **corrígelos y vuelve a ejecutarlo hasta 0**.
+nº de h1, imágenes sin `alt`/dimensiones, tap targets < 44px (móvil), texto < 12px, campos sin label, y
+**GEOMETRÍA en píxeles** (`scripts/geometria.mjs`): centrado real de lo que el contenedor centra, loaders y su
+grupo centrados en su capa, loader y barra en el mismo eje, spinners que se desplazan al girar, dibujos de SVG
+descentrados en su caja y hermanos «casi» alineados (1-8 px: un margin o un top sobrante), con la causa
+probable. Guarda capturas full-page en `senzu/ui-verify/`. Sale con código 1 si hay problemas: **corrígelos
+y vuelve a ejecutarlo hasta 0**. Un desplazamiento INTENCIONADO (ajuste óptico): `data-geometria="ignorar"` en
+el elemento y el porqué en el devlog. `--tolerancia <px>` (por defecto 1).
 Después ABRE las capturas (Read) y revisa lo que el script no ve: jerarquía, espaciados, solapes, dark mode.
 
 ## Vía 2: navegador Chrome MCP (referencia paso a paso: `references/browser-checks.md`)

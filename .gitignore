@@ -18,3 +18,6 @@ core/effects-vendor/*/
 # Diario del proyecto (devlog/ con MEMORIA.md): es PRIVADO. Vive en el disco y en su propio repositorio
 # privado (devlog/.git); aquí solo se publica el CHANGELOG generado (sin nombres: devlog/privado.txt).
 devlog/
+
+# Dependencias instaladas solo para las pruebas (p. ej. playwright en el CI)
+node_modules/

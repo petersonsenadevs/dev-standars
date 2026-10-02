@@ -7,7 +7,10 @@
  *
  * Comprueba por viewport: scroll horizontal (y qué elementos lo causan), errores de consola,
  * meta viewport, nº de h1, imágenes sin alt/dimensiones, tap targets < 44px (solo móvil),
- * texto < 12px, inputs sin label. Guarda capturas en <out>/<ancho>.png.
+ * texto < 12px, inputs sin label, y GEOMETRÍA en píxeles (geometria.mjs): centrado real de lo que el
+ * contenedor centra, loaders centrados y alineados entre sí, spinners que se desplazan al girar, dibujos de
+ * SVG descentrados en su caja y hermanos «casi» alineados. Guarda capturas en <out>/<ancho>.png.
+ * --tolerancia <px> (por defecto 1).
  * Sale con código 1 si hay problemas (para CI y para que el agente no pueda ignorarlo).
  */
 const args = process.argv.slice(2);
@@ -25,6 +28,8 @@ const { existsSync: existeRuta } = await import('node:fs');
 // senzu/ui-verify; .ui-verify en proyectos antiguos sin migrar
 const outDir = opt('out', existeRuta('senzu') && !existeRuta('.ui-verify') ? 'senzu/ui-verify' : '.ui-verify');
 const screenshots = !args.includes('--no-screenshots');
+const tolerancia = parseFloat(opt('tolerancia', '1')) || 1;
+const { auditarGeometria } = await import('./geometria.mjs');
 
 let chromium;
 try {
@@ -139,6 +144,9 @@ try {
     await page.waitForTimeout(400);
 
     const problems = await page.evaluate(audit, mobile);
+    // Geometría medida en píxeles (no a ojo): centrado, loaders, spinners, SVG y alineación entre hermanos
+    const geo = await page.evaluate(auditarGeometria, { tolerancia });
+    problems.push(...geo.map((g) => `GEOMETRÍA (${g.tipo}, ${g.px} px): ${g.mensaje}`));
     const uniqueConsole = [...new Set(consoleErrors)].slice(0, 6);
     if (uniqueConsole.length) problems.push(...uniqueConsole.map((e) => `Consola: ${e}`));
 
