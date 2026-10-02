@@ -30,7 +30,7 @@ Siguen funcionando los nombres viejos: `DEV_STANDARDS_*` (ahora `SENZU_*`) y el 
 En una terminal, desde donde tengas clonado el repo (funciona en Windows, WSL, Linux y macOS):
 
 ```
-node Senzu/tools/init.mjs
+node senzu/tools/init.mjs
 ```
 
 Sin argumentos abre un menú que primero comprueba los requisitos (Node, Git, Python) y después pregunta:
@@ -108,8 +108,8 @@ como "Astro + CSS propio", no hereda el default del stack). Para fijarlo a mano,
 /plugin install senzu-all@senzu        # TODO (recomendado); ligeros: -front, -backend, -core
 ```
 
-Otros plugins: `senzu-core` (mínimo), `senzu-backend`, `senzu-all` (38 skills),
-`bundle-<nombre>`. Actualizar: `/plugin marketplace update Senzu` y actualiza el plugin.
+Otros plugins: `senzu-core` (mínimo), `senzu-backend`, `senzu-all` (todas las skills),
+(los bundles ya no van como plugin: se eligen al instalar en el proyecto con `--bundle`). Actualizar: `/plugin marketplace update senzu` y actualiza el plugin.
 
 ## 4. Solo Codex (y Cursor/Windsurf), skills globales sin proyecto
 
@@ -135,7 +135,7 @@ Repetir el comando actualiza. En Codex también se invocan explícitas con `$ui-
 ## 6. Instalación remota (desde GitHub, sin tener nada local)
 
 - **Claude Code**: `/plugin marketplace add petersonsenadevs/senzu` →
-  `/plugin install senzu-all@senzu` — TODO el paquete (recomendado); packs ligeros: `-front`, `-backend`, `-core`, `bundle-*`.
+  `/plugin install senzu-all@senzu` — TODO el paquete (recomendado); packs ligeros: `senzu-front`, `senzu-backend`, `senzu-core`.
 - **Del plugin al proyecto completo en un comando**: abre Claude en tu proyecto y escribe **`/instalar`** —
   clona el repo a `~/.senzu` si falta, detecta el stack (o se lo dices: `/instalar laravel`),
   te confirma qué hacer con tu CLAUDE.md/diario si ya existen, y ejecuta el instalador agnóstico

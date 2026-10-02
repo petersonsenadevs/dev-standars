@@ -22,7 +22,7 @@ formateadores, permisos y (en los de front) el perfil del buscador de diseño. `
 Lenguajes sin stack propio (referencias de `code-quality`, el router los enruta igual): **Go** (`go.md`),
 **Java/Spring** (`java.md`), **C#/.NET** (`csharp.md`).
 
-### Bundles opcionales (`sync.ps1 -Bundle <nombre>` o plugin `bundle-<nombre>`)
+### Bundles opcionales (`init.mjs --bundle <nombre>` o `sync.ps1 -Bundle <nombre>`)
 
 | Bundle | Skills |
 |---|---|

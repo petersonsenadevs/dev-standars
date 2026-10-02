@@ -9,7 +9,7 @@ mantienes el mismo prompt en 5 sitios.
 ## Estructura del repo
 
 ```
-Senzu/
+senzu/
 ├── core/                     # Reglas COMUNES a todos los lenguajes
 │   ├── methodology/          # devlog, git-flow, acciones prohibidas
 │   ├── prompts/              # systemprompt base (se hereda en cada stack)

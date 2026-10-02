@@ -160,7 +160,7 @@ function Get-StacksBody {
     $L.Add('**Java/Spring** (`java.md`), **C#/.NET** (`csharp.md`).')
     $L.Add('')
     $bundles = Get-Bundles
-    $L.Add('### Bundles opcionales (`sync.ps1 -Bundle <nombre>` o plugin `bundle-<nombre>`)')
+    $L.Add('### Bundles opcionales (`init.mjs --bundle <nombre>` o `sync.ps1 -Bundle <nombre>`)')
     $L.Add('')
     $L.Add('| Bundle | Skills |')
     $L.Add('|---|---|')

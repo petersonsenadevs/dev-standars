@@ -354,7 +354,7 @@ async function resolveGuideTarget(projectPath, fileName, rules, importSyntax) {
         target = alt;
     } else if (exists(main)) {
         const existing = readUtf8(main);
-        if (existing && !/GENERADO por Senzu/.test(existing)) {
+        if (existing && !/GENERADO por (Senzu|dev-standards)/.test(existing)) {   // compat-dev-standards: guía generada por la versión anterior
             if (await askYesNo(`Este proyecto ya tiene ${fileName} propio. ¿Respaldarlo en ${backupName} y referenciarlo desde el generado?`, true)) {
                 if (!exists(backup)) writeUtf8(backup, existing);
                 log(`  [guia]       ${fileName} respaldado en ${backupName} (referenciado desde el generado)`);

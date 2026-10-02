@@ -105,15 +105,10 @@ $entries += New-Plugin -Name 'senzu-front' -Description 'Front y diseño todo en
 $entries += New-Plugin -Name 'senzu-backend' -Description 'Calidad de código y arquitectura: code-quality (buenas prácticas por stack, tests, seguridad, rendimiento, APIs, PR) + ddd-hexagonal (DDD y puertos/adaptadores para proyectos complejos) + devlog + hooks de guard.' `
     -Skills ($coreSkills + @('ddd-hexagonal')) -Hooks $coreHooks -HookFiles $coreFiles -ExtraSkillDirs $routerDir -Commands @('instalar.md', 'plan.md', 'siguiente.md', 'verificar.md', 'desplegar.md', 'adoptar.md', 'auditar.md', 'refactor.md', 'depurar.md', 'estimar.md', 'entregar.md', 'mapa.md')
 
-# --- un plugin por bundle ---
-$bundles = Get-Bundles
-foreach ($b in ($bundles.Keys | Sort-Object)) {
-    $extraDirs = $routerDir
-    if (@($bundles[$b] | Where-Object { $_ -in @('ui-ux-pro-max','gsap-scrolltrigger','threejs-webgl','motion-framer','react-three-fiber') }).Count) { $extraDirs += (Join-Path $root 'core\skills-plugin\front-activation') }
-    $withFront = @($extraDirs | Where-Object { $_ -like '*front-activation' }).Count -gt 0
-    $bundleSkills = Expand-Requires -Names ($coreSkills + @($bundles[$b]) + $(if ($withFront) { @('front-activation') } else { @() })) | Where-Object { $_ -notin @('skill-router', 'front-activation') }
-    $entries += New-Plugin -Name "bundle-$b" -Description "Bundle Senzu '$b' (+ nucleo devlog/project-planner/code-quality/skill-router): $($bundles[$b] -join ', ')." -Skills $bundleSkills -ExtraSkillDirs $extraDirs
-}
+# Los bundles NO se publican como plugins (duplicaban las mismas skills: 62 MB de marketplace). Se siguen
+# eligiendo al instalar en un proyecto: init.mjs --bundle <nombre> o por categorías en el menú.
+# Los plugins bundle-* de versiones anteriores se borran para que no queden en el marketplace.
+Get-ChildItem $pluginsDir -Directory -Filter 'bundle-*' -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force
 
 # --- all ---
 $all = @(Get-ChildItem (Join-Path $root 'core\skills') -Directory | ForEach-Object Name) + @(Get-ChildItem (Join-Path $root 'core\skills-vendor') -Directory | ForEach-Object Name)

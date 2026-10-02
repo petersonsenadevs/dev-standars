@@ -181,7 +181,7 @@ muro o un caso de test del paquete, y a partir de ahí no vuelve a pasar en ning
 
 | Quiero… | Comando |
 |---|---|
-| Traer la última versión del plugin | `claude plugin marketplace update Senzu` |
+| Traer la última versión del plugin | `claude plugin marketplace update senzu` |
 | Ver qué plugins tengo | `claude plugin list` |
 | Ver qué trae el plugin y cuántos tokens cuesta | `claude plugin details senzu-all@senzu` |
 | Desinstalarlo | `claude plugin uninstall senzu-all@senzu` (con `--scope` si no era `user`) |

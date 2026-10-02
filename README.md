@@ -8,7 +8,7 @@ skills que se activan solas, muros que bloquean de verdad y verificación obliga
 nada por hecho.
 
 <!-- GEN:resumen -->
-![Version](https://img.shields.io/badge/version-v2.1.1-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-13-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
+![Version](https://img.shields.io/badge/version-v2.2.0-black) ![Skills](https://img.shields.io/badge/skills-43-blue) ![Stacks](https://img.shields.io/badge/stacks-9-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-4-purple) ![Muros](https://img.shields.io/badge/muros-16_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-20-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)
 
 | Grupo | Skills | Entra por |
 |---|---|---|
@@ -31,7 +31,7 @@ nada por hecho.
 # 1) Claude Code — plugin desde el marketplace (cualquier máquina/OS):
 /plugin marketplace add petersonsenadevs/senzu
 /plugin install senzu-all@senzu          # TODO el paquete (recomendado)
-#   packs ligeros si no quieres todo: -front (12 skills), -backend, -core, bundle-*
+#   packs ligeros si no quieres todo: senzu-front, senzu-backend, senzu-core
 
 # 2) ...y desde el plugin, la instalación COMPLETA del proyecto en un comando:
 #    (abre Claude en tu proyecto y escribe)

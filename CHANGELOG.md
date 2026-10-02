@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). Cada línea tiene su entrada completa en `d
 
 ## 2026-10-02
 
+- **fix** — Marketplace de 13 a 4 plugins (62 → 25 MB) y guía generada por la versión anterior reconocida · v2.2.0 (entrada 074)
 - **fix** — CI: falso FAIL de check-skills por finales de línea CRLF en Windows · v2.1.1 (entrada 073)
 - **feature** — Licencia MIT, CREDITOS.md generado, licencias en CI y actualización semanal de terceros por PR · v2.1.0 (entrada 072)
 - **docs** — Brief, marca, briefs de logos y plan de la web (movidos al repo aparte D:/senzu-web) (entrada 071)

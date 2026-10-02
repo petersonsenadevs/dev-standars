@@ -77,7 +77,7 @@ function Resolve-GuideTarget {
         $target = $alt
     } elseif (Test-Path $main) {
         $existing = Get-Content $main -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
-        if ($existing -and $existing -notmatch 'GENERADO por Senzu') {
+        if ($existing -and $existing -notmatch 'GENERADO por (Senzu|dev-standards)') {   # compat-dev-standards: guia generada por la version anterior
             if (Ask-YesNo "Este proyecto ya tiene $FileName propio. ¿Respaldarlo en $backupName y referenciarlo desde el generado?" $true) {
                 if (-not (Test-Path $backup)) { Write-Utf8 $backup $existing }
                 Write-Host "  [guia]       $FileName respaldado en $backupName (referenciado desde el generado)"

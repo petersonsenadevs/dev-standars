@@ -122,6 +122,8 @@ foreach ($p in $a, $b) {
     Move-Item (Join-Path $p 'senzu\senzu.json') (Join-Path $p '.dev-standards.json')
     Remove-Item (Join-Path $p 'senzu') -Recurse -Force
     Write-Utf8 (Join-Path $p 'conventions.md') "# Convenciones`n"
+    # CLAUDE.md y AGENTS.md generados por la version ANTERIOR (cabecera dev-standards): no son guias propias
+    foreach ($g in 'CLAUDE.md', 'AGENTS.md') { $gp = Join-Path $p $g; Write-Utf8 $gp ((Read-Utf8 $gp) -replace 'GENERADO por Senzu', 'GENERADO por dev-standards') }   # compat-dev-standards
 }
 $env:SENZU_ASSUME_YES = '1'
 & (Join-Path $PSScriptRoot 'sync.ps1') -Path $a *>$null
@@ -129,6 +131,7 @@ node (Join-Path $PSScriptRoot 'init.mjs') --path $b *>$null
 $env:SENZU_ASSUME_YES = ''
 Compare-Proyectos 'migracion'
 foreach ($p in $a, $b) {
+    foreach ($nogen in 'CLAUDE.project.md', 'AGENTS.project.md') { if (Test-Path (Join-Path $p $nogen)) { Fail "[migracion] tomo la guia generada por la version anterior como propia y creo $nogen ($p)" } }
     foreach ($viejo in 'devlog', 'plan', '.dev-standards.json', 'conventions.md') {
         if (Test-Path (Join-Path $p $viejo)) { Fail "[migracion] $viejo sigue en la raiz ($p)" }
     }

@@ -8,8 +8,7 @@ Actualizado: 2026-09-18. Las tandas completadas viven en `senzu/devlog/INDEX.md`
   lo real destapa más que construir en vacío).
 - [x] **Publicado en GitHub** (2026-09-29): https://github.com/petersonsenadevs/senzu (público).
   Activos `/plugin marketplace add petersonsenadevs/senzu` y el `irm … install.ps1 | iex`.
-  Pendiente menor: renombrar el repo a `Senzu` si se quiere corregir la errata (GitHub redirige;
-  actualizar entonces las URLs de README/INSTALL/install.ps1).
+  Repositorio renombrado a `petersonsenadevs/senzu` (v2.0.0); GitHub redirige la URL antigua.
 - [ ] En `un proyecto Laravel`: verificación móvil de `/escombros` (F2-T1), fotos reales del servicio,
   cifras de contadores confirmadas, alta del subdominio en Netlify/DNS, y commit del proyecto.
 - [x] Evals ejecutadas (2026-09-18, 1,65 $): landing 1.0 ✅ · backend 0.67 · **efecto 0 — sin el hook
