@@ -214,8 +214,12 @@ if (Test-Path $readmePath) {
     $nHooks = @(Get-ChildItem (Join-Path $root 'core\hooks') -Filter *.mjs | Where-Object { $_.Name -ne 'lib.mjs' }).Count
     $nCmds = @(Get-ChildItem (Join-Path $root 'core\commands') -Filter *.md).Count
     $nPlugins = @(Get-ChildItem (Join-Path $root 'plugins') -Directory -ErrorAction SilentlyContinue).Count
-    $ver = ''
-    try { $ver = ((git -C $root describe --tags --abbrev=0 2>$null) | Out-String).Trim() } catch {}
+    # Misma versión que los plugins (SENZU_RELEASE o el manifiesto recién generado): el último tag aún no existe
+    # al commitear una release, y el CI regenera con la del manifiesto
+    $ver = if ($env:SENZU_RELEASE) { "v$($env:SENZU_RELEASE)" } elseif ($env:DEV_STANDARDS_RELEASE) { "v$($env:DEV_STANDARDS_RELEASE)" } else { '' }   # compat-dev-standards
+    $manifiesto = Join-Path $root 'plugins\senzu-core\.claude-plugin\plugin.json'
+    if (-not $ver -and (Test-Path $manifiesto)) { try { $ver = 'v' + ((Read-Utf8 $manifiesto) | ConvertFrom-Json).version } catch {} }
+    if (-not $ver) { try { $ver = ((git -C $root describe --tags --abbrev=0 2>$null) | Out-String).Trim() } catch {} }
     $B = New-Object System.Collections.Generic.List[string]
     $verBadge = if ($ver) { "![Version](https://img.shields.io/badge/version-$ver-black) " } else { '' }
     $B.Add("$verBadge![Skills](https://img.shields.io/badge/skills-$nSkills-blue) ![Stacks](https://img.shields.io/badge/stacks-$nStacks-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-$nPlugins-purple) ![Muros](https://img.shields.io/badge/muros-${nHooks}_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-$nCmds-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)")
