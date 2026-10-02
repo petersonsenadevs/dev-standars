@@ -48,7 +48,7 @@ jobs:
             powershell -NoProfile -ExecutionPolicy Bypass -File "tools\$s.ps1"
             if ($LASTEXITCODE -ne 0) { throw "$s falla con la versión nueva de los terceros" }
           }
-          foreach ($t in 'memoria', 'hooks-codex', 'permisos', 'rondas', 'verify-build') {
+          foreach ($t in 'memoria', 'hooks-codex', 'permisos', 'rondas', 'verify-build', 'logos', 'brand') {
             node "tools/test-$t.mjs"
             if ($LASTEXITCODE -ne 0) { throw "test-$t falla con la versión nueva de los terceros" }
           }

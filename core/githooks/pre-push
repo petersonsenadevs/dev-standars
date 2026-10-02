@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
-# dev-standards: bloquea git push salvo aprobacion explicita (DEV_STANDARDS_ALLOW_PUSH=1 en el entorno).
+# Senzu: bloquea git push salvo aprobacion explicita (SENZU_ALLOW_PUSH=1 en el entorno; vale el antiguo DEV_STANDARDS_ALLOW_PUSH=1).
 # Instalado por sync.ps1 -GitHooks. Capa dura comun a Claude Code, Codex, Cursor, Windsurf.
-if [ "$DEV_STANDARDS_ALLOW_PUSH" = "1" ]; then
+if [ "${SENZU_ALLOW_PUSH:-$DEV_STANDARDS_ALLOW_PUSH}" = "1" ]; then
   exit 0
 fi
-echo "[dev-standards] git push bloqueado: requiere aprobacion explicita." >&2
-echo "  Si el humano lo aprueba, ejecuta:  DEV_STANDARDS_ALLOW_PUSH=1 git push ...  (o set DEV_STANDARDS_ALLOW_PUSH=1 en Windows)" >&2
+echo "[senzu] git push bloqueado: requiere aprobacion explicita." >&2
+echo "  Si el humano lo aprueba, ejecuta:  SENZU_ALLOW_PUSH=1 git push ...  (o set SENZU_ALLOW_PUSH=1 en Windows)" >&2
 exit 1

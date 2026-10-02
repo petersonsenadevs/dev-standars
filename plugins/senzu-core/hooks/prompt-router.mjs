@@ -8,7 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, hookConfig, availableSkills, designSystemMaster, testOnce, outHookJson, psRegex, ruta, rutaRel,
+    readHookInput, projectRoot, hookConfig, availableSkills, designSystemMaster, testOnce, outHookJson, psRegex, ruta, rutaRel, textoLogos,
 } from './lib.mjs';
 
 const p = readHookInput();
@@ -19,7 +19,12 @@ const root = projectRoot();
 const DL = rutaRel(root, 'devlog'), PL = rutaRel(root, 'plan'), DS = rutaRel(root, 'design-system'), CV = rutaRel(root, 'conventions.md');   // rutas reales (senzu/ o antiguas)
 const sid = p.session_id ? String(p.session_id) : 'default';
 const cfg = hookConfig(root);
-if (!cfg || !cfg.router) process.exit(0);
+// Si se habla de logos y ya hay uno elegido (lo haya hecho Claude, Codex o una persona), se recuerda SIEMPRE,
+// aunque el proyecto no tenga router configurado o ninguna skill encaje
+const sinAcentos = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '');
+const logoNote = /\b(logos?|logotipos?|isotipos?|simbolos?|iconos? de marca|bocetos?|mascotas?|favicons?|marca)\b/i.test(sinAcentos(prompt)) ? textoLogos(root) : '';
+const soloLogo = () => { if (logoNote) outHookJson('UserPromptSubmit', { additionalContext: '[senzu] ' + logoNote }); process.exit(0); };
+if (!cfg || !cfg.router) soloLogo();
 
 const available = availableSkills(root, cfg);
 // Entrypoints primero (ui-ux-pro-max, project-planner, skill-router), luego por prioridad descendente.
@@ -34,7 +39,7 @@ const FrontGroups = ['front', 'motion', '3d', 'design'];
 const deaccent = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '');
 const nPrompt = deaccent(prompt);
 let matched = rules.filter(r => { try { return psRegex(deaccent(r.keywords)).test(nPrompt); } catch { return false; } });
-if (!matched.length) process.exit(0);
+if (!matched.length) soloLogo();
 
 // Si algo de front matchea y el proyecto no tiene design system, el entrypoint de front entra SIEMPRE primero.
 let dsNote = '';
@@ -56,9 +61,9 @@ for (const r of matched) {
     if (hits.length >= 2) break;
     if (testOnce(sid, `router-${r.name}`)) hits.push(r.name);
 }
-if (!hits.length) process.exit(0);
+if (!hits.length) soloLogo();
 const msg = '[senzu] Esta peticion parece de: ' + hits.join(', ')
     + ". Antes de actuar lee el SKILL.md de la skill que aplique (su tabla 'Lectura minima por tarea' te dice que seccion abrir); las tareas de UI empiezan SIEMPRE por ui-ux-pro-max."
-    + dsNote + ' Si crees que no aplica, ignora este aviso.';
+    + dsNote + (logoNote ? ' ' + logoNote : '') + ' Si crees que no aplica, ignora este aviso.';
 outHookJson('UserPromptSubmit', { additionalContext: msg });
 process.exit(0);

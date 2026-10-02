@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). El detalle de cada entrada vive en el diari
 
 ## 2026-10-02
 
+- **feature** — Logo ya elegido visible para Claude y Codex (hooks y muros) + guía de marca en senzu/ · v2.3.0 (entrada 079)
 - **chore** — Ningún nombre de la agencia en lo público + comprobación con la lista privada · v2.2.4 (entrada 078)
 - **docs** — Sin cifras escritas a mano en la documentación + comprobación en check-skills · v2.2.3 (entrada 077)
 - **fix** — CI: test-verify-build ya no depende de tener pnpm instalado · v2.2.2 (entrada 076)

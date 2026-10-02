@@ -273,6 +273,49 @@ function findFirstFile(dir, fileName) {
 }
 export { findFirstFile };
 
+// ---------------------------------------------------------------- identidad ya elegida (logos finales)
+// Convención: <design-system>/<slug>/logos/final/<tipo>/ (tipo: simbolo, logotipo, combinado, mascota…) con
+// los maestros elegidos. Sirve igual si los generó Claude, Codex o una persona: lo que manda es el archivo.
+const IMAGEN = /\.(svg|png|webp|jpe?g|avif|ico|pdf)$/i;
+export function logosFinales(root) {
+    const ds = ruta(root, 'design-system');
+    const out = [];
+    for (const slug of dirNames(ds)) {
+        const fin = path.join(ds, slug, 'logos', 'final');
+        if (!fs.existsSync(fin)) continue;
+        const tipos = dirNames(fin);
+        const sueltos = fileNames(fin).filter(f => IMAGEN.test(f));
+        const grupos = [...tipos.map(t => [t, fileNames(path.join(fin, t)).filter(f => IMAGEN.test(f))]), ...(sueltos.length ? [['logo', sueltos]] : [])];
+        for (const [tipo, archivos] of grupos) {
+            if (!archivos.length) continue;
+            const dir = tipo === 'logo' ? fin : path.join(fin, tipo);
+            // El maestro: el .svg sin sufijo de tamaño/variante si existe; si no, el primero
+            const maestro = archivos.find(f => /\.svg$/i.test(f) && !/-(black|white|negativ\w*|mono\w*|\d+)\.svg$/i.test(f)) || archivos.find(f => /\.svg$/i.test(f)) || archivos[0];
+            out.push({ slug, tipo, dir: path.relative(root, dir).replace(/\\/g, '/'), maestro: path.relative(root, path.join(dir, maestro)).replace(/\\/g, '/'), n: archivos.length });
+        }
+    }
+    return out;
+}
+// ¿Está registrado el logo elegido en gustos.md (Fijado) y en la memoria? Si no, se pide registrarlo.
+export function logosSinRegistrar(root) {
+    const finales = logosFinales(root);
+    if (!finales.length) return [];
+    const gustos = readText(findFirstFile(ruta(root, 'design-system'), 'gustos.md') || '') || '';
+    const memoria = readText(path.join(ruta(root, 'devlog'), 'MEMORIA.md')) || '';
+    const fijado = seccionMd(gustos, 'Fijado');
+    return finales.filter(l => {
+        const enFijado = fijado.includes(`logos/final/${l.tipo}`) || fijado.includes(l.maestro);
+        const enMemoria = new RegExp(`logos/final/${l.tipo}|logo|s[ií]mbolo|logotipo`, 'i').test(memoria);
+        return !enFijado || !enMemoria;
+    });
+}
+export function textoLogos(root) {
+    const finales = logosFinales(root);
+    if (!finales.length) return '';
+    return 'IDENTIDAD YA ELEGIDA: ' + finales.map(l => `${l.tipo} → ${l.maestro} (${l.n} archivos en ${l.dir}/)`).join(' · ')
+        + '. Úsalos tal cual: NO generes bocetos, variantes ni logos nuevos de esos tipos salvo que el usuario lo pida explícitamente (y entonces pregunta si es para sustituir el elegido). Lo decidido está en gustos.md (Fijado) y en la memoria.';
+}
+
 export function designSystemMaster(root) {
     const f = findFirstFile(ruta(root, 'design-system'), 'MASTER.md');
     return f ? path.relative(root, f).replace(/\\/g, '/') : null;

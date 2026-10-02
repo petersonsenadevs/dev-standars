@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, getMarker, gitBranch, gitDirty, designSystemMaster, planStatus, todayDevlog, devlogNextNumber, hookConfig, outHookJson, todayStr, pad3, detectVersions, eolWarnings, projectMaturity, bloqueMemoria, proximosPasos, ruta, rutaRel,
+    readHookInput, projectRoot, getMarker, gitBranch, gitDirty, designSystemMaster, planStatus, todayDevlog, devlogNextNumber, hookConfig, outHookJson, todayStr, pad3, detectVersions, eolWarnings, projectMaturity, bloqueMemoria, proximosPasos, ruta, rutaRel, textoLogos, logosSinRegistrar,
 } from './lib.mjs';
 
 readHookInput();
@@ -46,6 +46,9 @@ if (branch) {
 }
 const ds = designSystemMaster(root);
 if (ds) L.push(`- Design system del proyecto: ${ds} (fuente de verdad de UI).`);
+const logos = textoLogos(root); if (logos) L.push('- ' + logos);
+const sinRegistrar = logosSinRegistrar(root);
+if (sinRegistrar.length) L.push(`- Hay logo final sin registrar (${sinRegistrar.map(l => l.maestro).join(', ')}): anótalo en «Fijado» de gustos.md (con su ruta) y como decisión en la memoria del devlog, para que cualquier agente lo sepa.`);
 else if (marker && marker.frontProfile) L.push(`- No hay ${DS}/*/MASTER.md: genera uno con ui-ux-pro-max antes de maquetar.`);
 const plan = planStatus(root);
 if (plan.exists) {

@@ -8,7 +8,7 @@ description: "Identidad de marca: voz y tono, identidad visual, mensajes, paleta
 Documentación completa upstream (inglés): `SKILL.upstream.md` (97 líneas). **No la leas entera**: usa el mapa y lee solo la sección que necesites (Read con offset/limit o Grep).
 
 ## Cuándo usar / cuándo NO
-- Usar: definir o actualizar voz, mensajes y guía de estilo de marca (`docs/brand-guidelines.md`).
+- Usar: definir o actualizar voz, mensajes y guía de estilo de marca (`senzu/design-system/<slug>/brand-guidelines.md`).
 - Usar: auditar consistencia, validar naming/tamaño/formato de assets, comparar colores de una imagen con la paleta.
 - Usar: inyectar contexto de marca en prompts de otras skills (banners, slides, social) o sincronizar la guía a tokens.
 - NO usar: tokens semánticos y CSS vars de un design system → `design-system`; componentes Tailwind/shadcn → `ui-styling`.
@@ -41,14 +41,15 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (97 líneas). **
 - `references/color-palette-management.md` — paleta. `references/typography-specifications.md` — tipografía.
 - `references/asset-organization.md` — naming y carpetas. `references/approval-checklist.md` y `references/consistency-checklist.md` — auditoría.
 - `references/brand-guideline-template.md` — estructura de la guía. `references/update.md` — flujo del subcomando `update`.
-- `scripts/inject-brand-context.cjs` — extrae contexto de marca para prompts (`node scripts/inject-brand-context.cjs [--json]`).
-- `scripts/sync-brand-to-tokens.cjs` — `docs/brand-guidelines.md` → `assets/design-tokens.json/.css` (`node scripts/sync-brand-to-tokens.cjs`).
+- `scripts/inject-brand-context.cjs` — extrae contexto de marca para prompts (`node scripts/inject-brand-context.cjs senzu/design-system/<slug>/brand-guidelines.md [--json]`).
+- **`scripts/sync-senzu.mjs` (Senzu)** — guía → `design-tokens.json` y `.css` **junto a la guía**, en Claude y en Codex (`node <skills-dir>/brand/scripts/sync-senzu.mjs [--slug x] [--dry-run]`). Úsalo SIEMPRE en lugar de `sync-brand-to-tokens.cjs`: el original tiene rutas fijas (`docs/`, `assets/`, `.claude/skills`) y en Codex no genera el CSS.
 - `scripts/validate-asset.cjs` — valida naming, tamaño y formato (`node scripts/validate-asset.cjs <ruta>`).
-- `scripts/extract-colors.cjs` — extrae/compara colores (`node scripts/extract-colors.cjs --palette | <imagen>`); `scripts/tests/` — test de regresión (`py -3 -m pytest`).
+- `scripts/extract-colors.cjs` — extrae/compara colores (`node scripts/extract-colors.cjs --brand-file senzu/design-system/<slug>/brand-guidelines.md --palette | <imagen>`); `scripts/tests/` — test de regresión (`py -3 -m pytest`).
 - `templates/brand-guidelines-starter.md` — plantilla completa para marcas nuevas. No hay `assets/`.
 
 ## Reglas duras
-- `docs/brand-guidelines.md` es la única fuente de verdad; los tokens se regeneran con el script, nunca se editan a mano.
+- `senzu/design-system/<slug>/brand-guidelines.md` (junto a MASTER.md y gustos.md) es la única fuente de verdad; los tokens se regeneran con `sync-senzu.mjs`, nunca a mano. Proyecto con la guía en `docs/` (ubicación antigua de la skill): funciona, pero muévela.
+- Logo ya elegido (`senzu/design-system/<slug>/logos/final/`): la guía lo cita por su ruta; no se proponen logos nuevos sin que el usuario lo pida.
 - Tras editar la guía, ejecutar `sync-brand-to-tokens.cjs` y verificar con `inject-brand-context.cjs --json`.
 - Todo asset nuevo pasa por `validate-asset.cjs` antes de aprobarse; colores fuera de paleta se detectan con `extract-colors.cjs`.
 - Cualquier pieza creativa de otra skill (banner, slides, social) debe inyectar contexto de marca antes de diseñar.

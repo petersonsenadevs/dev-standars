@@ -1,36 +1,36 @@
 #!/usr/bin/env sh
-# dev-standards (repo propio): regenera los artefactos publicables y valida skills + router antes de commitear.
-# Saltar en emergencias: DEV_STANDARDS_SKIP_CHECKS=1 git commit ...
-[ "$DEV_STANDARDS_SKIP_CHECKS" = "1" ] && exit 0
-echo "[dev-standards] pre-commit: build-plugins + check-skills + test-router + test-hooks (DEV_STANDARDS_SKIP_CHECKS=1 para saltar)"
+# Senzu (repo propio): regenera los artefactos publicables y valida skills + router antes de commitear.
+# Saltar en emergencias: SENZU_SKIP_CHECKS=1 git commit ... (vale el antiguo DEV_STANDARDS_SKIP_CHECKS=1)
+[ "${SENZU_SKIP_CHECKS:-$DEV_STANDARDS_SKIP_CHECKS}" = "1" ] && exit 0
+echo "[senzu] pre-commit: build-plugins + check-skills + test-router + test-hooks (SENZU_SKIP_CHECKS=1 para saltar)"
 # plugins/ y .claude-plugin/ estan versionados (instalacion remota): regenerar y stagear para que nunca se desfasen.
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-plugins.ps1 >/dev/null 2>&1
 if [ $? -ne 0 ]; then
-  echo "[dev-standards] build-plugins.ps1 FALLA. Ejecutalo para ver el detalle: tools/build-plugins.ps1" >&2; exit 1
+  echo "[senzu] build-plugins.ps1 FALLA. Ejecutalo para ver el detalle: tools/build-plugins.ps1" >&2; exit 1
 fi
 git add plugins .claude-plugin 2>/dev/null
 # docs/ y REFERENCIA.md se generan del registro/comandos/hooks: regenerar y stagear para que la doc nunca mienta.
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-docs.ps1 >/dev/null 2>&1 && git add REFERENCIA.md docs README.md CHANGELOG.md 2>/dev/null
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/check-skills.ps1 >/dev/null 2>&1
 if [ $? -ne 0 ]; then
-  echo "[dev-standards] check-skills.ps1 FALLA. Ejecutalo para ver el detalle: tools/check-skills.ps1" >&2; exit 1
+  echo "[senzu] check-skills.ps1 FALLA. Ejecutalo para ver el detalle: tools/check-skills.ps1" >&2; exit 1
 fi
 if [ -f tools/test-hooks.ps1 ]; then
   powershell -NoProfile -ExecutionPolicy Bypass -File tools/test-hooks.ps1 >/dev/null 2>&1
   if [ $? -ne 0 ]; then
-    echo "[dev-standards] test-hooks.ps1 FALLA. Ejecutalo para ver el detalle: tools/test-hooks.ps1" >&2; exit 1
+    echo "[senzu] test-hooks.ps1 FALLA. Ejecutalo para ver el detalle: tools/test-hooks.ps1" >&2; exit 1
   fi
 fi
 if [ -f tools/test-router.ps1 ]; then
   powershell -NoProfile -ExecutionPolicy Bypass -File tools/test-router.ps1 >/dev/null 2>&1
   if [ $? -ne 0 ]; then
-    echo "[dev-standards] test-router.ps1 FALLA. Ejecutalo para ver el detalle: tools/test-router.ps1" >&2; exit 1
+    echo "[senzu] test-router.ps1 FALLA. Ejecutalo para ver el detalle: tools/test-router.ps1" >&2; exit 1
   fi
 fi
 if [ -f tools/test-init-parity.ps1 ]; then
   powershell -NoProfile -ExecutionPolicy Bypass -File tools/test-init-parity.ps1 >/dev/null 2>&1
   if [ $? -ne 0 ]; then
-    echo "[dev-standards] test-init-parity.ps1 FALLA (init.ps1 vs init.mjs divergen). Detalle: tools/test-init-parity.ps1" >&2; exit 1
+    echo "[senzu] test-init-parity.ps1 FALLA (init.ps1 vs init.mjs divergen). Detalle: tools/test-init-parity.ps1" >&2; exit 1
   fi
 fi
 exit 0

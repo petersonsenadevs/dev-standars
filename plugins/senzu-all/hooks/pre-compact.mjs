@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, getMarker, designSystemMaster, todayDevlog, gitBranch, planStatus, devlogNextNumber, outHookJson, pad3, detectVersions, bloqueMemoria, ruta, rutaRel,
+    readHookInput, projectRoot, getMarker, designSystemMaster, todayDevlog, gitBranch, planStatus, devlogNextNumber, outHookJson, pad3, detectVersions, bloqueMemoria, ruta, rutaRel, textoLogos,
 } from './lib.mjs';
 
 readHookInput();
@@ -17,6 +17,7 @@ const versions = detectVersions(root);
 if (versions.length) L.push(`- Versiones: ${versions.map(v => `${v.name} ${v.spec}`).join(', ')} (practicas de ESAS versiones)`);
 if (fs.existsSync(ruta(root, 'conventions.md'))) L.push(`- Convenciones adoptadas: ${rutaRel(root, 'conventions.md')} (inmutables, ganan a tus preferencias)`);
 const ds = designSystemMaster(root); if (ds) L.push(`- Design system: ${ds}`);
+const logos = textoLogos(root); if (logos) L.push('- ' + logos);
 const today = todayDevlog(root); if (today.length) L.push(`- Devlog de hoy: ${today.join(', ')} (sigue numerando desde ahi)`);
 const b = gitBranch(root); if (b) L.push(`- Rama git: ${b}`);
 const plan = planStatus(root);

@@ -57,7 +57,9 @@ que tienen prioridad sobre cualquier atajo.
 ## Dónde se guarda lo que generas
 Todo lo que el usuario vaya a mirar se guarda DENTRO del proyecto, nunca en el scratchpad ni en carpetas
 temporales del sistema (aunque la herramienta lo sugiera): capturas en `senzu/ui-verify/`, maquetas en
-`senzu/design-system/<slug>/propuestas/`, comparativas, informes y documentos en `docs/` (o donde diga su skill).
+`senzu/design-system/<slug>/propuestas/`, logos en `senzu/design-system/<slug>/logos/` (`generados/` los
+bocetos, `final/<tipo>/` los elegidos: con logo final, no se hacen bocetos sin pedirlo), guía de marca en
+`senzu/design-system/<slug>/brand-guidelines.md`, comparativas, informes y documentos en `docs/` (o donde diga su skill).
 El scratchpad solo vale para scripts y archivos intermedios que nadie va a abrir. Al terminar, di la ruta.
 
 ## Estilo de trabajo

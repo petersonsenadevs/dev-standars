@@ -1,19 +1,19 @@
 #!/usr/bin/env sh
-# dev-standards: valida el mensaje de commit (Conventional Commits, <= 72 chars, sin Co-Authored-By).
+# Senzu: valida el mensaje de commit (Conventional Commits, <= 72 chars, sin Co-Authored-By).
 # Instalado por sync.ps1 -GitHooks (git config core.hooksPath .githooks). Vale para cualquier agente/IDE.
 msg_file="$1"
 first=$(sed -n '1p' "$msg_file" | sed 's/\r$//')
 if ! printf '%s' "$first" | grep -Eq '^(feat|fix|refactor|docs|test|chore|perf|build|ci|style|revert)(\([A-Za-z0-9_./ -]+\))?!?: [^ ]'; then
-  echo "[dev-standards] Mensaje no sigue Conventional Commits: '$first'" >&2
+  echo "[senzu] Mensaje no sigue Conventional Commits: '$first'" >&2
   echo "  Formato: tipo(scope): descripcion   (feat|fix|refactor|docs|test|chore|perf|build|ci|style|revert)" >&2
   exit 1
 fi
 if [ ${#first} -gt 72 ]; then
-  echo "[dev-standards] Primera linea > 72 caracteres (${#first}). Acortala y pasa el detalle al cuerpo." >&2
+  echo "[senzu] Primera linea > 72 caracteres (${#first}). Acortala y pasa el detalle al cuerpo." >&2
   exit 1
 fi
 if grep -Eiq 'co-authored-by' "$msg_file"; then
-  echo "[dev-standards] Los commits no llevan Co-Authored-By (regla del equipo)." >&2
+  echo "[senzu] Los commits no llevan Co-Authored-By (regla del equipo)." >&2
   exit 1
 fi
 exit 0

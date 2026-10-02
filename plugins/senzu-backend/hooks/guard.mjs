@@ -10,7 +10,7 @@
 // Se usa como capa "inteligente" además de permissions.deny (capa simple) en settings.json.
 
 import { execFileSync } from 'node:child_process';
-import { readHookInput, projectRoot, permisosProyecto, envSenzu } from './lib.mjs';
+import { readHookInput, projectRoot, permisosProyecto, envSenzu, textoLogos } from './lib.mjs';
 
 const p = readHookInput();
 if (!p) process.exit(0);
@@ -128,6 +128,16 @@ if (envSenzu('ALLOW_DEPLOY') !== '1') {
             'Con la aprobacion recibida: reintenta con SENZU_ALLOW_DEPLOY=1 y documenta la aprobacion y el resultado en el devlog. Los deploys de preview (sin --prod) pasan sin muro.',
         ]);
     }
+}
+
+// --- Logo ya elegido: los generadores de logos e iconos no se lanzan sin que el usuario lo pida ---
+// (graphic-design scripts/logo|icon/generate.py, o image-gen con un prompt de logo). Escape tras pedirlo: SENZU_ALLOW_LOGO=1.
+if (envSenzu('ALLOW_LOGO') !== '1' && (/scripts[\\/](logo|icon)[\\/]generate\.py/i.test(c) || (/image-gen[\\/]scripts[\\/]generate\.mjs/i.test(c) && /\b(logo|logotipo|isotipo|s[ií]mbolo|favicon)\b/i.test(c)))) {
+    const elegido = textoLogos(root);
+    if (elegido) deny([
+        '[BLOQUEADO por Senzu] ' + elegido,
+        'Si el usuario ha pedido EXPLÍCITAMENTE nuevas variantes o sustituir el logo: reintenta con SENZU_ALLOW_LOGO=1 y anótalo en el devlog.',
+    ]);
 }
 
 // --- Librerias vetadas (regla dura: sin jQuery/Bootstrap ni segunda libreria de componentes sin aprobacion) ---

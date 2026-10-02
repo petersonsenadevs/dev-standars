@@ -1,17 +1,20 @@
 #!/usr/bin/env sh
-# dev-standards: antes de commitear, exige rama no protegida y entrada de devlog del dia.
-# Instalado por sync.ps1 -GitHooks. Desactivar puntualmente: DEV_STANDARDS_SKIP_DEVLOG=1
+# Senzu: antes de commitear, exige rama no protegida y entrada de devlog del dia.
+# Instalado por sync.ps1 -GitHooks. Desactivar puntualmente: SENZU_SKIP_DEVLOG=1 (o el antiguo DEV_STANDARDS_SKIP_DEVLOG=1)
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 case "$branch" in
   main|master|develop)
-    echo "[dev-standards] No se commitea en '$branch'. Crea una rama (git switch -c feat/...)." >&2
+    echo "[senzu] No se commitea en '$branch'. Crea una rama (git switch -c feat/...)." >&2
     exit 1 ;;
 esac
-if [ "$DEV_STANDARDS_SKIP_DEVLOG" != "1" ]; then
+if [ "${SENZU_SKIP_DEVLOG:-$DEV_STANDARDS_SKIP_DEVLOG}" != "1" ]; then
   today=$(date +%Y-%m-%d)
-  if [ -d devlog ] && ! ls "devlog/$today"/*.md >/dev/null 2>&1; then
-    echo "[dev-standards] No hay entrada de devlog para hoy (devlog/$today/NNN-slug.md). Creala antes de commitear (skill devlog)." >&2
-    echo "  Cambio trivial sin devlog: DEV_STANDARDS_SKIP_DEVLOG=1 git commit ..." >&2
+  # senzu/devlog (proyectos actuales) o devlog/ (proyectos sin migrar)
+  dl=""
+  if [ -d senzu/devlog ]; then dl="senzu/devlog"; elif [ -d devlog ]; then dl="devlog"; fi
+  if [ -n "$dl" ] && ! ls "$dl/$today"/*.md >/dev/null 2>&1; then
+    echo "[senzu] No hay entrada de devlog para hoy ($dl/$today/NNN-slug.md). Creala antes de commitear (skill devlog)." >&2
+    echo "  Cambio trivial sin devlog: SENZU_SKIP_DEVLOG=1 git commit ..." >&2
     exit 1
   fi
 fi

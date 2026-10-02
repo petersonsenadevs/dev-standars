@@ -47,6 +47,12 @@ if (/^(plugins|core\/skills-vendor)\//i.test(rel) && fs.existsSync(path.join(roo
     deny('Carpeta generada de Senzu (plugins/ o core/skills-vendor/). Edita core/skills-overlay o core/skills y regenera con build-plugins.ps1 / vendor.ps1.');
 }
 
+// 1a) Maestros del logo elegido (design-system/<slug>/logos/final/): no se sobrescriben ni se borran. Añadir
+//     archivos nuevos (otro tamaño, otro formato) sí se permite.
+if (/(^|\/)design-system\/[^/]+\/logos\/final\//i.test(rel) && exists) {
+    deny('Es un maestro del logo ELEGIDO (logos/final/): no se sobrescribe. Si el usuario quiere cambiar el logo, que lo diga explícitamente: el nuevo va con otro nombre, se actualiza «Fijado» en gustos.md y la memoria, y el anterior lo retira el usuario.');
+}
+
 // 1b) Convenciones adoptadas (/adoptar) selladas como inmutables
 if (/^(senzu\/)?conventions\.(md|json)$/i.test(rel) && exists && /(senzu|dev-standards):inmutable/.test(readText(file) || '')) {   // compat-dev-standards
     deny('Convenciones del proyecto SELLADAS como inmutables (/adoptar): no se editan sin decision explicita del usuario. Con su aprobacion: borra los archivos conventions.json y conventions.md y re-ejecuta /adoptar, o que los edite el mismo.');

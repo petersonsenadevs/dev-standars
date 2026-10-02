@@ -51,6 +51,9 @@ Documentación completa upstream (inglés): `SKILL.upstream.md` (313 líneas). *
 
 ## Reglas duras
 - Logos siempre con fondo blanco; tras generar, preguntar si se quiere galería HTML (`ui-ux-pro-max`).
+- Logos en `senzu/design-system/<slug>/logos/`: bocetos en `generados/<tipo>/`, los ELEGIDOS en `final/<tipo>/`. Con un
+  logo final de ese tipo NO se generan bocetos ni variantes sin que el usuario lo pida (el muro bloquea los scripts).
+  Al elegir uno: fila en «Fijado» de `gustos.md` con su ruta y decisión en la memoria del devlog (lo exige el cierre).
 - CIP: generar mockups pasando `--logo`; si no hay logo, crear uno primero con la sección Logo.
 - Requiere `GEMINI_API_KEY` y `google-genai pillow`; si un script falla, intentar arreglarlo directamente.
 - Banners y social photos: zonas seguras 70-80 %, una CTA, máximo 2 fuentes, texto < 20 % en anuncios, exportar a px exactos (2x deviceScaleFactor).

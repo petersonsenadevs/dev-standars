@@ -6,7 +6,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-    readHookInput, projectRoot, planStatus, sessionFlag, projectFlag, testOnce, todayDevlog, devlogIndexed, hookConfig, gitBranch, gitDirty, todayStr, memoriaProyecto, seccionMd, tieneContenido, readText, ruta, rutaRel,
+    readHookInput, projectRoot, planStatus, sessionFlag, projectFlag, testOnce, todayDevlog, devlogIndexed, hookConfig, gitBranch, gitDirty, todayStr, memoriaProyecto, seccionMd, tieneContenido, readText, ruta, rutaRel, logosSinRegistrar,
 } from './lib.mjs';
 
 const p = readHookInput();
@@ -112,7 +112,10 @@ if (today.length) {
     extra += memLarga;
     const bloqueaUi = (frontMsg || buildMsg) && !alreadyActive && testOnce(sid, 'stop-ui');
     const bloqueaMem = memMsg && !alreadyActive && testOnce(sid, 'stop-memoria');
-    if (bloqueaUi || bloqueaMem) {
+    const sinRegistrar = logosSinRegistrar(root);
+    if (sinRegistrar.length) memMsg += ` Hay logo final sin registrar (${sinRegistrar.map(l => l.maestro).join(', ')}): anótalo en «Fijado» de gustos.md con su ruta y como decisión en la memoria, para que ningún agente vuelva a hacer bocetos.`;
+    const bloqueaLogos = sinRegistrar.length && !alreadyActive && testOnce(sid, 'stop-logos');
+    if (bloqueaUi || bloqueaMem || bloqueaLogos) {
         process.stdout.write(JSON.stringify({ decision: 'block', reason: '[senzu]' + buildMsg + frontMsg + memMsg + planMsg + extra }) + '\n');
         process.exit(0);
     }
