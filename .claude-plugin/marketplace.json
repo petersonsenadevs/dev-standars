@@ -4,7 +4,7 @@
                   "name":  "Senzu"
               },
     "metadata":  {
-                     "version":  "2.7.1",
+                     "version":  "2.8.0",
                      "description":  "Marketplace de Senzu (antes dev-standards): metodología, front/diseño (UI UX Pro Max + Design Skillstack) y bundles de animación/3D."
                  },
     "plugins":  [
@@ -12,7 +12,7 @@
                         "name":  "senzu-core",
                         "source":  "./plugins/senzu-core",
                         "description":  "Metodología Senzu: skill devlog + skill-router + hooks (guard de git/BD, archivos protegidos, secretos, formateo al guardar, estado de sesión, router de prompts, cierre con devlog, pre-compact).",
-                        "version":  "2.7.1",
+                        "version":  "2.8.0",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -30,7 +30,7 @@
                         "name":  "senzu-front",
                         "source":  "./plugins/senzu-front",
                         "description":  "Front y diseño todo en uno: UI UX Pro Max (design systems, 79 estilos, 192 paletas, 22 stacks) + GSAP ScrollTrigger + Three.js, con capa en español, perfiles por stack (Laravel+Inertia+Vue, Next.js, Astro, Vue 3), tabla de activación y hook recordatorio.",
-                        "version":  "2.7.1",
+                        "version":  "2.8.0",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -54,7 +54,7 @@
                         "name":  "senzu-backend",
                         "source":  "./plugins/senzu-backend",
                         "description":  "Calidad de código y arquitectura: code-quality (buenas prácticas por stack, tests, seguridad, rendimiento, APIs, PR) + ddd-hexagonal (DDD y puertos/adaptadores para proyectos complejos) + devlog + hooks de guard.",
-                        "version":  "2.7.1",
+                        "version":  "2.8.0",
                         "category":  "development",
                         "keywords":  [
                                          "devlog",
@@ -73,7 +73,7 @@
                         "name":  "senzu-all",
                         "source":  "./plugins/senzu-all",
                         "description":  "Todas las skills de Senzu (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.",
-                        "version":  "2.7.1",
+                        "version":  "2.8.0",
                         "category":  "development",
                         "keywords":  [
                                          "backend-audit",

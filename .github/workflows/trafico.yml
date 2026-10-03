@@ -1,0 +1,61 @@
+name: trafico
+
+# Cada día guarda el tráfico del repositorio (clones, visitas, estrellas, forks) en la rama `stats`.
+# GitHub solo guarda 14 días de clones y visitas: aquí se acumulan (tools/trafico.mjs) para no perderlos.
+# De la rama `stats` salen el badge de clones del README y los datos que lee la web de Senzu en cada build.
+#
+# Activarlo (una vez): crea un token «fine-grained» en GitHub → Settings → Developer settings → Personal access
+# tokens → Fine-grained tokens, con acceso SOLO a este repositorio y el permiso «Administration: Read-only»
+# (es el que exige la API de tráfico), y guárdalo en este repo: Settings → Secrets and variables → Actions →
+# New repository secret, con el nombre TRAFFIC_TOKEN. Sin él, solo se guardan estrellas y forks.
+on:
+  schedule:
+    - cron: '17 5 * * *'     # cada día a las 05:17 UTC
+  workflow_dispatch:          # y a mano desde la pestaña Actions
+
+permissions:
+  contents: write             # para escribir en la rama stats
+
+concurrency:
+  group: trafico
+  cancel-in-progress: false
+
+jobs:
+  guardar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Rama stats (se crea vacía la primera vez)
+        run: |
+          if git ls-remote --exit-code --heads origin stats > /dev/null; then
+            git fetch --depth 1 origin stats
+            git worktree add -B stats ../stats-rama origin/stats
+          else
+            git worktree add --orphan -b stats ../stats-rama
+          fi
+
+      - name: Leer y acumular el tráfico
+        env:
+          TRAFFIC_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node tools/trafico.mjs --salida ../stats-rama
+
+      - name: Guardar en la rama stats
+        working-directory: ../stats-rama
+        run: |
+          if [ ! -f README.md ]; then
+            printf '%s\n' '# Tráfico de Senzu' '' 'Rama de datos, sin código: la escribe cada día `.github/workflows/trafico.yml`' \
+              '(script `tools/trafico.mjs` en main). `trafico.json` es el histórico acumulado por día; `badge-*.json` son' \
+              'los endpoints de shields.io del README. Incluye los clones del propio CI y de los builds de la web.' > README.md
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then echo 'Sin cambios'; exit 0; fi
+          git commit -m "chore: trafico del $(date -u +%F)"
+          git push origin stats

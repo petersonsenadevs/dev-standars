@@ -222,7 +222,7 @@ if (Test-Path $readmePath) {
     if (-not $ver) { try { $ver = ((git -C $root describe --tags --abbrev=0 2>$null) | Out-String).Trim() } catch {} }
     $B = New-Object System.Collections.Generic.List[string]
     $verBadge = if ($ver) { "![Version](https://img.shields.io/badge/version-$ver-black) " } else { '' }
-    $B.Add("$verBadge![Skills](https://img.shields.io/badge/skills-$nSkills-blue) ![Stacks](https://img.shields.io/badge/stacks-$nStacks-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-$nPlugins-purple) ![Muros](https://img.shields.io/badge/muros-${nHooks}_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-$nCmds-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow)")
+    $B.Add("$verBadge![Skills](https://img.shields.io/badge/skills-$nSkills-blue) ![Stacks](https://img.shields.io/badge/stacks-$nStacks-green) ![Plugins](https://img.shields.io/badge/plugins_Claude-$nPlugins-purple) ![Muros](https://img.shields.io/badge/muros-${nHooks}_hooks-red) ![Comandos](https://img.shields.io/badge/comandos-$nCmds-orange) ![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow) ![Clones](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fpetersonsenadevs%2Fsenzu%2Fstats%2Fbadge-clones.json)")
     $B.Add('')
     $B.Add('| Grupo | Skills | Entra por |')
     $B.Add('|---|---|---|')

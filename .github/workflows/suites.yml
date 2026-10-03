@@ -59,6 +59,9 @@ jobs:
       - name: test-verify-build (proyectos simples y monorepos)
         run: node tools/test-verify-build.mjs
 
+      - name: test-trafico (histórico de clones y visitas, badge de clones)
+        run: node tools/test-trafico.mjs
+
       - name: test-logos (logo elegido, Claude y Codex)
         run: node tools/test-logos.mjs
 
