@@ -180,6 +180,7 @@ Uno por página, con intención (al entrar una vez, al pulsar o al llegar), salt
 |---|---|---|---|---|
 | Intro con caída y pantalla rota / falling object + shattered screen intro | front-activation → `references/recipes/fisica-impacto.md` §Intro o loader (demo `demos/intro-rotura.html`, sin dependencias) | Todos | Sin intro | Medio (menos trozos) |
 | Loader que se agrieta con la carga y se rompe al terminar / cracking loader | front-activation → `references/recipes/fisica-impacto.md` §Intro o loader (modo loader) | Solo con carga pesada real | Barra o texto de carga | Medio |
+| La web se rompe como un cristal (trozos = la propia página) / real page shatter | front-activation → `references/recipes/fisica-impacto.md` §La web se rompe como un cristal (demo `demos/web-rota.html`, sin dependencias) | Todos | Fundido a lo de detrás | Medio (menos trozos) |
 | Pantalla o sección que se rompe / screen shatter | front-activation → `references/recipes/fisica-impacto.md` §Pantalla que se rompe (radial o Voronoi con d3-delaunay) | Todos | Sin rotura (estado final) | Medio |
 | Objeto que cae encima de todo y se apoya / object drop onto page | front-activation → `references/recipes/fisica-impacto.md` §Objeto que cae (demo `demos/objeto-cae.html`, matter-js) | Todos (3D: react-three-rapier) | Aparece ya apoyado | Medio (2D) · Alto (3D) |
 | La página se desmorona / page gravity collapse | front-activation → `references/recipes/fisica-impacto.md` §La página se desmorona (demo `demos/pagina-desmorona.html`) | Todos | Sin botón | Medio |

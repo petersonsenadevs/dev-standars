@@ -90,6 +90,64 @@ for (const [w, h] of [[1440, 900], [375, 720]]) {
     await cerrar();
 }
 
+// ---------------------------------------------------------------- la web se rompe como un cristal (trozos = la propia web)
+for (const [w, h] of [[1440, 900], [375, 720]]) {
+    const { page, cerrar } = await pagina(w, h);
+    await page.goto(url('web-rota.html'));
+    const caja = await page.locator('[data-romper-boton]').boundingBox();
+    await page.mouse.click(caja.x + caja.width / 2, caja.y + caja.height / 2);
+    const fases = new Set(); let durante = null; const t0 = Date.now();
+    while (Date.now() - t0 < 4000) {
+        const e = await page.evaluate(() => ({ ...window.senzuWebRota, trozosDom: document.querySelectorAll('.rotura .trozo').length,
+            conTexto: [...document.querySelectorAll('.rotura .trozo')].filter(t => /semilla|Skills|Muros/.test(t.textContent)).length,
+            grietas: document.querySelectorAll('.grietas path').length }));
+        fases.add(e.fase); if (e.fase === 'rotura' && !durante && e.trozosDom) durante = e; if (e.fin) break;
+        await page.waitForTimeout(30);
+    }
+    ok(['grietas', 'rotura', 'detras'].every(f => fases.has(f)), `web rota ${w}: golpe, grietas, rotura y detrás`, [...fases].join(','));
+    ok(durante && durante.trozos >= (w < 500 ? 25 : 40), `web rota ${w}: se parte en trozos (${durante && durante.trozos})`);
+    ok(durante && durante.conTexto > 0, `web rota ${w}: los trozos son la propia web (llevan su texto)`, JSON.stringify(durante));
+    const fin = await page.evaluate(() => ({ restos: document.querySelectorAll('.rotura, .grietas, .web-rota-objeto').length,
+        detras: !document.querySelector('[data-romper-detras]').hidden, foco: document.activeElement && document.activeElement.id,
+        copias: document.querySelectorAll('.copia').length }));
+    ok(!fin.restos && !fin.copias, `web rota ${w}: al acabar no queda nada de la rotura en el DOM`, JSON.stringify(fin));
+    ok(fin.detras && fin.foco === 'detras-titulo', `web rota ${w}: se ve lo de detrás y el foco pasa a su título`, JSON.stringify(fin));
+    await page.click('[data-romper-volver]'); await page.waitForTimeout(400);
+    const vuelta = await page.evaluate(() => ({ detras: !document.querySelector('[data-romper-detras]').hidden, bloqueo: document.documentElement.classList.contains('web-rota-bloqueo'), foco: document.activeElement.hasAttribute('data-romper-boton') }));
+    ok(!vuelta.detras && !vuelta.bloqueo && vuelta.foco, `web rota ${w}: «Volver» recompone la web, devuelve el scroll y el foco`, JSON.stringify(vuelta));
+    ok(!page.errores.length, `web rota ${w}: sin errores`, page.errores.join(' | '));
+    await cerrar();
+}
+{   // Escape a mitad: salta al final sin dejar restos
+    const { page, cerrar } = await pagina(1440, 900);
+    await page.goto(url('web-rota.html'));
+    await page.click('[data-romper-boton]');
+    await page.waitForFunction(() => window.senzuWebRota.fase === 'rotura', null, { timeout: 2000 }).catch(() => {});
+    await page.keyboard.press('Escape'); await page.waitForTimeout(50);
+    const e = await page.evaluate(() => ({ fin: window.senzuWebRota.fin, restos: document.querySelectorAll('.rotura, .grietas').length }));
+    ok(e.fin && !e.restos, 'web rota: Escape a mitad la termina al momento y sin restos', JSON.stringify(e));
+    await cerrar();
+}
+{   // con objeto que cae (modo intro)
+    const { page, cerrar } = await pagina(1440, 900);
+    await page.goto(url('web-rota.html', '?auto=1'));
+    const fases = new Set(); const t0 = Date.now();
+    while (Date.now() - t0 < 5000) { const e = await page.evaluate(() => ({ ...window.senzuWebRota })); fases.add(e.fase); if (e.fin) break; await page.waitForTimeout(30); }
+    ok(fases.has('caida') && fases.has('rotura') && fases.has('detras'), 'web rota ?auto=1: el objeto cae, la rompe y se ve lo de detrás', [...fases].join(','));
+    await cerrar();
+}
+{
+    const { page, cerrar } = await pagina(1440, 900, { reducedMotion: 'reduce' });
+    await page.goto(url('web-rota.html'));
+
+    await page.evaluate(() => { new MutationObserver(m => { if (document.querySelector('.rotura')) window.__trozos = true; }).observe(document.body, { childList: true }); });
+    await page.click('[data-romper-boton]'); await page.waitForTimeout(400);
+    const huboTrozos = await page.evaluate(() => !!window.__trozos);
+    const e = await page.evaluate(() => ({ detras: !document.querySelector('[data-romper-detras]').hidden, fin: window.senzuWebRota.fin }));
+    ok(!huboTrozos && e.detras && e.fin, 'web rota: con «reducir movimiento» es un fundido a lo de detrás, sin rotura', JSON.stringify({ huboTrozos, ...e }));
+    await cerrar();
+}
+
 // ---------------------------------------------------------------- objeto que cae (matter-js desde CDN)
 async function conMotor(page) { return page.waitForFunction(() => !!window.Matter, null, { timeout: 8000 }).then(() => true, () => false); }
 for (const [w, h, sel] of [[1440, 900, '[data-fisica-destino]'], [375, 720, '[data-fisica-destino-movil]']]) {

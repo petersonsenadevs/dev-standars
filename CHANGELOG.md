@@ -4,6 +4,10 @@
 
 Resumen por fecha (lo nuevo arriba). El detalle de cada entrada vive en el diario interno del proyecto.
 
+## 2026-10-03
+
+- **feature** — La web se rompe como un cristal: los trozos son la propia página · v2.7.0 (entrada 084)
+
 ## 2026-10-02
 
 - **docs** — Catálogo de efectos y demos publicados para la web (docs/efectos.md + efectos.json) · v2.6.1 (entrada 083)

@@ -1,7 +1,7 @@
 {
     "name":  "senzu-all",
     "description":  "Todas las skills de Senzu (core + UI UX Pro Max + Claude Design Skillstack) con capa en español.",
-    "version":  "2.6.1",
+    "version":  "2.7.0",
     "author":  {
                    "name":  "Senzu"
                },

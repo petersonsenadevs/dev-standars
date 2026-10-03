@@ -45,6 +45,18 @@ Con un botón, los elementos de la página caen con gravedad y se apilan; se arr
 - **Con «reducir movimiento»:** Sin botón de gravedad
 - **En móvil:** Igual, con las paredes de la pantalla
 
+### La web se rompe como un cristal
+
+La página se ve normal; un clic o un objeto que cae la golpea, se agrieta y se parte en trozos que son la propia web (texto real, sin capturas) y caen girando en 3D. Detrás aparece lo que elijas.
+
+- **Demo:** [`web-rota.html`](../core/skills-plugin/front-activation/references/recipes/demos/web-rota.html)
+- **Receta:** [fisica-impacto.md §la web se rompe como un cristal](../core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#la-web-se-rompe-como-un-cristal)
+- **Dependencias:** ninguna
+- **Interacción:** Botón «Romper la web» (rompe donde pulsas), Escape la salta, «Volver» la recompone
+- **Con «reducir movimiento»:** Fundido a lo de detrás, sin rotura
+- **En móvil:** Menos trozos y temblor más corto
+- **Pruébala:** `?auto=1` (un objeto cae a los 0,8 s y rompe la web (modo intro))
+
 ## Catálogo
 
 ### Scroll
@@ -195,6 +207,7 @@ Objetos con gravedad, choques y cristal que se rompe. Demos que funcionan en `re
 |---|---|---|---|---|
 | Intro con caída y pantalla rota *(falling object + shattered screen intro)* | `front-activation` → [fisica-impacto.md](../core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#intro-o-loader) §Intro o loader | Todos | Sin intro | Medio (menos trozos) |
 | Loader que se agrieta con la carga y se rompe al terminar *(cracking loader)* | `front-activation` → [fisica-impacto.md](../core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#intro-o-loader) §Intro o loader | Solo con carga pesada real | Barra o texto de carga | Medio |
+| La web se rompe como un cristal (trozos = la propia página) *(real page shatter)* | `front-activation` → [fisica-impacto.md](../core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#la-web-se-rompe-como-un-cristal) §La web se rompe como un cristal | Todos | Fundido a lo de detrás | Medio (menos trozos) |
 | Pantalla o sección que se rompe *(screen shatter)* | `front-activation` → [fisica-impacto.md](../core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#pantalla-que-se-rompe) §Pantalla que se rompe | Todos | Sin rotura (estado final) | Medio |
 | Objeto que cae encima de todo y se apoya *(object drop onto page)* | `front-activation` → [fisica-impacto.md](../core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#objeto-que-cae) §Objeto que cae | Todos (3D: react-three-rapier) | Aparece ya apoyado | Medio (2D) · Alto (3D) |
 | La página se desmorona *(page gravity collapse)* | `front-activation` → [fisica-impacto.md](../core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#la-página-se-desmorona) §La página se desmorona | Todos | Sin botón | Medio |

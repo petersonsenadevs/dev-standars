@@ -1115,6 +1115,19 @@
           "costeMovil": "Medio"
         },
         {
+          "es": "La web se rompe como un cristal (trozos = la propia página)",
+          "en": "real page shatter",
+          "receta": {
+            "skill": "front-activation",
+            "archivo": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md",
+            "seccion": "La web se rompe como un cristal",
+            "texto": "front-activation → `references/recipes/fisica-impacto.md` §La web se rompe como un cristal (demo `demos/web-rota.html`, sin dependencias)"
+          },
+          "stacks": "Todos",
+          "reducirMovimiento": "Fundido a lo de detrás",
+          "costeMovil": "Medio (menos trozos)"
+        },
+        {
           "es": "Pantalla o sección que se rompe",
           "en": "screen shatter",
           "receta": {
@@ -1355,6 +1368,24 @@
       "reducirMovimiento": "Sin botón de gravedad",
       "movil": "Igual, con las paredes de la pantalla",
       "interaccion": "Botón «Activar gravedad», arrastrar, Escape o «Recomponer»"
+    },
+    {
+      "slug": "web-rota",
+      "archivo": "core/skills-plugin/front-activation/references/recipes/demos/web-rota.html",
+      "titulo": "La web se rompe como un cristal",
+      "descripcion": "La página se ve normal; un clic o un objeto que cae la golpea, se agrieta y se parte en trozos que son la propia web (texto real, sin capturas) y caen girando en 3D. Detrás aparece lo que elijas.",
+      "categoria": "Física e impacto",
+      "receta": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#la-web-se-rompe-como-un-cristal",
+      "dependencias": [],
+      "parametros": [
+        {
+          "valor": "?auto=1",
+          "que": "un objeto cae a los 0,8 s y rompe la web (modo intro)"
+        }
+      ],
+      "reducirMovimiento": "Fundido a lo de detrás, sin rotura",
+      "movil": "Menos trozos y temblor más corto",
+      "interaccion": "Botón «Romper la web» (rompe donde pulsas), Escape la salta, «Volver» la recompone"
     }
   ],
   "reglas": [

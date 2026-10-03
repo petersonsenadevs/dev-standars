@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La web se rompe como un cristal · demo Senzu</title>
+<!--
+  DEMO de la receta «La web se rompe como un cristal» (recipes/fisica-impacto.md).
+  La página se ve normal; algo la golpea (un clic, o un objeto que cae con ?auto=1), tiembla, se agrieta
+  desde el impacto y se parte en trozos que caen girando en 3D. Cada trozo es la PROPIA WEB: una copia del
+  DOM recortada con clip-path a la forma del trozo (texto nítido, sin capturas ni librerías). Detrás aparece
+  lo que marques con data-romper-detras (otra sección, «el otro lado», la página siguiente).
+  Marcado: data-romper (la raíz de la web que se rompe) · data-romper-detras (lo que se ve detrás) ·
+  data-romper-boton (rompe donde se pulsa) · data-romper-volver (la recompone).
+  Reglas: con intención (clic, o una vez en la intro), Escape la salta, «reducir movimiento» = fundido sin
+  rotura, el foco pasa a lo de detrás, y nada queda en el DOM al terminar.
+-->
+<style>
+  :root { --verde: #1F6B4F; --brote: #3DDC84; --tinta: #0E1110; --papel: #F6F4EE; }
+  * { box-sizing: border-box; }
+  html.web-rota-bloqueo { overflow: hidden; }
+  body { margin: 0; font: 17px/1.6 system-ui, sans-serif; color: var(--tinta); background: var(--papel); }
+  header { display: flex; justify-content: space-between; align-items: center; height: 64px; padding: 0 20px; }
+  header strong { color: var(--verde); font-size: 20px; }
+  main { max-width: 960px; margin: 0 auto; padding: 48px 20px 80px; }
+  h1 { font-size: clamp(2.2rem, 8vw, 4.6rem); line-height: 1.02; margin: 0 0 16px; }
+  .cta { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 0; background: var(--verde); color: #fff; text-decoration: none; font: 600 16px system-ui, sans-serif; cursor: pointer; }
+  .cta:focus-visible { outline: 2px solid var(--tinta); outline-offset: 3px; }
+  .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 48px; }
+  .rejilla div { background: #fff; border-radius: 16px; padding: 20px; min-height: 150px; }
+  .foto { height: 220px; border-radius: 20px; margin-top: 16px; background: linear-gradient(135deg, #1F6B4F, #3DDC84 60%, #F6F4EE); }
+
+  /* lo que hay detrás de la web */
+  .detras { position: fixed; inset: 0; z-index: 900; display: grid; place-items: center; text-align: center; padding: 24px;
+    background: radial-gradient(circle at 50% 40%, #1d2a24, var(--tinta) 70%); color: #fff; }
+  .detras[hidden] { display: none; }
+  .detras h2 { font-size: clamp(2rem, 7vw, 4rem); margin: 0 0 12px; }
+  .detras h2:focus { outline: none; }
+  .detras .cta { background: var(--brote); color: var(--tinta); }
+
+  /* la escena de la rotura (la crea el script) */
+  .rotura { position: fixed; inset: 0; z-index: 1000; pointer-events: none; perspective: 1400px; }
+  .rotura .trozo { position: absolute; will-change: transform; backface-visibility: visible; }
+  .rotura .forma { position: absolute; inset: 0; overflow: hidden; }
+  .rotura .forma > .copia { position: absolute; margin: 0; }
+  .rotura .forma > .copia * { animation-play-state: paused !important; transition: none !important; }
+  .rotura .luz { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,0) 45%, rgba(0,0,0,.25)); opacity: 0; }
+  .grietas { position: fixed; inset: 0; z-index: 1001; pointer-events: none; }
+  .web-rota-objeto { position: fixed; left: 0; top: 0; z-index: 1002; width: 96px; height: 96px; pointer-events: none; will-change: transform; }
+  .web-rota-objeto svg { width: 100%; height: 100%; display: block; }
+</style>
+<!-- Ficha de la demo: la leen tools/build-efectos.mjs (docs/efectos.json) y la web de Senzu. -->
+<script type="application/json" id="senzu-demo">
+{
+  "titulo": "La web se rompe como un cristal",
+  "descripcion": "La página se ve normal; un clic o un objeto que cae la golpea, se agrieta y se parte en trozos que son la propia web (texto real, sin capturas) y caen girando en 3D. Detrás aparece lo que elijas.",
+  "categoria": "Física e impacto",
+  "receta": "core/skills-plugin/front-activation/references/recipes/fisica-impacto.md#la-web-se-rompe-como-un-cristal",
+  "dependencias": [],
+  "parametros": [
+    { "valor": "?auto=1", "que": "un objeto cae a los 0,8 s y rompe la web (modo intro)" }
+  ],
+  "reducirMovimiento": "Fundido a lo de detrás, sin rotura",
+  "movil": "Menos trozos y temblor más corto",
+  "interaccion": "Botón «Romper la web» (rompe donde pulsas), Escape la salta, «Volver» la recompone"
+}
+</script>
+</head>
+<body>
+<div id="app" data-romper>
+  <header><strong>senzu</strong><button type="button" class="cta" data-romper-boton>Romper la web</button></header>
+  <main>
+    <h1>Una semilla y el proyecto se recupera</h1>
+    <p>Esta web es de verdad: texto, botones y tarjetas. Pulsa «Romper la web» y se parte por donde hayas pulsado.</p>
+    <div class="foto" role="img" aria-label="Degradado verde de ejemplo"></div>
+    <div class="rejilla"><div>Skills</div><div>Muros</div><div>Verificación</div></div>
+  </main>
+</div>
+
+<section class="detras" data-romper-detras hidden aria-labelledby="detras-titulo">
+  <div>
+    <h2 id="detras-titulo" tabindex="-1">Al otro lado</h2>
+    <p>Lo que había detrás de la web: otra sección, la página siguiente o tu marca a pantalla completa.</p>
+    <button type="button" class="cta" data-romper-volver>Volver a la web</button>
+  </div>
+</section>
+
+<template id="web-rota-objeto">
+  <svg viewBox="0 0 100 100" aria-hidden="true"><path fill="#3DDC84" d="M50 6C30 22 18 42 18 62a32 32 0 0 0 64 0C82 42 70 22 50 6Z"/><path fill="#1F6B4F" d="M50 30c-8 12-12 22-12 32a12 12 0 0 0 24 0c0-10-4-20-12-32Z"/></svg>
+</template>
+
+<script>
+(function () {
+  'use strict';
+  var raiz = document.querySelector('[data-romper]');
+  var detras = document.querySelector('[data-romper-detras]');
+  var d = document.documentElement;
+  var reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var estado = window.senzuWebRota = { fase: 'normal', trozos: 0, fin: false };
+  var azar = function (a, b) { return a + Math.random() * (b - a); };
+  var ocupado = false, saltarAhora = null;
+
+  // ---------------------------------------------------------------- geometría: radios + anillos con bordes QUEBRADOS
+  // Los bordes se calculan una vez y los comparten las grietas y los trozos: lo que se agrieta es lo que se separa.
+  function geometria(ix, iy, W, H) {
+    var movil = W < 500;
+    var radios = movil ? 7 : 9;
+    var maxR = Math.hypot(Math.max(ix, W - ix), Math.max(iy, H - iy)) + 40;
+    var anillos = [0];
+    for (var r = movil ? 46 : 54; r < maxR; r *= 2) anillos.push(r);
+    anillos.push(maxR * 1.2);
+    var ang = [];
+    for (var k = 0; k < radios; k++) ang.push((k / radios) * Math.PI * 2 + azar(-0.32, 0.32) * (Math.PI * 2 / radios));
+    var P = anillos.map(function (rr, i) {
+      return ang.map(function (a) {
+        if (i === 0) return [ix, iy];
+        var ra = rr * azar(0.86, 1.14), aa = a + azar(-0.08, 0.08);
+        return [ix + Math.cos(aa) * ra, iy + Math.sin(aa) * ra];
+      });
+    });
+    // borde quebrado de a a b (incluye los dos extremos): el cristal no se raja en línea recta
+    function quebrar(a, b) {
+      var dx = b[0] - a[0], dy = b[1] - a[1], largo = Math.hypot(dx, dy) || 1;
+      var n = Math.max(1, Math.min(9, Math.round(largo / 22))), amp = Math.min(6, largo * 0.05);
+      var nx = -dy / largo, ny = dx / largo, pts = [a];
+      for (var i = 1; i < n; i++) { var t = i / n, j = azar(-amp, amp); pts.push([a[0] + dx * t + nx * j, a[1] + dy * t + ny * j]); }
+      pts.push(b); return pts;
+    }
+    var R = [], A = [];   // R[k][i]: radio k entre anillo i e i+1 · A[i][k]: anillo i entre radio k y k+1
+    for (var k2 = 0; k2 < radios; k2++) { R[k2] = []; for (var i = 0; i < P.length - 1; i++) R[k2][i] = quebrar(P[i][k2], P[i + 1][k2]); }
+    for (var i2 = 1; i2 < P.length; i2++) { A[i2] = []; for (var k3 = 0; k3 < radios; k3++) A[i2][k3] = quebrar(P[i2][k3], P[i2][(k3 + 1) % radios]); }
+    var inv = function (l) { return l.slice().reverse(); };
+    var trozos = [];
+    for (var i3 = 0; i3 < P.length - 1; i3++) {
+      for (var k4 = 0; k4 < radios; k4++) {
+        var k5 = (k4 + 1) % radios;
+        var poli = i3 === 0
+          ? R[k4][0].concat(A[1][k4], inv(R[k5][0]))
+          : A[i3][k4].concat(R[k5][i3], inv(A[i3 + 1][k4]), inv(R[k4][i3]));
+        trozos.push(poli);
+      }
+    }
+    return { R: R, A: A, trozos: trozos, maxR: maxR, anillos: anillos };
+  }
+
+  // ---------------------------------------------------------------- grietas sobre la web de verdad (SVG)
+  function pintarGrietas(g, W, H) {
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg'); svg.setAttribute('class', 'grietas'); svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.setAttribute('width', W); svg.setAttribute('height', H);
+    var lineas = [];
+    g.R.forEach(function (radio) { lineas.push(radio.reduce(function (a, b) { return a.concat(b.slice(1)); }, [radio[0][0]])); });
+    // los anillos: no todos los tramos (el cristal no se raja perfecto antes de partirse)
+    g.A.forEach(function (anillo, i) { if (anillo) anillo.forEach(function (tramo, k) { if ((i + k) % 3) lineas.push(tramo); }); });
+    // astillado: microgrietas cortas alrededor del golpe (el cristal se tritura donde pega)
+    var cx0 = g.R[0][0][0][0], cy0 = g.R[0][0][0][1];
+    for (var m = 0; m < 26; m++) {
+      var a0 = azar(0, Math.PI * 2), r0 = azar(4, 34), r1 = r0 + azar(8, 26);
+      lineas.push([[cx0 + Math.cos(a0) * r0, cy0 + Math.sin(a0) * r0], [cx0 + Math.cos(a0 + azar(-0.4, 0.4)) * r1, cy0 + Math.sin(a0 + azar(-0.4, 0.4)) * r1]]);
+    }
+    lineas.forEach(function (pts) {
+      var dAttr = 'M' + pts.map(function (p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join('L');
+      // más gruesa y oscura cerca del impacto, más fina lejos
+      var medio = pts[Math.floor(pts.length / 2)], cerca = Math.max(0, 1 - Math.hypot(medio[0] - cx0, medio[1] - cy0) / 420);
+      [['rgba(0,0,0,' + (0.5 + 0.35 * cerca).toFixed(2) + ')', 1.3 + 2 * cerca], ['rgba(255,255,255,.95)', 0.7 + 0.6 * cerca]].forEach(function (estilo) {   // sombra + filo de luz
+        var p = document.createElementNS(ns, 'path');
+        p.setAttribute('d', dAttr); p.setAttribute('fill', 'none'); p.setAttribute('stroke', estilo[0]); p.setAttribute('stroke-width', estilo[1]);
+        if (estilo[1] < 1.4 && estilo[0].indexOf('255') > 0) p.setAttribute('transform', 'translate(0.9 0.9)');   // el filo de luz, al lado: la línea oscura se ve entera
+        p.setAttribute('stroke-linecap', 'round'); p.setAttribute('pathLength', '1'); p.style.strokeDasharray = '1'; p.style.strokeDashoffset = '1';
+        p.style.transition = 'stroke-dashoffset 170ms cubic-bezier(.2,.8,.2,1)';
+        svg.appendChild(p);
+      });
+    });
+    document.body.appendChild(svg);
+    svg.getBoundingClientRect();   // fuerza el estado inicial antes de la transición
+    Array.prototype.forEach.call(svg.children, function (p) { p.style.strokeDashoffset = '0'; });
+    return svg;
+  }
+
+  // ---------------------------------------------------------------- los trozos: copias de la web recortadas a su forma
+  function crearTrozos(g, ix, iy) {
+    var escena = document.createElement('div'); escena.className = 'rotura'; escena.setAttribute('aria-hidden', 'true');
+    var fondo = getComputedStyle(document.body).backgroundColor;
+    var raizCaja = raiz.getBoundingClientRect();
+    var lienzos = raiz.querySelectorAll('canvas');
+    var lista = g.trozos.map(function (poli) {
+      var xs = poli.map(function (p) { return p[0]; }), ys = poli.map(function (p) { return p[1]; });
+      var x0 = Math.floor(Math.min.apply(null, xs)), y0 = Math.floor(Math.min.apply(null, ys));
+      var x1 = Math.ceil(Math.max.apply(null, xs)), y1 = Math.ceil(Math.max.apply(null, ys));
+      var trozo = document.createElement('div'); trozo.className = 'trozo';
+      // cada trozo ocupa SOLO su recuadro: la memoria gráfica no se multiplica por el número de trozos
+      trozo.style.cssText = 'left:' + x0 + 'px;top:' + y0 + 'px;width:' + (x1 - x0) + 'px;height:' + (y1 - y0) + 'px';
+      var forma = document.createElement('div'); forma.className = 'forma'; forma.style.background = fondo;
+      forma.style.clipPath = 'polygon(' + poli.map(function (p) { return (p[0] - x0).toFixed(1) + 'px ' + (p[1] - y0).toFixed(1) + 'px'; }).join(',') + ')';
+      var copia = raiz.cloneNode(true); copia.classList.add('copia'); copia.removeAttribute('id'); copia.setAttribute('inert', '');
+      copia.style.left = (raizCaja.left - x0) + 'px'; copia.style.top = (raizCaja.top - y0) + 'px'; copia.style.width = raizCaja.width + 'px';
+      // lo que cloneNode no copia: el contenido de los <canvas> (gráficos, 3D)
+      Array.prototype.forEach.call(copia.querySelectorAll('canvas'), function (c, n) { try { c.width = lienzos[n].width; c.height = lienzos[n].height; c.getContext('2d').drawImage(lienzos[n], 0, 0); } catch (e) {} });
+      var luz = document.createElement('i'); luz.className = 'luz';
+      forma.append(copia, luz); trozo.appendChild(forma); escena.appendChild(trozo);
+      var cx = xs.reduce(function (a, b) { return a + b; }) / xs.length, cy = ys.reduce(function (a, b) { return a + b; }) / ys.length;
+      trozo.style.transformOrigin = (cx - x0) + 'px ' + (cy - y0) + 'px';
+      var dist = Math.hypot(cx - ix, cy - iy) || 1, fuerza = 160 + 1300 / (1 + dist / 80);
+      return {
+        el: trozo, luz: luz,
+        vx: (cx - ix) / dist * fuerza * azar(0.5, 1.1), vy: (cy - iy) / dist * fuerza * azar(0.5, 1.1) - azar(80, 300),
+        vz: azar(150, 600) * (1 + 120 / (dist + 60)),
+        rx: azar(-260, 260), ry: azar(-320, 320), rz: azar(-120, 120),
+        retraso: Math.min(dist * 0.25, 280), fuera: false
+      };
+    });
+    document.body.appendChild(escena);
+    return { escena: escena, lista: lista };
+  }
+
+  // ---------------------------------------------------------------- secuencia
+  function romper(ix, iy, conObjeto) {
+    if (ocupado) return; ocupado = true;
+    var W = innerWidth, H = innerHeight, movil = W < 500;
+    estado.fase = 'golpe'; estado.fin = false;
+    d.classList.add('web-rota-bloqueo');
+    var fin = function () {
+      if (estado.fin) return;
+      estado.fin = true; estado.fase = 'detras'; saltarAhora = null;
+      [grietas, escena && escena.escena, objeto].forEach(function (n) { if (n) n.remove(); });
+      raiz.style.transform = '';
+      detras.hidden = false;
+      var titulo = detras.querySelector('[tabindex="-1"]') || detras; titulo.focus({ preventScroll: true });   // el foco va a lo nuevo
+      ocupado = false;
+    };
+    saltarAhora = fin;
+    var grietas = null, escena = null, objeto = null;
+
+    if (reducido) { detras.hidden = false; detras.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220 }); return fin(); }
+
+    var golpe = function () {
+      if (estado.fin) return;
+      estado.fase = 'grietas';
+      // la WEB DE VERDAD tiembla con el golpe
+      var amp = movil ? 5 : 9;
+      raiz.animate([0, 1, 2, 3, 4, 5].map(function (n) { var a = amp * (1 - n / 5); return { transform: 'translate(' + azar(-a, a) + 'px,' + azar(-a, a) + 'px)' }; }), { duration: movil ? 140 : 180 });
+      var g = geometria(ix, iy, W, H);
+      grietas = pintarGrietas(g, W, H);
+      setTimeout(function () {
+        if (estado.fin) return;
+        estado.fase = 'rotura';
+        escena = crearTrozos(g, ix, iy);
+        estado.trozos = escena.lista.length;
+        detras.hidden = false;                         // detrás de los trozos ya está lo nuevo
+        grietas.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 90, fill: 'forwards' });
+        var t0 = performance.now();
+        (function paso(ahora) {
+          if (estado.fin) return;
+          var t = ahora - t0, vivos = 0;
+          escena.lista.forEach(function (f) {
+            if (f.fuera) return;
+            var s = Math.max(0, t - f.retraso) / 1000;
+            var x = f.vx * s, y = f.vy * s + 0.5 * 2600 * s * s, z = f.vz * s;
+            if (y > H + 300 || Math.abs(x) > W + 400) { f.fuera = true; f.el.remove(); return; }
+            vivos++;
+            var rx = f.rx * s, ry = f.ry * s;
+            f.el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,' + z.toFixed(1) + 'px) rotateX(' + rx.toFixed(1) + 'deg) rotateY(' + ry.toFixed(1) + 'deg) rotateZ(' + (f.rz * s).toFixed(1) + 'deg)';
+            f.luz.style.opacity = (0.15 + 0.6 * Math.abs(Math.sin((rx + ry) * Math.PI / 360))).toFixed(2);   // refleja la luz al girar
+          });
+          if (objeto) { objY += objV / 60; objV += 2600 / 60; objeto.style.transform = 'translate(' + (ix - lado / 2) + 'px,' + objY + 'px) rotate(' + ((t / 4) | 0) + 'deg)'; }
+          if (!vivos && t > 400) return fin();
+          if (t > 3000) return fin();
+          requestAnimationFrame(paso);
+        })(t0);
+      }, movil ? 200 : 240);
+    };
+
+    // con objeto: cae hasta el punto de impacto y luego sigue cayendo con los trozos
+    var lado = Math.round(Math.min(96, W * 0.22)), objY = -lado, objV = 0;
+    if (!conObjeto) return golpe();
+    objeto = document.createElement('div'); objeto.className = 'web-rota-objeto'; objeto.setAttribute('aria-hidden', 'true');
+    objeto.innerHTML = document.getElementById('web-rota-objeto').innerHTML; objeto.style.width = objeto.style.height = lado + 'px';
+    document.body.appendChild(objeto);
+    estado.fase = 'caida';
+    var yFin = iy - lado * 0.6, caida = 480, g0 = 2 * (yFin + lado) / (caida * caida), tc = performance.now();
+    (function cae(ahora) {
+      if (estado.fin) return;
+      var t = ahora - tc; objY = -lado + 0.5 * g0 * t * t;
+      if (objY >= yFin) {
+        objY = yFin; objV = g0 * caida * 0.25;
+        // aplastamiento al chocar (se nota el peso) y golpe
+        objeto.animate([{ transform: 'translate(' + (ix - lado / 2) + 'px,' + objY + 'px) scale(1.18,.8)' }, { transform: 'translate(' + (ix - lado / 2) + 'px,' + objY + 'px) scale(1,1)' }], { duration: 160 });
+        return golpe();
+      }
+      objeto.style.transform = 'translate(' + (ix - lado / 2) + 'px,' + objY + 'px) scale(.94,1.08)';   // se estira al caer
+      requestAnimationFrame(cae);
+    })(tc);
+  }
+
+  function volver() {
+    if (ocupado) return;
+    detras.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260 }).onfinish = function () {
+      detras.hidden = true; d.classList.remove('web-rota-bloqueo');
+      estado.fase = 'normal'; estado.fin = false;
+      var b = raiz.querySelector('[data-romper-boton]'); if (b) b.focus({ preventScroll: true });
+    };
+  }
+
+  // ---------------------------------------------------------------- disparadores
+  document.querySelectorAll('[data-romper-boton]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      // rompe donde se pulsa (con teclado, en el centro del botón)
+      var r = b.getBoundingClientRect();
+      var x = e.clientX || r.left + r.width / 2, y = e.clientY || r.top + r.height / 2;
+      romper(x, y, false);
+    });
+  });
+  document.querySelectorAll('[data-romper-volver]').forEach(function (b) { b.addEventListener('click', volver); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && saltarAhora) saltarAhora(); });
+  if (/[?&]auto=1/.test(location.search) && !reducido) setTimeout(function () { romper(innerWidth / 2, innerHeight * 0.45, true); }, 800);
+})();
+</script>
+</body>
+</html>

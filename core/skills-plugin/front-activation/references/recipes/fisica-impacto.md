@@ -3,6 +3,7 @@
 ## Índice
 - [Cuándo sí y reglas comunes](#cuándo-sí-y-reglas-comunes)
 - [Intro o loader con caída y pantalla rota](#intro-o-loader-con-caída-y-pantalla-rota)
+- [La web se rompe como un cristal](#la-web-se-rompe-como-un-cristal)
 - [Pantalla que se rompe](#pantalla-que-se-rompe)
 - [Objeto que cae encima de todo](#objeto-que-cae-encima-de-todo)
 - [La página se desmorona](#la-página-se-desmorona)
@@ -12,7 +13,8 @@
 - [Tela, cuerda y gelatina](#tela-cuerda-y-gelatina)
 - [Verificar](#verificar)
 
-Demos que funcionan (ábrelas con doble clic y cópialas): `recipes/demos/intro-rotura.html`,
+Demos que funcionan (ábrelas con doble clic y cópialas): `recipes/demos/web-rota.html` (la propia web se
+parte), `recipes/demos/intro-rotura.html`,
 `recipes/demos/objeto-cae.html`, `recipes/demos/pagina-desmorona.html`. Código de referencia con licencia
 verificada en `core/effects-vendor/` (categoría `fisica`): matter-js, matter-dropdown, d3-delaunay,
 canvas-confetti, react-three-rapier.
@@ -53,6 +55,29 @@ dejando ver la web, que ya estaba cargada debajo.
   un Client Component montado en el layout (`useEffect`, limpiar al desmontar). **Vue/Inertia** → velo en
   `app.blade.php` / `index.html` y la intro en un componente del layout persistente (`onMounted`).
 - Variante sin objeto: la rotura la dispara un clic en el cristal («toca para entrar»), con el texto de marca.
+
+## La web se rompe como un cristal
+Demo: `demos/web-rota.html` (sin dependencias). La diferencia con la intro: aquí NO hay un cristal pintado
+encima. **La página se ve normal** y lo que se parte es **la propia web**: cada trozo es una copia del DOM
+(`cloneNode`) recortada con `clip-path` a la forma del trozo, así que se lee el texto real, nítido, en los
+pedazos que caen girando en 3D. Sin capturas (html2canvas es lento e imperfecto) ni librerías.
+- Marcado: `data-romper` (la raíz de la web: envuelve TODO en un `<div id="app">`; las reglas CSS tipo
+  `body > header` no se aplicarían a las copias), `data-romper-detras` (lo que aparece detrás: otra sección,
+  «el otro lado», la página siguiente), `data-romper-boton` (rompe DONDE se pulsa), `data-romper-volver`.
+- Secuencia: golpe (la web real tiembla 180 ms) → grietas en SVG, quebradas y más gruesas cerca del impacto,
+  con astillado alrededor del golpe → a los 240 ms se parte: los trozos usan los MISMOS bordes que las grietas
+  → caen con gravedad, se alejan hacia ti (`translate3d` + `perspective`) y se voltean (`rotateX/Y`) con una
+  luz que cambia al girar → detrás queda lo nuevo y el foco pasa a su título. «Volver» lo recompone.
+- `?auto=1` (modo intro): un objeto cae (se estira al caer y se aplasta al chocar) y es él quien la rompe.
+- Rendimiento: cada trozo ocupa SOLO su recuadro (no la pantalla entera) y se quita del DOM al salir de la
+  vista; 54 trozos en escritorio, 42 en móvil. Con una página muy pesada (miles de nodos visibles), menos
+  trozos: el coste es nodos × trozos durante ~1 s.
+- Lo que `cloneNode` no copia y la demo resuelve: el contenido de los `<canvas>` (se redibuja en cada copia).
+  Los vídeos salen con su primer fotograma o su póster; las animaciones CSS de las copias se pausan; los `id`
+  internos se repiten en las copias (son `inert` y `aria-hidden`, no molestan).
+- Como transición entre páginas: rompe al pulsar el enlace, y lo de detrás es la página nueva (en Astro con
+  View Transitions desactivadas para ese enlace; en Next/Vue, la ruta nueva montada debajo antes de romper).
+- «Reducir movimiento»: fundido de 220 ms a lo de detrás, sin rotura. Escape la termina al momento.
 
 ## Pantalla que se rompe
 El mismo motor de la intro sobre una capa de UNA sección (no de toda la página): al pulsar un botón, al
