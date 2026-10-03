@@ -17,7 +17,7 @@ actualiza respetando la selección guardada. No toques nada más del proyecto en
 
 1. **Localiza el paquete** (el primero que exista): la carpeta de la variable de entorno SENZU_HOME
    (o la antigua DEV_STANDARDS_HOME), después `.senzu` dentro de la carpeta del usuario, después
-   `.dev-standards` dentro de la carpeta del usuario (instalaciones antiguas), después `D:/dev-standards`.
+   `.dev-standards` dentro de la carpeta del usuario (instalaciones antiguas).
    Si no existe ninguno, clónalo en `.senzu` dentro de la carpeta del usuario (ruta absoluta):
    `git clone https://github.com/petersonsenadevs/senzu.git <carpeta-del-usuario>/.senzu`.
    Si existe, actualízalo con `git -C <paquete> pull --ff-only` (si falla por red o permisos, sigue con

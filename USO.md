@@ -8,11 +8,9 @@ el agente se entera solo (router, hooks y skills). Los comandos slash son atajos
 
 | Cuándo | Comando |
 |---|---|
-| Una vez por proyecto | `D:\dev-standards\tools\init-project.ps1 -Stack <stack> -Path <ruta> -Tools claude,codex` |
+| Una vez por proyecto | `/instalar` en una sesión del agente dentro del proyecto (o `node $HOME/.senzu/tools/init.mjs`, ver [`INSTALL.md`](INSTALL.md)) |
 | Stacks disponibles | `laravel` · `next` · `astro` · `vue-ts` · `nuxt` · `sveltekit` · `wordpress` · `node-api` · `python-langgraph` (Go/Java/C# como referencias de code-quality) |
-| Tras cada mejora de Senzu | `D:\dev-standards\tools\sync.ps1 -Path <ruta>` **+ sesión nueva del agente** |
-| Refrescar la colección de efectos | `D:\dev-standards\tools\vendor-effects.ps1 -Missing` |
-| Ver que el paquete está sano | `tools\check-skills.ps1` + `tools\test-router.ps1` |
+| Tras cada versión nueva de Senzu | actualiza el plugin y vuelve a escribir `/instalar` en el proyecto **+ sesión nueva del agente** |
 | Catálogo completo (skills, enrutamiento, comandos, muros) | [`REFERENCIA.md`](REFERENCIA.md) (generado, siempre al día) |
 
 ## 2. Qué pasa solo (sin comandos) en Claude Code

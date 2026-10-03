@@ -193,9 +193,9 @@ muro o un caso de test del paquete, y a partir de ahí no vuelve a pasar en ning
 | Ver qué plugins tengo | `claude plugin list` |
 | Ver qué trae el plugin y cuántos tokens cuesta | `claude plugin details senzu-all@senzu` |
 | Desinstalarlo | `claude plugin uninstall senzu-all@senzu` (con `--scope` si no era `user`) |
-| Actualizar un proyecto | `node <repo>/tools/init.mjs --path <proyecto>` o `/instalar` dentro de Claude |
-| Añadir animación y 3D | `<repo>\tools\sync.ps1 -Path <proyecto> -Bundle core-3d-animation` |
-| Hooks de git en el proyecto | `<repo>\tools\sync.ps1 -Path <proyecto> -GitHooks` |
+| Actualizar un proyecto | `/instalar` dentro de Claude, o `node $HOME/.senzu/tools/init.mjs --path <proyecto>` |
+| Añadir animación y 3D | `node $HOME/.senzu/tools/init.mjs --path <proyecto> --bundle core-3d-animation` |
+| Hooks de git en el proyecto (Windows) | `$HOME\.senzu\tools\sync.ps1 -Path <proyecto> -GitHooks` (solo la versión PowerShell) |
 
 Más detalle: [USO.md](../USO.md) (día a día) · [docs/skills.md](skills.md) (todas las skills) ·
 [docs/hooks.md](hooks.md) (todos los muros) · [REFERENCIA.md](../REFERENCIA.md) (todo en una página).

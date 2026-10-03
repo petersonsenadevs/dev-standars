@@ -6,6 +6,7 @@ Resumen por fecha (lo nuevo arriba). El detalle de cada entrada vive en el diari
 
 ## 2026-10-03
 
+- **docs** — INSTALL.md para quien llega de fuera: plugin + /instalar primero, sin rutas de una máquina · v2.7.1 (entrada 085)
 - **feature** — La web se rompe como un cristal: los trozos son la propia página · v2.7.0 (entrada 084)
 
 ## 2026-10-02

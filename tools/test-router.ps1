@@ -16,6 +16,10 @@ $OutputEncoding = New-Object System.Text.UTF8Encoding($false)   # el pipe al hoo
 $root = Get-StandardsRoot
 
 # --- proyecto sintetico ---
+$script:RunId = [guid]::NewGuid().ToString('N')
+# marcas de sesión que dejaron pasadas anteriores de esta suite (antes no se borraban): fuera
+Get-ChildItem $env:TEMP -Filter 'dev-standards-*-rt*.flag' -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Name -match '-rt(\d+-[0-9a-f]{4}|-[0-9a-f]{32}-\d+)\.flag$' } | Remove-Item -Force -ErrorAction SilentlyContinue
 $proj = Join-Path $env:TEMP ('ds-router-test-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
 $skillsDir = Join-Path $proj '.claude\skills'
 $hooksDir  = Join-Path $proj '.claude\hooks'
@@ -40,7 +44,9 @@ function Invoke-Case([hashtable]$c, [int]$i) {
     if ($c.designSystem -ne $true -and (Test-Path $dsRoot)) { throw 'harness: design-system no se pudo limpiar' }
     $env:CLAUDE_PROJECT_DIR = $proj
     $env:SENZU_TEST_ISOLATED = '1'   # el hook ignora ~/.claude global: la suite no depende de que plugins tenga la maquina
-    $sid = "rt$i-" + [guid]::NewGuid().ToString('N').Substring(0, 4)
+    # id de sesión único por ejecución y caso: con 4 caracteres, una marca vieja «ya sugerido en esta sesión»
+    # de otra pasada acababa coincidiendo y el router se callaba (fallo intermitente, devlog 085)
+    $sid = "rt-$script:RunId-$i"
     $json = (@{ session_id = $sid; prompt = $c.prompt } | ConvertTo-Json -Compress)
     # Transporte 100% ASCII: escapar no-ASCII a \uXXXX para que ninguna codepage del pipe pueda corromper acentos.
     $json = -join ($json.ToCharArray() | ForEach-Object { if ([int]$_ -gt 127) { '\u{0:x4}' -f [int]$_ } else { $_ } })
@@ -149,5 +155,6 @@ foreach ($c in $cases) {
     elseif ($ShowAll)      { Write-Host ("ok   {0,-24} -> [{1}]" -f $c.n, ($r.hits -join ', ')) }
 }
 Remove-Item $proj -Recurse -Force -ErrorAction SilentlyContinue
+Get-ChildItem $env:TEMP -Filter "dev-standards-*-rt-$script:RunId-*.flag" -File -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
 Write-Host "Casos: $($cases.Count)  Fallos: $fail"
 if ($fail) { exit 1 } else { exit 0 }
